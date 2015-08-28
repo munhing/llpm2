@@ -1,0 +1,538 @@
+<?php
+
+use LLPM\Repositories\VesselScheduleRepository;
+use LLPM\Repositories\VesselRepository;
+use LLPM\Repositories\ContainerRepository;
+use LLPM\Repositories\CargoRepository;
+use LLPM\Repositories\CargoItemRepository;
+use LLPM\Repositories\PortUserRepository;
+use LLPM\Repositories\CountryRepository;
+use LLPM\Forms\VesselScheduleForm;
+use LLPM\Forms\ImportCargoForm;
+use LLPM\Schedule\RegisterVesselScheduleCommand;
+use LLPM\Schedule\UpdateVesselScheduleCommand;
+use LLPM\Schedule\RegisterImportContainersCommand;
+use LLPM\Schedule\DeleteImportContainerCommand;
+use LLPM\Schedule\RegisterImportCargoCommand;
+use LLPM\Schedule\UpdateImportCargoCommand;
+use LLPM\Schedule\UpdateExportCargoCommand;
+use LLPM\Schedule\IssueImportCargoCommand;
+use LLPM\Schedule\IssueExportCargoCommand;
+use LLPM\Schedule\AssociateContainersWithCargoCommand;
+use LLPM\Schedule\DetachContainerFromCargoCommand;
+use LLPM\Schedule\AddItemToCargoCommand;
+use LLPM\Schedule\UpdateImportCargoItemCommand;
+use LLPM\ContainerHelper;
+
+class VesselScheduleController extends \BaseController {
+
+	protected $vesselScheduleRepository;
+	protected $vesselRepository;
+	protected $containerRepository;
+	protected $cargoRepository;
+	protected $cargoItemRepository;
+	protected $portUserRepository;
+	protected $countryRepository;
+	protected $vesselScheduleForm;
+	protected $importCargoForm;
+
+	use ContainerHelper;
+
+	function __construct(VesselScheduleRepository $vesselScheduleRepository,
+		VesselRepository $vesselRepository,
+		ContainerRepository $containerRepository,
+		CargoRepository $cargoRepository,
+		CargoItemRepository $cargoItemRepository,
+		PortUserRepository $portUserRepository,
+		CountryRepository $countryRepository,
+		VesselScheduleForm $vesselScheduleForm,
+		ImportCargoForm $importCargoForm
+	)
+	{
+		$this->vesselScheduleRepository = $vesselScheduleRepository;
+		$this->vesselRepository = $vesselRepository;
+		$this->containerRepository = $containerRepository;
+		$this->cargoRepository = $cargoRepository;
+		$this->cargoItemRepository = $cargoItemRepository;
+		$this->portUserRepository = $portUserRepository;
+		$this->countryRepository = $countryRepository;
+		$this->vesselScheduleForm = $vesselScheduleForm;
+		$this->importCargoForm = $importCargoForm;
+
+	}
+
+
+	/**
+	 * Display a listing of the resource.
+	 * GET /vesselschedule
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		//get date from session or get default
+		//dd(Session::get('view_date'));
+
+		//dd(Input::get('view_date'));
+		if(Input::get('view_date')) {
+			Session::put('view_date', Input::get('view_date'));
+		}
+
+		if(!Session::get('view_date')) {
+			Session::put('view_date', date('m/Y'));
+		}
+
+		$vesselSchedule = $this->vesselScheduleRepository->getAllByMonth(convertMonthToMySQLDate(Session::get('view_date')));
+		return View::make('schedule/index', compact('vesselSchedule'));
+	}
+
+	/**
+	 * Show the form for creating a new resource.
+	 * GET /vesselschedule/create
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		$vessels = $this->vesselRepository->getAll()->lists('name', 'id');
+		$portUsers = $this->portUserRepository->getAll()->lists('name', 'id');
+		return View::make('schedule/create', compact('vessels', 'portUsers'));
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 * POST /vesselschedule
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+
+		$this->vesselScheduleForm->validate(Input::all());
+
+		$vesselSchedule = $this->execute(RegisterVesselScheduleCommand::class);
+
+		//dd($vesselSchedule->vessel->name);
+
+		Flash::success("Vessel Schedule for ".$vesselSchedule->vessel->name." has been registered!");
+
+		return Redirect::route('manifest.schedule');
+	}
+
+	/**
+	 * Display the specified resource.
+	 * GET /vesselschedule/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function showImport($id)
+	{
+		$vesselSchedule = $this->vesselScheduleRepository->getDetailsById($id);
+
+		//dd($vesselSchedule->toArray());
+		return View::make('schedule/show_import', compact('vesselSchedule'));
+	}
+
+	public function showExport($id)
+	{
+		$vesselSchedule = $this->vesselScheduleRepository->getDetailsById($id);
+
+		//dd($vesselSchedule->toArray());
+		return View::make('schedule/show_export', compact('vesselSchedule'));
+	}
+	/**
+	 * Show the form for editing the specified resource.
+	 * GET /vesselschedule/{id}/edit
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		$vesselSchedule = $this->vesselScheduleRepository->getById($id);
+		//dd($vesselSchedule->id);
+		$vessels = $this->vesselRepository->getAll()->lists('name', 'id');
+		$portUsers = $this->portUserRepository->getAll()->lists('name', 'id');
+		return View::make('schedule/edit', compact('vesselSchedule', 'vessels', 'portUsers'));
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 * PUT /vesselschedule/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+		$this->vesselScheduleForm->validate(Input::all());
+
+		$vesselSchedule = $this->execute(UpdateVesselScheduleCommand::class);
+
+		Flash::success("Vessel Schedule for ".$vesselSchedule->vessel->name." has been updated!");
+
+		return Redirect::route('manifest.schedule');
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 * DELETE /vesselschedule/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+		//
+	}
+
+	public function createImportContainer($id)
+	{
+		$schedule = $this->vesselScheduleRepository->getById($id);
+		
+		//dd($schedule->toArray());
+		return View::make('schedule/create_import_container', compact('schedule'));
+	}
+
+	// Create Empty Import Containers
+	public function storeImportContainer($id)
+	{
+		$input = Input::all();
+		$input['import_vessel_schedule_id'] = $id;
+		$input['receiving_id'] = 0;
+
+		// filterContainers(containers in string, $content, $status)
+		$input['containers'] = $this->filterContainers($input['containers'], 'E', 1);
+
+		if(! $input['containers']) {
+
+			Flash::error("Please key in correctly!");
+			return Redirect::back();			
+		}
+
+		$importContainers = $this->execute(RegisterImportContainersCommand::class, $input);
+
+		Flash::success("Containers successfully registered!");
+		
+		if(!$importContainers){
+			Flash::error("No Containers were registered!");	
+		}
+
+		return Redirect::route('manifest.schedule.import', $id);
+
+	}
+
+	public function destroyImportContainer($schedule_id)
+	{
+		$input = Input::all();
+
+		$container = $this->execute(DeleteImportContainerCommand::class, $input);
+
+		Flash::success("Container No: ". $container->container_no ." was removed!");
+
+		return Redirect::back();	
+	}
+
+	public function showImportCargo($id, $cargo_id)
+	{
+
+		//dd('Hello');
+		$importCargo = $this->cargoRepository->getImportById($cargo_id);
+		$importCargoItems = $this->cargoItemRepository->getAllByCargoId($cargo_id);
+
+		//dd($importCargoItems->toArray());
+
+		//dd($importCargo->m_containers);
+		$schedule = $this->vesselScheduleRepository->getById($id);
+
+		return View::make('schedule/show_import_cargo', compact('importCargo', 'importCargoItems', 'schedule'));
+	}
+
+	public function generateDLImportCargo($id, $cargo_id)
+	{
+
+		$importCargo = $this->cargoRepository->getImportById($cargo_id);
+
+		//dd($importCargoItems->toArray());
+		$schedule = $this->vesselScheduleRepository->getById($id);
+
+		//dd($schedule->toArray());
+		return View::make('schedule/generate_dl_import', compact('importCargo', 'schedule'));
+	}
+
+	public function showExportCargo($id, $cargo_id)
+	{
+
+		//dd('Hello');
+		$cargo = $this->cargoRepository->getImportById($cargo_id);
+		$cargoItems = $this->cargoItemRepository->getAllByCargoId($cargo_id);
+
+		//dd($importCargoItems->toArray());
+		$schedule = $this->vesselScheduleRepository->getById($id);
+
+		return View::make('schedule/show_export_cargo', compact('cargo', 'cargoItems', 'schedule'));
+	}	
+
+	public function generateDLExportCargo($id, $cargo_id)
+	{
+
+		$cargo = $this->cargoRepository->getImportById($cargo_id);
+
+		//dd($importCargoItems->toArray());
+		$schedule = $this->vesselScheduleRepository->getById($id);
+
+		//dd($schedule->toArray());
+		return View::make('schedule/generate_dl_export', compact('cargo', 'schedule'));
+	}
+
+	public function createImportCargo($id)
+	{
+		$schedule = $this->vesselScheduleRepository->getById($id);
+		$portUsers = $this->portUserRepository->getAll()->lists('name', 'id');
+
+		//dd($schedule->toArray());
+		return View::make('schedule/create_import_cargo', compact('schedule', 'portUsers'));
+	}	
+
+	public function storeImportCargo($id)
+	{
+
+		$input = Input::all();
+		$input['import_vessel_schedule_id'] = $id;
+		$input['receiving_id'] = 0;
+
+		// filterContainers(containers in string, $content, $status)
+		//$input['containers'] = $this->filterContainers($input['containers'], 'L', 1);
+
+		$this->importCargoForm->validate($input);
+
+		$importCargo = $this->execute(RegisterImportCargoCommand::class, $input);
+
+		Flash::success("Cargo with B/L No: ".$importCargo->bl_no." has been registered!");
+
+		return Redirect::route('manifest.schedule.import', $id);
+	}
+
+	public function editImportCargo($id, $cargo_id)
+	{
+		$schedule = $this->vesselScheduleRepository->getById($id);
+		$cargo = $this->cargoRepository->getImportById($cargo_id);
+		$portUsers = $this->portUserRepository->getAll()->lists('name', 'id');
+		$country = $this->countryRepository->getAll()->lists('name', 'iso');;
+		$country[] = ['' => ' '];
+		//dd($country);
+
+		//dd($schedule->toArray());
+		return View::make('schedule/edit_import_cargo', compact('schedule', 'portUsers', 'cargo', 'country'));
+	}	
+
+	public function editExportCargo($id, $cargo_id)
+	{
+		$schedule = $this->vesselScheduleRepository->getById($id);
+		$cargo = $this->cargoRepository->getImportById($cargo_id);
+		$portUsers = $this->portUserRepository->getAll()->lists('name', 'id');
+		$country = $this->countryRepository->getAll()->lists('name', 'iso');;
+		$country[] = ['' => ' '];
+		//dd($country);
+
+		//dd($schedule->toArray());
+		return View::make('schedule/edit_export_cargo', compact('schedule', 'portUsers', 'cargo', 'country'));
+	}	
+
+	public function updateImportCargo($id, $cargo_id)
+	{
+		$input = Input::all();
+		$input['import_vessel_schedule_id'] = $id;
+		$input['receiving_id'] = 0;
+
+		//$input['containers'] = $this->filterContainers($input['containers'], 'L', 1);
+
+		$this->importCargoForm->validateUpdate($input, $cargo_id);
+
+		$importCargo = $this->execute(UpdateImportCargoCommand::class, $input);
+
+		//$this->registerImportContainers($input, $importCargo);
+
+		Flash::success("Cargo with B/L No: ".$importCargo->bl_no." has been updated!");
+
+		return Redirect::route('manifest.schedule.import.cargoes.show', [$id, $cargo_id]);
+	}	
+
+	public function updateExportCargo($id, $cargo_id)
+	{
+		$input = Input::all();
+		$input['export_vessel_schedule_id'] = $id;
+
+		//$input['containers'] = $this->filterContainers($input['containers'], 'L', 1);
+
+		$this->importCargoForm->validateUpdate($input, $cargo_id);
+
+		$cargo = $this->execute(UpdateExportCargoCommand::class, $input);
+
+		//$this->registerImportContainers($input, $importCargo);
+
+		Flash::success("Cargo with B/L No: ".$cargo->bl_no." has been updated!");
+
+		return Redirect::route('manifest.schedule.export.cargoes.show', [$id, $cargo_id]);
+	}	
+
+	public function editImportCargoItem($schedule_id, $cargo_id, $cargo_item_id)
+	{
+		$schedule = $this->vesselScheduleRepository->getById($schedule_id);
+		$cargo = $this->cargoRepository->getImportById($cargo_id);
+		$cargoItem = $this->cargoItemRepository->getById($cargo_item_id);
+		//dd($cargoItem->toArray());
+		return View::make('schedule/edit_import_cargo_item', compact('schedule', 'cargo', 'cargoItem'));
+	}	
+
+	public function editExportCargoItem($schedule_id, $cargo_id, $cargo_item_id)
+	{
+		$schedule = $this->vesselScheduleRepository->getById($schedule_id);
+		$cargo = $this->cargoRepository->getImportById($cargo_id);
+		$cargoItem = $this->cargoItemRepository->getById($cargo_item_id);
+		//dd($cargoItem->toArray());
+		return View::make('schedule/edit_export_cargo_item', compact('schedule', 'cargo', 'cargoItem'));
+	}
+
+	public function updateImportCargoItem($schedule_id, $cargo_id, $cargo_item_id)
+	{
+		$input = Input::all();
+
+		if(!$input['custom_tariff_code'] || !$input['description'] || !$input['quantity']){
+			Flash::error("Cargo Item form not completed.");	
+			return Redirect::back()->withInput();
+		}
+
+		//dd($input);
+
+		$importCargo = $this->execute(UpdateImportCargoItemCommand::class, $input);
+
+		//$this->registerImportContainers($input, $importCargo);
+
+		Flash::success("Item successfully updated!");
+
+		return Redirect::route('manifest.schedule.import.cargoes.show', [$schedule_id, $cargo_id]);
+	}	
+
+	public function updateExportCargoItem($schedule_id, $cargo_id, $cargo_item_id)
+	{
+		$input = Input::all();
+
+		if(!$input['custom_tariff_code'] || !$input['description'] || !$input['quantity']){
+			Flash::error("Cargo Item form not completed.");	
+			return Redirect::back()->withInput();
+		}
+
+		//dd($input);
+
+		$cargo = $this->execute(UpdateImportCargoItemCommand::class, $input);
+
+		//$this->registerImportContainers($input, $importCargo);
+
+		Flash::success("Item successfully updated!");
+
+		return Redirect::route('manifest.schedule.export.cargoes.show', [$schedule_id, $cargo_id]);
+	}	
+
+	public function addContainerToCargo($schedule_id, $cargo_id)
+	{
+		$input = Input::all();
+		$input['import_vessel_schedule_id'] = $schedule_id;
+		$input['cargo_id'] = $cargo_id;
+		$input['containers'] = $this->filterContainers($input['containers'], 'L', 1);
+
+		if(!$input['containers']){
+			Flash::error("No Containers were registered!");	
+			return Redirect::back();
+		}
+
+		$messages = $this->execute(AssociateContainersWithCargoCommand::class, $input);
+
+		return Redirect::back()->with('infos', $messages->all());
+
+	}
+
+	public function addItemToCargo($schedule_id, $cargo_id)
+	{
+		$input = Input::all();
+
+		$input['schedule_id'] = $schedule_id;
+		$input['cargo_id'] = $cargo_id;
+		
+		if(!$input['custom_tariff_code'] || !$input['description'] || !$input['quantity']){
+			Flash::error("Cargo Item form not completed.");	
+			return Redirect::back()->withInput();
+		}
+
+		//dd($input);
+
+		$this->execute(AddItemToCargoCommand::class, $input);
+
+		Flash::success("Item has been registered!");
+
+		return Redirect::route('manifest.schedule.import.cargoes.show', [$schedule_id, $cargo_id]);
+
+	}
+
+	public function addItemToCargoExport($schedule_id, $cargo_id)
+	{
+		$input = Input::all();
+
+		$input['schedule_id'] = $schedule_id;
+		$input['cargo_id'] = $cargo_id;
+		
+		if(!$input['custom_tariff_code'] || !$input['description'] || !$input['quantity']){
+			Flash::error("Cargo Item form not completed.");	
+			return Redirect::back()->withInput();
+		}
+
+		//dd($input);
+
+		$this->execute(AddItemToCargoCommand::class, $input);
+
+		Flash::success("Item has been registered!");
+
+		return Redirect::route('manifest.schedule.export.cargoes.show', [$schedule_id, $cargo_id]);
+
+	}
+
+	public function issueImportCargo($id, $cargo_id)
+	{
+		$input['vessel_schedule_id'] = $id;
+		$input['cargo_id'] = $cargo_id;
+
+		$this->execute(IssueImportCargoCommand::class, $input);
+
+		Flash::success("DL has been issued!");
+
+		return Redirect::back();
+	}
+
+	public function issueExportCargo($id, $cargo_id)
+	{
+		
+		$input = Input::all();
+		$input['vessel_schedule_id'] = $id;
+		$input['cargo_id'] = $cargo_id;
+
+		//dd($input);
+
+		$this->execute(IssueExportCargoCommand::class, $input);
+
+		Flash::success("DL has been issued!");
+
+		return Redirect::back();
+	}
+
+	public function detachImportCargo($schedule_id, $cargo_id)
+	{
+		$input = Input::all();
+		$input['schedule_id'] = $schedule_id;
+		$input['cargo_id'] = $cargo_id;
+		
+		$messages = $this->execute(DetachContainerFromCargoCommand::class, $input);
+
+		return Redirect::back()->with('infos', $messages->all());			
+	}
+}

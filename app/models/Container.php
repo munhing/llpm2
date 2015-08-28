@@ -1,0 +1,93 @@
+<?php
+
+use Laracasts\Commander\Events\EventGenerator;
+use LLPM\Containers\Events\ContainerWasRegistered;
+use LLPM\Containers\Events\ContainerWasUpdated;
+
+class Container extends \Eloquent {
+
+	use EventGenerator;
+
+	protected $table = 'containers';
+
+	protected $fillable = ['container_no', 'size', 'content', 'location', 'status', 'current_movement', 'dl_check', 'm_content', 'import_vessel_schedule_id', 'export_vessel_schedule_id', 'receiving_id', 'container_location', 'container_status'];
+
+	public function import_schedule()
+	{
+		return $this->belongsTo('VesselSchedule', 'import_vessel_schedule_id');
+	}		
+
+	public function export_schedule()
+	{
+		return $this->belongsTo('VesselSchedule', 'export_vessel_schedule_id');
+	}	
+
+	public function receiving()
+	{
+		return $this->belongsTo('Receiving', 'receiving_id');
+	}
+
+	public function cargoes()
+	{
+		return $this->belongsToMany('Cargo', 'cargo_container', 'container_id', 'cargo_id')->withTimestamps();;
+	}
+
+	public function m_cargoes()
+	{
+		return $this->belongsToMany('Cargo', 'm_cargo_container', 'container_id', 'cargo_id')->withTimestamps();;
+	}
+
+	public function workorders()
+	{
+		return $this->belongsToMany('WorkOrder', 'container_workorder', 'container_id', 'workorder_id')->withTimestamps()->withPivot('content', 'vehicle', 'lifter', 'confirmed', 'confirmed_by', 'updated_at');
+	}		
+
+	public static function register($container_no, $size, $content, $status, $dl_check, $m_content, $import_vessel_schedule_id)
+	{
+		$container = new static(compact('container_no', 'size', 'content', 'status', 'dl_check', 'm_content','import_vessel_schedule_id'));
+
+		//$container->raise(new ContainerWasRegistered($container));
+
+		return $container;
+	}	
+
+	public static function registerReceiving($container_no, $size, $content, $status, $dl_check, $receiving_id)
+	{
+		$container = new static(compact('container_no', 'size', 'content', 'status', 'dl_check', 'receiving_id'));
+
+		//$container->raise(new ContainerWasRegistered($container));
+
+		return $container;
+	}	
+
+	public static function edit($id, $container_no, $size, $content, $location, $status, $current_movement)
+	{
+		$container = static::find($id);
+
+        $container->container_no = $container_no;
+        $container->size = $size;
+        $container->content = $content;
+        $container->location = $location;
+        $container->status = $status;
+        $container->current_movement = $current_movement;
+
+		$container->raise(new ContainerWasUpdated($container));
+
+		return $container;
+	}		
+
+	public static function editAfterConfirmation($contaner_id, $location, $status, $current_movement)
+	{
+		$container = static::find($contaner_id);
+
+        $container->location = $location;
+        $container->status = $status;
+        $container->current_movement = $current_movement;
+
+		//$container->raise(new ContainerWasUpdated($container));
+
+		return $container;
+	}			
+}
+
+        
