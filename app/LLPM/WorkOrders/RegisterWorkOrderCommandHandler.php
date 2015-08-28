@@ -1,4 +1,6 @@
-<?php namespace LLPM\WorkOrders;
+<?php 
+
+namespace LLPM\WorkOrders;
 
 use Laracasts\Commander\CommandHandler;
 use Laracasts\Commander\Events\DispatchableTrait;
@@ -18,7 +20,12 @@ class RegisterWorkOrderCommandHandler implements CommandHandler {
 	protected $containerConfirmationProcessRepository;
 	protected $idGenerator;
 
-	function __construct(WorkOrderRepository $workOrderRepository, ContainerRepository $containerRepository, IdGenerator $idGenerator, ContainerConfirmationProcessRepository $containerConfirmationProcessRepository)
+	function __construct(
+        WorkOrderRepository $workOrderRepository, 
+        ContainerRepository $containerRepository, 
+        IdGenerator $idGenerator, 
+        ContainerConfirmationProcessRepository $containerConfirmationProcessRepository
+    )
 	{
 		$this->workOrderRepository = $workOrderRepository;
         $this->containerRepository = $containerRepository;
@@ -34,118 +41,113 @@ class RegisterWorkOrderCommandHandler implements CommandHandler {
      */
     public function handle($command)
     {
-    	// dd($command);
-		
-        // foreach ($command->containers as $container_id => $cargoes_id) {
-        //     var_dump($container_id . "=>" . $cargoes_id);
-        // }
+        $workOrder = $this->registerWorkOrder($command);
 
-        //dd($command);
-
-		$date = \Carbon\Carbon::now();
-		$carrier_id = $command->carrier_id;
-		$vessel_schedule_id = 0;
-        $movement = explode('-', $command->type);
-		
-		if($command->type == 'HI' || $command->type == 'HE') {
-			$carrier_id = 0;
-			$vessel_schedule_id = $command->carrier_id;
-		}
-		
-    	// generate workorder no
-    	$workorder_no = $this->idGenerator->generateWorkOrderNo();
-    	$container_location = $this->getLocation($command);
-    	$container_status = $this->getStatus($command);
-
-		$workOrder = WorkOrder::register(
-			$workorder_no, 
-			$command->type, 
-			$date,
-			$carrier_id, 
-			$command->handler_id,
-			$vessel_schedule_id,
-			$container_location,
-			$container_status
-		);
-
-		//dd($workOrder->toArray());
-		
-		$this->workOrderRepository->save($workOrder);
-
-        // check confirmation process
-        $ccp = $this->containerConfirmationProcessRepository->getProcess($command->type);
-        $to_confirm_by = $ccp->cp1;
-        $check_point = 1;
-
-        if($command->type == 'ST') {
-
-            foreach ($command->containers as $container_id => $cargoes_id) {
-            
-                $ctn = $this->containerRepository->getById($container_id);
-                //attach containers to workorder
-                $workOrder->containers()->attach($ctn->id, ['content' => $ctn->content]);
-
-                //update container's current_movement with this workorder no
-                $this->containerRepository->updateCurrentMovementWithCheckPoint($container_id, $workOrder->workorder_no, $to_confirm_by, $check_point);
-
-                $ctn->pre_stuffing = $cargoes_id;
-                $ctn->save();
-
-                // $this->triggerPusher($to_confirm_by, $container_id);
-            }
-
-        } else {
-	
-    		foreach ($command->containers as $container_id) {
-    		
-                $ctn = $this->containerRepository->getById($container_id);
-    			//attach containers to workorder
-    			$workOrder->containers()->attach($ctn->id, ['content' => $ctn->content]);
-
-    			//update container's current_movement with this workorder no
-    			$this->containerRepository->updateCurrentMovementWithCheckPoint($container_id, $workOrder->workorder_no, $to_confirm_by, $check_point);
-
-                if($command->type == 'HE') {
-                    $ctn->export_vessel_schedule_id = $vessel_schedule_id;
-                    $ctn->save();
-                }
-
-                // $this->triggerPusher($to_confirm_by, $container_id);
-    		}
-		}
-		//$this->dispatchEventsFor($workOrder);
-        $this->triggerPusher($to_confirm_by, $command->containers);
+        $this->updateContainers($command, $workOrder);
 
 		return $workOrder;    	
     }
 
+    function registerWorkOrder($command)
+    {
+        $date = \Carbon\Carbon::now();
+        $carrier_id = $command->carrier_id;
+        $vessel_schedule_id = 0;
+        $movement = explode('-', $command->type);
+        
+        if($command->type == 'HI' || $command->type == 'HE') {
+            $carrier_id = 0;
+            $vessel_schedule_id = $command->carrier_id;
+        }
+        
+        // generate workorder no
+        $workorder_no = $this->idGenerator->generateWorkOrderNo();
+        $container_location = $this->getLocation($command);
+        $container_status = $this->getStatus($command);
+        $who_is_involved = $this->getInvolvement($command->type);
+
+        $workOrder = WorkOrder::register(
+            $workorder_no, 
+            $command->type, 
+            $date,
+            $carrier_id, 
+            $command->handler_id,
+            $vessel_schedule_id,
+            $container_location,
+            $container_status,
+            $who_is_involved
+        );
+
+        //dd($workOrder->toArray());
+        
+        $this->workOrderRepository->save($workOrder);
+
+        return $workOrder;    
+    }
+
+    function updateContainers($command, $workOrder)
+    {
+        $ccp = json_decode($workOrder->who_is_involved);
+        $to_confirm_by = $ccp[0];
+        $check_point = 1;
+
+        foreach ($command->containers as $key => $value) {
+
+            // by default, $value is container_id
+            $container_id = $value;
+
+            // only in ST
+            if($command->type == 'ST') {
+                $container_id = $key;
+                $cargoes_id = $value;
+            }
+        
+            $ctn = $this->containerRepository->getById($container_id);
+
+            // attach containers to workorder
+            $workOrder->containers()->attach($ctn->id, ['content' => $ctn->content]);             
+
+            // update container's current_movement with this workorder no
+            $ctn->current_movement = $workOrder->workorder_no;
+            $ctn->to_confirm_by = $to_confirm_by;
+            $ctn->check_point = $check_point;
+
+            if($command->type == 'HE') {
+                $ctn->export_vessel_schedule_id = $command->carrier_id;
+            }
+
+            if($command->type == 'ST') {
+                $ctn->pre_stuffing = $cargoes_id;
+            }
+
+            $ctn->save();               
+        }
+
+        //$this->dispatchEventsFor($workOrder);
+        // $this->triggerPusher($to_confirm_by, $command->containers);
+    }
+
+    function getInvolvement($type)
+    {
+        $who_is_involved = [];
+
+        $ccp = $this->containerConfirmationProcessRepository->getProcess($type);
+
+        for($i=1;$i<=4;$i++) {
+
+            if(!$ccp->{'cp'.$i}){continue;}
+
+            $who_is_involved[] = $ccp->{'cp'.$i};
+        }
+
+        return json_encode($who_is_involved);  
+    }
+
     function triggerPusher($to_confirm_by, $containers)
     {
-
-        // $pusher_data = [
-        //     "id"=> $ctn->id . ',' . $ctn->content . ',' . $ctn->current_movement . ',' . $ctn->workorders->last()->movement,
-        //     "container_no"=> $ctn->container_no
-        // ];
-
         $pusher = App::make('Pusher');
         $pusher->trigger('LLPM', $to_confirm_by, json_encode($containers));        
     }
-
-    // function triggerPusher($to_confirm_by, $container_id)
-    // {
-    //     // get a new instance of $ctn to reflect the latest info on workorders
-    //     // if not, $ctn-<workorders->last()->movement will flag "Trying to get property of non-object"
-
-    //     $ctn = $this->containerRepository->getById($container_id);
-
-    //     $pusher_data = [
-    //         "id"=> $ctn->id . ',' . $ctn->content . ',' . $ctn->current_movement . ',' . $ctn->workorders->last()->movement,
-    //         "container_no"=> $ctn->container_no
-    //     ];
-
-    //     $pusher = App::make('Pusher');
-    //     $pusher->trigger('LLPM', $to_confirm_by, json_encode($pusher_data));        
-    // }
 
     function getLocation($command)
     {

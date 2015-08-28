@@ -72,20 +72,37 @@ Route::get('/queue', function () {
 
 Route::get('/test', function () {
 
-    $ctnRepo = new LLPM\Repositories\ContainerRepository;
+    $containerConfirmationProcessRepository = new LLPM\Repositories\ContainerConfirmationProcessRepository;
 
-    $ctn = $ctnRepo->getById(2);
+    $ccp = $containerConfirmationProcessRepository->getProcess('RI-1');
 
-    $pusher_data = [
-        "id" => $ctn->container_no,
-    ];
+    $who_is_involved = [];
+
+    for($i=1;$i<=4;$i++) {
+
+        if(!$ccp->{'cp'.$i}){continue;}
+
+        $who_is_involved[] = $ccp->{'cp'.$i};
+    }
+
+    $json = json_encode($who_is_involved);
+
+    $arr = json_decode($json);
+
+    dd(in_array('PB', $arr));
+
+    // $ctn = $ctnRepo->getById(2);
 
     // $pusher_data = [
-    //     "id"=> $ctn->id . ',' . $ctn->content . ',' . $ctn->current_movement . ',' . $ctn->workorders->last()->movement,
-    //     "container_no"=> $ctn->container_no
+    //     "id" => $ctn->container_no,
     // ];
 
-    dd($pusher_data);
+    // // $pusher_data = [
+    // //     "id"=> $ctn->id . ',' . $ctn->content . ',' . $ctn->current_movement . ',' . $ctn->workorders->last()->movement,
+    // //     "container_no"=> $ctn->container_no
+    // // ];
+
+    // dd($pusher_data);
 
     // $movement = 'HE';
 

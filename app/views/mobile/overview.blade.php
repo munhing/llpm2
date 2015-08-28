@@ -79,7 +79,7 @@
                 @foreach($containers as $container)
                 <?php $movement =  $container->workorders->last()->movement; ?>
                 <?php $id = $container->id . ',' . $container->content . ',' . $container->current_movement . ',' . $movement; ?>
-                <?php dd($check_points[$movement]->toArray()); ?>
+                <?php if(!in_array($role, json_decode($container->workorders->last()->who_is_involved))) {continue;} ?>
                 <tr>
                     <td>
                         @if($role == $container->to_confirm_by)

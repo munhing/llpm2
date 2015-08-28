@@ -10,7 +10,7 @@ class WorkOrder extends \Eloquent {
 
 	protected $table = 'workorders';
 
-	protected $fillable = ['workorder_no', 'movement', 'date', 'carrier_id', 'handler_id', 'vessel_schedule_id', 'container_location', 'container_status'];
+	protected $fillable = ['workorder_no', 'movement', 'date', 'carrier_id', 'handler_id', 'vessel_schedule_id', 'container_location', 'container_status', 'who_is_involved'];
 
 	protected $dates = array('date');
 
@@ -49,9 +49,9 @@ class WorkOrder extends \Eloquent {
 		return $this->carrier->name;
 	}
 
-	public static function register($workorder_no, $movement, $date, $carrier_id, $handler_id, $vessel_schedule_id, $container_location, $container_status)
+	public static function register($workorder_no, $movement, $date, $carrier_id, $handler_id, $vessel_schedule_id, $container_location, $container_status, $who_is_involved)
 	{
-		$workorder = new static(compact('workorder_no', 'movement', 'date', 'carrier_id', 'handler_id', 'vessel_schedule_id', 'container_location', 'container_status'));
+		$workorder = new static(compact('workorder_no', 'movement', 'date', 'carrier_id', 'handler_id', 'vessel_schedule_id', 'container_location', 'container_status', 'who_is_involved'));
 
 		//$workorder->raise(new WorkOrderWasRegistered($workorder));
 
