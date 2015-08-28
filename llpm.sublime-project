@@ -1,0 +1,17 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "."
+		},
+		{
+			"follow_symlinks": true,
+			"path": "C:\\wamp\\apps\\alpha"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "C:\\wamp\\apps\\laravel42"
+		}
+	]
+}
