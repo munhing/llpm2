@@ -72,24 +72,24 @@ Route::get('/queue', function () {
 
 Route::get('/test', function () {
 
-    $containerConfirmationProcessRepository = new LLPM\Repositories\ContainerConfirmationProcessRepository;
+    // $containerConfirmationProcessRepository = new LLPM\Repositories\ContainerConfirmationProcessRepository;
 
-    $ccp = $containerConfirmationProcessRepository->getProcess('RI-1');
+    // $ccp = $containerConfirmationProcessRepository->getProcess('RI-1');
 
-    $who_is_involved = [];
+    // $who_is_involved = [];
 
-    for($i=1;$i<=4;$i++) {
+    // for($i=1;$i<=4;$i++) {
 
-        if(!$ccp->{'cp'.$i}){continue;}
+    //     if(!$ccp->{'cp'.$i}){continue;}
 
-        $who_is_involved[] = $ccp->{'cp'.$i};
-    }
+    //     $who_is_involved[] = $ccp->{'cp'.$i};
+    // }
 
-    $json = json_encode($who_is_involved);
+    // $json = json_encode($who_is_involved);
 
-    $arr = json_decode($json);
+    // $arr = json_decode($json);
 
-    dd(in_array('PB', $arr));
+    // dd(in_array('PB', $arr));
 
     // $ctn = $ctnRepo->getById(2);
 
