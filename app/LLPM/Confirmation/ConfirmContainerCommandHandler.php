@@ -260,7 +260,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
     public function updateCargo($cargo, $confirmation)
     {
-        if ($confirmation[3] == 'HI' || $confirmation[3] == 'RI') {
+        if ($confirmation[3] == 'HI' || $confirmation[3] == 'RI-1' || $confirmation[3] == 'RI-3') {
             //update received_by and received_date
 
             $cargo->received_by = Auth::user()->id;
@@ -270,7 +270,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
             $cargo->increment('status');
         }
 
-        if ($confirmation[3] == 'HE' || $confirmation[3] == 'RO' || $confirmation[3] == 'US') {
+        if ($confirmation[3] == 'HE' || $confirmation[3] == 'RO-1' || $confirmation[3] == 'RO-3' || $confirmation[3] == 'US') {
             //update released_by and released_date
 
             $cargo->released_by = Auth::user()->id;

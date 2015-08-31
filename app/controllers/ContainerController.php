@@ -150,7 +150,7 @@ class ContainerController extends \BaseController {
 				if($i==1) {
 					$processedList[$key]['container_no'] = $cwc->container->container_no;
 					$processedList[$key]['size'] = $cwc->container->size;
-					$processedList[$key]['content'] = $cwc->container->content;
+					$processedList[$key]['content'] = $cwc->containerConfirmation->content;
 					$processedList[$key]['workorder_no'] = $cwc->workorder->workorder_no;
 					$processedList[$key]['movement'] = $cwc->workorder->movement;
 					$processedList[$key]['vehicle'] = $cwc->containerConfirmation->vehicle;
