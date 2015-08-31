@@ -14,6 +14,11 @@ class ContainerConfirmationRepository {
 		return ContainerConfirmation::with('container', 'workorder')->find($id);
 	}
 
+	public function getByContainerAndWorkorderId($container_id, $workorder_id)
+	{
+		return ContainerConfirmation::where('container_id',$container_id)->where('workorder_id', $workorder_id)->first();
+	}
+
 	public function getByWorkOrderId($id)
 	{
 		return ContainerConfirmation::with(['container', 'user'])->where('workorder_id', '=', $id)->get();

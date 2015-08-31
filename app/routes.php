@@ -64,6 +64,24 @@ Route::get('/pusher', function () {
     // return View::make('mobile/home', compact('pusher_var'));
 });
 
+Route::get('/ctnreport', function () {
+    // dd('Container Report');
+    $ctnlist = [];
+    $ctn = ContainerWorkorderConfirmation::all();
+
+    foreach($ctn as $con) {
+        $ctnlist[$con->container_id][] = $con->toArray();
+    }
+
+    foreach($ctnlist as $c) {
+
+    }
+
+    dd($ctnlist);
+
+});
+
+
 Route::get('/queue', function () {
     Queue::push(function($job){
         $job->delete();
@@ -680,6 +698,11 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
             Route::get('/', [
                 'as' => 'containers',
                 'uses' => 'ContainerController@index',
+            ]);
+
+            Route::get('/report', [
+                'as' => 'containers.report',
+                'uses' => 'ContainerController@report',
             ]);
 
             Route::get('/{container_id}', [

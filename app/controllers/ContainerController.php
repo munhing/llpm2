@@ -1,15 +1,21 @@
 <?php
 
 use LLPM\Repositories\ContainerRepository;
+use LLPM\Repositories\ContainerWorkorderConfirmationRepository;
 use Carbon\Carbon;
 
 class ContainerController extends \BaseController {
 
 	protected $containerRepository;
+	protected $containerWorkorderConfirmationRepository;
 
-	function __construct(ContainerRepository $containerRepository)
+	function __construct(
+		ContainerRepository $containerRepository,
+		ContainerWorkorderConfirmationRepository $containerWorkorderConfirmationRepository
+	)
 	{
 		$this->containerRepository = $containerRepository;
+		$this->containerWorkorderConfirmationRepository = $containerWorkorderConfirmationRepository;
 	}	
 	/**
 	 * Display a listing of the resource.
@@ -127,9 +133,47 @@ class ContainerController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function report()
 	{
-		//
+		$ctnlist = [];
+		$processedList = [];
+
+		$ctncons = $this->containerWorkorderConfirmationRepository->getAll();
+
+		foreach($ctncons as $ctncon) {
+			$ctnlist[$ctncon->container_no . '-' . $ctncon->container_workorder_id][] = $ctncon;
+		}
+
+		foreach($ctnlist as $key => $list) {
+			$i=1;
+			foreach($list as $cwc) {
+				if($i==1) {
+					$processedList[$key]['container_no'] = $cwc->container->container_no;
+					$processedList[$key]['size'] = $cwc->container->size;
+					$processedList[$key]['content'] = $cwc->container->content;
+					$processedList[$key]['workorder_no'] = $cwc->workorder->workorder_no;
+					$processedList[$key]['movement'] = $cwc->workorder->movement;
+					$processedList[$key]['vehicle'] = $cwc->containerConfirmation->vehicle;
+					$processedList[$key]['lifter'] = $cwc->containerConfirmation->lifter;
+					$processedList[$key]['confirmed_at'] = $cwc->confirmed_at->format('H:i') . " (" . $cwc->role . ")";
+					$processedList[$key]['confirmed_by'] = $cwc->user->username;
+				}
+
+				if($i>1) {				
+					$processedList[$key]['confirmed_at'] .= " - " . $cwc->confirmed_at->format('H:i') . " (" . $cwc->role . ")" ;
+					$processedList[$key]['confirmed_by'] .= " / " . $cwc->user->username;
+				}
+
+				// if($i == count($list)) {
+				// 	$processedList[$key]['duration'] = $cwc->user->username;	
+				// }
+
+				$i++;
+			}
+		}
+
+		// dd($processedList);
+		return View::make('containers/report', compact('processedList'));
 	}
 
 	/**
