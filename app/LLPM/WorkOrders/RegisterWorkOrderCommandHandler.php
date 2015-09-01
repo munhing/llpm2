@@ -105,7 +105,7 @@ class RegisterWorkOrderCommandHandler implements CommandHandler {
             $ctn = $this->containerRepository->getById($container_id);
 
             // attach containers to workorder
-            $workOrder->containers()->attach($ctn->id, ['content' => $ctn->content]);             
+            $workOrder->containers()->attach($ctn->id, ['movement' => $workOrder->movement,'content' => $ctn->content]);             
 
             // update container's current_movement with this workorder no
             $ctn->current_movement = $workOrder->workorder_no;

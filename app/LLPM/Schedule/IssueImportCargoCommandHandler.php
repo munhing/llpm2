@@ -46,10 +46,10 @@ class IssueImportCargoCommandHandler implements CommandHandler {
 		if($cargo->containerized > 0) {
 			
 			// Rule Option 1: All cargoes must be issued DL before container can be release
-			$this->processAssociatedContainersOption1($cargo);
+			// $this->processAssociatedContainersOption1($cargo);
 
 			// Rule Option 2: At least one cargo must be issued DL before container can be release
-			// $this->processAssociatedContainersOption2($cargo);
+			$this->processAssociatedContainersOption2($cargo);
 		}
 	
 		return $cargo;    	

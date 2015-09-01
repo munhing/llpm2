@@ -117,11 +117,11 @@ class ConfirmContainerCommandHandler implements CommandHandler
             //var_dump($confirmation->toArray());
         }
 
-        foreach ($roles as $role => $count) {
-            if ($count > 0) {
-                $this->triggerPusher($role, $confirmationIds);
-            }
-        }
+        // foreach ($roles as $role => $count) {
+        //     if ($count > 0) {
+        //         $this->triggerPusher($role, $confirmationIds);
+        //     }
+        // }
 
         //return $confirmation;
     }
@@ -286,10 +286,12 @@ class ConfirmContainerCommandHandler implements CommandHandler
     {
         foreach ($cargo->containers as $container) {
             // this is to accomodate container that has not been issued workorder yet
+            // this is only applicable to Receiving (RI-1. RI-3) and Haulage Import (HI)
             if (count($container->workorders) == 0) {
                 return false;
             }
 
+            // this is only applicable to Receiving (RI-1. RI-3) and Haulage Import (HI)
             if ($container->workorders->last()->pivot->confirmed == 0) {
                 return false;
             }
