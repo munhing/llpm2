@@ -27,7 +27,14 @@ class ConfirmContainerCommandHandler implements CommandHandler
     protected $containerConfirmationProcessRepository;
     protected $idGenerator;
 
-    public function __construct(WorkOrderRepository $workOrderRepository, ContainerRepository $containerRepository, CargoRepository $cargoRepository, ContainerConfirmationRepository $containerConfirmationRepository, ContainerWorkorderConfirmationRepository $containerWorkorderConfirmationRepository, ContainerConfirmationProcessRepository $containerConfirmationProcessRepository)
+    public function __construct(
+        WorkOrderRepository $workOrderRepository, 
+        ContainerRepository $containerRepository, 
+        CargoRepository $cargoRepository, 
+        ContainerConfirmationRepository $containerConfirmationRepository, 
+        ContainerWorkorderConfirmationRepository $containerWorkorderConfirmationRepository, 
+        ContainerConfirmationProcessRepository $containerConfirmationProcessRepository
+    )
     {
         $this->workOrderRepository = $workOrderRepository;
         $this->containerRepository = $containerRepository;
@@ -251,7 +258,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
         //dd($container->toArray());
 
         foreach ($container->cargoes as $cargo) {
-            if ($this->updatable($cargo)) {
+            if ($this->updatable($cargo, $confirmation)) {
                 $this->updateCargo($cargo, $confirmation);
             }
 
@@ -262,38 +269,73 @@ class ConfirmContainerCommandHandler implements CommandHandler
     {
         if ($confirmation[3] == 'HI' || $confirmation[3] == 'RI-1' || $confirmation[3] == 'RI-3') {
             //update received_by and received_date
+            $this->updateCargoReleasedDate($cargo);
 
-            $cargo->received_by = Auth::user()->id;
-            $cargo->received_date = date('Y-m-d H:i:s');
-            $cargo->save();
-
-            $cargo->increment('status');
         }
 
-        if ($confirmation[3] == 'HE' || $confirmation[3] == 'RO-1' || $confirmation[3] == 'RO-3' || $confirmation[3] == 'US') {
+        if ($confirmation[3] == 'HE' || $confirmation[3] == 'RO-1' || $confirmation[3] == 'RO-3') {
             //update released_by and released_date
+            $this->updateCargoReleasedDate($cargo);
 
-            $cargo->released_by = Auth::user()->id;
-            $cargo->released_date = date('Y-m-d H:i:s');
-            $cargo->save();
-
-            $cargo->increment('status');
         }
+
+        if ($confirmation[3] == 'US') {
+            //update released_by and released_date
+            
+            if($cargo->dl_no != 0) {
+
+                $this->updateCargoReleasedDate($cargo);
+
+            }
+        }
+
         //dd('updateCargo function');
     }
 
-    public function updatable($cargo)
+    public function updateCargoReceivedDate($cargo)
+    {
+        $cargo->received_by = Auth::user()->id;
+        $cargo->received_date = date('Y-m-d H:i:s');
+        $cargo->save();      
+
+        $cargo->increment('status');          
+    }
+
+    public function updateCargoReleasedDate($cargo)
+    {
+        $cargo->released_by = Auth::user()->id;
+        $cargo->released_date = date('Y-m-d H:i:s');
+        $cargo->save();    
+
+        $cargo->increment('status');
+
+    }
+
+    public function updatable($cargo, $confirmation)
     {
         foreach ($cargo->containers as $container) {
+
             // this is to accomodate container that has not been issued workorder yet
             // this is only applicable to Receiving (RI-1. RI-3) and Haulage Import (HI)
             if (count($container->workorders) == 0) {
                 return false;
             }
 
-            // this is only applicable to Receiving (RI-1. RI-3) and Haulage Import (HI)
-            if ($container->workorders->last()->pivot->confirmed == 0) {
-                return false;
+            $movement = $container->workorders->last()->pivot->movement;
+            $confirmed = $container->workorders->last()->pivot->confirmed;
+
+            if($movement == 'HI' || $movement == 'RI-1' || $movement == 'RI-3') {
+                // this is only applicable to Receiving (RI-1. RI-3) and Haulage Import (HI)
+                if ($confirmed == 0) {
+                    return false;
+                }                
+            }
+
+            if($movement == 'US') {
+                // this is only applicable to Receiving (RI-1. RI-3) and Haulage Import (HI)
+                if ($container->workorders->last()->pivot->confirmed == 0) {
+                    return false;
+                }                
             }
         }
 
@@ -308,6 +350,8 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
         foreach ($container->cargoes as $cargo) {
             $cargo->containers()->detach($container);
+            $cargo->containerized = 0;
+            $cargo->save();
 
         }
 
