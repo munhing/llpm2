@@ -313,34 +313,63 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
     public function updatable($cargo, $confirmation)
     {
-        foreach ($cargo->containers as $container) {
+        if($confirmation[3] == 'HI' || $confirmation[3] == 'RI-1' || $confirmation[3] == 'RI-3') {
+            foreach ($cargo->containers as $container) {
+                if($container->status != 3) {
+                    return false;
+                }
+            }    
+        }
 
-            // this is to accomodate container that has not been issued workorder yet
-            // this is only applicable to Receiving (RI-1. RI-3) and Haulage Import (HI)
-            if (count($container->workorders) == 0) {
+        if($confirmation[3] == 'HE' || $confirmation[3] == 'RO-1' || $confirmation[3] == 'RO-3') {
+            foreach ($cargo->containers as $container) {
+                if($container->status != 4) {
+                    return false;
+                }
+            }    
+        }
+
+        if($confirmation[3] == 'US') {
+            // Why 1? Because the container is still attached to only one container
+            if(count($cargo->containers) > 1) {
                 return false;
-            }
-
-            $movement = $container->workorders->last()->pivot->movement;
-            $confirmed = $container->workorders->last()->pivot->confirmed;
-
-            if($movement == 'HI' || $movement == 'RI-1' || $movement == 'RI-3') {
-                // this is only applicable to Receiving (RI-1. RI-3) and Haulage Import (HI)
-                if ($confirmed == 0) {
-                    return false;
-                }                
-            }
-
-            if($movement == 'US') {
-                // this is only applicable to Receiving (RI-1. RI-3) and Haulage Import (HI)
-                if ($container->workorders->last()->pivot->confirmed == 0) {
-                    return false;
-                }                
             }
         }
 
         return true;
     }
+
+
+    // public function updatable($cargo, $confirmation)
+    // {
+    //     foreach ($cargo->containers as $container) {
+
+    //         // this is to accomodate container that has not been issued workorder yet
+    //         // this is only applicable to Receiving (RI-1. RI-3) and Haulage Import (HI)
+    //         if (count($container->workorders) == 0) {
+    //             return false;
+    //         }
+
+    //         $movement = $container->workorders->last()->pivot->movement;
+    //         $confirmed = $container->workorders->last()->pivot->confirmed;
+
+    //         if($movement == 'HI' || $movement == 'RI-1' || $movement == 'RI-3') {
+    //             // this is only applicable to Receiving (RI-1. RI-3) and Haulage Import (HI)
+    //             if ($confirmed == 0) {
+    //                 return false;
+    //             }                
+    //         }
+
+    //         if($movement == 'US') {
+    //             // this is only applicable to Receiving (RI-1. RI-3) and Haulage Import (HI)
+    //             if ($container->workorders->last()->pivot->confirmed == 0) {
+    //                 return false;
+    //             }                
+    //         }
+    //     }
+
+    //     return true;
+    // }
 
     public function detachContainer($confirmation)
     {
