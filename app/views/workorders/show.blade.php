@@ -104,6 +104,40 @@
 			</div>
 		</div>
 
+		{{ Form::open(['route' => ['workorders.containers.add', $workOrder->id]]) }}	
+
+		<div id="myModal_autocomplete" class="modal fade" role="dialog" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						<h4 class="modal-title">Add Containers</h4>
+					</div>
+					<div class="modal-body form">
+						
+						
+						<div class="form-horizontal form-row-seperated">
+							<div class="form-group">
+								<div class="col-sm-12">
+									<div class="input-group">
+										<span class="input-group-addon">
+										<i class="fa fa-user"></i>
+										</span>
+										{{ Form::select('containers[]', [], null, ['class' => 'form-control select2me', 'placeholder' => 'Select Containers', 'multiple', 'id'=>'ctn', 'spinner']) }}
+									</div>
+								</div>
+							</div>
+						</div>	
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<input type="submit" class="btn btn-primary" id="but_add_container">
+					</div>
+				</div>
+			</div>
+		</div>
+		{{ Form::close() }}	
 
 		<div class="col-md-8">
 			<!-- BEGIN Portlet PORTLET-->
@@ -112,6 +146,11 @@
 					<div class="caption">
 						<i class="fa fa-info"></i>Containers
 					</div>
+					<div class="actions">
+						<a href="#myModal_autocomplete" role="button" class="btn btn-default btn-sm" data-toggle="modal">
+							<i class="fa fa-plus"></i> Add
+						</a>
+					</div>					
 				</div>
 				<div class="portlet-body">
 
@@ -187,7 +226,29 @@
 ComponentsPickers.init();
 ComponentsDropdowns.init();
 
+$(function() {
 
+	$.ajax({
+		url: '{{ route('workorders.container_list') }}',
+		dataType: 'json',
+		type: 'GET',
+		data: {carrier_id : {{ $workOrder->vessel_schedule_id }}, type : '{{ $workOrder->movement }}' },
+		success: function(data) {
 
+			console.log(data);
+
+			$('#ctn').select2('data', null)
+			$('#ctn').empty(); // clear the current elements in select box
+
+			for (row in data) {
+				$('#ctn').append($('<option></option>').attr('value', data[row].id).text(data[row].container_no));
+			}
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			alert(errorThrown);
+		}
+	});
+
+});
 @stop
 

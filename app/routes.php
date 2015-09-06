@@ -685,6 +685,11 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
                 'as' => 'workorders.stuffing',
                 'uses' => 'WorkOrderController@storeStuffing',
             ]);
+
+            Route::post('{workorder_id}/add', [
+                'as' => 'workorders.containers.add',
+                'uses' => 'WorkOrderController@addContainers',
+            ]);            
         });
 
 /*

@@ -10,6 +10,7 @@ use LLPM\Repositories\CargoRepository;
 
 use LLPM\WorkOrders\RegisterWorkOrderCommand;
 use LLPM\WorkOrders\CancelContainerCommand;
+use LLPM\WorkOrders\AttachedContainersToWorkOrderCommand;
 
 class WorkOrderController extends \BaseController {
 
@@ -363,5 +364,25 @@ class WorkOrderController extends \BaseController {
 		Flash::success("Work Order $workorder->workorder_no successfully registered!");
 
 		return Redirect::route('workorders');			
+	}	
+
+	public function addContainers($workorder_id)
+	{
+		$input = Input::all();
+		$input['workorder_id'] = $workorder_id;
+
+		// dd($input);
+
+		if(! $input['containers']) {
+
+			Flash::error("Please key in correctly!");
+			return Redirect::back();			
+		}
+
+		$workorder = $this->execute(AttachedContainersToWorkOrderCommand::class, $input);
+
+		Flash::success("Work Order $workorder->workorder_no successfully updated!");
+
+		return Redirect::route('workorders.show', $workorder_id);			
 	}	
 }
