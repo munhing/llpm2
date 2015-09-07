@@ -7,7 +7,6 @@ use Laracasts\Commander\Events\DispatchableTrait;
 use LLPM\Repositories\WorkOrderRepository;
 use LLPM\Repositories\ContainerRepository;
 use LLPM\Repositories\ContainerConfirmationProcessRepository;
-use LLPM\IdGenerator;
 use WorkOrder;
 use App;
 use LLPM\WorkOrders\AttachedContainersToWorkOrderCommandHandler;
@@ -19,13 +18,11 @@ class RegisterWorkOrderCommandHandler implements CommandHandler {
 	protected $workOrderRepository;
     protected $containerRepository;
 	protected $containerConfirmationProcessRepository;
-	protected $idGenerator;
     protected $attachedContainersToWorkOrder;
 
 	function __construct(
         WorkOrderRepository $workOrderRepository, 
         ContainerRepository $containerRepository, 
-        IdGenerator $idGenerator, 
         ContainerConfirmationProcessRepository $containerConfirmationProcessRepository,
         AttachedContainersToWorkOrderCommandHandler $attachedContainersToWorkOrder
     )
@@ -33,7 +30,6 @@ class RegisterWorkOrderCommandHandler implements CommandHandler {
 		$this->workOrderRepository = $workOrderRepository;
         $this->containerRepository = $containerRepository;
 		$this->containerConfirmationProcessRepository = $containerConfirmationProcessRepository;
-		$this->idGenerator = $idGenerator;
         $this->attachedContainersToWorkOrder = $attachedContainersToWorkOrder;
 	}
 
@@ -68,13 +64,11 @@ class RegisterWorkOrderCommandHandler implements CommandHandler {
         }
         
         // generate workorder no
-        $workorder_no = $this->idGenerator->generateWorkOrderNo();
         $container_location = $this->getLocation($command);
         $container_status = $this->getStatus($command);
         $who_is_involved = $this->getInvolvement($command->type);
 
         $workOrder = WorkOrder::register(
-            $workorder_no, 
             $command->type, 
             $date,
             $carrier_id, 
@@ -91,48 +85,6 @@ class RegisterWorkOrderCommandHandler implements CommandHandler {
 
         return $workOrder;    
     }
-
-    // function updateContainers($command, $workOrder)
-    // {
-    //     $ccp = json_decode($workOrder->who_is_involved);
-    //     $to_confirm_by = $ccp[0];
-    //     $check_point = 1;
-
-    //     foreach ($command->containers as $key => $value) {
-
-    //         // by default, $value is container_id
-    //         $container_id = $value;
-
-    //         // only in ST
-    //         if($command->type == 'ST') {
-    //             $container_id = $key;
-    //             $cargoes_id = $value;
-    //         }
-        
-    //         $ctn = $this->containerRepository->getById($container_id);
-
-    //         // attach containers to workorder
-    //         $workOrder->containers()->attach($ctn->id, ['movement' => $workOrder->movement,'content' => $ctn->content]);             
-
-    //         // update container's current_movement with this workorder no
-    //         $ctn->current_movement = $workOrder->workorder_no;
-    //         $ctn->to_confirm_by = $to_confirm_by;
-    //         $ctn->check_point = $check_point;
-
-    //         if($command->type == 'HE') {
-    //             $ctn->export_vessel_schedule_id = $command->carrier_id;
-    //         }
-
-    //         if($command->type == 'ST') {
-    //             $ctn->pre_stuffing = $cargoes_id;
-    //         }
-
-    //         $ctn->save();               
-    //     }
-
-    //     //$this->dispatchEventsFor($workOrder);
-    //     // $this->triggerPusher($to_confirm_by, $command->containers);
-    // }
 
     function getInvolvement($type)
     {

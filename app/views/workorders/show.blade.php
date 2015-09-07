@@ -9,7 +9,7 @@
 @section('content')
 
 	<h3 class="page-title">
-		Work Order #: {{ $workOrder->workorder_no }} <small>information</small>
+		Work Order #: {{ $workOrder->id }} <small>information</small>
 	</h3>
 
 	<div class="page-bar">
@@ -24,7 +24,7 @@
 				<i class="fa fa-angle-right"></i>
 			</li>			
 			<li>
-				{{ $workOrder->workorder_no }}
+				{{ $workOrder->id }}
 			</li>						
 		</ul>
 	</div>	
@@ -61,7 +61,7 @@
 							Work Order #:
 						</div>
 						<div class="col-md-9 value">
-							{{ $workOrder->workorder_no }}
+							{{ $workOrder->id }}
 						</div>						
 					</div>
 

@@ -10,7 +10,7 @@ class WorkOrder extends \Eloquent {
 
 	protected $table = 'workorders';
 
-	protected $fillable = ['workorder_no', 'movement', 'date', 'carrier_id', 'handler_id', 'vessel_schedule_id', 'container_location', 'container_status', 'who_is_involved'];
+	protected $fillable = ['movement', 'date', 'carrier_id', 'handler_id', 'vessel_schedule_id', 'container_location', 'container_status', 'who_is_involved'];
 
 	protected $dates = array('date');
 
@@ -49,20 +49,19 @@ class WorkOrder extends \Eloquent {
 		return $this->carrier->name;
 	}
 
-	public static function register($workorder_no, $movement, $date, $carrier_id, $handler_id, $vessel_schedule_id, $container_location, $container_status, $who_is_involved)
+	public static function register($movement, $date, $carrier_id, $handler_id, $vessel_schedule_id, $container_location, $container_status, $who_is_involved)
 	{
-		$workorder = new static(compact('workorder_no', 'movement', 'date', 'carrier_id', 'handler_id', 'vessel_schedule_id', 'container_location', 'container_status', 'who_is_involved'));
+		$workorder = new static(compact('movement', 'date', 'carrier_id', 'handler_id', 'vessel_schedule_id', 'container_location', 'container_status', 'who_is_involved'));
 
 		//$workorder->raise(new WorkOrderWasRegistered($workorder));
 
 		return $workorder;
 	}	
 
-	public static function edit($id, $workorder_no, $movement, $date, $carrier_id, $handler_id, $vessel_schedule_id)
+	public static function edit($id, $movement, $date, $carrier_id, $handler_id, $vessel_schedule_id)
 	{
 		$workorder = static::find($id);
 
-        $workorder->workorder_no = $workorder_no;
         $workorder->movement = $movement;
         $workorder->date = $date;
         $workorder->carrier_id = $carrier_id;

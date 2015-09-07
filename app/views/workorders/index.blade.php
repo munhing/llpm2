@@ -63,7 +63,7 @@
 		<tbody>
 			@foreach($workorders as $workorder)
 				<tr>
-					<td>{{ link_to_route('workorders.show', $workorder->workorder_no, $workorder->id) }}</td>	
+					<td>{{ link_to_route('workorders.show', $workorder->id, $workorder->id) }}</td>	
 					<td>{{ $workorder->movement }}</td>
 					<td>{{ $workorder->date->format('d/m/Y') }}</td>
 					<td>{{ $workorder->getCarrier() }}</td>								

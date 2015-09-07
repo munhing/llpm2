@@ -61,7 +61,7 @@ class AttachedContainersToWorkOrderCommandHandler implements CommandHandler {
             $workOrder->containers()->attach($ctn->id, ['movement' => $workOrder->movement,'content' => $ctn->content]);             
 
             // update container's current_movement with this workorder no
-            $ctn->current_movement = $workOrder->workorder_no;
+            $ctn->current_movement = $workOrder->id;
             $ctn->to_confirm_by = $to_confirm_by;
             $ctn->check_point = $check_point;
 
