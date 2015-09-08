@@ -57,6 +57,8 @@
 				<th>Movement</th>
 				<th>Date</th>
 				<th>Carrier</th>	
+				<th>Storage</th>	
+				<th>Handling</th>	
 				<th>Action</th>	
 			</tr>
 		</thead>
@@ -67,6 +69,8 @@
 					<td>{{ $workorder->movement }}</td>
 					<td>{{ $workorder->date->format('d/m/Y') }}</td>
 					<td>{{ $workorder->getCarrier() }}</td>								
+					<td>{{ $workorder->containers->sum('storage_charges') }}</td>
+					<td>{{ $workorder->containers->sum('handling_charges') }}</td>
 					<td></td>										
 				</tr>
 			@endforeach

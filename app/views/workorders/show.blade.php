@@ -162,9 +162,10 @@
 									<th>Container #</th>
 									<th>Size</th>
 									<th>E/L</th>
-									<th>Confirm</th>
 									<th>Confirmed By</th>
 									<th>Confirmed Date</th>
+									<th>Storage</th>
+									<th>Handling</th>
 									<th>Action</th>
 								</tr>
 							</thead>
@@ -176,7 +177,6 @@
 										<td>{{ $container->container_no }}</td>
 										<td>{{ $container->size }}</td>
 										<td>{{ $container->pivot->content }}</td>
-										<td>{{ $container->pivot->confirmed }}</td>
 										<td>@if($container->pivot->confirmed_by != 0)
 											{{ $container->pivot->confirmed_by }}
 											@endif
@@ -186,6 +186,8 @@
 												{{ $container->pivot->updated_at }}
 											@endif
 										</td>
+										<td>{{ $container->storage_charges }}</td>
+										<td>{{ $container->handling_charges }}</td>
 										<td>@if($container->pivot->confirmed == 0)
 											{{ Form::open() }}
 											{{ Form::hidden('container_id', $container->id) }}
