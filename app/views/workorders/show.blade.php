@@ -171,6 +171,7 @@
 							</thead>
 							<tbody>
 								<?php $i=1; ?>
+								<?php ?>
 								@foreach($workOrder->containers as $container)
 									<tr>
 										<td>{{ $i }}</td>
@@ -186,8 +187,8 @@
 												{{ $container->pivot->updated_at }}
 											@endif
 										</td>
-										<td>{{ $container->storage_charges }}</td>
-										<td>{{ $container->handling_charges }}</td>
+										<td align="right">{{ number_format($container->storage_charges, 2) }}</td>
+										<td align="right">{{ number_format($container->handling_charges, 3) }}</td>
 										<td>@if($container->pivot->confirmed == 0)
 											{{ Form::open() }}
 											{{ Form::hidden('container_id', $container->id) }}

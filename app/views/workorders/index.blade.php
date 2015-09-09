@@ -69,8 +69,8 @@
 					<td>{{ $workorder->movement }}</td>
 					<td>{{ $workorder->date->format('d/m/Y') }}</td>
 					<td>{{ $workorder->getCarrier() }}</td>								
-					<td>{{ $workorder->containers->sum('storage_charges') }}</td>
-					<td>{{ $workorder->containers->sum('handling_charges') }}</td>
+					<td align="right">{{ number_format($workorder->containers->sum('storage_charges'), 2) }}</td>
+					<td align="right">{{ number_format($workorder->containers->sum('handling_charges'), 2) }}</td>
 					<td></td>										
 				</tr>
 			@endforeach
