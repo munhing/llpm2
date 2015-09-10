@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Console\Command;
-use LLPM\Containers\CalculateContainerChargesCommandHandler;
+use LLPM\Containers\CalculateContainerCharges;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
 class CalculateContainerChargesCommand extends Command {
 
-	protected $calculateCharges;
+	protected $calculateContainerCharges;
 
 	/**
 	 * The console command name.
@@ -28,9 +28,9 @@ class CalculateContainerChargesCommand extends Command {
 	 *
 	 * @return void
 	 */
-	public function __construct(CalculateContainerChargesCommandHandler $calculateCharges)
+	public function __construct(CalculateContainerCharges $calculateContainerCharges)
 	{
-		$this->calculateCharges = $calculateCharges;
+		$this->calculateContainerCharges = $calculateContainerCharges;
 
 		parent::__construct();
 	}
@@ -42,7 +42,7 @@ class CalculateContainerChargesCommand extends Command {
 	 */
 	public function fire()
 	{
-		$this->calculateCharges->handle([]);
+		$this->calculateContainerCharges->fire();
 	}
 
 	/**

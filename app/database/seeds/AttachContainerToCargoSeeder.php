@@ -12,7 +12,7 @@ class AttachContainerToCargoSeeder extends Seeder
 	public function run()
 	{
 		$input = [];
-		$input['import_vessel_schedule_id'] = 12;
+		$input['import_vessel_schedule_id'] = 27;
 
 		for ($i=0;$i<80;$i++) {
 			

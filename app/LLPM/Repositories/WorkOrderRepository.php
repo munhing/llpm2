@@ -9,6 +9,11 @@ class WorkOrderRepository {
 		return $workOrder->save();
 	}
 
+	public function getById($id)
+	{
+		return WorkOrder::find($id);
+	}
+
 	public function getDetailsById($id)
 	{
 		return WorkOrder::with('handler', 'carrier', 'vesselSchedule', 'containers')
@@ -23,15 +28,10 @@ class WorkOrderRepository {
 				->get();
 	}
 
-	public function getById($id)
-	{
-		return WorkOrder::find($id);
-	}
-
-	public function getByWorkOrderNo($workorder_no)
-	{
-		return WorkOrder::where('workorder_no', $workorder_no)->first();
-	}
+	// public function getByWorkOrderNo($workorder_no)
+	// {
+	// 	return WorkOrder::where('workorder_no', $workorder_no)->first();
+	// }
 
 	public function cancelContainer($workorder_id, $container_id)
 	{

@@ -60,6 +60,8 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
     public function handle($command)
     {
+        // dd($command);
+
         $confirmationIds = [];
         $roles = [];
 
@@ -237,7 +239,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
     public function updateContainer($confirmation)
     {
-        $workorder = $this->workOrderRepository->getByWorkOrderNo($confirmation[2]);
+        $workorder = $this->workOrderRepository->getById($confirmation[2]);
 
         $updateContainer = Container::editAfterConfirmation(
             $confirmation[0],

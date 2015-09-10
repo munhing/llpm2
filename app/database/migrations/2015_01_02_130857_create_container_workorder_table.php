@@ -19,7 +19,7 @@ class CreateContainerWorkorderTable extends Migration {
 			$table->foreign('container_id')->references('id')->on('containers')->onDelete('cascade');
 			$table->integer('workorder_id')->unsigned()->index();
 			$table->foreign('workorder_id')->references('id')->on('workorders')->onDelete('cascade');
-			$talbe->string('movement');
+			$table->string('movement');
 			$table->string('content');
 			$table->string('vehicle');
 			$table->string('lifter');

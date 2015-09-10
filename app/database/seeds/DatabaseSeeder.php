@@ -11,30 +11,30 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-// 		$tables = [
-// 			'vessels',
-// 			'port_users',
-// 			'vessel_schedule',
-// 			'roles',
-// 			'settings',
-// 			'users'
-// 		];
-// 
-// 		DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-// 
-// 		foreach ($tables as $table) {
-// 			DB::table($table)->truncate();
-// 		}
-// 		
-// 		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-// 
-// 		$this->call('PortUserTableSeeder');
-// 		$this->call('VesselTableSeeder');
-// 		$this->call('VesselScheduleTableSeeder');
-// 		$this->call('RoleTableSeeder');
-// 		$this->call('UserTableSeeder');		
-// 		$this->call('SettingsTableSeeder');
-// 		$this->call('ContainerConfirmationProcessTableSeeder');
+		// $tables = [
+		// 	'vessels',
+		// 	'port_users',
+		// 	'vessel_schedule',
+		// 	'roles',
+		// 	'settings',
+		// 	'users'
+		// ];
+
+		// DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+		// foreach ($tables as $table) {
+		// 	DB::table($table)->truncate();
+		// }
+		
+		// DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+		// $this->call('PortUserTableSeeder');
+		// $this->call('VesselTableSeeder');
+		// $this->call('VesselScheduleTableSeeder');
+		// $this->call('RoleTableSeeder');
+		// $this->call('UserTableSeeder');		
+		// $this->call('SettingsTableSeeder');
+		// $this->call('ContainerConfirmationProcessTableSeeder');
 
 		// Do this after the above finish and then determine which vessel id
 $this->call('CargoTableSeeder');	// Set the value for $import_vessel_schedule_id

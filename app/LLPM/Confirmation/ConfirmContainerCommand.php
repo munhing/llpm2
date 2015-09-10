@@ -1,4 +1,5 @@
-<?php namespace LLPM\Confirmation;
+<?php 
+namespace LLPM\Confirmation;
 
 class ConfirmContainerCommand {
 
