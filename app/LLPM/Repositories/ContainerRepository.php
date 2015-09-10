@@ -192,5 +192,14 @@ class ContainerRepository {
 		$container->to_confirm_by = $to_confirm_by;
 		$container->check_point = $check_point;
 		$this->save($container);		
+	}
+
+	public function updateDays($container_id, $days)
+	{	
+		$container = $this->getById($container_id);
+		$container->days_empty = $days['E'];
+		$container->days_laden = $days['L'];
+		$container->days_total = $days['total'];
+		$this->save($container);				
 	}	
 }

@@ -18,7 +18,6 @@ class CreateContainerWorkorderConfirmationTable extends Migration {
 			$table->integer('container_id')->unsigned();
 			$table->string('container_no');
 			$table->integer('workorder_id')->unsigned();
-			$table->integer('workorder_no')->unsigned();
 			$table->integer('container_workorder_id')->unsigned();
 			$table->integer('confirmed_by');		
 			$table->string('role');		

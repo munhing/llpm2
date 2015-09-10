@@ -15,7 +15,6 @@ class CreateWorkordersTable extends Migration {
 		Schema::create('workorders', function(Blueprint $table)
 		{
 			$table->increments('id')->unsigned();
-			$table->integer('workorder_no')->unsigned()->unique();
 			$table->string('movement');
 			$table->timestamp('date');
 			$table->integer('carrier_id');

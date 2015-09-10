@@ -7,6 +7,7 @@ use LLPM\Repositories\ContainerRepository;
 use LLPM\IdGenerator;
 use Carbon\Carbon;
 use Auth;
+use ImportDL;
 
 class IssueImportCargoCommandHandler implements CommandHandler {
 
@@ -36,7 +37,9 @@ class IssueImportCargoCommandHandler implements CommandHandler {
     public function handle($command)
     {
     	// generate DL number
-    	$dl_no = $this->idGenerator->generateImportDlNo();
+    	$importDL = ImportDL::register($command->cargo_id);
+
+    	$dl_no = $importDL->id;
 
     	$cargo = $this->cargoRepository->getById($command->cargo_id);
 

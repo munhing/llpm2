@@ -39,7 +39,7 @@ class Container extends \Eloquent {
 
 	public function workorders()
 	{
-		return $this->belongsToMany('WorkOrder', 'container_workorder', 'container_id', 'workorder_id')->withTimestamps()->withPivot('content', 'vehicle', 'lifter', 'confirmed', 'confirmed_by', 'updated_at');
+		return $this->belongsToMany('WorkOrder', 'container_workorder', 'container_id', 'workorder_id')->withTimestamps()->withPivot('movement', 'content', 'vehicle', 'lifter', 'confirmed', 'confirmed_by', 'updated_at');
 	}		
 
 	public static function register($container_no, $size, $content, $status, $dl_check, $m_content, $import_vessel_schedule_id)

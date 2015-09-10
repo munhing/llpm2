@@ -28,7 +28,7 @@ class CalculateContainerCharges
      */
     public function fire()
     {
-        // 1. Obtain all active containers in the port
+        // 1. Obtain all active containers in the port, those with status 3
         $containers = $this->containerRepository->getAllActive();
 
         // 2. Loop each container
@@ -36,13 +36,15 @@ class CalculateContainerCharges
 
             // 3. Calculate container's days empty and laden
             // this need to create a command of it's own because there will be other class needing this
+            // {"L":11,"E":0,"total":11}
             $days = $this->calculateContainerDays->fire($container);
 
             echo json_encode($days) . "\n";
             
+            // 4. Update DB
+            $this->containerRepository->updateDays($container->id, $days);
         }
-        // 
-        // 4. Update DB
+        
 
    	
 	}    

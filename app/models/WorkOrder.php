@@ -16,7 +16,7 @@ class WorkOrder extends \Eloquent {
 
 	public function containers()
 	{
-		return $this->belongsToMany('Container', 'container_workorder', 'workorder_id', 'container_id')->withTimestamps()->withPivot('content', 'vehicle', 'lifter', 'confirmed', 'confirmed_by', 'updated_at');;
+		return $this->belongsToMany('Container', 'container_workorder', 'workorder_id', 'container_id')->withTimestamps()->withPivot('movement', 'content', 'vehicle', 'lifter', 'confirmed', 'confirmed_by', 'updated_at');;
 	}		
 
 	public function handler()

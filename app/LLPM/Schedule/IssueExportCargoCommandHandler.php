@@ -8,6 +8,7 @@ use LLPM\IdGenerator;
 use Carbon\Carbon;
 use Cargo;
 use Auth;
+use ExportDL;
 
 class IssueExportCargoCommandHandler implements CommandHandler {
 
@@ -35,7 +36,9 @@ class IssueExportCargoCommandHandler implements CommandHandler {
     	//dd($command);
     	//generate DL number
     	// should be done by a specific class
-    	$dl_no = $this->idGenerator->generateExportDlNo();
+    	$exportDL = ExportDL::register($command->cargo_id);
+
+    	$dl_no = $exportDL->id;
 
     	//update import cargo's dl_no
 		// $cargo = Cargo::issue(

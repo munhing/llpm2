@@ -9,7 +9,7 @@ class CargoTableSeeder extends Seeder
 	{
 		$faker = Faker\Factory::create();
 
-		$import_vessel_schedule_id = 27;
+		$import_vessel_schedule_id = 46;
 		$receiving_id = 0;
 
 		for ($i=0;$i<100;$i++) {

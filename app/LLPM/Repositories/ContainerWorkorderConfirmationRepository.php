@@ -17,7 +17,6 @@ class ContainerWorkorderConfirmationRepository {
 			'container_id'=>$container->id,
 			'container_no'=>$container->container_no,
 			'workorder_id'=>$container->workorders->last()->id,
-			'workorder_no'=>$container->workorders->last()->workorder_no,
 			'container_workorder_id'=>$containerConfirmationId,
 			'confirmed_by'=> Auth::user()->id,
 			'role'=> Auth::user()->roles->first()->role,
