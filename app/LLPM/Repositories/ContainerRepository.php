@@ -2,6 +2,7 @@
 
 use Cargo;
 use Container;
+use Carbon\Carbon;
 
 class ContainerRepository {
 
@@ -200,6 +201,7 @@ class ContainerRepository {
 		$container->days_empty = $days['E'];
 		$container->days_laden = $days['L'];
 		$container->days_total = $days['total'];
+		$container->synced_at = Carbon::now();
 		$this->save($container);				
 	}	
 }

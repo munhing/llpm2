@@ -18,6 +18,7 @@ class ImportDL extends \Eloquent {
 	public static function register($cargo_id)
 	{
 		$importDL = new static(compact('cargo_id'));
+		$importDL->save();
 
 		return $importDL;
 	}

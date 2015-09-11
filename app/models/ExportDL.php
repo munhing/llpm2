@@ -18,6 +18,7 @@ class ExportDL extends \Eloquent {
 	public static function register($cargo_id)
 	{
 		$exportDL = new static(compact('cargo_id'));
+		$exportDL->save();
 
 		return $exportDL;
 	}
