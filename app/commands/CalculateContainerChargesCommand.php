@@ -1,11 +1,13 @@
 <?php
 
-use Illuminate\Console\Command;
+use Indatus\Dispatcher\Drivers\Cron\Scheduler;
+use Indatus\Dispatcher\Scheduling\Schedulable;
+use Indatus\Dispatcher\Scheduling\ScheduledCommand;
 use LLPM\Containers\CalculateContainerCharges;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class CalculateContainerChargesCommand extends Command {
+class CalculateContainerChargesCommand extends ScheduledCommand {
 
 	protected $calculateContainerCharges;
 
@@ -35,6 +37,18 @@ class CalculateContainerChargesCommand extends Command {
 		parent::__construct();
 	}
 
+
+	/**
+	 * When a command should run
+	 *
+	 * @param Scheduler $scheduler
+	 * @return \Indatus\Dispatcher\Scheduling\Schedulable
+	 */
+	public function schedule(Schedulable $scheduler)
+	{
+		return $scheduler->everyHours(6);
+	}
+
 	/**
 	 * Execute the console command.
 	 *
@@ -42,6 +56,7 @@ class CalculateContainerChargesCommand extends Command {
 	 */
 	public function fire()
 	{
+		Log::info('Calculate container charges');
 		$this->calculateContainerCharges->fire();
 	}
 

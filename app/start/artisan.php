@@ -12,4 +12,5 @@
 */
 
 Artisan::resolve('CalculateContainerChargesCommand');
+Artisan::add( new TestCron);
 

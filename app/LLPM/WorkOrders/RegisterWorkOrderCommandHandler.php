@@ -46,7 +46,9 @@ class RegisterWorkOrderCommandHandler implements CommandHandler {
         $command->workorder_id = $workOrder->id;
 
         $this->attachedContainersToWorkOrder->handle($command);
-        // $this->updateContainers($command, $workOrder);
+        
+        // calculate storage and handling charges and save it to workorder
+        $this->calculateChargesByWorkOrder($workOrder);
 
 		return $workOrder;    	
     }

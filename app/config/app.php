@@ -128,7 +128,8 @@ return array(
 		'LLPM\Providers\EventServiceProvider',
 		'LLPM\Providers\PusherServiceProvider',
 		'LLPM\Validators\LLPMValidatorServiceProvider',
-		'LLPM\CountryList\CountryListServiceProvider'
+		'LLPM\CountryList\CountryListServiceProvider',
+		'Indatus\Dispatcher\ServiceProvider'
 
 	),
 

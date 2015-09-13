@@ -22,7 +22,9 @@ class CreateWorkordersTable extends Migration {
 			$table->integer('vessel_schedule_id');
 			$table->integer('container_location');
 			$table->integer('container_status');
-			$table->string('who_is_involved');						
+			$table->string('who_is_involved');		
+			$table->decimal('storage_charges', 10, 2);
+			$table->decimal('handling_charges', 10, 2);							
 			$table->timestamps();
 		});
 	}

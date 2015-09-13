@@ -29,8 +29,6 @@ class CreateContainersTable extends Migration {
 			$table->integer('days_empty');
 			$table->integer('days_laden');
 			$table->integer('days_total');
-			$table->decimal('storage_charges', 10, 2);
-			$table->decimal('handling_charges', 10, 2);
 			$table->integer('import_vessel_schedule_id')->unsigned();
 			$table->integer('export_vessel_schedule_id')->unsigned();
 			$table->integer('receiving_id')->unsigned();

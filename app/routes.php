@@ -83,12 +83,32 @@ Route::get('/ctnreport', function () {
 
 
 Route::get('/queue', function () {
+
     Queue::push(function($job){
+    
+        Log::info("Queues are cool!");
+
         $job->delete();
+    
     });
 });
 
 Route::get('/test', function () {
+
+    $feeRepo = new LLPM\Repositories\FeeRepository;
+    $fee = json_decode($feeRepo->getHandlingFee(), true);
+
+    $a = ["20E"=>60, "20L"=>120];
+
+    $calculation = App::make('LLPM\WorkOrders\CalculateChargesByWorkOrder');
+
+    $woRepo = new LLPM\Repositories\WorkOrderRepository;
+
+    $wo = $woRepo->getById(256324);
+
+    $chr = $calculation->fire($wo);
+
+    dd($fee);
 
     // $containerConfirmationProcessRepository = new LLPM\Repositories\ContainerConfirmationProcessRepository;
 
