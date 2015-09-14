@@ -1,16 +1,18 @@
 <?php
 
-use LLPM\Repositories\WorkOrderRepository;
-use LLPM\Repositories\ContainerRepository;
-use LLPM\Repositories\ImportContainerRepository;
-use LLPM\Repositories\VesselScheduleRepository;
-use LLPM\Repositories\PortUserRepository;
-use LLPM\Repositories\ContainerConfirmationRepository;
+use Illuminate\Support\Collection;
 use LLPM\Repositories\CargoRepository;
-
-use LLPM\WorkOrders\RegisterWorkOrderCommand;
-use LLPM\WorkOrders\CancelContainerCommand;
+use LLPM\Repositories\ContainerConfirmationRepository;
+use LLPM\Repositories\ContainerRepository;
+use LLPM\Repositories\FeeRepository;
+use LLPM\Repositories\ImportContainerRepository;
+use LLPM\Repositories\PortUserRepository;
+use LLPM\Repositories\VesselScheduleRepository;
+use LLPM\Repositories\WorkOrderRepository;
 use LLPM\WorkOrders\AttachedContainersToWorkOrderCommand;
+use LLPM\WorkOrders\CalculateChargesByWorkOrder;
+use LLPM\WorkOrders\CancelContainerCommand;
+use LLPM\WorkOrders\RegisterWorkOrderCommand;
 
 class WorkOrderController extends \BaseController {
 
@@ -21,8 +23,20 @@ class WorkOrderController extends \BaseController {
 	protected $portUserRepository;
 	protected $containerConfirmationRepository;
 	protected $cargoRepository;
+	protected $calculateChargesByWorkOrder;
+	protected $feeRepository;
 
-	function __construct(WorkOrderRepository $workOrderRepository, ContainerRepository $containerRepository, ImportContainerRepository $importContainerRepository, VesselScheduleRepository $vesselScheduleRepository, PortUserRepository $portUserRepository, ContainerConfirmationRepository $containerConfirmationRepository, CargoRepository $cargoRepository)
+	function __construct(
+		WorkOrderRepository $workOrderRepository, 
+		ContainerRepository $containerRepository, 
+		ImportContainerRepository $importContainerRepository, 
+		VesselScheduleRepository $vesselScheduleRepository, 
+		PortUserRepository $portUserRepository, 
+		ContainerConfirmationRepository $containerConfirmationRepository, 
+		CargoRepository $cargoRepository,
+		CalculateChargesByWorkOrder $calculateChargesByWorkOrder,
+		FeeRepository $feeRepository
+	)
 	{
 		$this->workOrderRepository = $workOrderRepository;
 		$this->containerRepository = $containerRepository;
@@ -31,6 +45,8 @@ class WorkOrderController extends \BaseController {
 		$this->portUserRepository = $portUserRepository;
 		$this->containerConfirmationRepository = $containerConfirmationRepository;
 		$this->cargoRepository = $cargoRepository;
+		$this->calculateChargesByWorkOrder = $calculateChargesByWorkOrder;
+		$this->feeRepository = $feeRepository;
 	}
 
 	/**
@@ -250,6 +266,70 @@ class WorkOrderController extends \BaseController {
 		return View::make('workorders/generate_workorder', compact('workOrder', 'handler', 'carrier', 'movement', 'content'));
 	}
 
+	public function generate_handling($workorder_id)
+	{
+
+		$workOrder = $this->workOrderRepository->getDetailsById($workorder_id);
+		$handler = $this->portUserRepository->getById($workOrder->handler_id);
+		$fees = json_decode($this->feeRepository->getHandlingFee(), true);
+		$containerList = new Collection;
+		$total_charges = 0;
+
+		// dd($fees);
+
+		if($workOrder->movement == 'HI') {
+			$carrierObj = $this->vesselScheduleRepository->getById($workOrder->vessel_schedule_id);
+			$carrier = $carrierObj->vessel->name . ' v.' . $carrierObj->voyage_no_arrival;
+
+		} elseif($workOrder->movement == 'HE') {
+			$carrierObj = $this->vesselScheduleRepository->getById($workOrder->vessel_schedule_id);
+			$carrier = $carrierObj->vessel->name . ' v.' . $carrierObj->voyage_no_departure;
+
+		} else {
+			$carrier = $this->portUserRepository->getById($workOrder->carrier_id)->name;
+		}
+
+		// dd($carrierObj->vessel->name);
+		// dd($carrier);
+
+		$movement['HI'] = 'Haulage Import';
+		$movement['HE'] = 'Haulage Export';
+		// $movement['RI-1'] = 'Remove In (CY1)';
+		$movement['RI-1'] = 'Remove In to CY1';
+		$movement['RI-3'] = 'Remove In to CY3';
+		// $movement['RI-3'] = 'Remove In (CY3)';
+		// $movement['RO-1'] = 'Remove Out (CY1)';
+		$movement['RO-1'] = 'Remove Out from CY1';
+		// $movement['RO-3'] = 'Remove Out (CY3)';
+		$movement['RO-3'] = 'Remove Out from CY3';
+		$movement['TF-3-1'] = 'Transfer to CY1';
+		$movement['TF-1-3'] = 'Transfer to CY3';
+		$movement['US'] = 'Unstuffing';
+		$movement['ST'] = 'Stuffing';
+
+		$content['E'] = 'Empty';
+		$content['L'] = 'Laden';
+
+		foreach($workOrder->containers as $container) {
+			$getFeeType = $container->size . $container->content;
+			$fee = $fees[$getFeeType];
+			$total_charges += $fee;
+
+			$newContainer = $container->toArray();
+			$newContainer['handling'] = $fee;
+
+			$containerList->push($newContainer);
+		}
+
+		// dd($containerList);
+		//dd($workOrder);
+		//$containersConfirmation = $this->containerConfirmationRepository->getByWorkOrderId($id);
+
+		//dd($workOrder->containers->toArray());
+
+		//dd($containersConfirmation->first()->container->container_no);
+		return View::make('workorders/generate_handling', compact('containerList', 'workOrder', 'handler', 'carrier', 'movement', 'content', 'total_charges'));
+	}
 	/**
 	 * Show the form for editing the specified resource.
 	 * GET /workorder/{id}/edit
@@ -384,5 +464,15 @@ class WorkOrderController extends \BaseController {
 		Flash::success("Work Order $workorder->workorder_no successfully updated!");
 
 		return Redirect::route('workorders.show', $workorder_id);			
-	}	
+	}
+
+	public function recalculate($workorder_id)
+	{
+		// dd($workorder_id);
+		$workorder = $this->workOrderRepository->getById($workorder_id);
+		$this->calculateChargesByWorkOrder->fire($workorder);
+
+		return Redirect::route('workorders.show', $workorder_id);
+
+	}
 }

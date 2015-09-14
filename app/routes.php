@@ -681,6 +681,16 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
                 'uses' => 'WorkOrderController@generate_workorder',
             ]);
 
+            Route::get('{id}/generate/handling', [
+                'as' => 'workorders.generate.handling',
+                'uses' => 'WorkOrderController@generate_handling',
+            ]);
+
+            Route::get('{id}/recalculate', [
+                'as' => 'workorders.recalculate',
+                'uses' => 'WorkOrderController@recalculate',
+            ]);
+
             Route::post('{id}', [
                 'as' => 'workorders.show',
                 'uses' => 'WorkOrderController@cancelContainer',

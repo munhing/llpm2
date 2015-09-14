@@ -1,9 +1,12 @@
-<?php namespace LLPM\WorkOrders;
+<?php 
+
+namespace LLPM\WorkOrders;
 
 use Laracasts\Commander\CommandHandler;
 use Laracasts\Commander\Events\DispatchableTrait;
 use LLPM\Repositories\WorkOrderRepository;
 use LLPM\Repositories\ContainerRepository;
+use LLPM\WorkOrders\CalculateChargesByWorkOrder;
 
 class CancelContainerCommandHandler implements CommandHandler {
 
@@ -11,11 +14,16 @@ class CancelContainerCommandHandler implements CommandHandler {
 
 	protected $workOrderRepository;
 	protected $containerRepository;
+    protected $calculateChargesByWorkOrder;
 
-	function __construct(WorkOrderRepository $workOrderRepository, ContainerRepository $containerRepository)
+	function __construct(
+        WorkOrderRepository $workOrderRepository, 
+        ContainerRepository $containerRepository, 
+        calculateChargesByWorkOrder $calculateChargesByWorkOrder)
 	{
 		$this->workOrderRepository = $workOrderRepository;
 		$this->containerRepository = $containerRepository;
+        $this->calculateChargesByWorkOrder = $calculateChargesByWorkOrder;
 	}
 
     /**
@@ -36,7 +44,11 @@ class CancelContainerCommandHandler implements CommandHandler {
         if($workorder) {
             $container = $this->updateContainer($command->container_id);
         }
-		
+
+		// Calculate again the handling and storage charges
+        $workorder = $this->workOrderRepository->getById($command->workorder_id); 
+        $this->calculateChargesByWorkOrder->fire($workorder);
+
 		return $container;    	
     }
 

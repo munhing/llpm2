@@ -42,6 +42,10 @@
 					
 					<div class="actions">
 
+						<a href="{{ URL::route('workorders.recalculate', $workOrder->id) }}" class="btn btn-default btn-sm">
+							<i class="fa fa-calculator"></i> Recalculate
+						</a>
+
 						<a href="{{ URL::route('workorders.generate', $workOrder->id) }}" class="btn btn-default btn-sm" target="_blank">
 							<i class="fa fa-file-text-o"></i> View 
 						</a>
@@ -100,6 +104,25 @@
 							{{ $workOrder->getCarrier() }}
 						</div>						
 					</div>
+					<div class="row static-info">
+						<div class="col-md-3 name">
+							Storage Charges:
+						</div>
+						<div class="col-md-9 value">
+							{{ number_format($workOrder->storage_charges, 2) }}
+						</div>						
+					</div>
+					<div class="row static-info">
+						<div class="col-md-3 name">
+							Handling Charges:
+						</div>
+						<div class="col-md-9 value">
+							{{ number_format($workOrder->handling_charges, 2) }}
+							<a href="{{ URL::route('workorders.generate.handling', $workOrder->id) }}" class="btn btn-default btn-sm" target="_blank">
+								Details
+							</a>
+						</div>						
+					</div>					
 				</div>
 			</div>
 		</div>

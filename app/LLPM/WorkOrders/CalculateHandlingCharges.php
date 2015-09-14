@@ -20,6 +20,11 @@ class CalculateHandlingCharges
 	{
 		$charges = 0;
 
+		// return 0 if there's no containers attached to the workorder
+		if(count($workorder->containers) == 0) {
+			return 0;
+		}
+
 		foreach($workorder->containers as $container) {
 			$charges += $this->getCharge($container);
 		}

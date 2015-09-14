@@ -5,6 +5,7 @@ namespace LLPM\WorkOrders;
 use Illuminate\Support\MessageBag;
 use LLPM\Repositories\ContainerRepository;
 use LLPM\Repositories\WorkOrderRepository;
+use LLPM\WorkOrders\CalculateChargesByWorkOrder;
 use Laracasts\Commander\CommandHandler;
 use Laracasts\Commander\Events\DispatchableTrait;
 
@@ -17,16 +18,19 @@ class AttachedContainersToWorkOrderCommandHandler implements CommandHandler {
     protected $messages;
 	protected $registeredContainers = [];
     protected $workOrderRepository;
+    protected $calculateChargesByWorkOrder;
 
 	function __construct(
         ContainerRepository $containerRepository, 
         MessageBag $messages, 
-        WorkOrderRepository $workOrderRepository
+        WorkOrderRepository $workOrderRepository,
+        CalculateChargesByWorkOrder $calculateChargesByWorkOrder
     )
 	{
 		$this->containerRepository = $containerRepository;
         $this->messages = $messages;
         $this->workOrderRepository = $workOrderRepository;
+        $this->calculateChargesByWorkOrder = $calculateChargesByWorkOrder;
 	}
 
     /**
@@ -75,6 +79,10 @@ class AttachedContainersToWorkOrderCommandHandler implements CommandHandler {
 
             $ctn->save();
         }
+
+        // recalculate storage and handling charges
+        $workOrder = $this->workOrderRepository->getById($command->workorder_id);
+        $this->calculateChargesByWorkOrder->fire($workOrder);
 
         return $workOrder;
     }
