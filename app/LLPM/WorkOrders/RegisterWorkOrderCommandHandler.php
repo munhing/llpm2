@@ -10,6 +10,7 @@ use LLPM\Repositories\ContainerConfirmationProcessRepository;
 use WorkOrder;
 use App;
 use LLPM\WorkOrders\AttachedContainersToWorkOrderCommandHandler;
+use LLPM\WorkOrders\CalculateChargesByWorkOrder;
 
 class RegisterWorkOrderCommandHandler implements CommandHandler {
 
@@ -19,18 +20,21 @@ class RegisterWorkOrderCommandHandler implements CommandHandler {
     protected $containerRepository;
 	protected $containerConfirmationProcessRepository;
     protected $attachedContainersToWorkOrder;
+    protected $calculateChargesByWorkOrder;
 
 	function __construct(
         WorkOrderRepository $workOrderRepository, 
         ContainerRepository $containerRepository, 
         ContainerConfirmationProcessRepository $containerConfirmationProcessRepository,
-        AttachedContainersToWorkOrderCommandHandler $attachedContainersToWorkOrder
+        AttachedContainersToWorkOrderCommandHandler $attachedContainersToWorkOrder,
+        CalculateChargesByWorkOrder $calculateChargesByWorkOrder
     )
 	{
 		$this->workOrderRepository = $workOrderRepository;
         $this->containerRepository = $containerRepository;
 		$this->containerConfirmationProcessRepository = $containerConfirmationProcessRepository;
         $this->attachedContainersToWorkOrder = $attachedContainersToWorkOrder;
+        $this->calculateChargesByWorkOrder = $calculateChargesByWorkOrder;
 	}
 
     /**
@@ -48,7 +52,7 @@ class RegisterWorkOrderCommandHandler implements CommandHandler {
         $this->attachedContainersToWorkOrder->handle($command);
         
         // calculate storage and handling charges and save it to workorder
-        $this->calculateChargesByWorkOrder($workOrder);
+        $this->calculateChargesByWorkOrder->fire($workOrder);
 
 		return $workOrder;    	
     }

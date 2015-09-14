@@ -16,4 +16,8 @@ class FeeRepository {
 		return Fee::where('type','handling')->first()->fee;
 	}
 
+	public function getStorageFee()
+	{
+		return Fee::where('type','storage')->first()->fee;
+	}
 }

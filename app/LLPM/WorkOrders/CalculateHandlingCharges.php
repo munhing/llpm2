@@ -7,11 +7,13 @@ use LLPM\Repositories\FeeRepository;
 class CalculateHandlingCharges		
 {
 	protected $feeRepository;
+	protected $fees;
 
 	public function __construct(FeeRepository $feeRepository)
 	{
 		
 		$this->feeRepository = $feeRepository;
+		$this->fees = $this->getFees();
 	}
 
 	public function fire($workorder)
@@ -28,31 +30,32 @@ class CalculateHandlingCharges
 	public function getCharge($container)	
 	{
 		// get handling fees
-		$fees = $this->getFees();
+		// $fees = $this->getFees();
 
 		if($container->size == 20) {
 			if($container->content == 'E') {
-				return $fees['20E'];
+				return $this->fees['20E'];
 			}
 
 			if($container->content == 'L') {
-				return $fees['20L'];
+				return $this->fees['20L'];
 			}
 		}
 
 		if($container->size == 40) {
 			if($container->content == 'E') {
-				return $fees['40E'];
+				return $this->fees['40E'];
 			}
 
 			if($container->content == 'L') {
-				return $fees['40L'];
+				return $this->fees['40L'];
 			}
 		}
 	}
 
 	public function getFees()
 	{
-		return json_decode($this->feeRepository->getHandlingFee(), true);
+		// {"20E":, "20L":, "40E":, "40L":}
+		return json_decode($this->feeRepository->getHandlingFee(), true); // arg true is to convert to array instead of object
 	}
 }

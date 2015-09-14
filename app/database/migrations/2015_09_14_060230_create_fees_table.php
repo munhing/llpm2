@@ -18,6 +18,7 @@ class CreateFeesTable extends Migration {
 			$table->string('type'); // storage or handling
 			$table->string('fee'); // store in json format
 			$table->timestamp('effective_date'); // effective from when
+			$table->timestamp('end_date');
 			$table->timestamps();
 		});
 	}
