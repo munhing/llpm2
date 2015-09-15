@@ -50,28 +50,44 @@
 							<th></th>
 							<th>Container #</th>
 							<th>Size</th>
-							<th>E/L</th>
 							<th>Work Order #</th>
 							<th>Movement</th>
+							<th>CP1</th>
+							<th>CP2</th>
+							<th>CP3</th>
+							<th>CP4</th>
+							<th>Carrier</th>
+							<th>Lifter</th>
+							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
+						<?php $i=1;?>
 						@foreach($containers as $container)
+                		<?php $movement =  $container->workorders->last()->movement; ?>
+                		<?php $id = $container->id . ',' . $container->content . ',' . $container->current_movement . ',' . $movement; ?>
+
 						<tr>
-							<td>{{ Form::checkbox('confirmationId[]', $container->id . '-' . $container->content . '-' . $container->current_movement . '-' . $container->workorders->last()->movement) }}</td>
+							<td>{{ $i++ }}</td>
 							<td>{{ $container->container_no }}</td>
-							<td>{{ $container->size }}</td>
-							<td>{{ $container->content }}</td>
+							<td>{{ $container->size . $container->content }}</td>
 							<td>{{ $container->current_movement }}</td>
-							<td>{{ $container->workorders->last()->movement }}</td>
+							<td>{{ $movement }}</td>
+                    		<td class="{{ $check_points[$movement]->cp1 == $container->to_confirm_by ? 'cp':'' }}">{{ $check_points[$movement]->cp1 }}</td>
+                    		<td class="{{ $check_points[$movement]->cp2 == $container->to_confirm_by ? 'cp':'' }}">{{ $check_points[$movement]->cp2 }}</td>
+                    		<td class="{{ $check_points[$movement]->cp3 == $container->to_confirm_by ? 'cp':'' }}">{{ $check_points[$movement]->cp3 }}</td>
+                    		<td class="{{ $check_points[$movement]->cp4 == $container->to_confirm_by ? 'cp':'' }}">{{ $check_points[$movement]->cp4 }}</td>
+		                    <td>{{ $container->workorders->last()->pivot->vehicle }}</td>
+		                    <td>{{ $container->workorders->last()->pivot->lifter }}</td>
+							<td>
+								<button type="submit" id="register-submit-btn" class="btn blue">
+								Confirm <i class="m-icon-swapright m-icon-white"></i>
+								</button>								
+							</td>
 						</tr>
 						@endforeach
 					</tbody>
 				</table>
-
-				<button type="submit" id="register-submit-btn" class="btn blue">
-				Confirm <i class="m-icon-swapright m-icon-white"></i>
-				</button>
 
 			{{ Form::close() }}
 
@@ -79,6 +95,32 @@
 	</div>
 </div>
 
+<div class="modal fade edit-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+                <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title">Edit</h4>
+                </div>
+          <div class="modal-body">
+                <form class="form-edit">
+                      <div class="form-group">
+                             {{ Form::label('carrier','Carrier') }}
+                             {{ Form::text('carrier','', ['id'=>'carrier', 'class'=>'form-control']) }}
+                      </div>
+                      <div class="form-group">
+                             {{ Form::label('lifter','Lifter') }}
+                             {{ Form::text('lifter','', ['id'=>'lifter', 'class'=>'form-control']) }}
+                      </div>                          
+                      <button class="btn btn-lg btn-success btn-block edit-btn">
+                            Save
+                      </button>                  
+                </form>
+          </div>
+
+          </div>
+    </div>
+</div>
 
 @stop
 

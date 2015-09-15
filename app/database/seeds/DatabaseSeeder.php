@@ -17,7 +17,11 @@ class DatabaseSeeder extends Seeder {
 		// 	'vessel_schedule',
 		// 	'roles',
 		// 	'settings',
-		// 	'users'
+		// 	'users',
+  //           'container_confirmation_process',
+  //           'fees',
+  //           'cargoes',
+  //           'containers'
 		// ];
 
 		// DB::statement('SET FOREIGN_KEY_CHECKS=0;');
@@ -35,13 +39,14 @@ class DatabaseSeeder extends Seeder {
 		// $this->call('UserTableSeeder');		
 		// $this->call('SettingsTableSeeder');
 		// $this->call('ContainerConfirmationProcessTableSeeder');
-		$this->call('FeesTableSeeder');
+		// $this->call('FeesTableSeeder');
+        // $this->call('UpdateAutoIncrement');
 
-		// Do this after the above finish and then determine which vessel id
-// $this->call('CargoTableSeeder');	// Set the value for $import_vessel_schedule_id
-// $this->call('ContainerTableSeeder'); // Set the value for $import_vessel_schedule_id
-// $this->call('AttachContainerToCargoSeeder'); // Set the value for $import_vessel_schedule_id
-		
+		// // Do this after the above finish and then determine which vessel id
+        // $this->call('CargoTableSeeder');	// Set the value for $import_vessel_schedule_id
+        // $this->call('ContainerTableSeeder'); // Set the value for $import_vessel_schedule_id
+        // $this->call('AttachContainerToCargoSeeder'); // Set the value for $import_vessel_schedule_id
+        // $this->call('UpdateSchedule'); // Set the value for $import_vessel_schedule_id
 	}
 
 }

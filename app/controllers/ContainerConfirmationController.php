@@ -2,6 +2,7 @@
 
 use LLPM\Repositories\ContainerRepository;
 use LLPM\Repositories\ContainerConfirmationRepository;
+use LLPM\Repositories\ContainerConfirmationProcessRepository;
 
 use LLPM\Confirmation\ConfirmContainerCommand;
 
@@ -9,11 +10,17 @@ class ContainerConfirmationController extends \BaseController {
 
 	protected $containerRepository;
 	protected $containerConfirmationRepository;
+	protected $containerConfirmationProcessRepository;
 
-	function __construct(ContainerRepository $containerRepository, ContainerConfirmationRepository $containerConfirmationRepository)
+	function __construct(
+		ContainerRepository $containerRepository, 
+		ContainerConfirmationRepository $containerConfirmationRepository,
+		ContainerConfirmationProcessRepository $containerConfirmationProcessRepository
+	)
 	{
 		$this->containerRepository = $containerRepository;
 		$this->containerConfirmationRepository = $containerConfirmationRepository;
+		$this->containerConfirmationProcessRepository = $containerConfirmationProcessRepository;
 	}
 
 	/**
@@ -24,16 +31,20 @@ class ContainerConfirmationController extends \BaseController {
 	 */
 	public function index()
 	{
-		//$confirmationIds = $this->containerConfirmationRepository->getAll();
+		$check_points = [];
 		$containers = $this->containerRepository->getContainersToConfirm();
+		$cp = $this->containerConfirmationProcessRepository->getAllProcesses();
 
+		foreach ($cp as $key => $value) {
+			$check_points[$value->movement] = $value;
+		}
 		// foreach($containers as $container) {
 		// 	var_dump($container->workorders->last()->toArray());
 		// }
 
 		// die();
 
-		return View::make('container_confirmation/index', compact('containers'));
+		return View::make('container_confirmation/index', compact('containers', 'check_points'));
 
 	}
 

@@ -42,6 +42,12 @@ License: You must have a valid license purchased only from themeforest(the above
 <link href="{{ URL::asset('assets/admin/layout/css/layout.css') }}" rel="stylesheet" type="text/css"/>
 <link href="{{ URL::asset('assets/admin/layout/css/themes/blue.css') }}" rel="stylesheet" type="text/css" id="style_color"/>
 <link href="{{ URL::asset('assets/admin/layout/css/custom.css') }}" rel="stylesheet" type="text/css"/>
+<style>
+    .cp {
+        background-color:#337ab7;
+        color: white;
+    }
+</style>
 <!-- END THEME STYLES -->
 <!-- <link rel="shortcut icon" href="favicon.ico"/> -->
 </head>
