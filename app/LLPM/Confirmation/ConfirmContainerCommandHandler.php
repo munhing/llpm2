@@ -4,16 +4,17 @@ namespace LLPM\Confirmation;
 
 use App;
 use Auth;
+use Carbon\Carbon;
 use Container;
 use ContainerConfirmation;
-use Laracasts\Commander\CommandHandler;
-use Laracasts\Commander\Events\DispatchableTrait;
 use LLPM\Repositories\CargoRepository;
 use LLPM\Repositories\ContainerConfirmationProcessRepository;
 use LLPM\Repositories\ContainerConfirmationRepository;
 use LLPM\Repositories\ContainerRepository;
 use LLPM\Repositories\ContainerWorkorderConfirmationRepository;
 use LLPM\Repositories\WorkOrderRepository;
+use Laracasts\Commander\CommandHandler;
+use Laracasts\Commander\Events\DispatchableTrait;
 
 class ConfirmContainerCommandHandler implements CommandHandler
 {
@@ -68,6 +69,10 @@ class ConfirmContainerCommandHandler implements CommandHandler
         $a_cons = json_decode($command->a_confirmation);
         $a_car = json_decode($command->a_carrier);
         $a_lif = json_decode($command->a_lifter);
+        $operator = $this->getOperator($command);
+        $confirmed_at = $this->getTime($command);
+
+        // dd($a_ope);
 
         foreach ($a_cons as $key => $confirmation) {
             $confirmationIds[] = explode(',', $confirmation);
@@ -85,7 +90,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
             // get confirmation details
 
             // confirm at checkpoint
-            $ctn = $this->confirmAtCheckPoint($confirmation);
+            $ctn = $this->confirmAtCheckPoint($confirmation, $operator, $confirmed_at);
 
             // update check point
             $cp = $this->updateCheckPoint($ctn, $confirmation);
@@ -135,6 +140,28 @@ class ConfirmContainerCommandHandler implements CommandHandler
         //return $confirmation;
     }
 
+    public function getOperator($command)
+    {
+        // dd($command->a_operator);
+        if($command->a_operator === 0) {
+            return Auth::user()->id;
+        }
+
+        return (int)json_decode($command->a_operator)[0];
+    }
+
+    public function getTime($command)
+    {
+        // dd($command->a_operator);
+        if($command->a_confirmed_at == '') {
+            return Carbon::now();
+        }
+
+        return Carbon::createFromFormat('H:i', json_decode($command->a_confirmed_at)[0]);
+
+    }
+       
+
     public function triggerPusher($to_confirm_by, $containers)
     {
 
@@ -142,14 +169,14 @@ class ConfirmContainerCommandHandler implements CommandHandler
         $pusher->trigger('LLPM', $to_confirm_by, json_encode($containers));
     }
 
-    public function confirmAtCheckPoint($confirmation)
+    public function confirmAtCheckPoint($confirmation, $operator, $confirmed_at)
     {
         // dd($confirmation);
         $ctn = $this->containerRepository->getById($confirmation[0]);
         // dd($ctn->toArray());
 
         //save to container_workorder_confirmation
-        $this->containerWorkorderConfirmationRepository->confirmationEntry($ctn);
+        $this->containerWorkorderConfirmationRepository->confirmationEntry($ctn, $operator, $confirmed_at);
 
         return $ctn;
     }

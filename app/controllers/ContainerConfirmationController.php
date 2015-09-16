@@ -1,5 +1,6 @@
 <?php
 
+use LLPM\Forms\ContainerConfirmationForm;
 use LLPM\Repositories\ContainerRepository;
 use LLPM\Repositories\ContainerConfirmationRepository;
 use LLPM\Repositories\ContainerConfirmationProcessRepository;
@@ -11,16 +12,19 @@ class ContainerConfirmationController extends \BaseController {
 	protected $containerRepository;
 	protected $containerConfirmationRepository;
 	protected $containerConfirmationProcessRepository;
+	protected $containerConfirmationForm;
 
 	function __construct(
 		ContainerRepository $containerRepository, 
 		ContainerConfirmationRepository $containerConfirmationRepository,
-		ContainerConfirmationProcessRepository $containerConfirmationProcessRepository
+		ContainerConfirmationProcessRepository $containerConfirmationProcessRepository,
+		ContainerConfirmationForm $containerConfirmationForm
 	)
 	{
 		$this->containerRepository = $containerRepository;
 		$this->containerConfirmationRepository = $containerConfirmationRepository;
 		$this->containerConfirmationProcessRepository = $containerConfirmationProcessRepository;
+		$this->containerConfirmationForm = $containerConfirmationForm;
 	}
 
 	/**
@@ -106,13 +110,19 @@ class ContainerConfirmationController extends \BaseController {
 		//dd(Input::all());
 		$input = Input::all();
 
-		if(! isset($input['confirmationId'])) {
+		$this->containerConfirmationForm->validate($input);
 
-			Flash::error("No containers selected!");
-			return Redirect::back();			
-		}
 
-		$this->execute(ConfirmContainerCommand::class, $input);
+        function jsonify($value)
+        {
+            return json_encode([$value]);
+        }
+
+        $jsonInput = array_map("jsonify", $input);
+
+		// dd($jsonInput);    
+
+		$this->execute(ConfirmContainerCommand::class, $jsonInput);
 
 		//dd($confirmation);
 

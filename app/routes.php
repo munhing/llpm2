@@ -95,20 +95,27 @@ Route::get('/queue', function () {
 
 Route::get('/test', function () {
 
-    $feeRepo = new LLPM\Repositories\FeeRepository;
-    $fee = json_decode($feeRepo->getHandlingFee(), true);
+    $time = '21:56';
 
-    $a = ["20E"=>60, "20L"=>120];
+    $dt = Carbon\Carbon::createFromFormat('H:i', $time);
 
-    $calculation = App::make('LLPM\WorkOrders\CalculateChargesByWorkOrder');
+    dd($dt);
 
-    $woRepo = new LLPM\Repositories\WorkOrderRepository;
 
-    $wo = $woRepo->getById(256324);
+    // $feeRepo = new LLPM\Repositories\FeeRepository;
+    // $fee = json_decode($feeRepo->getHandlingFee(), true);
 
-    $chr = $calculation->fire($wo);
+    // $a = ["20E"=>60, "20L"=>120];
 
-    dd($fee);
+    // $calculation = App::make('LLPM\WorkOrders\CalculateChargesByWorkOrder');
+
+    // $woRepo = new LLPM\Repositories\WorkOrderRepository;
+
+    // $wo = $woRepo->getById(256324);
+
+    // $chr = $calculation->fire($wo);
+
+    // dd($fee);
 
     // $containerConfirmationProcessRepository = new LLPM\Repositories\ContainerConfirmationProcessRepository;
 
@@ -356,6 +363,11 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
             'as' => 'permissions',
             'uses' => 'UsersController@indexPermission',
         ]);
+
+        Route::get('find', [
+            'as' => 'users.find',
+            'uses' => 'UsersController@getUsersByRole',
+        ]);        
     });
 
 /*

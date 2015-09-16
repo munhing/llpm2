@@ -3,6 +3,7 @@
 @section('page_level_styles')
 <!-- BEGIN PAGE LEVEL STYLES -->
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/global/plugins/bootstrap-datepicker/css/datepicker3.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}"/>
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/global/plugins/select2/select2.css') }}"/>
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css') }}"/>
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css') }}"/>
@@ -41,9 +42,6 @@
 	</div>
 	<div class="portlet-body">
 		<div class="table-responsive">
-
-			{{ Form::open() }}
-
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
@@ -66,7 +64,6 @@
 						@foreach($containers as $container)
                 		<?php $movement =  $container->workorders->last()->movement; ?>
                 		<?php $id = $container->id . ',' . $container->content . ',' . $container->current_movement . ',' . $movement; ?>
-
 						<tr>
 							<td>{{ $i++ }}</td>
 							<td>{{ $container->container_no }}</td>
@@ -80,59 +77,65 @@
 		                    <td>{{ $container->workorders->last()->pivot->vehicle }}</td>
 		                    <td>{{ $container->workorders->last()->pivot->lifter }}</td>
 							<td>
-								<button type="submit" id="register-submit-btn" class="btn blue">
-								Confirm <i class="m-icon-swapright m-icon-white"></i>
-								</button>								
+	                            <button class='btn btn-sm btn-primary' type='button' data-toggle="modal" data-target="#formModal" data-confirmation-id="{{$id}}" data-cp="{{ $container->to_confirm_by }}" data-carrier="{{ $container->workorders->last()->pivot->vehicle }}" data-lifter="{{ $container->workorders->last()->pivot->lifter }}">
+	                                Confirm
+	                            </button>								
 							</td>
 						</tr>
 						@endforeach
 					</tbody>
 				</table>
-
-			{{ Form::close() }}
-
 		</div>
 	</div>
 </div>
 
-<div class="modal fade edit-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+
+<div class="modal fade edit-modal-sm" id="formModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
     <div class="modal-dialog modal-sm">
           <div class="modal-content">
                 <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                       <h4 class="modal-title">Edit</h4>
                 </div>
-          <div class="modal-body">
-                <form class="form-edit">
-                      <div class="form-group">
-                             {{ Form::label('carrier','Carrier') }}
-                             {{ Form::text('carrier','', ['id'=>'carrier', 'class'=>'form-control']) }}
-                      </div>
-                      <div class="form-group">
-                             {{ Form::label('lifter','Lifter') }}
-                             {{ Form::text('lifter','', ['id'=>'lifter', 'class'=>'form-control']) }}
-                      </div>                          
-                      <button class="btn btn-lg btn-success btn-block edit-btn">
-                            Save
-                      </button>                  
-                </form>
-          </div>
-
+                <div class="modal-body">
+                        {{ Form::open() }}                    
+                        {{ Form::hidden('a_confirmation','', ['id'=>'a_confirmation']) }}
+                          <div class="form-group">
+                                 {{ Form::label('operator','Operator In Charge') }}
+                                 {{ Form::select('a_operator', [], 0, ['class' => 'form-control select2me', 'placeholder' => 'Select Operator', 'id'=>'a_operator', 'spinner']) }}
+                          </div>                                      
+                          <div class="form-group">
+                                 {{ Form::label('confirmed_at','Confirmed At') }}
+                                 {{ Form::text('a_confirmed_at','', ['id'=>'a_confirmed_at', 'class'=>'form-control']) }}
+                          </div>                       
+                          <div class="form-group">
+                                 {{ Form::label('carrier','Carrier') }}
+                                 {{ Form::text('a_carrier','', ['id'=>'a_carrier', 'class'=>'form-control']) }}
+                          </div>
+                          <div class="form-group">
+                                 {{ Form::label('lifter','Lifter') }}
+                                 {{ Form::text('a_lifter','', ['id'=>'a_lifter', 'class'=>'form-control']) }}
+                          </div>                          
+                          <button class="btn btn-lg btn-success btn-block edit-btn">
+                                Confirm
+                          </button>
+                        {{ Form::close() }}
+                </div>
           </div>
     </div>
 </div>
+
 
 @stop
 
 @section('page_level_plugins')
 
-@{{<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/select2/select2.min.js') }}"></script>}}
+<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js') }}"></script>
-@{{ <script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js') }}"></script> }}
-@{{ <script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js') }}"></script> }}
 <script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
 
 
 @stop
@@ -147,4 +150,53 @@
 @section('scripts')
 	//TableAdvanced.init();
 	ComponentsPickers.init();
+
+	jQuery(document).ready(function(){
+
+		$('#formModal').on('show.bs.modal', function (event) {
+		
+			var button = $(event.relatedTarget); // Button that triggered the modal
+			var confirmation_id = button.data('confirmation-id'); // Extract info from data-* attributes
+            var cp = button.data('cp'); // Extract info from data-* attributes
+            var carrier = button.data('carrier'); // Extract info from data-* attributes
+			var lifter = button.data('lifter'); // Extract info from data-* attributes
+			// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+			// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+			var modal = $(this);
+            modal.find('#a_confirmation').val(confirmation_id);
+            modal.find('#a_carrier').val(carrier);
+			modal.find('#a_lifter').val(lifter);
+
+			$.ajax({
+				url: '{{ route('users.find') }}',
+				dataType: 'json',
+			    type: 'GET',
+			    data: {'cp': cp }, // need to provide current check point
+			    success: function(data) {
+			    	console.log(data);
+
+                    $('#a_operator').select2('data', null); // clear the current elements in select box
+					$('#a_operator').empty(); // clear the current elements in select box
+
+					for (row in data) {
+						$('#a_operator').append($('<option></option>').attr('value', data[row].id).text(data[row].name));
+					}
+
+					// console.log(options);
+
+			    },
+			    error: function(jqXHR, textStatus, errorThrown) {
+			        alert(errorThrown);
+			    }
+			});		  
+		})
+
+        $('#a_confirmed_at').timepicker({
+            autoclose: true,
+            minuteStep: 1,
+            showMeridian: false
+        });
+
+
+    });
 @stop

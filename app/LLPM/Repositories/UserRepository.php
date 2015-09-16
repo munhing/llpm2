@@ -1,4 +1,6 @@
-<?php namespace LLPM\Repositories;
+<?php 
+
+namespace LLPM\Repositories;
 
 use User;
 

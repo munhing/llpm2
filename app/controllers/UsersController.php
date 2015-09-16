@@ -16,7 +16,13 @@ class UsersController extends \BaseController {
 	private $roleRepository;
 	private $permissionRepository;
 
-	function __construct(UserForm $userForm, RoleForm $roleForm, UserRepository $userRepository, RoleRepository $roleRepository, PermissionRepository $permissionRepository)
+	function __construct(
+		UserForm $userForm, 
+		RoleForm $roleForm, 
+		UserRepository $userRepository, 
+		RoleRepository $roleRepository, 
+		PermissionRepository $permissionRepository
+	)
 	{
 		$this->userForm = $userForm;
 		$this->roleForm = $roleForm;		
@@ -125,5 +131,13 @@ class UsersController extends \BaseController {
 	{
 		$permissions = $this->permissionRepository->getAll();
 		return View::make('users/index_permission', compact('permissions'));
+	}
+
+	public function getUsersByRole()
+	{
+		$role = Input::get('cp');
+		$users = $this->roleRepository->getByRole($role)->users;
+
+		return $users->toJson();
 	}
 }

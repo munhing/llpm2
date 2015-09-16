@@ -6,14 +6,24 @@ class ConfirmContainerCommand {
 	public $a_confirmation;
 	public $a_carrier;
 	public $a_lifter;
+	public $a_confirmed_at;
+	public $a_operator;
 
     /**
      */
-    public function __construct($a_confirmation, $a_carrier, $a_lifter)
+    public function __construct(
+    	$a_confirmation, 
+    	$a_carrier, 
+    	$a_lifter, 
+    	$a_confirmed_at = '', 
+    	$a_operator = 0
+    )
     {
 		$this->a_confirmation = $a_confirmation;
 		$this->a_carrier = $a_carrier;
 		$this->a_lifter = $a_lifter;
+		$this->a_confirmed_at = $a_confirmed_at;
+		$this->a_operator = $a_operator;
     }
 
 }

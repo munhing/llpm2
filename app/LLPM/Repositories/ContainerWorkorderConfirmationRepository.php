@@ -6,7 +6,7 @@ use ContainerConfirmation;
 
 class ContainerWorkorderConfirmationRepository {
 
-	public function confirmationEntry($container)
+	public function confirmationEntry($container, $operator, $confirmed_at)
 	{
 		$containerConfirmationId = ContainerConfirmation::where('container_id', $container->id)
 			->where('workorder_id', $container->workorders->last()->id)
@@ -19,8 +19,9 @@ class ContainerWorkorderConfirmationRepository {
 			'workorder_id'=>$container->workorders->last()->id,
 			'container_workorder_id'=>$containerConfirmationId,
 			'confirmed_by'=> Auth::user()->id,
-			'role'=> Auth::user()->roles->first()->role,
-			'confirmed_at'=> date('Y-m-d H:i:s')
+			'operator'=>$operator,
+			'role'=> $container->to_confirm_by,
+			'confirmed_at'=> $confirmed_at
 		]);
 
 	}

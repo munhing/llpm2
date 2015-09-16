@@ -187,8 +187,6 @@
 									<th>E/L</th>
 									<th>Confirmed By</th>
 									<th>Confirmed Date</th>
-									<th>Storage</th>
-									<th>Handling</th>
 									<th>Action</th>
 								</tr>
 							</thead>
@@ -210,8 +208,6 @@
 												{{ $container->pivot->updated_at }}
 											@endif
 										</td>
-										<td align="right">{{ number_format($container->storage_charges, 2) }}</td>
-										<td align="right">{{ number_format($container->handling_charges, 3) }}</td>
 										<td>@if($container->pivot->confirmed == 0)
 											{{ Form::open() }}
 											{{ Form::hidden('container_id', $container->id) }}
@@ -263,7 +259,7 @@ $(function() {
 
 			console.log(data);
 
-			$('#ctn').select2('data', null)
+			$('#ctn').select2('data', null);
 			$('#ctn').empty(); // clear the current elements in select box
 
 			for (row in data) {
