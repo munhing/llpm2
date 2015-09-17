@@ -19,7 +19,7 @@ class ContainerWorkorderConfirmationRepository {
 			'workorder_id'=>$container->workorders->last()->id,
 			'container_workorder_id'=>$containerConfirmationId,
 			'confirmed_by'=> Auth::user()->id,
-			'operator'=>$operator,
+			'operator_id'=>$operator,
 			'role'=> $container->to_confirm_by,
 			'confirmed_at'=> $confirmed_at
 		]);
@@ -28,6 +28,6 @@ class ContainerWorkorderConfirmationRepository {
 
 	public function getAll()
 	{
-		return ContainerWorkorderConfirmation::with('container', 'workorder', 'containerConfirmation')->get();
+		return ContainerWorkorderConfirmation::with('user', 'operator', 'container', 'workorder', 'containerConfirmation')->get();
 	}
 }

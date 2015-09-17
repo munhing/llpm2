@@ -298,7 +298,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
     {
         if ($confirmation[3] == 'HI' || $confirmation[3] == 'RI-1' || $confirmation[3] == 'RI-3') {
             //update received_by and received_date
-            $this->updateCargoReleasedDate($cargo);
+            $this->updateCargoReceivedDate($cargo);
 
         }
 

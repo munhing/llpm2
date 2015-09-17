@@ -151,6 +151,7 @@ class ContainerController extends \BaseController {
 
 		$ctncons = $this->containerWorkorderConfirmationRepository->getAll();
 
+
 		foreach($ctncons as $ctncon) {
 			$ctnlist[$ctncon->container_no . '-' . $ctncon->container_workorder_id][] = $ctncon;
 		}
@@ -158,7 +159,9 @@ class ContainerController extends \BaseController {
 		foreach($ctnlist as $key => $list) {
 			$i=1;
 			foreach($list as $cwc) {
+				// dd($cwc);
 				if($i==1) {
+					$processedList[$key]['date'] = $cwc->confirmed_at->format('Y-m-d');
 					$processedList[$key]['container_no'] = $cwc->container->container_no;
 					$processedList[$key]['size'] = $cwc->container->size;
 					$processedList[$key]['content'] = $cwc->containerConfirmation->content;
@@ -167,12 +170,14 @@ class ContainerController extends \BaseController {
 					$processedList[$key]['vehicle'] = $cwc->containerConfirmation->vehicle;
 					$processedList[$key]['lifter'] = $cwc->containerConfirmation->lifter;
 					$processedList[$key]['confirmed_at'] = $cwc->confirmed_at->format('H:i') . " (" . $cwc->role . ")";
-					$processedList[$key]['confirmed_by'] = $cwc->user->username;
+					$processedList[$key]['operator'] = $cwc->operator->name;
+					$processedList[$key]['confirmed_by'] = $cwc->user->name;
 				}
 
 				if($i>1) {				
 					$processedList[$key]['confirmed_at'] .= " - " . $cwc->confirmed_at->format('H:i') . " (" . $cwc->role . ")" ;
-					$processedList[$key]['confirmed_by'] .= " / " . $cwc->user->username;
+					$processedList[$key]['operator'] .= " / " . $cwc->operator->name;
+					$processedList[$key]['confirmed_by'] .= " / " . $cwc->user->name;
 				}
 
 				// if($i == count($list)) {

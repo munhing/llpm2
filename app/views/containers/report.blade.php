@@ -48,12 +48,14 @@
 					<thead>
 						<tr>
 							<th>No</th>
+							<th>Date</th>
 							<th>Container #</th>
 							<th>Size</th>
 							<th>E/L</th>
 							<th>WO</th>
 							<th>Movement</th>
 							<th>Date Time</th>
+							<th>Operator</th>
 							<th>Confirmed By</th>
 							<th>Carrier</th>
 							<th>Lifter</th>
@@ -64,12 +66,14 @@
 						@foreach($processedList as $cwc)
 							<tr>
 								<td>{{ $i }}</td>
+								<td>{{ $cwc['date'] }}</td>
 								<td>{{ $cwc['container_no'] }}</td>
 								<td>{{ $cwc['size'] }}</td>
 								<td>{{ $cwc['content'] }}</td>
 								<td>{{ $cwc['workorder_no'] }}</td>
 								<td>{{ $cwc['movement'] }}</td>
 								<td>{{ $cwc['confirmed_at'] }}</td>
+								<td>{{ $cwc['operator'] }}</td>
 								<td>{{ $cwc['confirmed_by'] }}</td>
 								<td>{{ $cwc['vehicle'] }}</td>
 								<td>{{ $cwc['lifter'] }}</td>

@@ -2,7 +2,7 @@
 
 class ContainerWorkorderConfirmation extends \Eloquent {
 
-	protected $fillable = ['container_id', 'container_no', 'workorder_id', 'container_workorder_id', 'confirmed_by', 'operator', 'role', 'confirmed_at'];
+	protected $fillable = ['container_id', 'container_no', 'workorder_id', 'container_workorder_id', 'confirmed_by', 'operator_id', 'role', 'confirmed_at'];
 
 	protected $table = "container_workorder_confirmation";
 
@@ -25,7 +25,7 @@ class ContainerWorkorderConfirmation extends \Eloquent {
 
 	public function operator()
 	{
-		return $this->belongsTo('User', 'operator');
+		return $this->belongsTo('User', 'operator_id');
 	}
 
 	public function containerConfirmation()

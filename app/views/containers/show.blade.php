@@ -64,7 +64,7 @@
 						@foreach($container->workorders as $workorder)
 						<tr>
 							<td>{{ $i }}</td>
-							<td>{{ $workorder->workorder_no }}</td>
+							<td>{{ $workorder->id }}</td>
 							<td>{{ $workorder->movement }}</td>
 							<td>{{ $workorder->date->format('d/m/Y') }}</td>
 							<td>

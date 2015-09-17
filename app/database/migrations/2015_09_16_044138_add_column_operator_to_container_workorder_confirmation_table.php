@@ -14,7 +14,7 @@ class AddColumnOperatorToContainerWorkorderConfirmationTable extends Migration {
 	{
 		Schema::table('container_workorder_confirmation', function(Blueprint $table)
 		{
-			$table->integer('operator')->after('confirmed_by');	
+			$table->integer('operator_id')->after('confirmed_by');	
 		});
 	}
 
@@ -28,7 +28,7 @@ class AddColumnOperatorToContainerWorkorderConfirmationTable extends Migration {
 	{
 		Schema::table('container_workorder_confirmation', function(Blueprint $table)
 		{
-			$table->dropColumn('operator');
+			$table->dropColumn('operator_id');
 		});
 	}
 
