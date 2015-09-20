@@ -13,7 +13,8 @@
 		"pusher/pusher-php-server": "^2.2",
 		"iron-io/iron_mq": "^4.0",
 		"pda/pheanstalk": "~2.1",
-		"indatus/dispatcher": "~1.4"
+		"indatus/dispatcher": "~1.4",
+		"maatwebsite/excel": "~1.3"
 	},
 
 	"require-dev": {

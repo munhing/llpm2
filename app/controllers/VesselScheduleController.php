@@ -1,28 +1,29 @@
 <?php
 
-use LLPM\Repositories\VesselScheduleRepository;
-use LLPM\Repositories\VesselRepository;
-use LLPM\Repositories\ContainerRepository;
-use LLPM\Repositories\CargoRepository;
-use LLPM\Repositories\CargoItemRepository;
-use LLPM\Repositories\PortUserRepository;
-use LLPM\Repositories\CountryRepository;
-use LLPM\Forms\VesselScheduleForm;
-use LLPM\Forms\ImportCargoForm;
-use LLPM\Schedule\RegisterVesselScheduleCommand;
-use LLPM\Schedule\UpdateVesselScheduleCommand;
-use LLPM\Schedule\RegisterImportContainersCommand;
-use LLPM\Schedule\DeleteImportContainerCommand;
-use LLPM\Schedule\RegisterImportCargoCommand;
-use LLPM\Schedule\UpdateImportCargoCommand;
-use LLPM\Schedule\UpdateExportCargoCommand;
-use LLPM\Schedule\IssueImportCargoCommand;
-use LLPM\Schedule\IssueExportCargoCommand;
-use LLPM\Schedule\AssociateContainersWithCargoCommand;
-use LLPM\Schedule\DetachContainerFromCargoCommand;
-use LLPM\Schedule\AddItemToCargoCommand;
-use LLPM\Schedule\UpdateImportCargoItemCommand;
 use LLPM\ContainerHelper;
+use LLPM\Forms\CargoItemForm;
+use LLPM\Forms\ImportCargoForm;
+use LLPM\Forms\VesselScheduleForm;
+use LLPM\Repositories\CargoItemRepository;
+use LLPM\Repositories\CargoRepository;
+use LLPM\Repositories\ContainerRepository;
+use LLPM\Repositories\CountryRepository;
+use LLPM\Repositories\PortUserRepository;
+use LLPM\Repositories\VesselRepository;
+use LLPM\Repositories\VesselScheduleRepository;
+use LLPM\Schedule\AddItemToCargoCommand;
+use LLPM\Schedule\AssociateContainersWithCargoCommand;
+use LLPM\Schedule\DeleteImportContainerCommand;
+use LLPM\Schedule\DetachContainerFromCargoCommand;
+use LLPM\Schedule\IssueExportCargoCommand;
+use LLPM\Schedule\IssueImportCargoCommand;
+use LLPM\Schedule\RegisterImportCargoCommand;
+use LLPM\Schedule\RegisterImportContainersCommand;
+use LLPM\Schedule\RegisterVesselScheduleCommand;
+use LLPM\Schedule\UpdateExportCargoCommand;
+use LLPM\Schedule\UpdateImportCargoCommand;
+use LLPM\Schedule\UpdateImportCargoItemCommand;
+use LLPM\Schedule\UpdateVesselScheduleCommand;
 
 class VesselScheduleController extends \BaseController {
 
@@ -35,10 +36,12 @@ class VesselScheduleController extends \BaseController {
 	protected $countryRepository;
 	protected $vesselScheduleForm;
 	protected $importCargoForm;
+	protected $cargoItemForm;
 
 	use ContainerHelper;
 
-	function __construct(VesselScheduleRepository $vesselScheduleRepository,
+	function __construct(
+		VesselScheduleRepository $vesselScheduleRepository,
 		VesselRepository $vesselRepository,
 		ContainerRepository $containerRepository,
 		CargoRepository $cargoRepository,
@@ -46,7 +49,8 @@ class VesselScheduleController extends \BaseController {
 		PortUserRepository $portUserRepository,
 		CountryRepository $countryRepository,
 		VesselScheduleForm $vesselScheduleForm,
-		ImportCargoForm $importCargoForm
+		ImportCargoForm $importCargoForm,
+		CargoItemForm $cargoItemForm
 	)
 	{
 		$this->vesselScheduleRepository = $vesselScheduleRepository;
@@ -59,6 +63,7 @@ class VesselScheduleController extends \BaseController {
 		$this->vesselScheduleForm = $vesselScheduleForm;
 		$this->importCargoForm = $importCargoForm;
 
+		$this->cargoItemForm = $cargoItemForm;
 	}
 
 
@@ -460,12 +465,7 @@ class VesselScheduleController extends \BaseController {
 		$input['schedule_id'] = $schedule_id;
 		$input['cargo_id'] = $cargo_id;
 		
-		if(!$input['custom_tariff_code'] || !$input['description'] || !$input['quantity']){
-			Flash::error("Cargo Item form not completed.");	
-			return Redirect::back()->withInput();
-		}
-
-		//dd($input);
+		$this->cargoItemForm->validate($input);
 
 		$this->execute(AddItemToCargoCommand::class, $input);
 

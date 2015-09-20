@@ -129,7 +129,8 @@ return array(
 		'LLPM\Providers\PusherServiceProvider',
 		'LLPM\Validators\LLPMValidatorServiceProvider',
 		'LLPM\CountryList\CountryListServiceProvider',
-		'Indatus\Dispatcher\ServiceProvider'
+		'Indatus\Dispatcher\ServiceProvider',
+		'Maatwebsite\Excel\ExcelServiceProvider'
 
 	),
 
@@ -198,6 +199,7 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
 		'Flash'				=> 'Laracasts\Flash\Flash',
+		'Excel'             => 'Maatwebsite\Excel\Facades\Excel'
 
 	),
 

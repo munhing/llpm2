@@ -15,8 +15,8 @@ class CreateCustomTariffTable extends Migration {
 		Schema::create('custom_tariff', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('code');
-			$table->string('description');
+			$table->string('code')->unique();
+			$table->string('description')->nullable();
 			$table->string('uoq');
 			$table->boolean('group');
 			$table->timestamps();

@@ -1,12 +1,13 @@
-<?php namespace LLPM\Schedule;
+<?php 
 
-use Laracasts\Commander\CommandHandler;
-use Laracasts\Commander\Events\DispatchableTrait;
-use LLPM\Repositories\CargoItemRepository;
+namespace LLPM\Schedule;
 
 use CargoItem;
-use Illuminate\Support\MessageBag;
-use Illuminate\Foundation\Application;
+use CustomTariff;
+use LLPM\Repositories\CargoItemRepository;
+use LLPM\Repositories\CustomTariffRepository;
+use Laracasts\Commander\CommandHandler;
+use Laracasts\Commander\Events\DispatchableTrait;
 //use Exception;
 
 class AddItemToCargoCommandHandler implements CommandHandler {
@@ -14,14 +15,15 @@ class AddItemToCargoCommandHandler implements CommandHandler {
 	use DispatchableTrait;
 
 	protected $cargoItemRepository;
-    protected $messages;
-    protected $app;
+    protected $customTariffRepository;
 
-	function __construct(CargoItemRepository $cargoItemRepository, MessageBag $messages, Application $app)
+	function __construct(
+        CargoItemRepository $cargoItemRepository, 
+        CustomTariffRepository $customTariffRepository
+    )
 	{
         $this->cargoItemRepository = $cargoItemRepository;
-        $this->messages = $messages;
-        $this->app = $app;
+        $this->customTariffRepository = $customTariffRepository;
 	}
 
     /**
@@ -33,7 +35,10 @@ class AddItemToCargoCommandHandler implements CommandHandler {
     public function handle($command)
     {
 
-        //dd($command);
+        // dd($command);
+
+        // Save tariff code and uoq if not listed
+        $this->validateTariffCode($command);
 
         //create new cargo item
         $cargoItem = CargoItem::register(
@@ -45,6 +50,18 @@ class AddItemToCargoCommandHandler implements CommandHandler {
 
         $cargoItem = $this->cargoItemRepository->save($cargoItem);
 
+    }
+
+    public function validateTariffCode($command)
+    {
+        if($tariff = $this->customTariffRepository->getByCode($command->custom_tariff_code)) {
+            return true;
+        }
+
+        CustomTariff::create(array(
+            'code' => $command->custom_tariff_code,
+            'uoq' => $command->uoq
+        ));  
     }
 
 }

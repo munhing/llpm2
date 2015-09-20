@@ -48,6 +48,24 @@ Route::get('/create_admin_user', function () {
 
 });
 
+Route::get('/excel', function () {
+
+    Excel::load('custome_tariff_01.xls', function($reader) {
+
+        $results = $reader->take(20);
+
+        $results->each(function($sheet) {
+            var_dump($sheet->header);
+        });
+
+    });    
+
+
+
+
+  
+});
+
 Route::get('/pusher', function () {
 
     $pusher_data = [
@@ -844,6 +862,20 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
         'uses' => 'PortUsersController@store',
     ]);
 
+/*
+|--------------------------------------------------------------------------
+| Admin | Customs Tariff
+|--------------------------------------------------------------------------
+ */
+    Route::get('tariff', [
+        'as' => 'tariff',
+        'uses' => 'TariffController@index',
+    ]);
+
+    Route::get('tariff/find', [
+        'as' => 'tariff.find',
+        'uses' => 'TariffController@find',
+    ]);
 });
 
 /*

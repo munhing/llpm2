@@ -1,21 +1,26 @@
 <?php
 
+use Carbon\Carbon;
 use LLPM\Repositories\ContainerRepository;
 use LLPM\Repositories\ContainerWorkorderConfirmationRepository;
-use Carbon\Carbon;
+use LLPM\Repositories\FeeRepository;
 
 class ContainerController extends \BaseController {
 
 	protected $containerRepository;
 	protected $containerWorkorderConfirmationRepository;
+	protected $feeRepository;
+	protected $totalStorageCharges = 0;
 
 	function __construct(
 		ContainerRepository $containerRepository,
-		ContainerWorkorderConfirmationRepository $containerWorkorderConfirmationRepository
+		ContainerWorkorderConfirmationRepository $containerWorkorderConfirmationRepository,
+		FeeRepository $feeRepository
 	)
 	{
 		$this->containerRepository = $containerRepository;
 		$this->containerWorkorderConfirmationRepository = $containerWorkorderConfirmationRepository;
+		$this->feeRepository = $feeRepository;
 	}	
 	/**
 	 * Display a listing of the resource.
@@ -26,12 +31,13 @@ class ContainerController extends \BaseController {
 	public function index()
 	{
 		//dd('List containers in the port');
-		$containers = $this->addEmptyLadenDays($this->containerRepository->getAllActive());
+		$containers = $this->addStorageCharges($this->containerRepository->getAllActive());
+		$totalStorageCharges = $this->totalStorageCharges;
 
 		// dd($containers->first()->workorders->first()->pivot->updated_at);
 		// dd($containers->first()->toArray());
 
-		return View::make('containers/index', compact('containers'));
+		return View::make('containers/index', compact('containers', 'totalStorageCharges'));
 	}
 
 	/**
@@ -40,72 +46,25 @@ class ContainerController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function addEmptyLadenDays($containers)
+	public function addStorageCharges($containers)
 	{
 		$ctn = [];
 
-		// $ctn->container_no = 'hkjhkjh';
-		// $ctn->empty = 40;
-
-		// dd($ctn->toArray());
-
+		$fees = json_decode($this->feeRepository->getStorageFee(), true);
 
 		foreach($containers as $container){
-			$workorder = $container->workorders;
-			$count = count($workorder);
 
-			// var_dump($container->container_no);
+			$storage_charges = 0;
 
-			$days['L'] = 0;
-			$days['E'] = 0;
-			$days['total'] = Carbon::createFromFormat('Y-m-d', $workorder[0]->pivot->updated_at->format('Y-m-d'))->diffInDays() + 1;
-
-
-			// this will loop thru each workorders the container has
-			// if the container only has 1 workorder, then the calculation is from the confirmation date of the container_workorder to current date
-
-			//
-
-			for($i=0;$i<$count;$i++) {
-
-				// reason for creating a new carbon so that it will capture the date and not the time.
-				// Carbon diffInDays() compute 0 if less than 24 hours
-				$fromDate = Carbon::createFromFormat('Y-m-d', $workorder[$i]->pivot->updated_at->format('Y-m-d'));
-
-				if($i+1 == $count) {
-					$toDate = Carbon::now();
-				} else {
-					$toDate = Carbon::createFromFormat('Y-m-d', $workorder[$i+1]->pivot->updated_at->format('Y-m-d'));
-				}
-
-				// this step is to determine the content is L or E
-				// if this is the last workorder, the content is taken from it
-				// if not, the content is taken from the next workorder
-				if($i+1 == $count) {
-					$content = $workorder[$i]->pivot->content;
-				} else {
-					$content = $workorder[$i+1]->pivot->content;
-				}
-
-				// add 1 day if there's only 1 workorder
-				// if($i == 0){
-				// 	$diffDays = $fromDate->diffInDays($toDate) + 1;
-				// } else {
-				// 	$diffDays = $fromDate->diffInDays($toDate);	
-				// }
-				
-				$diffDays = $fromDate->diffInDays($toDate) + 1;	
-							
-				$days[$content] += $diffDays;
-				// var_dump($diffDays);
+			if($container->days_empty > 5) {
+				$storage_charges = ($container->days_empty - 5) * $fees[$container->size];
 			}
 
-			// var_dump($days);
-			$container->days = $days;
+			$container->storage_charges = $storage_charges;
+			$this->totalStorageCharges += $storage_charges;
+
 			$ctn[] = $container;
 		}
-
-		// dd('End');
 
 		return $ctn;
 	}

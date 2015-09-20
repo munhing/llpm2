@@ -316,53 +316,73 @@
 							</tbody>
 						</table>
 
-						{{ Form::open(['route'=>['manifest.schedule.import.cargoes.item.create', $importCargo->import_vessel_schedule_id, $importCargo->id], 'id'=>'form_add_containers']) }}	
 
-						<div id="myModal_cargoitem" class="modal fade" role="dialog" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-										<h4 class="modal-title">Add Cargo Item</h4>
-									</div>
-									<div class="modal-body">
-										<div class="form-horizontal">
-											<div class="form-group">
-												<label class="control-label col-md-4">Tariff Code</label>
-												<div class="col-md-8">
-													{{ Form::text('custom_tariff_code') }}
-												</div>
-											</div>										
-											<div class="form-group">
-												<label class="control-label col-md-4">Description</label>
-												<div class="col-md-8">
-													{{ Form::text('description') }}
-												</div>
-											</div>
-											<div class="form-group last">
-												<label class="control-label col-md-4">Quantity</label>
-												<div class="col-md-8">
-													{{ Form::text('quantity') }}
-												</div>
-											</div>											
-										</div>	
-										
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-										<input type="submit" class="btn btn-primary" id="but_add_container">
-									</div>
-								</div>
-							</div>
-						</div>
-
-						{{ Form::close() }}
 
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+    <div class="row">
+    {{ Form::open(['route'=>['manifest.schedule.import.cargoes.item.create', $importCargo->import_vessel_schedule_id, $importCargo->id], 'id'=>'form_add_containers']) }}	
+
+    <div id="myModal_cargoitem" class="modal fade" role="dialog" aria-hidden="true" data-backdrop="static">
+    	<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+    			<div class="modal-header">
+    				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    				<h4 class="modal-title">Add Cargo Item</h4>
+    			</div>
+    			<div class="modal-body">
+                    <div class="container-fluid">
+        				<div class="form-horizontal">
+                            <div class="row">
+            					<div class="form-group">
+            						<label class="control-label col-md-2">Tariff Code</label>
+            						<div class="col-md-6">
+            							{{ Form::text('custom_tariff_code','', ['id'=>'custom_tariff_code', 'class'=>'form-control']) }}
+                                        <span id="err-tariff" class="badge badge-danger"></span>
+                                        <span id="suc-tariff" class="badge badge-success"></span>
+                                        <span id="inf-tariff" class="badge badge-info"></span>
+            						</div>
+
+                                    <label class="control-label col-md-2">Unit of Quantity</label>
+                                    <div class="col-md-2">
+                                        {{ Form::text('uoq','', ['id'=>'uoq','class'=>'form-control']) }}
+                                    </div>                                   
+            					</div>	
+                            </div>
+                            <div class="row">
+            					<div class="form-group">
+            						<label class="control-label col-md-2">Description</label>
+            						<div class="col-md-10">
+            							{{ Form::textarea('description','', ['id'=>'description','class'=>'form-control', 'rows'=>'3']) }}
+            						</div>
+            					</div>
+                            </div>
+                            <div class="row">
+            					<div class="form-group last">
+            						<label class="control-label col-md-2">Quantity</label>
+            						<div class="col-md-4">
+            							{{ Form::text('quantity','', ['id'=>'quantity','class'=>'form-control']) }}
+            						</div>
+            					</div>
+                            </div>											
+        				</div>	
+                    </div>
+    				
+    			</div>
+    			<div class="modal-footer">
+    				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+    				<input type="submit" class="btn btn-primary" id="but_add_container">
+    			</div>
+    		</div>
+    	</div>
+    </div>
+
+    {{ Form::close() }}	
+    </div>
 
 
 @stop
@@ -394,6 +414,130 @@ $('#but_add_container').on('click', function(event){
 	}
 });
 
+$('#custom_tariff_code').on('keydown', function(e){
+    console.log(e);
+    removeAllPrompts();
 
+    if (e.which != 8 && e.which != 9 && e.which != 37 && e.which != 39 && e.which != 46 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+
+        //display error message
+        promptError("Numbers Only");
+        return false;
+    }
+
+    if ($(this).val().length == 9) {
+        //display error message
+        if (e.which != 8 && e.which != 9 && e.which != 37 && e.which != 39 && e.which != 46) {
+            promptError("Cannot be more than 9 characters");
+            return false;
+        }
+    }    
+});
+
+$('#custom_tariff_code').on('blur', function(e){
+    if($(this).val().length != 9) {
+        promptError("Must be exactly 9 digits", false);
+        return false;
+    }
+
+    $.ajax({
+        url: '{{ route('tariff.find') }}',
+        dataType: 'json',
+        type: 'GET',
+        data: { tariff_code : $(this).val() },
+        success: function(data) {
+
+            console.log(data);
+            // console.log(data.uoq);
+
+            if(data == null) {
+                promptInfo("This is a new tariff code. Please specify the Unit of Quantity for this code.", false);
+
+                // enable the uoq field
+                enableUoq();
+                return false;
+            }
+
+            promptSuccess("Tariff code matched!", false);
+            $('#uoq').val(data.uoq);
+            disableUoq();
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert(errorThrown);
+        }
+    });
+});
+
+$('#myModal_cargoitem').on('hidden.bs.modal', function (e) {
+    // clear form field
+    clearForm();
+})
+
+function clearForm()
+{
+    $('#custom_tariff_code').val('');
+    $('#uoq').val('');
+    $('#description').val('');
+    $('#quantity').val('');
+    removeAllPrompts();
+}
+
+function enableUoq()
+{
+    $('#uoq').focus();
+}
+
+function disableUoq()
+{
+    $('#description').focus();
+}
+
+function promptError(message, fade)
+{
+    $("#suc-tariff").fadeOut(2000);
+    $("#inf-tariff").fadeOut(2000);
+    
+    if(fade == false) {
+        $("#err-tariff").html(message).show();
+        return;
+    }
+
+    $("#err-tariff").html(message).show().fadeOut(2000);
+
+}
+
+function promptSuccess(message, fade)
+{
+    $("#err-tariff").fadeOut(2000);
+    $("#inf-tariff").fadeOut(2000);
+
+    if(fade == false) {
+        $("#suc-tariff").html(message).show();
+        return;
+    }
+    
+    $("#suc-tariff").html(message).show().fadeOut(2000);
+}
+
+function promptInfo(message, fade)
+{
+    $("#err-tariff").fadeOut(2000);
+    $("#suc-tariff").fadeOut(2000);
+
+    if(fade == false) {
+        $("#inf-tariff").html(message).show();
+        return;
+    }
+    
+    $("#inf-tariff").html(message).show().fadeOut(2000);
+}
+
+function removeAllPrompts()
+{
+    $("#err-tariff").fadeOut(2000);
+    $("#suc-tariff").fadeOut(2000);
+    $("#inf-tariff").fadeOut(2000);
+}
 @stop
 

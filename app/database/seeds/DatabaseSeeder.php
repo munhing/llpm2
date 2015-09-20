@@ -12,17 +12,18 @@ class DatabaseSeeder extends Seeder {
 		Eloquent::unguard();
 
 		$tables = [
-		// 	'vessels',
-		// 	'port_users',
-		// 	'vessel_schedule',
-		// 	'roles',
-		// 	'settings',
-			'users',
-			'role_user'
-  //           'container_confirmation_process',
-  //           'fees',
-  //           'cargoes',
-  //           'containers'
+			// 'vessels',
+			// 'port_users',
+			// 'vessel_schedule',
+			// 'roles',
+			// 'settings',
+			// 'users',
+			// 'role_user'
+   //          'container_confirmation_process',
+   //          'fees',
+   //          'cargoes',
+   //          'containers',
+            'custom_tariff'
 		];
 
 		DB::statement('SET FOREIGN_KEY_CHECKS=0;');
@@ -37,7 +38,7 @@ class DatabaseSeeder extends Seeder {
 		// $this->call('VesselTableSeeder');
 		// $this->call('VesselScheduleTableSeeder');
 		// $this->call('RoleTableSeeder');
-		$this->call('UserTableSeeder');		
+		// $this->call('UserTableSeeder');		
 		// $this->call('SettingsTableSeeder');
 		// $this->call('ContainerConfirmationProcessTableSeeder');
 		// $this->call('FeesTableSeeder');
@@ -48,6 +49,7 @@ class DatabaseSeeder extends Seeder {
   //       $this->call('ContainerTableSeeder'); // Set the value for $import_vessel_schedule_id
   //       $this->call('AttachContainerToCargoSeeder'); // Set the value for $import_vessel_schedule_id
   //       $this->call('UpdateSchedule'); // Set the value for $import_vessel_schedule_id
+        $this->call('TariffTableSeeder');
 	}
 
 }
