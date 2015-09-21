@@ -418,8 +418,7 @@ $('#custom_tariff_code').on('keydown', function(e){
     console.log(e);
     removeAllPrompts();
 
-    // if (e.which != 8 && e.which != 9 && e.which != 37 && e.which != 39 && e.which != 46 && e.which != 0 && (e.which < 48 || e.which > 57) && (e.which < 96 || e.which > 105)) {
-    if (!isNumericKey(e)) {
+    if (!isNumber(e)) {
 
         //display error message
         promptError("Numbers Only");
@@ -428,11 +427,23 @@ $('#custom_tariff_code').on('keydown', function(e){
 
     if ($(this).val().length == 9) {
         //display error message
-        // if (e.which != 8 && e.which != 9 && e.which != 37 && e.which != 39 && e.which != 46) {
+        if (!isAllowedKey(e)) {
             promptError("Cannot be more than 9 characters");
             return false;
-        // }
+        }
     }    
+});
+
+$('#quantity').on('keydown', function(e){
+    console.log(e);
+    removeAllPrompts();
+
+    if (!isNumber(e, true)) {
+
+        //display error message
+        promptError("Numbers Only");
+        return false;
+    }   
 });
 
 $('#custom_tariff_code').on('blur', function(e){
@@ -543,15 +554,17 @@ function removeAllPrompts()
 
 function isNumber(e, period)
 {
-	if(period = true) {
-		if(isNumericKey(e) == true && isAllowedKey(e) == true && isPeriodKey(e) == true) {
-			return true;
+	if(period == true) {
+		if(isNumericKey(e) || isAllowedKey(e) || isPeriodKey(e)) {
+			console.log('Have Period');
+            return true;
 		}
 
 		return false;
 	}
 
-	if(isNumericKey(e) == true && isAllowedKey(e) == true) {
+	if(isNumericKey(e) || isAllowedKey(e)) {
+        console.log('No Period');
 		return true;
 	}
 
@@ -561,7 +574,7 @@ function isNumber(e, period)
 function isNumericKey(e)
 {
 	var char = e.which;
-	if (char > 31 && (char < 48 || char > 57) && (char < 96 || char > 105)){
+	if ((char < 48 || char > 57) && (char < 96 || char > 105)){
 		return false;
 	}
 
@@ -571,7 +584,7 @@ function isNumericKey(e)
 function isAllowedKey(e)
 {
 	var char = e.which;
-	if ( char != 37 || char != 39 || char != 46 ){
+	if ( char != 8 && char != 9 && char != 16 && char != 37 && char != 39 && char != 46 ){
 		return false;
 	}
 
@@ -582,13 +595,25 @@ function isPeriodKey(e)
 {
 	var char = e.which;
 	
-	console.log($(this));
-
-	if ( char != 110 || char != 190 ){
+	if ( char != 110 && char != 190 ){
 		return false;
 	}
 
+    periodCount = count($('#quantity').val(), ".");
+
+    if(periodCount != 0) {
+        return false;
+    }
+
 	return true;	
+}
+
+function count(string, char) {
+
+    str = string.match(/\./igm);
+    period = (str) ? str.length : 0;
+
+    return period;
 }
 @stop
 
