@@ -418,7 +418,8 @@ $('#custom_tariff_code').on('keydown', function(e){
     console.log(e);
     removeAllPrompts();
 
-    if (e.which != 8 && e.which != 9 && e.which != 37 && e.which != 39 && e.which != 46 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+    // if (e.which != 8 && e.which != 9 && e.which != 37 && e.which != 39 && e.which != 46 && e.which != 0 && (e.which < 48 || e.which > 57) && (e.which < 96 || e.which > 105)) {
+    if (!isNumericKey(e)) {
 
         //display error message
         promptError("Numbers Only");
@@ -427,10 +428,10 @@ $('#custom_tariff_code').on('keydown', function(e){
 
     if ($(this).val().length == 9) {
         //display error message
-        if (e.which != 8 && e.which != 9 && e.which != 37 && e.which != 39 && e.which != 46) {
+        // if (e.which != 8 && e.which != 9 && e.which != 37 && e.which != 39 && e.which != 46) {
             promptError("Cannot be more than 9 characters");
             return false;
-        }
+        // }
     }    
 });
 
@@ -538,6 +539,56 @@ function removeAllPrompts()
     $("#err-tariff").fadeOut(2000);
     $("#suc-tariff").fadeOut(2000);
     $("#inf-tariff").fadeOut(2000);
+}
+
+function isNumber(e, period)
+{
+	if(period = true) {
+		if(isNumericKey(e) == true && isAllowedKey(e) == true && isPeriodKey(e) == true) {
+			return true;
+		}
+
+		return false;
+	}
+
+	if(isNumericKey(e) == true && isAllowedKey(e) == true) {
+		return true;
+	}
+
+	return false;
+}
+
+function isNumericKey(e)
+{
+	var char = e.which;
+	if (char > 31 && (char < 48 || char > 57) && (char < 96 || char > 105)){
+		return false;
+	}
+
+	return true;	
+}
+
+function isAllowedKey(e)
+{
+	var char = e.which;
+	if ( char != 37 || char != 39 || char != 46 ){
+		return false;
+	}
+
+	return true;	
+}
+
+function isPeriodKey(e)
+{
+	var char = e.which;
+	
+	console.log($(this));
+
+	if ( char != 110 || char != 190 ){
+		return false;
+	}
+
+	return true;	
 }
 @stop
 
