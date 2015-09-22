@@ -334,7 +334,7 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
     Route::get('/', [
         'as' => 'home',
         'uses' => function () {
-            return View::make('hello');
+            return View::make('dashboard');
         },
     ]);
 
@@ -876,6 +876,17 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
         'as' => 'tariff.find',
         'uses' => 'TariffController@find',
     ]);
+
+/*
+|--------------------------------------------------------------------------
+| Admin | Statistics
+|--------------------------------------------------------------------------
+ */
+    Route::get('statistics/dashboard', [
+        'as' => 'statistics.dashboard',
+        'uses' => 'StatisticsController@dashboard',
+    ]);
+
 });
 
 /*

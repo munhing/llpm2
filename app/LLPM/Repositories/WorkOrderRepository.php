@@ -1,6 +1,9 @@
-<?php namespace LLPM\Repositories;
+<?php
+
+namespace LLPM\Repositories;
 
 use WorkOrder;
+use Carbon\Carbon;
 
 class WorkOrderRepository {
 
@@ -18,6 +21,12 @@ class WorkOrderRepository {
 	{
 		return WorkOrder::with('handler', 'carrier', 'vesselSchedule', 'containers')
 				->find($id);
+	}
+
+	public function getAllToday()
+	{
+		return WorkOrder::where('date', 'like', Carbon::now()->format('Y-m-d') . '%')
+				->get();
 	}
 
 	public function getAllByMonth($month)

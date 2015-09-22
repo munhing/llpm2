@@ -301,7 +301,7 @@
 										<td>{{ $i }}</td>
 										<td>{{ $item->custom_tariff_code }}</td>
 										<td>{{ $item->description }}</td>
-										<td>{{ $item->quantity }}</td>
+										<td align="right">{{ number_format($item->quantity, 2) }}</td>
 										<td>
 											@if(isset($item->custom_tariff->uoq))
 												{{ $item->custom_tariff->uoq }}
@@ -366,6 +366,9 @@
             						<label class="control-label col-md-2">Quantity</label>
             						<div class="col-md-4">
             							{{ Form::text('quantity','', ['id'=>'quantity','class'=>'form-control']) }}
+                                        <span id="err-quantity" class="badge badge-danger"></span>
+                                        <span id="suc-quantity" class="badge badge-success"></span>
+                                        <span id="inf-quantity" class="badge badge-info"></span>            							
             						</div>
             					</div>
                             </div>											
@@ -416,19 +419,19 @@ $('#but_add_container').on('click', function(event){
 
 $('#custom_tariff_code').on('keydown', function(e){
     console.log(e);
-    removeAllPrompts();
+    removeAllPrompts('tariff');
 
     if (!isNumber(e)) {
 
         //display error message
-        promptError("Numbers Only");
+        promptError("Numbers Only", "tariff");
         return false;
     }
 
     if ($(this).val().length == 9) {
         //display error message
         if (!isAllowedKey(e)) {
-            promptError("Cannot be more than 9 characters");
+            promptError("Cannot be more than 9 characters", "tariff");
             return false;
         }
     }    
@@ -441,7 +444,7 @@ $('#quantity').on('keydown', function(e){
     if (!isNumber(e, true)) {
 
         //display error message
-        promptError("Numbers Only");
+        promptError("Numbers Only", "quantity");
         return false;
     }   
 });
@@ -463,14 +466,14 @@ $('#custom_tariff_code').on('blur', function(e){
             // console.log(data.uoq);
 
             if(data == null) {
-                promptInfo("This is a new tariff code. Please specify the Unit of Quantity for this code.", false);
+                promptInfo("This is a new tariff code. Please specify the Unit of Quantity for this code.", "tariff", false);
 
                 // enable the uoq field
                 enableUoq();
                 return false;
             }
 
-            promptSuccess("Tariff code matched!", false);
+            promptSuccess("Tariff code matched!", "tariff", false);
             $('#uoq').val(data.uoq);
             disableUoq();
 
@@ -492,7 +495,7 @@ function clearForm()
     $('#uoq').val('');
     $('#description').val('');
     $('#quantity').val('');
-    removeAllPrompts();
+    removeAllPrompts('tariff');
 }
 
 function enableUoq()
@@ -505,51 +508,51 @@ function disableUoq()
     $('#description').focus();
 }
 
-function promptError(message, fade)
+function promptError(message, selector, fade)
 {
-    $("#suc-tariff").fadeOut(2000);
-    $("#inf-tariff").fadeOut(2000);
+    $("#suc-"+ selector).fadeOut(2000);
+    $("#inf-"+ selector).fadeOut(2000);
     
     if(fade == false) {
-        $("#err-tariff").html(message).show();
+        $("#err-"+ selector).html(message).show();
         return;
     }
 
-    $("#err-tariff").html(message).show().fadeOut(2000);
+    $("#err-"+ selector).html(message).show().fadeOut(2000);
 
 }
 
-function promptSuccess(message, fade)
+function promptSuccess(message, selector, fade)
 {
-    $("#err-tariff").fadeOut(2000);
-    $("#inf-tariff").fadeOut(2000);
+    $("#err-"+ selector).fadeOut(2000);
+    $("#inf-"+ selector).fadeOut(2000);
 
     if(fade == false) {
-        $("#suc-tariff").html(message).show();
+        $("#suc-"+ selector).html(message).show();
         return;
     }
     
-    $("#suc-tariff").html(message).show().fadeOut(2000);
+    $("#suc-"+ selector).html(message).show().fadeOut(2000);
 }
 
-function promptInfo(message, fade)
+function promptInfo(message, selector, fade)
 {
-    $("#err-tariff").fadeOut(2000);
-    $("#suc-tariff").fadeOut(2000);
+    $("#err-"+ selector).fadeOut(2000);
+    $("#suc-"+ selector).fadeOut(2000);
 
     if(fade == false) {
-        $("#inf-tariff").html(message).show();
+        $("#inf-"+ selector).html(message).show();
         return;
     }
     
-    $("#inf-tariff").html(message).show().fadeOut(2000);
+    $("#inf-"+ selector).html(message).show().fadeOut(2000);
 }
 
-function removeAllPrompts()
+function removeAllPrompts(selector)
 {
-    $("#err-tariff").fadeOut(2000);
-    $("#suc-tariff").fadeOut(2000);
-    $("#inf-tariff").fadeOut(2000);
+    $("#err-"+ selector).fadeOut(2000);
+    $("#suc-"+ selector).fadeOut(2000);
+    $("#inf-"+ selector).fadeOut(2000);
 }
 
 function isNumber(e, period)
@@ -599,7 +602,7 @@ function isPeriodKey(e)
 		return false;
 	}
 
-    periodCount = count($('#quantity').val(), ".");
+    periodCount = count($('#quantity').val());
 
     if(periodCount != 0) {
         return false;
@@ -608,7 +611,7 @@ function isPeriodKey(e)
 	return true;	
 }
 
-function count(string, char) {
+function count(string) {
 
     str = string.match(/\./igm);
     period = (str) ? str.length : 0;

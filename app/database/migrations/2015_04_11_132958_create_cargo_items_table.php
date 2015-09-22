@@ -18,7 +18,7 @@ class CreateCargoItemsTable extends Migration {
 			$table->integer('cargo_id')->unsigned();
 			$table->string('custom_tariff_code');
 			$table->string('description');
-			$table->double('quantity');			
+			$table->decimal('quantity', 10, 4);	
 			$table->timestamps();
 		});
 	}

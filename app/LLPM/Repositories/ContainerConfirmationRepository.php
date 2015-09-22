@@ -45,4 +45,9 @@ class ContainerConfirmationRepository {
 										->first();
 	}
 
+	public function getAllPending()
+	{
+		return ContainerConfirmation::where('confirmed', 0)
+										->get();
+	}
 }
