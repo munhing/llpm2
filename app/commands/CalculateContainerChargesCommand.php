@@ -46,7 +46,7 @@ class CalculateContainerChargesCommand extends ScheduledCommand {
 	 */
 	public function schedule(Schedulable $scheduler)
 	{
-		return $scheduler->everyHours(6);
+		return $scheduler->everyMinutes(10);
 	}
 
 	/**

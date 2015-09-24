@@ -400,16 +400,16 @@ class VesselScheduleController extends \BaseController {
 		return View::make('schedule/edit_export_cargo_item', compact('schedule', 'cargo', 'cargoItem'));
 	}
 
-	public function updateImportCargoItem($schedule_id, $cargo_id, $cargo_item_id)
+	public function updateImportCargoItem($schedule_id, $cargo_id)
 	{
 		$input = Input::all();
 
-		if(!$input['custom_tariff_code'] || !$input['description'] || !$input['quantity']){
-			Flash::error("Cargo Item form not completed.");	
-			return Redirect::back()->withInput();
-		}
+		// dd($input);
 
-		//dd($input);
+		$input['schedule_id'] = $schedule_id;
+		$input['cargo_id'] = $cargo_id;
+		
+		$this->cargoItemForm->validate($input);
 
 		$importCargo = $this->execute(UpdateImportCargoItemCommand::class, $input);
 

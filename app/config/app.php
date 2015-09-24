@@ -130,7 +130,8 @@ return array(
 		'LLPM\Validators\LLPMValidatorServiceProvider',
 		'LLPM\CountryList\CountryListServiceProvider',
 		'Indatus\Dispatcher\ServiceProvider',
-		'Maatwebsite\Excel\ExcelServiceProvider'
+		'Maatwebsite\Excel\ExcelServiceProvider',
+		'Spatie\Activitylog\ActivitylogServiceProvider'
 
 	),
 
@@ -199,7 +200,8 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
 		'Flash'				=> 'Laracasts\Flash\Flash',
-		'Excel'             => 'Maatwebsite\Excel\Facades\Excel'
+		'Excel'             => 'Maatwebsite\Excel\Facades\Excel',
+		'Activity' 			=> 'Spatie\Activitylog\ActivitylogFacade',
 
 	),
 

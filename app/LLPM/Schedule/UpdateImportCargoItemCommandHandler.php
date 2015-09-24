@@ -1,11 +1,14 @@
-<?php namespace LLPM\Schedule;
+<?php 
 
-use Laracasts\Commander\CommandHandler;
-use Laracasts\Commander\Events\DispatchableTrait;
-use Laracasts\Commander\CommanderTrait;
+namespace LLPM\Schedule;
 
-use LLPM\Repositories\CargoItemRepository;
 use CargoItem;
+use CustomTariff;
+use LLPM\Repositories\CargoItemRepository;
+use LLPM\Repositories\CustomTariffRepository;
+use Laracasts\Commander\CommandHandler;
+use Laracasts\Commander\CommanderTrait;
+use Laracasts\Commander\Events\DispatchableTrait;
 
 
 class UpdateImportCargoItemCommandHandler implements CommandHandler {
@@ -14,10 +17,12 @@ class UpdateImportCargoItemCommandHandler implements CommandHandler {
 	use CommanderTrait;
 
 	protected $cargoItemRepository;
+	protected $customTariffRepository;
 
-	function __construct(CargoItemRepository $cargoItemRepository)
+	function __construct(CargoItemRepository $cargoItemRepository, CustomTariffRepository $customTariffRepository)
 	{
 		$this->cargoItemRepository = $cargoItemRepository;
+		$this->customTariffRepository = $customTariffRepository;
 	}
 
     /**
@@ -28,7 +33,10 @@ class UpdateImportCargoItemCommandHandler implements CommandHandler {
      */
     public function handle($command)
     {
-    	//dd($command);
+    	// dd($command);
+
+        // Save tariff code and uoq if not listed
+        $this->validateTariffCode($command);
 
 		$cargoItem = CargoItem::edit(
 			$command->cargo_item_id,
@@ -42,4 +50,15 @@ class UpdateImportCargoItemCommandHandler implements CommandHandler {
 		return $cargoItem;  	
     }
 
+    public function validateTariffCode($command)
+    {
+        if($tariff = $this->customTariffRepository->getByCode($command->custom_tariff_code)) {
+            return true;
+        }
+
+        CustomTariff::create(array(
+            'code' => $command->custom_tariff_code,
+            'uoq' => $command->uoq
+        ));  
+    }
 }

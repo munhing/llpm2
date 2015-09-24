@@ -140,4 +140,18 @@ class UsersController extends \BaseController {
 
 		return $users->toJson();
 	}
+
+	public function checkAuth()
+	{
+		$input = Input::all();
+
+		if(Hash::check($input['auth_password'], Auth::user()->password))
+		{
+			// return true
+			return 1;
+		}
+
+		// return false
+		return 0;
+	}	
 }

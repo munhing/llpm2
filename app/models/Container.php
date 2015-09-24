@@ -12,6 +12,13 @@ class Container extends \Eloquent {
 
 	protected $fillable = ['container_no', 'size', 'content', 'location', 'status', 'current_movement', 'dl_check', 'm_content', 'import_vessel_schedule_id', 'export_vessel_schedule_id', 'receiving_id', 'container_location', 'container_status'];
 
+	public static function boot()
+	{
+		static::saved(function($sql){
+			Log::info($sql);
+		});
+	}
+
 	public function import_schedule()
 	{
 		return $this->belongsTo('VesselSchedule', 'import_vessel_schedule_id');

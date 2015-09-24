@@ -99,6 +99,10 @@ Route::get('/ctnreport', function () {
 
 });
 
+Route::get('/log', function () {
+
+    Activity::log('Some activity that you wish to log');
+});
 
 Route::get('/queue', function () {
 
@@ -385,7 +389,12 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
         Route::get('find', [
             'as' => 'users.find',
             'uses' => 'UsersController@getUsersByRole',
-        ]);        
+        ]); 
+
+        Route::post('check_auth', [
+            'as' => 'users.auth',
+            'uses' => 'UsersController@checkAuth',
+        ]);               
     });
 
 /*
@@ -541,7 +550,7 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
             'uses' => 'VesselScheduleController@editExportCargoItem',
         ]);
 
-        Route::post('schedule/{id}/import/cargoes/{cargo_id}/{cargo_item_id}/update', [
+        Route::post('schedule/{id}/import/cargoes/{cargo_id}/item/update', [
             'as' => 'manifest.schedule.import.cargoes.item.update',
             'uses' => 'VesselScheduleController@updateImportCargoItem',
         ]);

@@ -171,7 +171,7 @@
 
 		{{ Form::open(['route'=>['manifest.schedule.import.cargoes.containers.create', $importCargo->import_vessel_schedule_id, $importCargo->id], 'id'=>'form_add_containers']) }}	
 
-		<div id="myModal_autocomplete" class="modal fade" role="dialog" aria-hidden="true">
+		<div id="myModal_autocomplete" class="modal fade" role="dialog" aria-hidden="true" data-backdrop="static">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -200,7 +200,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<input type="submit" class="btn btn-primary" id="but_add_container">
+						<input type="submit" class="btn btn-primary" id="but_add_container" data-confirm>
 					</div>
 				</div>
 			</div>
@@ -275,7 +275,7 @@
 						<i class="fa fa-info"></i>Cargo Items
 					</div>
 					<div class="actions">
-						<a class="btn btn-default btn-sm" href="#myModal_cargoitem" data-toggle="modal">
+						<a class="btn btn-default btn-sm" data-target="#myModal_cargoitem" data-toggle="modal" data-title="Add Cargo Item">
 							<i class="fa fa-plus"></i> Add 
 						</a>						
 					</div>					
@@ -291,7 +291,7 @@
 									<th>Description</th>
 									<th>Qty</th>
 									<th>Unit</th>
-									<th>Action</th>
+                                    <th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -308,8 +308,11 @@
 											@endif
 										</td>
 										<td>
-											{{ link_to_route('manifest.schedule.import.cargoes.item.edit', 'Edit', [$schedule->id, $importCargo->id, $item->id]) }}
+                                            <button class='btn btn-sm' type='button' data-toggle="modal" data-target="#myModal_cargoitem" data-title="Update Cargo Item" data-action="update" data-cargo-item-id="{{$item->id}}" data-tariff="{{$item->custom_tariff_code}}" data-uoq="{{$item->custom_tariff->uoq}}" data-description="{{$item->description}}" data-quantity="{{$item->quantity}}">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
 										</td>
+
 									</tr>
 								<?php $i++; ?>
 								@endforeach
@@ -325,14 +328,16 @@
 	</div>
 
     <div class="row">
-    {{ Form::open(['route'=>['manifest.schedule.import.cargoes.item.create', $importCargo->import_vessel_schedule_id, $importCargo->id], 'id'=>'form_add_containers']) }}	
+    {{ Form::open(['route'=>['manifest.schedule.import.cargoes.item.create', $importCargo->import_vessel_schedule_id, $importCargo->id], 'id'=>'form_cargo_item']) }}	
 
-    <div id="myModal_cargoitem" class="modal fade" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal fade" id="myModal_cargoitem" role="dialog" aria-labelledby="myModalCargoItemLabel" aria-hidden="true" data-backdrop="static">
     	<div class="modal-dialog modal-lg">
     		<div class="modal-content">
     			<div class="modal-header">
     				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-    				<h4 class="modal-title">Add Cargo Item</h4>
+    				<h4 class="modal-title" id="myModalCargoItemLabel">Add Cargo Item</h4>
+                    {{ Form::hidden('form_action', '', ['id'=>'form_action']) }}
+                    {{ Form::hidden('cargo_item_id', '', ['id'=>'cargo_item_id']) }}
     			</div>
     			<div class="modal-body">
                     <div class="container-fluid">
@@ -378,13 +383,14 @@
     			</div>
     			<div class="modal-footer">
     				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-    				<input type="submit" class="btn btn-primary" id="but_add_container">
+    				<input type="submit" class="btn btn-primary" id="but_cargo_item" data-confirm="Are you sure?">
     			</div>
     		</div>
     	</div>
     </div>
 
-    {{ Form::close() }}	
+    {{ Form::close() }}
+      
     </div>
 
 
@@ -401,13 +407,14 @@
 
 @section('page_level_scripts')
 <script type="text/javascript" src="{{ URL::asset('assets/app/js/app.js') }}"></script>
+
 @stop
 
 @section('scripts')
 ComponentsPickers.init();
 ComponentsDropdowns.init();
 
-$('#but_add_container').on('click', function(event){
+$('#but_add_container1').on('click', function(event){
 	event.preventDefault();
 
 	console.log($.trim($('#containers').val()));
@@ -487,7 +494,36 @@ $('#custom_tariff_code').on('blur', function(e){
 $('#myModal_cargoitem').on('hidden.bs.modal', function (e) {
     // clear form field
     clearForm();
-})
+});
+
+$('#myModal_cargoitem').on('show.bs.modal', function (e) {
+
+    $button = $(e.relatedTarget);
+    $title = $button.data('title');
+    $cargoItemId = $button.data('cargo-item-id');
+    $tariff = $button.data('tariff');
+    $uoq = $button.data('uoq');
+    $description = $button.data('description');
+    $quantity = $button.data('quantity');
+    $action = $button.data('action');
+
+    console.log($action);
+
+    $(this).find('.modal-title').text($title);
+
+    $('#cargo_item_id').val($cargoItemId);
+    $('#custom_tariff_code').val($tariff);
+    $('#uoq').val($uoq);
+    $('#description').val($description);
+    $('#quantity').val($quantity);
+    $('#form_action').val($action);
+
+    if($('#form_action').val() == 'update') {
+        $('form').attr('action', "{{ route('manifest.schedule.import.cargoes.item.update',[$importCargo->import_vessel_schedule_id, $importCargo->id]) }}");
+    } else {
+        $('form').attr('action', "{{ route('manifest.schedule.import.cargoes.item.create',[$importCargo->import_vessel_schedule_id, $importCargo->id]) }}");
+    }    
+});
 
 function clearForm()
 {

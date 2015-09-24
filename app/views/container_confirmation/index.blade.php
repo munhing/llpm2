@@ -189,7 +189,7 @@
 			        alert(errorThrown);
 			    }
 			});		  
-		})
+		});
 
         $('#a_confirmed_at').timepicker({
             autoclose: true,

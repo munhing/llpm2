@@ -70,10 +70,10 @@ License: You must have a valid license purchased only from themeforest(the above
 			@include('flash::message')
 			@include('layouts/partials/errors')
 			@include('layouts/partials/modal')
-			
+		
 			@yield('content')
 
-			<!-- END PAGE CONTENT-->
+			@include('layouts/partials/modal_auth')			
 		</div>
 	</div>
 
@@ -111,6 +111,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="{{ URL::asset('assets/global/scripts/metronic.js') }}" type="text/javascript"></script>
 <script src="{{ URL::asset('assets/admin/layout/scripts/layout.js') }}" type="text/javascript"></script>
 <script src="{{ URL::asset('assets/admin/layout/scripts/quick-sidebar.js') }}" type="text/javascript"></script>
+<script type="text/javascript" src="{{ URL::asset('assets/app/js/modal_auth.js') }}"></script>
 
 @yield('page_level_scripts')
 

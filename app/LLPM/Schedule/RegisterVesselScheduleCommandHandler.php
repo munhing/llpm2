@@ -1,4 +1,6 @@
-<?php namespace LLPM\Schedule;
+<?php 
+
+namespace LLPM\Schedule;
 
 use Laracasts\Commander\CommandHandler;
 use Laracasts\Commander\Events\DispatchableTrait;

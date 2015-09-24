@@ -9,6 +9,7 @@ use LLPM\Repositories\ContainerRepository;
 use LLPM\Repositories\ContainerConfirmationProcessRepository;
 use WorkOrder;
 use App;
+use Activity;
 use LLPM\WorkOrders\AttachedContainersToWorkOrderCommandHandler;
 use LLPM\WorkOrders\CalculateChargesByWorkOrder;
 
@@ -88,6 +89,8 @@ class RegisterWorkOrderCommandHandler implements CommandHandler {
         //dd($workOrder->toArray());
         
         $this->workOrderRepository->save($workOrder);
+
+        Activity::log('Some activity that you wish to log');
 
         return $workOrder;    
     }
