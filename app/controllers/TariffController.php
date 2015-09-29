@@ -21,12 +21,14 @@ class TariffController extends \BaseController {
 	public function index()
 	{
 		// dd("Tariff Page");
-		var_dump($this->customTariffRepository->getByCode('390940900')->toArray());
+		// var_dump($this->customTariffRepository->getByCode('390940900')->toArray());
 		
 		$tariff = $this->customTariffRepository->getAll();
-		foreach($tariff as $code) {
-			var_dump('Code:'.$code->code. ' UOQ:' . $code->uoq . ' Description:' . $code->description);
-		}
+		// foreach($tariff as $code) {
+		// 	var_dump('Code:'.$code->code. ' UOQ:' . $code->uoq . ' Description:' . $code->description);
+		// }
+
+		return View::make('tariff/index', compact('tariff'));
 	}
 
 	/**

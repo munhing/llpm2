@@ -113,7 +113,20 @@
                         Export Cargo </a>
                     </li>                            
                 </ul>                             
-            </li>          
+            </li>    
+
+<!--
+|--------------------------------------------------------------------------
+| Tariff Code
+|--------------------------------------------------------------------------
+-->
+            <li class="{{ Request::is('admin/tariff') ? 'start active' : '' }}">
+                <a href="{{ URL::route('tariff') }}">
+                <i class="fa fa-code"></i>
+                <span class="title">Tariff Code</span>
+                <span class="selected"></span>
+                </a>
+            </li>                    
 <!--
 |--------------------------------------------------------------------------
 | Port User
@@ -152,7 +165,27 @@
                         Permissions </a>
                     </li>                    
                 </ul>                
-            </li>                       
+            </li>   
+
+<!--
+|--------------------------------------------------------------------------
+| Settings
+|--------------------------------------------------------------------------
+-->            
+            <li class="{{ Request::is('admin/settings*') ? 'start active open' : '' }}">
+                <a href="javascript:;">
+                <i class="fa fa-cog"></i>
+                <span class="title">Settings</span>
+                <span class="{{ Request::is('admin/settings*') ? 'arrow open' : 'arrow' }}"></span>
+                <span class="selected"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="{{ Request::is('admin/settings/fees*') ? 'active' : '' }}">
+                        <a href="{{ URL::route('settings.fees') }}">
+                        Fees </a>
+                    </li>                    
+                </ul>                
+            </li>                                 
         </ul>
         <!-- END SIDEBAR MENU -->
     </div>

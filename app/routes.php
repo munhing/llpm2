@@ -853,6 +853,21 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
 
 /*
 |--------------------------------------------------------------------------
+| Admin | Customs Tariff
+|--------------------------------------------------------------------------
+ */
+    Route::get('tariff', [
+        'as' => 'tariff',
+        'uses' => 'TariffController@index',
+    ]);
+
+    Route::get('tariff/find', [
+        'as' => 'tariff.find',
+        'uses' => 'TariffController@find',
+    ]);
+    
+/*
+|--------------------------------------------------------------------------
 | Admin | Port Users
 |--------------------------------------------------------------------------
  */
@@ -873,27 +888,22 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
 
 /*
 |--------------------------------------------------------------------------
-| Admin | Customs Tariff
-|--------------------------------------------------------------------------
- */
-    Route::get('tariff', [
-        'as' => 'tariff',
-        'uses' => 'TariffController@index',
-    ]);
-
-    Route::get('tariff/find', [
-        'as' => 'tariff.find',
-        'uses' => 'TariffController@find',
-    ]);
-
-/*
-|--------------------------------------------------------------------------
 | Admin | Statistics
 |--------------------------------------------------------------------------
  */
     Route::get('statistics/dashboard', [
         'as' => 'statistics.dashboard',
         'uses' => 'StatisticsController@dashboard',
+    ]);
+
+/*
+|--------------------------------------------------------------------------
+| Admin | Settings
+|--------------------------------------------------------------------------
+ */
+    Route::get('settings/fees', [
+        'as' => 'settings.fees',
+        'uses' => 'SettingsController@feesIndex',
     ]);
 
 });

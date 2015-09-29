@@ -8,7 +8,7 @@ class CustomTariffRepository {
 
 	public function getAll()
 	{
-		return CustomTariff::all();
+		return CustomTariff::orderBy('code')->get();
 	}
 
 	public function getByCode($code)

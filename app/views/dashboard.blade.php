@@ -170,8 +170,8 @@ $.ajax({
                 "<tr>" +
                     "<td>" + i + "</td>" +
                     "<td>" + data.vessel_schedule[row].name + " v." + data.vessel_schedule[row].voyage_no_arrival + "</td>" +
-                    "<td>" + data.vessel_schedule[row].eta + "</td>" +
-                    "<td>" + data.vessel_schedule[row].etd + "</td>" +
+                    "<td>" + jeta.getFullYear() + "-" + (jeta.getMonth() + 1) + "-" + jeta.getDate() + "</td>" +
+                    "<td>" + jetd.getFullYear() + "-" + (jetd.getMonth() + 1) + "-" + jetd.getDate() + "</td>" +
                 "</tr>"
             );
             i++;

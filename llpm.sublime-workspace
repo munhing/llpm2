@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"va",
+				"var_dump"
+			],
+			[
 				"json_",
 				"json_encode〔function〕"
 			],
@@ -304,42 +308,18 @@
 	"buffers":
 	[
 		{
-			"file": "app/views/dashboard.blade.php",
+			"file": "app/controllers/SettingsController.php",
 			"settings":
 			{
-				"buffer_size": 5503,
+				"buffer_size": 1612,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/controllers/StatisticsController.php",
+			"file": "app/views/settings/fees_index.blade.php",
 			"settings":
 			{
-				"buffer_size": 2430,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/LLPM/Repositories/VesselScheduleRepository.php",
-			"settings":
-			{
-				"buffer_size": 1614,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/LLPM/Repositories/ContainerConfirmationRepository.php",
-			"settings":
-			{
-				"buffer_size": 1539,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/LLPM/Repositories/WorkOrderRepository.php",
-			"settings":
-			{
-				"buffer_size": 1046,
+				"buffer_size": 5127,
 				"line_ending": "Windows"
 			}
 		},
@@ -347,25 +327,8 @@
 			"file": "app/routes.php",
 			"settings":
 			{
-				"buffer_size": 28162,
+				"buffer_size": 28696,
 				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/LLPM/Repositories/ContainerRepository.php",
-			"settings":
-			{
-				"buffer_size": 5064,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "public/assets/app/js/jquery.counterup.js",
-			"settings":
-			{
-				"buffer_size": 1067,
-				"line_ending": "Windows",
-				"name": "/*!"
 			}
 		}
 	],
@@ -439,13 +402,47 @@
 	[
 		"/C/Development/Projects/llpm",
 		"/C/Development/Projects/llpm/app",
-		"/C/Development/Projects/llpm/app/LLPM",
-		"/C/Development/Projects/llpm/app/LLPM/Repositories",
+		"/C/Development/Projects/llpm/app/controllers",
 		"/C/Development/Projects/llpm/app/views",
-		"/C/Development/Projects/llpm/app/views/workorders"
+		"/C/Development/Projects/llpm/app/views/layouts",
+		"/C/Development/Projects/llpm/app/views/layouts/partials",
+		"/C/Development/Projects/llpm/app/views/tariff"
 	],
 	"file_history":
 	[
+		"/C/Development/Projects/llpm/app/routes.php",
+		"/C/Development/Projects/llpm/app/views/layouts/partials/sidebar.blade.php",
+		"/C/Development/Projects/llpm/app/LLPM/Repositories/FeeRepository.php",
+		"/C/Development/Projects/llpm/server.php",
+		"/C/Development/Projects/llpm/app/views/schedule/show_export.blade.php",
+		"/C/Development/Projects/llpm/vendor/nesbot/carbon/tests/StartEndOfTest.php",
+		"/C/Development/Projects/llpm/vendor/predis/predis/tests/Predis/Command/HashSetTest.php",
+		"/C/Development/Projects/llpm/app/models/Setting.php",
+		"/C/Development/Projects/llpm/app/database/seeds/SettingsTableSeeder.php",
+		"/C/Development/Projects/llpm/public/assets/global/plugins/slider-revolution-slider/rs-plugin/css/settings.css",
+		"/C/Development/Projects/llpm/vendor/laravel/framework/src/Illuminate/Database/Eloquent/SoftDeletingScope.php",
+		"/C/Development/Projects/llpm/vendor/maatwebsite/excel/docs/getting-started/config.md",
+		"/C/Development/Projects/llpm/vendor/maatwebsite/excel/docs/getting-started/contributing.md",
+		"/C/Development/Projects/llpm/vendor/laravel/framework/src/Illuminate/Routing/Generators/stubs/controller.stub",
+		"/C/Development/Projects/llpm/app/LLPM/Repositories/SettingRepository.php",
+		"/C/Development/Projects/llpm/app/views/tariff/index.blade.php",
+		"/C/Development/Projects/llpm/app/controllers/TariffController.php",
+		"/C/Development/Projects/llpm/app/LLPM/Repositories/CustomTariffRepository.php",
+		"/C/Development/Projects/llpm/app/views/dashboard.blade.php",
+		"/C/Development/Projects/llpm/custome_tariff_01.xls",
+		"/C/Development/Projects/llpm/vendor/guzzlehttp/guzzle/src/ToArrayInterface.php",
+		"/C/Development/Projects/llpm/vendor/way/generators/tests/stubs/RecentOrdersTableSeeder.txt",
+		"/C/Development/Projects/llpm/vendor/phpunit/phpunit/tests/Regression/783/OneTest.php",
+		"/C/Development/Projects/llpm/vendor/laravel/framework/src/Illuminate/Remote/RemoteServiceProvider.php",
+		"/C/Development/Projects/llpm/composer.json",
+		"/C/Development/php-5.6.12/php.ini",
+		"/C/Development/Projects/llpm/public/assets/app/js/jquery.counterup.js",
+		"/C/Development/Projects/llpm/app/LLPM/Repositories/ContainerRepository.php",
+		"/C/Development/Projects/llpm/app/LLPM/Repositories/WorkOrderRepository.php",
+		"/C/Development/Projects/llpm/app/LLPM/Repositories/ContainerConfirmationRepository.php",
+		"/C/Development/Projects/llpm/app/LLPM/Repositories/VesselScheduleRepository.php",
+		"/C/Development/Projects/llpm/app/controllers/StatisticsController.php",
+		"/C/Development/.homestead/Homestead.yaml",
 		"/C/Development/Projects/llpm/app/LLPM/Forms/VesselScheduleForm.php",
 		"/C/Development/Projects/llpm/app/controllers/VesselScheduleController.php",
 		"/C/Development/Projects/llpm/app/controllers/VesselsController.php",
@@ -460,14 +457,12 @@
 		"/C/Development/Projects/llpm/app/controllers/ContainerConfirmationController.php",
 		"/C/Development/Projects/llpm/public/assets/admin/pages/scripts/charts-amcharts.js",
 		"/C/Development/Projects/llpm/app/views/layouts/default_login.blade.php",
-		"/C/Development/Projects/llpm/app/routes.php",
 		"/C/Development/Projects/llpm/app/database/seeds/DatabaseSeeder.php",
 		"/C/Development/Projects/llpm/app/views/schedule/show_import_cargo.blade.php",
 		"/C/Development/Projects/llpm/app/controllers/MobileController.php",
 		"/C/Development/Homestead/scripts/homestead.rb",
 		"/C/Development/Projects/llpm/app/views/container_confirmation/index.blade.php",
 		"/C/Development/Projects/llpm/app/database/migrations/2015_04_11_132958_create_cargo_items_table.php",
-		"/C/Development/.homestead/Homestead.yaml",
 		"/C/Development/Projects/llpm/app/views/layouts/default.blade.php",
 		"/C/Development/Projects/llpm/app/models/ContainerConfirmation.php",
 		"/C/Development/Projects/llpm/app/controllers/ContainerController.php",
@@ -489,7 +484,6 @@
 		"/C/Development/Projects/llpm/app/LLPM/WorkOrders/RegisterWorkOrderCommandHandler.php",
 		"/C/Development/Projects/llpm/app/LLPM/WorkOrders/CalculateChargesByWorkOrder.php",
 		"/C/Development/Projects/llpm/app/LLPM/WorkOrders/CalculateStorageCharges.php",
-		"/C/Development/Projects/llpm/app/LLPM/Repositories/FeeRepository.php",
 		"//brighton.local/home$/ks/desktop/emptycharges.php",
 		"/C/Development/Projects/llpm/app/commands/CalculateContainerChargesCommand.php",
 		"/C/Development/Projects/llpm/vendor/phpunit/phpunit/tests/TextUI/colors-always.phpt",
@@ -507,10 +501,8 @@
 		"/C/Development/Projects/llpm/app/LLPM/Containers/CalculateContainerDays.php",
 		"/C/Development/Projects/llpm/app/models/ImportDL.php",
 		"/C/Development/Projects/llpm/app/models/ExportDL.php",
-		"/C/Development/Projects/llpm/app/LLPM/Repositories/ContainerRepository.php",
 		"/C/Development/Projects/llpm/supervisor_queue.txt",
 		"/C/Development/Projects/llpm/cron.txt",
-		"/C/Development/Projects/llpm/app/LLPM/Repositories/WorkOrderRepository.php",
 		"/C/Development/Projects/llpm/app/database/migrations/2015_09_11_162528_add_synced_at_to_containers_table.php",
 		"/C/Development/Projects/alpha/app/database/migrations/2015_08_29_023233_add_location_column_to_items_table.php",
 		"/C/Development/Projects/llpm/app/LLPM/Confirmation/ConfirmContainerCommand.php",
@@ -518,14 +510,12 @@
 		"/C/Development/Projects/llpm/app/config/workbench.php",
 		"/C/Development/Projects/llpm/containers.txt",
 		"/C/Development/Projects/llpm/vendor/phpunit/phpunit/CODE_OF_CONDUCT.md",
-		"/C/Development/Projects/llpm/composer.json",
 		"/C/Development/Projects/llpm/vendor/guzzlehttp/guzzle/docs/conf.py",
 		"/C/Development/Projects/llpm/app/LLPM/Containers/CalculateContainerDaysCommand.php",
 		"/C/Development/Projects/llpm/app/database/migrations/2015_01_02_130857_create_container_workorder_table.php",
 		"/C/Development/Projects/llpm/public/assets/admin/pages/scripts/table-advanced.js",
 		"/C/Development/Projects/llpm/public/assets/global/plugins/datatables/extensions/TableTools/examples/alter_buttons.html",
 		"/C/Development/Projects/llpm/public/assets/global/plugins/amcharts/ammap/maps/js/taiwanLow.js",
-		"/C/Development/Projects/llpm/vendor/guzzlehttp/guzzle/src/ToArrayInterface.php",
 		"/C/Development/Projects/llpm/app/tests/TestCase.php",
 		"/C/Users/ks/AppData/Roaming/Sublime Text 3/Packages/User/snippets/Private Function.sublime-snippet",
 		"/C/Users/ks/AppData/Roaming/Sublime Text 3/Packages/User/snippets/Function.sublime-snippet",
@@ -547,37 +537,11 @@
 		"/Users/munhing1980/projects/llpm/app/views/workorders/create_unstuffing.blade.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/ContainerRepository.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Schedule/IssueImportCargoCommandHandler.php",
-		"/Users/munhing1980/Library/Application Support/Sublime Text 3/Packages/User/snippets/New Class.sublime-snippet",
-		"/Users/munhing1980/Library/Application Support/Sublime Text 3/Packages/User/snippets/Constructor.sublime-snippet",
-		"/Users/munhing1980/projects/llpm/app/LLPM/WorkOrders/RegisterWorkOrderCommandHandler.php",
-		"/Users/munhing1980/Library/Application Support/Sublime Text 3/Packages/User/snippets/untitled.php",
-		"/Users/munhing1980/projects/llpm/app/database/migrations/2015_01_02_130857_create_container_workorder_table.php",
-		"/Users/munhing1980/projects/llpm/app/database/migrations/2015_01_02_125453_create_workorders_table.php",
-		"/Users/munhing1980/projects/llpm/app/database/migrations/2014_11_22_033419_create_users_table.php",
-		"/Users/munhing1980/projects/llpm/app/models/Container.php",
-		"/Users/munhing1980/projects/llpm/app/routes.php",
-		"/Users/munhing1980/projects/llpm/vendor/laravel/framework/src/Illuminate/Http/Request.php",
-		"/Users/munhing1980/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
-		"/Users/munhing1980/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/ReceivingRepository.php",
-		"/Users/munhing1980/projects/llpm/app/views/mobile/overview.blade.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Receiving/RegisterReceivingContainersCommandHandler.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/ContainerConfirmationProcessRepository.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Schedule/AssociateContainersWithCargoCommandHandler.php",
-		"/Users/munhing1980/projects/llpm/app/controllers/MobileController.php",
-		"/Users/munhing1980/projects/llpm/app/views/layouts/mobile_layout.blade.php",
-		"/Users/munhing1980/projects/llpm/composer.json",
-		"/Users/munhing1980/projects/llpm/app/tests/ExampleTest.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Validators/SameVesselScheduleValidator.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Receiving/AssociateContainersWithCargoCommandHandler.php",
-		"/C/wamp/apps/llpm/app/LLPM/Schedule/RegisterImportContainersCommandHandler.php",
-		"/C/wamp/apps/llpm/app/LLPM/Schedule/AssociateContainersWithCargoCommandHandler.php",
-		"/C/wamp/apps/llpm/app/LLPM/Schedule/AssociateContainersWithCargoCommand.php",
-		"/C/wamp/apps/llpm/vendor/guzzlehttp/streams/src/AppendStream.php"
+		"/Users/munhing1980/Library/Application Support/Sublime Text 3/Packages/User/snippets/New Class.sublime-snippet"
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
@@ -591,6 +555,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"tariff",
+			"extension_dir",
+			"base",
+			"path",
+			"directory",
+			"dir",
 			"t",
 			"home",
 			"Home",
@@ -712,13 +682,7 @@
 			"error",
 			"cargo_id",
 			"updateImportCargo",
-			"containers",
-			"}",
-			"myModal_autocomplete",
-			"modal",
-			"command",
-			"register",
-			"command"
+			"containers"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -748,84 +712,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "app/views/dashboard.blade.php",
+					"file": "app/controllers/SettingsController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5503,
+						"buffer_size": 1612,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5387,
-								5387
-							]
-						],
-						"settings":
-						{
-							"auto_complete": false,
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2190.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "app/controllers/StatisticsController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2430,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1338,
-								1353
-							]
-						],
-						"settings":
-						{
-							"auto_complete": false,
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "app/LLPM/Repositories/VesselScheduleRepository.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1614,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								786,
-								803
+								654,
+								654
 							]
 						],
 						"settings":
@@ -842,80 +746,50 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "app/LLPM/Repositories/ContainerConfirmationRepository.php",
+					"buffer": 1,
+					"file": "app/views/settings/fees_index.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1539,
+						"buffer_size": 5127,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1513,
-								1513
+								1871,
+								1871
 							]
 						],
 						"settings":
 						{
 							"auto_complete": false,
 							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": -0.0,
-						"translation.y": 90.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "app/LLPM/Repositories/WorkOrderRepository.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1046,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								515,
-								515
-							]
-						],
-						"settings":
-						{
-							"auto_complete": false,
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 360.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 2,
 					"file": "app/routes.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 28162,
+						"buffer_size": 28696,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								27233,
-								27233
+								27741,
+								27741
 							]
 						],
 						"settings":
@@ -925,69 +799,11 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": -0.0,
-						"translation.y": 12860.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "app/LLPM/Repositories/ContainerRepository.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5064,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								412,
-								412
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": -0.0,
-						"translation.y": 121.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "public/assets/app/js/jquery.counterup.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1067,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								25,
-								6
-							]
-						],
-						"settings":
-						{
-							"auto_name": "/*!",
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 13023.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -1040,16 +856,28 @@
 		"selected_items":
 		[
 			[
+				"routes",
+				"app\\routes.php"
+			],
+			[
+				"feere",
+				"app\\LLPM\\Repositories\\FeeRepository.php"
+			],
+			[
+				"tariffre",
+				"app\\LLPM\\Repositories\\CustomTariffRepository.php"
+			],
+			[
+				"tariffcontr",
+				"app\\controllers\\TariffController.php"
+			],
+			[
 				"vesselsche",
 				"app\\LLPM\\Repositories\\VesselScheduleRepository.php"
 			],
 			[
 				"workorder",
 				"app\\LLPM\\Repositories\\WorkOrderRepository.php"
-			],
-			[
-				"routes",
-				"app\\routes.php"
 			],
 			[
 				"containerre",
@@ -1074,10 +902,6 @@
 			[
 				"registerwork",
 				"app\\LLPM\\WorkOrders\\RegisterWorkOrderCommandHandler.php"
-			],
-			[
-				"feere",
-				"app\\LLPM\\Repositories\\FeeRepository.php"
 			],
 			[
 				"containercont",
@@ -1542,14 +1366,6 @@
 			[
 				"importcargofo",
 				"llpm\\app\\LLPM\\Forms\\ImportCargoForm.php"
-			],
-			[
-				"registerimportcar",
-				"llpm\\app\\LLPM\\Schedule\\RegisterImportCargoCommand.php"
-			],
-			[
-				"updateimpo",
-				"llpm\\app\\LLPM\\Schedule\\UpdateImportCargoCommandHandler.php"
 			]
 		],
 		"width": 0.0
@@ -1578,7 +1394,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 514.0,
+	"side_bar_width": 224.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
