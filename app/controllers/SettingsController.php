@@ -21,13 +21,15 @@ class SettingsController extends \BaseController {
 	public function feesIndex()
 	{
 		// dd('Fees Index');
-		$handlingFee = json_decode($this->feeRepository->getHandlingFee());
-		$storageFee = json_decode($this->feeRepository->getStorageFee());
+		$handlingFees = $this->feeRepository->getHandlingFees();
+		$storageFees = $this->feeRepository->getStorageFees();
 
+
+		// dd($handlingFees->first()->effective_date);
 		// var_dump($handlingFee);
 		// var_dump($storageFee);
 
-		return View::make('settings/fees_index', compact('handlingFee', 'storageFee'));
+		return View::make('settings/fees_index', compact('handlingFees', 'storageFees'));
 	}
 
 	/**

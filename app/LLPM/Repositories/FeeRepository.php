@@ -13,11 +13,21 @@ class FeeRepository {
 
 	public function getHandlingFee()
 	{
-		return Fee::where('type','handling')->first()->fee;
+		return Fee::where('type','handling')->orderBy('effective_date', 'desc')->first()->fee;
 	}
 
 	public function getStorageFee()
 	{
-		return Fee::where('type','storage')->first()->fee;
+		return Fee::where('type','storage')->orderBy('effective_date', 'desc')->first()->fee;
 	}
+
+	public function getHandlingFees()
+	{
+		return Fee::where('type','handling')->orderBy('effective_date', 'desc')->get();
+	}
+
+	public function getStorageFees()
+	{
+		return Fee::where('type','storage')->orderBy('effective_date', 'desc')->get();
+	}	
 }

@@ -10,4 +10,6 @@ class Fee extends \Eloquent {
 
 	protected $fillable = ['type', 'fees', 'effective_date'];
 
+	protected $dates = array('effective_date');
+
 }
