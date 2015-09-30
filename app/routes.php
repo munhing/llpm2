@@ -906,6 +906,10 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
         'uses' => 'SettingsController@feesIndex',
     ]);
 
+    Route::post('settings/fees', [
+        'as' => 'settings.fees',
+        'uses' => 'SettingsController@feesStore',
+    ]);
 });
 
 /*

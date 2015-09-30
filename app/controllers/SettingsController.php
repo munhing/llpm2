@@ -38,9 +38,9 @@ class SettingsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function feesStore()
 	{
-		//
+		dd(Input::all());
 	}
 
 	/**

@@ -37,7 +37,7 @@
             <span class="caption-helper">setting</span>
         </div>
         <div class="actions">
-            <button class='btn btn-default btn-sm' type='button' data-toggle="modal" data-target="#myModal_handlingFee" data-title="Update Cargo Item" data-action="update">
+            <button class='btn btn-default btn-sm' type='button' data-toggle="modal" data-target="#myModal_handlingFee" data-title="Add Handling Fee" data-fee-type="handling">
                 <i class="fa fa-plus"></i> Add 
             </button>        
         </div>
@@ -68,9 +68,9 @@
                     <td align="right">{{ number_format($fee['40L'], 2) }}</td>
                     <td>{{ $handlingFee->effective_date->format('Y-m-d') }}</td>
                     <td>
-                        <a href="javascript:;" class="btn btn-default btn-sm">
+                        <button class='btn btn-default btn-sm' type='button' data-toggle="modal" data-target="#myModal_handlingFee" data-title="Update Handling Fee" data-action="update" data-fee-type="handling" data-handling-fee-id="{{$handlingFee->id}}" data-e20="{{$fee['20E']}}" data-l20="{{$fee['20L']}}" data-e40="{{$fee['40E']}}" data-l40="{{$fee['40L']}}" data-effective-date="{{$handlingFee->effective_date->format('Y-m-d')}}">
                             <i class="fa fa-pencil"></i> Edit 
-                        </a>                         
+                        </button>                         
                     </td>                                       
                 </tr>
                 <?php $i++; ?>
@@ -89,9 +89,9 @@
             <span class="caption-helper">setting</span>
         </div>
         <div class="actions">
-            <a href="javascript:;" class="btn btn-default btn-sm">
+            <button class='btn btn-default btn-sm' type='button' data-toggle="modal" data-target="#myModal_storageFee" data-title="Add Storage Fee" data-fee-type="storage">
                 <i class="fa fa-plus"></i> Add 
-            </a>         
+            </button>         
         </div>
     </div>
     <div class="portlet-body">
@@ -116,9 +116,9 @@
                     <td align="right">{{ number_format($fee['40'], 2) }}</td>                             
                     <td>{{ $storageFee->effective_date->format('Y-m-d') }}</td>
                     <td>
-                        <a href="javascript:;" class="btn btn-default btn-sm">
+                        <button class='btn btn-default btn-sm' type='button' data-toggle="modal" data-target="#myModal_storageFee" data-title="Update Storage Fee" data-action="update" data-fee-type="storage" data-storage-fee-id="{{$storageFee->id}}" data-s20="{{$fee['20']}}" data-s40="{{$fee['40']}}" data-effective-date="{{$storageFee->effective_date->format('Y-m-d')}}">
                             <i class="fa fa-pencil"></i> Edit 
-                        </a>                         
+                        </button>                         
                     </td>                                       
                 </tr>
                 <?php $i++; ?>
@@ -130,7 +130,7 @@
 </div>
 
     <div class="row">
-    {{ Form::open() }}   
+    {{ Form::open(['id'=>'form_handling_fee']) }}   
 
     <div class="modal fade" id="myModal_handlingFee" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-lg">
@@ -140,6 +140,7 @@
                     <h4 class="modal-title" id="myModalLabel">Add Handling Fee</h4>
                     {{ Form::hidden('form_action', '', ['id'=>'form_action']) }}
                     {{ Form::hidden('handling_fee_id', '', ['id'=>'handling_fee_id']) }}
+                    {{ Form::hidden('fee_type', '', ['id'=>'fee_type']) }}
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
@@ -147,45 +148,56 @@
                             <div class="row">
                                 <div class="form-group">
                                     <label class="control-label col-md-2">20" Empty</label>
-                                    <div class="col-md-6">
-                                        {{ Form::text('custom_tariff_code','', ['id'=>'custom_tariff_code', 'class'=>'form-control']) }}
-                                        <span id="err-tariff" class="badge badge-danger"></span>
-                                        <span id="suc-tariff" class="badge badge-success"></span>
-                                        <span id="inf-tariff" class="badge badge-info"></span>
+                                    <div class="col-md-4">
+                                        {{ Form::text('e20','', ['id'=>'e20', 'class'=>'form-control']) }}
+                                        <span id="err-e20" class="badge badge-danger"></span>
+                                        <span id="suc-e20" class="badge badge-success"></span>
+                                        <span id="inf-e20" class="badge badge-info"></span>
                                     </div>
 
-                                    <label class="control-label col-md-2">Unit of Quantity</label>
-                                    <div class="col-md-2">
-                                        {{ Form::text('uoq','', ['id'=>'uoq','class'=>'form-control']) }}
+                                    <label class="control-label col-md-2">20" Laden</label>
+                                    <div class="col-md-4">
+                                        {{ Form::text('l20','', ['id'=>'l20', 'class'=>'form-control']) }}
+                                        <span id="err-l20" class="badge badge-danger"></span>
+                                        <span id="suc-l20" class="badge badge-success"></span>
+                                        <span id="inf-l20" class="badge badge-info"></span>
                                     </div>                                   
                                 </div>  
                             </div>
                             <div class="row">
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">Description</label>
-                                    <div class="col-md-10">
-                                        {{ Form::textarea('description','', ['id'=>'description','class'=>'form-control', 'rows'=>'3']) }}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group last">
-                                    <label class="control-label col-md-2">Quantity</label>
+                                    <label class="control-label col-md-2">40" Empty</label>
                                     <div class="col-md-4">
-                                        {{ Form::text('quantity','', ['id'=>'quantity','class'=>'form-control']) }}
-                                        <span id="err-quantity" class="badge badge-danger"></span>
-                                        <span id="suc-quantity" class="badge badge-success"></span>
-                                        <span id="inf-quantity" class="badge badge-info"></span>                                        
+                                        {{ Form::text('e40','', ['id'=>'e40', 'class'=>'form-control']) }}
+                                        <span id="err-e40" class="badge badge-danger"></span>
+                                        <span id="suc-e40" class="badge badge-success"></span>
+                                        <span id="inf-e40" class="badge badge-info"></span>
+                                    </div>
+
+                                    <label class="control-label col-md-2">40" Laden</label>
+                                    <div class="col-md-4">
+                                        {{ Form::text('l40','', ['id'=>'l40', 'class'=>'form-control']) }}
+                                        <span id="err-l40" class="badge badge-danger"></span>
+                                        <span id="suc-l40" class="badge badge-success"></span>
+                                        <span id="inf-l40" class="badge badge-info"></span>
+                                    </div>                                   
+                                </div>  
+                            </div> 
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label col-md-5">Effective Date</label>
+                                    <div class="col-md-4">
+                                        {{ Form::text('handling_effective_date','', ['id'=>'handling_effective_date', 'class'=>'form-control date-picker']) }}
                                     </div>
                                 </div>
-                            </div>                                          
+                            </div>                                                                     
                         </div>  
                     </div>
                     
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <input type="submit" class="btn btn-primary" id="but_cargo_item" data-confirm="Are you sure?">
+                    <input type="submit" class="btn btn-primary" id="but_storage_fee" data-confirm="Are you sure?">
                 </div>
             </div>
         </div>
@@ -194,29 +206,280 @@
     {{ Form::close() }}
       
     </div>
+
+    <div class="row">
+    {{ Form::open(['id'=>'form_storage_fee']) }}   
+
+    <div class="modal fade" id="myModal_storageFee" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Handling Fee</h4>
+                    {{ Form::hidden('form_action') }}
+                    {{ Form::hidden('storage_fee_id', '', ['id'=>'storage_fee_id']) }}
+                    {{ Form::hidden('fee_type') }}
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="form-horizontal">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">20"</label>
+                                    <div class="col-md-4">
+                                        {{ Form::text('s20','', ['id'=>'s20', 'class'=>'form-control']) }}
+                                        <span id="err-s20" class="badge badge-danger"></span>
+                                        <span id="suc-s20" class="badge badge-success"></span>
+                                        <span id="inf-s20" class="badge badge-info"></span>
+                                    </div>
+
+                                    <label class="control-label col-md-2">40"</label>
+                                    <div class="col-md-4">
+                                        {{ Form::text('s40','', ['id'=>'s40', 'class'=>'form-control']) }}
+                                        <span id="err-s40" class="badge badge-danger"></span>
+                                        <span id="suc-s40" class="badge badge-success"></span>
+                                        <span id="inf-s40" class="badge badge-info"></span>
+                                    </div>                                   
+                                </div>  
+                            </div> 
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label col-md-5">Effective Date</label>
+                                    <div class="col-md-4">
+                                        {{ Form::text('storage_effective_date','', ['id'=>'storage_effective_date', 'class'=>'form-control date-picker']) }}
+                                    </div>
+                                </div>
+                            </div>                                                                     
+                        </div>  
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <input type="submit" class="btn btn-primary" id="but_storage_fee" data-confirm="Are you sure?">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ Form::close() }}
+      
+    </div>    
 @stop
 
 @section('page_level_plugins')
 
-@{{<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/select2/select2.min.js') }}"></script>}}
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js') }}"></script>
-@{{ <script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js') }}"></script> }}
-@{{ <script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js') }}"></script> }}
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
-
-
-@stop
-
-@section('page_level_scripts')
-
-<script src="{{ URL::asset('assets/admin/pages/scripts/table-advanced.js') }}"></script>
-<script src="{{ URL::asset('assets/admin/pages/scripts/components-pickers.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('assets/app/bootstrap-datepicker-1.4.0-dist/js/bootstrap-datepicker.min.js') }}"></script>
 
 @stop
 
 @section('scripts')
-	//TableAdvanced.init();
-	ComponentsPickers.init();
+
+$('#myModal_handlingFee').on('show.bs.modal', function (e) {
+
+    $button = $(e.relatedTarget);
+    $title = $button.data('title');
+
+    $e20 = $button.data('e20');
+    $l20 = $button.data('l20');
+    $e40 = $button.data('e40');
+    $l40 = $button.data('l40');
+    $effectiveDate = $button.data('effective-date');
+    console.log('Eff_Date: ' + $effectiveDate);
+    $handlingFeeId = $button.data('handling-fee-id');
+    $feeType = $button.data('fee-type');
+    $action = $button.data('action');
+
+    // console.log($action);
+    console.log('show.bs.modal');
+
+    $(this).find('.modal-title').text($title);
+
+    $('#e20').val($e20);
+    $('#l20').val($l20);
+    $('#e40').val($e40);
+    $('#l40').val($l40);
+    $('#handling_fee_id').val($handlingFeeId);
+    $("input[name='fee_type']").val($feeType);
+    $("input[name='form_action']").val($action);    
+
+    if($effectiveDate) {
+        var strDate = $effectiveDate.split(/[- :]/);
+        var newDate = new Date(strDate[0], strDate[1]-1, strDate[2]);
+        $('#handling_effective_date').datepicker('update',newDate);
+    } else {
+        $('#handling_effective_date').datepicker('update', new Date());
+    }
+
+});
+
+$('#myModal_storageFee').on('show.bs.modal', function (e) {
+
+    $button = $(e.relatedTarget);
+    $title = $button.data('title');
+
+    $s20 = $button.data('s20');
+    $s40 = $button.data('s40');
+    $effectiveDate = $button.data('effective-date');
+    console.log('Eff_Date: ' + $effectiveDate);
+    $storageFeeId = $button.data('storage-fee-id');
+    $feeType = $button.data('fee-type');
+    $action = $button.data('action');
+
+    // console.log($action);
+    console.log('show.bs.modal');
+
+    $(this).find('.modal-title').text($title);
+
+    $('#s20').val($s20);
+    $('#s40').val($s40);
+    $('#storage_fee_id').val($storageFeeId);
+    $("input[name='fee_type']").val($feeType);
+    $("input[name='form_action']").val($action);
+
+    if($effectiveDate) {
+        var strDate = $effectiveDate.split(/[- :]/);
+        var newDate = new Date(strDate[0], strDate[1]-1, strDate[2]);
+        $('#storage_effective_date').datepicker('update',newDate);
+    } else {
+        $('#storage_effective_date').datepicker('update', new Date());
+    }
+
+});
+
+$('.date-picker').datepicker({
+    format: "yyyy-mm-dd",
+    todayBtn: "linked",
+    autoclose: true,
+    todayHighlight: true
+});
+
+$(".date-picker").datepicker().on('show.bs.modal', function(event) {
+    // prevent datepicker from firing bootstrap modal "show.bs.modal"
+    event.stopPropagation(); 
+});
+
+$('#e20, #l20, #e40, #l40, #s20, #s40').on('keydown', function(e){
+    // console.log(e.target.id);
+    console.log('Only price');
+    //removeAllPrompts();
+
+    if (!isNumber(e, true)) {
+
+        //display error message
+        promptError("Numbers Only", e.target.id);
+        return false;
+    }   
+});
+
+function promptError(message, selector, fade)
+{
+    $("#suc-"+ selector).fadeOut(2000);
+    $("#inf-"+ selector).fadeOut(2000);
+    
+    if(fade == false) {
+        $("#err-"+ selector).html(message).show();
+        return;
+    }
+
+    $("#err-"+ selector).html(message).show().fadeOut(2000);
+
+}
+
+function promptSuccess(message, selector, fade)
+{
+    $("#err-"+ selector).fadeOut(2000);
+    $("#inf-"+ selector).fadeOut(2000);
+
+    if(fade == false) {
+        $("#suc-"+ selector).html(message).show();
+        return;
+    }
+    
+    $("#suc-"+ selector).html(message).show().fadeOut(2000);
+}
+
+function promptInfo(message, selector, fade)
+{
+    $("#err-"+ selector).fadeOut(2000);
+    $("#suc-"+ selector).fadeOut(2000);
+
+    if(fade == false) {
+        $("#inf-"+ selector).html(message).show();
+        return;
+    }
+    
+    $("#inf-"+ selector).html(message).show().fadeOut(2000);
+}
+
+function removeAllPrompts(selector)
+{
+    $("#err-"+ selector).fadeOut(2000);
+    $("#suc-"+ selector).fadeOut(2000);
+    $("#inf-"+ selector).fadeOut(2000);
+}
+
+function isNumber(e, period)
+{
+    if(period == true) {
+        if(isNumericKey(e) || isAllowedKey(e) || isPeriodKey(e)) {
+            console.log('Have Period');
+            return true;
+        }
+
+        return false;
+    }
+
+    if(isNumericKey(e) || isAllowedKey(e)) {
+        console.log('No Period');
+        return true;
+    }
+
+    return false;
+}
+
+function isNumericKey(e)
+{
+    var char = e.which;
+    if ((char < 48 || char > 57) && (char < 96 || char > 105)){
+        return false;
+    }
+
+    return true;    
+}
+
+function isAllowedKey(e)
+{
+    var char = e.which;
+    if ( char != 8 && char != 9 && char != 16 && char != 37 && char != 39 && char != 46 ){
+        return false;
+    }
+
+    return true;    
+}
+
+function isPeriodKey(e)
+{
+    var char = e.which;
+    
+    if ( char != 110 && char != 190 ){
+        return false;
+    }
+
+    periodCount = count($('#'+e.target.id).val());
+
+    if(periodCount != 0) {
+        return false;
+    }
+
+    return true;    
+}
+
+function count(string) {
+
+    str = string.match(/\./igm);
+    period = (str) ? str.length : 0;
+
+    return period;
+}    
 @stop
