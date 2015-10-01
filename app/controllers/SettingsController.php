@@ -1,16 +1,26 @@
 <?php
 
+use LLPM\Forms\HandlingFeeForm;
+use LLPM\Forms\StorageFeeForm;
 use LLPM\Repositories\FeeRepository;
+use LLPM\Settings\RegisterHandlingFeeCommand;
+use LLPM\Settings\RegisterStorageFeeCommand;
 
 class SettingsController extends \BaseController {
 
 	protected $feeRepository;
+	protected $handlingFeeForm;
+	protected $storageFeeForm;
 
 	function __construct(
-		FeeRepository $feeRepository
+		FeeRepository $feeRepository,
+		HandlingFeeForm $handlingFeeForm,
+		StorageFeeForm $storageFeeForm
 	)
 	{
 		$this->feeRepository = $feeRepository;
+		$this->handlingFeeForm = $handlingFeeForm;
+		$this->storageFeeForm = $storageFeeForm;
 	}
 	/**
 	 * Display a listing of the resource.
@@ -40,7 +50,28 @@ class SettingsController extends \BaseController {
 	 */
 	public function feesStore()
 	{
-		dd(Input::all());
+		$input = Input::all();
+		// dd(Input::all());
+
+		if($input['fee_type'] == 'handling') {
+
+			$this->handlingFeeForm->validate($input);
+
+			$this->execute(RegisterHandlingFeeCommand::class);
+
+			// Flash::success("Port User ".$portUser->name." has been registered!");
+
+			return Redirect::back();
+		}
+
+		if($input['fee_type'] == 'storage'){
+
+			$this->storageFeeForm->validate($input);
+
+			// $this->execute(RegisterStorageFeeCommand::class);
+
+		}
+
 	}
 
 	/**
