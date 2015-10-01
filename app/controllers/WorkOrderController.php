@@ -271,7 +271,7 @@ class WorkOrderController extends \BaseController {
 
 		$workOrder = $this->workOrderRepository->getDetailsById($workorder_id);
 		$handler = $this->portUserRepository->getById($workOrder->handler_id);
-		$fees = json_decode($this->feeRepository->getHandlingFee(), true);
+		$fees = json_decode($this->feeRepository->getHandlingFeeByDate($workOrder->date), true);
 		$containerList = new Collection;
 		$total_charges = 0;
 

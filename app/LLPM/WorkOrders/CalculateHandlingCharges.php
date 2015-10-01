@@ -13,11 +13,12 @@ class CalculateHandlingCharges
 	{
 		
 		$this->feeRepository = $feeRepository;
-		$this->fees = $this->getFees();
+		// $this->fees = $this->getFees();
 	}
 
 	public function fire($workorder)
 	{
+		// dd($workorder->date);
 		$charges = 0;
 
 		// return 0 if there's no containers attached to the workorder
@@ -25,6 +26,10 @@ class CalculateHandlingCharges
 			return 0;
 		}
 
+		// get fees based on the workorder date
+		$this->fees = $this->getFees($workorder->date);
+
+		// dd($this->fees);
 		foreach($workorder->containers as $container) {
 			$charges += $this->getCharge($container);
 		}
@@ -58,9 +63,8 @@ class CalculateHandlingCharges
 		}
 	}
 
-	public function getFees()
+	public function getFees($carbonDate)
 	{
-		// {"20E":, "20L":, "40E":, "40L":}
-		return json_decode($this->feeRepository->getHandlingFee(), true); // arg true is to convert to array instead of object
+		return json_decode($this->feeRepository->getHandlingFeeByDate($carbonDate), true); // arg true is to convert to array instead of object
 	}
 }

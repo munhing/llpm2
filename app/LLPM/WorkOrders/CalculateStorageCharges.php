@@ -14,7 +14,7 @@ class CalculateStorageCharges
 	{
 		
 		$this->feeRepository = $feeRepository;
-		$this->fees = $this->getFees();
+		// $this->fees = $this->getFees();
 	}
 
 	public function fire($workorder)
@@ -31,6 +31,8 @@ class CalculateStorageCharges
 		if(count($workorder->contaienrs) == 0) {
 			return 0;
 		}
+
+		$this->fees = $this->getFees($workorder->date);
 
 		foreach($workorder->containers as $container) {
 			$charges += $this->getCharge($container);
@@ -55,8 +57,8 @@ class CalculateStorageCharges
 		return $days_chargeable * $this->fees[$container_size];
 	}
 
-	public function getFees()
+	public function getFees($carbonDate)
 	{
-		return json_decode($this->feeRepository->getStorageFee(), true); // arg true is to convert to array instead of object
+		return json_decode($this->feeRepository->getStorageFeeByDate($carbonDate), true); // arg true is to convert to array instead of object
 	}
 }
