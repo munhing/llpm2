@@ -4,7 +4,9 @@ use LLPM\Forms\HandlingFeeForm;
 use LLPM\Forms\StorageFeeForm;
 use LLPM\Repositories\FeeRepository;
 use LLPM\Settings\RegisterHandlingFeeCommand;
+use LLPM\Settings\UpdateHandlingFeeCommand;
 use LLPM\Settings\RegisterStorageFeeCommand;
+use LLPM\Settings\UpdateStorageFeeCommand;
 
 class SettingsController extends \BaseController {
 
@@ -51,27 +53,37 @@ class SettingsController extends \BaseController {
 	public function feesStore()
 	{
 		$input = Input::all();
-		// dd(Input::all());
+		// dd($input);
 
 		if($input['fee_type'] == 'handling') {
 
 			$this->handlingFeeForm->validate($input);
 
-			$this->execute(RegisterHandlingFeeCommand::class);
+			if($input['form_action'] == 'update') {
+				$this->execute(UpdateHandlingFeeCommand::class);
+				Flash::success("Handling fee updated!");
+			} else {
+				$this->execute(RegisterHandlingFeeCommand::class);
+				Flash::success("New handling fee was registered!");
+			}
 
-			// Flash::success("Port User ".$portUser->name." has been registered!");
-
-			return Redirect::back();
 		}
 
 		if($input['fee_type'] == 'storage'){
 
 			$this->storageFeeForm->validate($input);
 
-			// $this->execute(RegisterStorageFeeCommand::class);
+			if($input['form_action'] == 'update') {
+				$this->execute(UpdateStorageFeeCommand::class);
+				Flash::success("Storage fee updated!");
+			} else {
+				$this->execute(RegisterStorageFeeCommand::class);
+				Flash::success("New Storage fee was registered!");
+			}
 
 		}
 
+		return Redirect::back();
 	}
 
 	/**

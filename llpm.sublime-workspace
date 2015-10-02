@@ -312,50 +312,10 @@
 	"buffers":
 	[
 		{
-			"file": "app/controllers/SettingsController.php",
+			"file": ".env.local.php",
 			"settings":
 			{
-				"buffer_size": 1660,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/views/settings/fees_index.blade.php",
-			"settings":
-			{
-				"buffer_size": 19220,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/views/dashboard.blade.php",
-			"settings":
-			{
-				"buffer_size": 5700,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/C/Development/.homestead/Homestead.yaml",
-			"settings":
-			{
-				"buffer_size": 939,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/routes.php",
-			"settings":
-			{
-				"buffer_size": 28822,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/views/layouts/default.blade.php",
-			"settings":
-			{
-				"buffer_size": 5826,
+				"buffer_size": 585,
 				"line_ending": "Windows"
 			}
 		}
@@ -429,13 +389,7 @@
 	"expanded_folders":
 	[
 		"/C/Development/Projects/llpm",
-		"/C/Development/Projects/llpm/app",
 		"/C/Development/Projects/llpm/app/controllers",
-		"/C/Development/Projects/llpm/app/views",
-		"/C/Development/Projects/llpm/app/views/layouts",
-		"/C/Development/Projects/llpm/app/views/layouts/partials",
-		"/C/Development/Projects/llpm/app/views/schedule",
-		"/C/Development/Projects/llpm/public",
 		"/C/Development/Projects/llpm/public/assets",
 		"/C/Development/Projects/llpm/public/assets/app",
 		"/C/Development/Projects/llpm/public/assets/app/bootstrap-datepicker-1.4.0-dist",
@@ -443,10 +397,20 @@
 	],
 	"file_history":
 	[
+		"/C/Development/Projects/llpm/app/LLPM/WorkOrders/CalculateChargesByWorkOrder.php",
+		"/C/Development/Projects/llpm/app/controllers/SettingsController.php",
+		"/C/Development/Projects/llpm/app/views/settings/fees_index.blade.php",
 		"/C/Development/Projects/llpm/app/views/dashboard.blade.php",
 		"/C/Development/Projects/llpm/app/routes.php",
-		"/C/Development/Projects/llpm/app/views/layouts/partials/sidebar.blade.php",
+		"/C/Development/Projects/llpm/app/controllers/WorkOrderController.php",
+		"/C/Development/Projects/llpm/app/LLPM/Repositories/WorkOrderRepository.php",
+		"/C/Development/Projects/llpm/app/LLPM/WorkOrders/CalculateStorageCharges.php",
+		"/C/Development/Projects/llpm/app/LLPM/WorkOrders/CalculateHandlingCharges.php",
+		"/C/Development/Projects/llpm/app/models/WorkOrder.php",
 		"/C/Development/Projects/llpm/app/LLPM/Repositories/FeeRepository.php",
+		"/C/Development/Projects/llpm/app/views/layouts/default.blade.php",
+		"/C/Development/.homestead/Homestead.yaml",
+		"/C/Development/Projects/llpm/app/views/layouts/partials/sidebar.blade.php",
 		"/C/Development/Projects/llpm/server.php",
 		"/C/Development/Projects/llpm/app/views/schedule/show_export.blade.php",
 		"/C/Development/Projects/llpm/vendor/nesbot/carbon/tests/StartEndOfTest.php",
@@ -471,11 +435,9 @@
 		"/C/Development/php-5.6.12/php.ini",
 		"/C/Development/Projects/llpm/public/assets/app/js/jquery.counterup.js",
 		"/C/Development/Projects/llpm/app/LLPM/Repositories/ContainerRepository.php",
-		"/C/Development/Projects/llpm/app/LLPM/Repositories/WorkOrderRepository.php",
 		"/C/Development/Projects/llpm/app/LLPM/Repositories/ContainerConfirmationRepository.php",
 		"/C/Development/Projects/llpm/app/LLPM/Repositories/VesselScheduleRepository.php",
 		"/C/Development/Projects/llpm/app/controllers/StatisticsController.php",
-		"/C/Development/.homestead/Homestead.yaml",
 		"/C/Development/Projects/llpm/app/LLPM/Forms/VesselScheduleForm.php",
 		"/C/Development/Projects/llpm/app/controllers/VesselScheduleController.php",
 		"/C/Development/Projects/llpm/app/controllers/VesselsController.php",
@@ -496,7 +458,6 @@
 		"/C/Development/Homestead/scripts/homestead.rb",
 		"/C/Development/Projects/llpm/app/views/container_confirmation/index.blade.php",
 		"/C/Development/Projects/llpm/app/database/migrations/2015_04_11_132958_create_cargo_items_table.php",
-		"/C/Development/Projects/llpm/app/views/layouts/default.blade.php",
 		"/C/Development/Projects/llpm/app/models/ContainerConfirmation.php",
 		"/C/Development/Projects/llpm/app/controllers/ContainerController.php",
 		"/C/Development/Projects/llpm/app/controllers/CargoConfirmationController.php",
@@ -513,10 +474,7 @@
 		"/C/Development/Projects/llpm/app/database/seeds/ContainerTableSeeder.php",
 		"/C/Development/Projects/llpm/app/database/seeds/AttachContainerToCargoSeeder.php",
 		"/C/Development/Projects/llpm/app/storage/logs/laravel.log",
-		"/C/Development/Projects/llpm/app/LLPM/WorkOrders/CalculateHandlingCharges.php",
 		"/C/Development/Projects/llpm/app/LLPM/WorkOrders/RegisterWorkOrderCommandHandler.php",
-		"/C/Development/Projects/llpm/app/LLPM/WorkOrders/CalculateChargesByWorkOrder.php",
-		"/C/Development/Projects/llpm/app/LLPM/WorkOrders/CalculateStorageCharges.php",
 		"//brighton.local/home$/ks/desktop/emptycharges.php",
 		"/C/Development/Projects/llpm/app/commands/CalculateContainerChargesCommand.php",
 		"/C/Development/Projects/llpm/vendor/phpunit/phpunit/tests/TextUI/colors-always.phpt",
@@ -539,7 +497,6 @@
 		"/C/Development/Projects/llpm/app/database/migrations/2015_09_11_162528_add_synced_at_to_containers_table.php",
 		"/C/Development/Projects/alpha/app/database/migrations/2015_08_29_023233_add_location_column_to_items_table.php",
 		"/C/Development/Projects/llpm/app/LLPM/Confirmation/ConfirmContainerCommand.php",
-		"/C/Development/Projects/llpm/app/models/WorkOrder.php",
 		"/C/Development/Projects/llpm/app/config/workbench.php",
 		"/C/Development/Projects/llpm/containers.txt",
 		"/C/Development/Projects/llpm/vendor/phpunit/phpunit/CODE_OF_CONDUCT.md",
@@ -567,10 +524,7 @@
 		"/Users/munhing1980/projects/llpm/app/controllers/WorkOrderController.php",
 		"/Users/munhing1980/projects/llpm/app/controllers/VesselScheduleController.php",
 		"/Users/munhing1980/projects/llpm/app/controllers/ContainerController.php",
-		"/Users/munhing1980/projects/llpm/app/views/workorders/create_unstuffing.blade.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/ContainerRepository.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Schedule/IssueImportCargoCommandHandler.php",
-		"/Users/munhing1980/Library/Application Support/Sublime Text 3/Packages/User/snippets/New Class.sublime-snippet"
+		"/Users/munhing1980/projects/llpm/app/views/workorders/create_unstuffing.blade.php"
 	],
 	"find":
 	{
@@ -588,6 +542,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"genera",
 			"effective_date",
 			"effective-date",
 			"e40",
@@ -714,8 +669,7 @@
 			"containerRepository",
 			"CountryListServiceProvider",
 			"dk",
-			"INSERT INTO country VALUES (",
-			"detach"
+			"INSERT INTO country VALUES ("
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -745,184 +699,36 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "app/controllers/SettingsController.php",
-					"semi_transient": false,
+					"file": ".env.local.php",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 1660,
+						"buffer_size": 585,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								847,
-								847
+								365,
+								0
 							]
 						],
 						"settings":
 						{
-							"auto_complete": false,
 							"syntax": "Packages/PHP/PHP.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 135.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "app/views/settings/fees_index.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 19220,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								15842,
-								15842
-							]
-						],
-						"settings":
-						{
-							"auto_complete": false,
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4264.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "app/views/dashboard.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5700,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5355,
-								5355
-							]
-						],
-						"settings":
-						{
-							"auto_complete": false,
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 1.0,
-						"translation.y": 2172.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/C/Development/.homestead/Homestead.yaml",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 939,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								296,
-								296
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/YAML/YAML.tmLanguage"
-						},
-						"translation.x": -0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "app/routes.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 28822,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								27953,
-								27953
-							]
-						],
-						"settings":
-						{
-							"auto_complete": false,
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 13143.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "app/views/layouts/default.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5826,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3996,
-								3996
-							]
-						],
-						"settings":
-						{
-							"auto_complete": false,
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1203.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
 					"type": "text"
 				}
 			]
@@ -975,12 +781,24 @@
 		"selected_items":
 		[
 			[
-				"routes",
-				"app\\routes.php"
+				"workorder",
+				"app\\controllers\\WorkOrderController.php"
+			],
+			[
+				"workorderre",
+				"app\\LLPM\\Repositories\\WorkOrderRepository.php"
 			],
 			[
 				"feere",
 				"app\\LLPM\\Repositories\\FeeRepository.php"
+			],
+			[
+				"workordercontrol",
+				"app\\controllers\\WorkOrderController.php"
+			],
+			[
+				"routes",
+				"app\\routes.php"
 			],
 			[
 				"tariffre",
@@ -993,10 +811,6 @@
 			[
 				"vesselsche",
 				"app\\LLPM\\Repositories\\VesselScheduleRepository.php"
-			],
-			[
-				"workorder",
-				"app\\LLPM\\Repositories\\WorkOrderRepository.php"
 			],
 			[
 				"containerre",
@@ -1029,10 +843,6 @@
 			[
 				"confirmcontainer",
 				"app\\LLPM\\Confirmation\\ConfirmContainerCommand.php"
-			],
-			[
-				"workorderre",
-				"app\\LLPM\\Repositories\\WorkOrderRepository.php"
 			],
 			[
 				"container",
@@ -1481,10 +1291,6 @@
 			[
 				"associat",
 				"llpm\\app\\LLPM\\Schedule\\AssociateContainersWithCargoCommandHandler.php"
-			],
-			[
-				"importcargofo",
-				"llpm\\app\\LLPM\\Forms\\ImportCargoForm.php"
 			]
 		],
 		"width": 0.0

@@ -7,7 +7,7 @@ use Laracasts\Commander\Events\DispatchableTrait;
 use LLPM\Repositories\FeeRepository;
 use Fee;
 
-class RegisterHandlingFeeCommandHandler implements CommandHandler {
+class UpdateHandlingFeeCommandHandler implements CommandHandler {
 
 	use DispatchableTrait;
 
@@ -36,19 +36,19 @@ class RegisterHandlingFeeCommandHandler implements CommandHandler {
     	$rates['40E'] = (int)$command->e40;
     	$rates['40L'] = (int)$command->l40;
 
-    	$fee = json_encode($rates);
+        $fee = json_encode($rates);
 
-		$handlingFee = Fee::register(
-			'handling',
+        $handlingFee = Fee::edit(
+            $command->handling_fee_id,
             $fee,
             $command->handling_effective_date
-		);
+        );
 
         $this->feeRepository->save($handlingFee);
 
-		// $this->dispatchEventsFor($portUser);
+        // $this->dispatchEventsFor($portUser);
 
-		return $handlingFee;    	
+        return $handlingFee;   	
     }
 
 }

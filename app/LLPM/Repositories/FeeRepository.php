@@ -3,6 +3,7 @@
 namespace LLPM\Repositories;
 
 use Fee;
+use Carbon\Carbon;
 
 class FeeRepository {
 
@@ -39,6 +40,9 @@ class FeeRepository {
 	// the Date must be a Carbon object
 	public function getHandlingFeeByDate($carbonDate)
 	{
+		// dd($carbonDate);
+		$carbonDate = $this->checkCarbon($carbonDate);
+
 		$fees = $this->getHandlingFees();
 
 		foreach($fees as $fee) {
@@ -54,6 +58,8 @@ class FeeRepository {
 	// the Date must be a Carbon object
 	public function getStorageFeeByDate($carbonDate)
 	{
+		$carbonDate = $this->checkCarbon($carbonDate);
+
 		$fees = $this->getStorageFees();
 
 		foreach($fees as $fee) {
@@ -64,4 +70,13 @@ class FeeRepository {
 			}
 		}		
 	}		
+
+	public function checkCarbon($date)
+	{
+		if($date instanceof Carbon) {
+			return $date;
+		}
+
+		return Carbon::parse($date);
+	}
 }
