@@ -154,4 +154,10 @@ class UsersController extends \BaseController {
 		// return false
 		return 0;
 	}	
+
+	public function profile()
+	{
+		// dd('My Profile');
+		return View::make('users/profile');
+	}		
 }

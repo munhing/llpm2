@@ -342,6 +342,7 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
         },
     ]);
 
+
 /*
 |--------------------------------------------------------------------------
 | Admin | Access Control
@@ -394,7 +395,12 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
         Route::post('check_auth', [
             'as' => 'users.auth',
             'uses' => 'UsersController@checkAuth',
-        ]);               
+        ]);     
+
+        Route::get('profile', [
+            'as' => 'profile',
+            'uses' => 'UsersController@profile',
+        ]);                    
     });
 
 /*

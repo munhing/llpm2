@@ -154,15 +154,15 @@
                 <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                 <li class="dropdown dropdown-user">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                    <img alt="" class="img-circle" src="{{ URL::asset('assets/admin/layout/img/avatar3_small.jpg') }}"/>
+                    <i class="fa fa-user"/></i>
                     <span class="username username-hide-on-mobile">
-                        {{ Auth::user()->username }}
+                        {{ Auth::user()->name }}
                     </span>
                     <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-default">
                         <li>
-                            <a href="extra_profile.html">
+                            <a href="{{ URL::route('profile') }}">
                             <i class="icon-user"></i> My Profile </a>
                         </li>
 
@@ -176,14 +176,6 @@
                     </ul>
                 </li>
                 <!-- END USER LOGIN DROPDOWN -->
-                <!-- BEGIN QUICK SIDEBAR TOGGLER -->
-                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                <li class="dropdown dropdown-quick-sidebar-toggler">
-                    <a href="javascript:;" class="dropdown-toggle">
-                    <i class="icon-logout"></i>
-                    </a>
-                </li>
-                <!-- END QUICK SIDEBAR TOGGLER -->
             </ul>
         </div>
         <!-- END TOP NAVIGATION MENU -->
