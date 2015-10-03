@@ -2,11 +2,12 @@ $('input[data-confirm], button[data-confirm]').on('click', function(e){
 
     e.preventDefault();
 
-    var input = $(this);
-    var thisForm = input.closest('form'); // get the real form
+    var thisInput = $(this);
+    var thisForm = thisInput.closest('form'); // get the real form
     var but = $('input[data-submit-form], button[data-submit-form]'); // get the modal-auth submit button
 
-    console.log(but.data('submit-form'));
+    console.log("THis form id is " + but.data('submit-form'));
+    console.log(thisInput);
 
     but.data('submit-form', thisForm.prop('id')); // update modal-auth submit button's data-submit-form with the form's id to be submitted
 
@@ -23,7 +24,7 @@ $('input[data-auth], button[data-auth]').on('click', function(e){
 
     thisBut = $(this);
 
-    console.log(thisBut.data('submit-form'));
+    console.log('form_id = ' + thisBut.data('submit-form'));
 
     // ajax to check on the password is correct
     var formData = $('.form-password').serialize();

@@ -2,9 +2,7 @@
 
 @section('page_level_styles')
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/global/plugins/bootstrap-datepicker/css/datepicker3.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/global/plugins/bootstrap-select/bootstrap-select.min.css') }}"/>
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/global/plugins/select2/select2.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/global/plugins/jquery-multi-select/css/multi-select.css') }}"/>
 @stop
 @section('content')
 
@@ -29,7 +27,7 @@
 		</ul>
 	</div>	
 
-	{{ Form::open() }}
+	{{ Form::open(['id' => 'form_schedule_edit']) }}
 		{{ Form::hidden('id', $vesselSchedule->id) }}
 		<div class="row">
 			<div class="col-md-6">
@@ -170,7 +168,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-actions">
-					<button type="submit" id="register-submit-btn" class="btn blue">
+					<button id="register-btn" class="btn blue" data-confirm="Are you sure?">
 					Update <i class="m-icon-swapright m-icon-white"></i>
 					</button>
 				</div>
@@ -185,12 +183,10 @@
 <script src="{{ URL::asset('assets/admin/pages/scripts/components-pickers.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/global/plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js') }}"></script>
-<script src="{{ URL::asset('assets/admin/pages/scripts/components-dropdowns.js') }}"></script>
 @stop
 
 @section('scripts')
 ComponentsPickers.init();
-ComponentsDropdowns.init();
+// ComponentsDropdowns.init();
 @stop
 

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Collection;
+use LLPM\Forms\WorkOrderForm;
 use LLPM\Repositories\CargoRepository;
 use LLPM\Repositories\ContainerConfirmationRepository;
 use LLPM\Repositories\ContainerRepository;
@@ -25,6 +26,7 @@ class WorkOrderController extends \BaseController {
 	protected $cargoRepository;
 	protected $calculateChargesByWorkOrder;
 	protected $feeRepository;
+	Protected $workOrderForm;
 
 	function __construct(
 		WorkOrderRepository $workOrderRepository, 
@@ -35,7 +37,8 @@ class WorkOrderController extends \BaseController {
 		ContainerConfirmationRepository $containerConfirmationRepository, 
 		CargoRepository $cargoRepository,
 		CalculateChargesByWorkOrder $calculateChargesByWorkOrder,
-		FeeRepository $feeRepository
+		FeeRepository $feeRepository,
+		WorkOrderForm $workOrderForm
 	)
 	{
 		$this->workOrderRepository = $workOrderRepository;
@@ -47,6 +50,7 @@ class WorkOrderController extends \BaseController {
 		$this->cargoRepository = $cargoRepository;
 		$this->calculateChargesByWorkOrder = $calculateChargesByWorkOrder;
 		$this->feeRepository = $feeRepository;
+		$this->workOrderForm = $workOrderForm;
 	}
 
 	/**
@@ -81,7 +85,9 @@ class WorkOrderController extends \BaseController {
 	{
 		//$handlers = $this->portUserRepository->getAll();
 		//dd('Hello');
-		return View::make('workorders/create2');
+		$cargoList = $this->cargoRepository->getActiveExportCargoForSelectList();
+
+		return View::make('workorders/create2', compact('cargoList'));
 	}
 
 	public function carrierList()
@@ -156,6 +162,9 @@ class WorkOrderController extends \BaseController {
 				break;
 			case "US":
 				$containerList = $this->containerRepository->getActiveLadenContainers();
+				break;				
+			case "ST":
+				$containerList = $this->containerRepository->getActiveEmptyContainers();
 				break;					
 		}
 
@@ -183,10 +192,15 @@ class WorkOrderController extends \BaseController {
 
 		$input = Input::all();
 
-		if(! $input['containers']) {
+		$this->workOrderForm->validate($input);
 
-			Flash::error("Please key in correctly!");
-			return Redirect::back();			
+		if($input['type'] == 'ST') {
+			foreach($input['containers'] as $key => $value) {
+				if($value == '') {
+					Flash::error("Cargo not specify correctly");
+					return Redirect::back();
+				}
+			}
 		}
 
 		$workorder = $this->execute(RegisterWorkOrderCommand::class, $input);

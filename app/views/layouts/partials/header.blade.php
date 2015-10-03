@@ -85,20 +85,6 @@
                                     <i class="icon-plus"></i>
                                     Work Order </span>
                                     </a>
-                                </li> 
-                                <li>
-                                    <a href="{{ URL::route('workorders.unstuffing') }}">
-                                    <span class="details">
-                                    <i class="icon-plus"></i>
-                                    Unstuffing Activity </span>
-                                    </a>
-                                </li> 
-                                <li>
-                                    <a href="{{ URL::route('workorders.stuffing') }}">
-                                    <span class="details">
-                                    <i class="icon-plus"></i>
-                                    Stuffing Activity </span>
-                                    </a>
                                 </li>                                                                                               
                             </ul>
                         </li>

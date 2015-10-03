@@ -2,7 +2,7 @@
 
 class UpdateImportCargoCommand {
 
-	public $id;
+	public $cargo_id;
 
 	public $bl_no;
 
@@ -33,10 +33,10 @@ class UpdateImportCargoCommand {
 	//public $containers;	
     /**
      */
-    public function __construct($id, $bl_no, $consignor_id, $consignee_id, $mt, $m3, $description, $markings, $country_code, $port_code, $custom_reg_no, $custom_form_no, $import_vessel_schedule_id, $receiving_id)
+    public function __construct($cargo_id, $bl_no, $consignor_id, $consignee_id, $mt, $m3, $description, $markings, $country_code, $port_code, $custom_reg_no, $custom_form_no, $import_vessel_schedule_id, $receiving_id)
     {
 
-		$this->id = $id;
+		$this->cargo_id = $cargo_id;
 
 		$this->bl_no = $bl_no;
 

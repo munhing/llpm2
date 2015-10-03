@@ -37,11 +37,12 @@
 		</ul>
 	</div>	
 
-	{{ Form::open(['route'=>['manifest.schedule.import.cargoes.update', $schedule->id, $cargo->id]]) }}
-	{{ Form::hidden('id', $cargo->id) }}
-	{{ Form::hidden('import_vessel_schedule_id', $cargo->import_vessel_schedule_id) }}
-
 	<div class="row">
+
+		{{ Form::open(['route'=>['manifest.schedule.import.cargoes.update', $schedule->id, $cargo->id], 'id' => 'form_cargo_edit']) }}
+		{{ Form::hidden('cargo_id', $cargo->id) }}
+		{{ Form::hidden('import_vessel_schedule_id', $cargo->import_vessel_schedule_id) }}
+
 		<div class="col-md-8 ">
 			<!-- BEGIN Portlet PORTLET-->
 			<div class="portlet box blue-hoki">
@@ -141,13 +142,15 @@
 					</div>
 
 					<div class="form-actions">
-						<button type="submit" id="register-submit-btn" class="btn blue">
+						<button id="register-btn" class="btn blue" data-confirm>
 						Update <i class="m-icon-swapright m-icon-white"></i>
 						</button>
 					</div>
 				</div>
 			</div>
 		</div>
+
+		{{ Form::close() }}
 
 		<div class="col-md-4">
 			<!-- BEGIN Portlet PORTLET-->
@@ -188,7 +191,7 @@
 			</div>
 		</div>
 	</div>
-	{{ Form::close() }}
+
 
 @stop
 

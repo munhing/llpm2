@@ -32,10 +32,10 @@ class UpdateImportCargoCommandHandler implements CommandHandler {
      */
     public function handle($command)
     {
-    	//dd($command);
+    	// dd($command);
 
 		$importCargo = Cargo::edit(
-			$command->id,
+			$command->cargo_id,
 			$command->bl_no,
 			$command->consignor_id, 
 			$command->consignee_id,

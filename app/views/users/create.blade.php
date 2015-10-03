@@ -60,7 +60,7 @@
 
 		<div class="form-actions">
 
-			<button type="submit" id="register-submit-btn" class="btn blue">
+			<button type="submit" id="register-submit-btn" class="btn blue" data-confirm>
 			Sign Up <i class="m-icon-swapright m-icon-white"></i>
 			</button>
 		</div>

@@ -74,7 +74,9 @@
             					<div class="form-group">
             						<label class="control-label col-md-2">Containers</label>
             						<div class="col-md-8">
+            							<div id="container_select_div">
             							{{ Form::select('containers[]', [], null, ['class' => 'form-control select2me', 'placeholder' => 'Select Containers', 'multiple', 'id'=>'ctn', 'spinner']) }}
+            							</div>
                                         <span id="err-quantity" class="badge badge-danger"></span>
                                         <span id="suc-quantity" class="badge badge-success"></span>
                                         <span id="inf-quantity" class="badge badge-info"></span>            							
@@ -86,7 +88,7 @@
 									<label class="control-label col-md-2">Containers <span class="required">
 									* </span>
 									</label>
-									<div class="col-md-8">
+									<div class="col-md-6">
 										{{ Form::select('ctn_st', [], null, ['class' => 'form-control select2me', 'placeholder' => 'Select Containers', 'id'=>'ctn_st']) }}
 									</div>
 									<div class="col-md-2">
@@ -94,7 +96,7 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<div class="col-md-offset-1 col-md-8">
+									<div class="col-md-offset-2 col-md-8">
 										<div class="portlet box blue">
 											<div class="portlet-title">
 												<div class="caption">
@@ -140,6 +142,8 @@
 
 @section('scripts')
 
+	$('#container_div_st').hide();
+
 	function toggleContainerDiv(movement)
 	{
 		if(movement == 'ST') {
@@ -149,6 +153,42 @@
 			$('#container_div').show();
 			$('#container_div_st').hide();		
 		}
+	}
+
+	function loadContainers()
+	{
+		console.log('loadContainer function: ' + $('#type').val());
+
+		$.ajax({
+			url: '{{ route('workorders.container_list') }}',
+			dataType: 'json',
+			type: 'GET',
+			data: {carrier_id : $('#carrier_id').val(), type : $('#type').val() },
+			success: function(data) {
+
+				console.log(data);
+
+				if($('#type').val() == 'ST') {
+					$('#ctn_st').select2('data', null);
+					$('#ctn_st').empty(); // clear the current elements in select box
+
+					for (row in data) {
+						$('#ctn_st').append($('<option></option>').attr('value', data[row].id).text(data[row].container_no));
+					}					
+				} else {
+
+					$('#ctn').select2('data', null);
+					$('#ctn').empty(); // clear the current elements in select box
+
+					for (row in data) {
+						$('#ctn').append($('<option></option>').attr('value', data[row].id).text(data[row].container_no));
+					}
+				}
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				alert(errorThrown);
+			}
+		});		
 	}
 
 	$('#handler_id').select2({
@@ -172,7 +212,14 @@
 	});
 
 	$('#type').on('change', function(){
+
 		console.log($(this).val());
+
+		// load containers except for HI and HE
+		// function to load containers
+
+		loadContainers();
+
 
 		$('#ctn').select2('data', ''); // clear selected containers
 		$('#ctn').empty(); // empty all options
@@ -191,7 +238,7 @@
 			// remove and create input field with id=carrier_id
 
 			$('#carrier').empty();
-			$('#carrier').append("<select id='carrier_id' name='carrier_id' class='form-control select2me' data-placeholder='Choose a Carrier...'>");
+			$('#carrier').append("<select id='carrier_id' name='carrier_id' class='form-control' data-placeholder='Choose a Carrier...'>");
 
         	$.ajax({
 	            url: '{{ route('workorders.carrier_list') }}',
@@ -213,8 +260,6 @@
 	            }
 	        });
 
-		} else if(movement_array[0] == 'ST') {
-			console.log('Stuffing');
 		} else {
 
 			$('#carrier').empty();
@@ -243,32 +288,130 @@
 	});
 
     $('#carrier').on('change', '#carrier_id', function() {
+    	if($('#type').val() == 'HI') {
+			loadContainers();
+    	}
+    });
 
-		// alert($('#type').val());
-		// throw 'Stop Here';
+	$('#button-add').on('click', function(){
 
-		$.ajax({
-			url: '{{ route('workorders.container_list') }}',
-			dataType: 'json',
-			type: 'GET',
-			data: {carrier_id : $('#carrier_id').val(), type : $('#type').val() },
-			success: function(data) {
+		//alert('Add Container ' + $('#ctn option:selected').text());
+		var containerNo = $('#ctn_st option:selected').text();
+		var containerId = $('#ctn_st option:selected').val();
 
-				console.log(data);
+		if(! $('#' + containerNo).length ){ // check whether container already listed
 
-				$('#ctn').select2('data', null)
-				$('#ctn').empty(); // clear the current elements in select box
+			// new div
+			var newDiv = $('<div></div>', {
+				'class': 'form-group'
+			});
 
-				for (row in data) {
-					$('#ctn').append($('<option></option>').attr('value', data[row].id).text(data[row].container_no));
-				}
-			},
-			error: function(jqXHR, textStatus, errorThrown) {
-				alert(errorThrown);
-			}
+			var newSelectDiv = $('<div></div>', {
+				'class': 'col-md-9'
+			});
+
+			// new label
+			var newLabel = $('<label></label>', {
+				'class': 'control-label col-md-3',
+				'text': ' ' + containerNo
+			});
+
+			/*var newButtonInfo = $('<a />', {
+				'class': 'btn btn-sm btn-danger',
+				'href': '#'
+			});*/
+			
+			var newInfo = $('<i />', {
+				'class': 'glyphicon glyphicon-remove font-red-thunderbird'
+			});
+
+			//newInfo.prependTo(newButtonInfo);
+			newInfo.prependTo(newLabel);
+
+			// new select
+
+			var newSelect = $('<input />', {
+				'name': 'containers[' + containerId + ']',
+				'class': 'form-control',
+				'id': containerNo
+			});
+
+			newSelect.appendTo(newSelectDiv);
+			newLabel.appendTo(newDiv);
+			newSelectDiv.appendTo(newDiv);
+			newDiv.appendTo('#container-data');
+
+			$('#'+ containerNo).select2({
+				placeholder: 'Select BL#',
+				multiple: true,
+				data: {{ $cargoList->toJson() }}
+			});
+		}
+
+	});
+
+	$('#container-data').on('click', 'i', function(){
+		//alert('remove me');
+		console.log($(this).parent().parent());
+		$(this).parent().parent().remove();
+	});
+
+
+	$('#container-data').on('change', '.select2-offscreen', function(){
+
+		var containerNo = [];
+		var blNo = [];
+
+		var containerList = $('#container-data').find('.form-group>div>input');
+		var cargoList = $('#container-data').find('.form-group>div>div>ul');
+
+		$.each($(containerList), function(key, value){
+			//console.log($(value).attr('id'));
+			containerNo.push($(value).attr('id')); 
 		});
 
-    });	
+		$.each($(cargoList), function(key, value){
+			//console.log($(value).find('li>div'));
+			list = '';
+			$.each($(value), function(key2, value2){
+				//console.log($(value2).text());
+				list += $(value2).text();
+			});
+			blNo.push(list);
+		});
+
+		$('#selected-containers').empty();
+
+		for(i=0; i < containerNo.length; i++) {
+
+			var newGroupDiv = $('<div />', {
+				'class': 'form-group'
+			});
+
+			var newLabel = $('<label />', {
+				'class': 'control-label col-md-3',
+				'text': containerNo[i]
+			});
+
+			var newCargoDiv = $('<div />', {
+				'class': 'col-md-9'
+			});
+
+			var newCargoList = $('<p />', {
+				'class': 'form-control-static',
+				'text': blNo[i]
+			});
+
+			newCargoList.appendTo(newCargoDiv);
+			newLabel.appendTo(newGroupDiv);
+			newCargoDiv.appendTo(newGroupDiv);
+
+			newGroupDiv.appendTo($('#selected-containers'));
+		}
+
+		console.log(containerNo);
+		console.log(blNo);
+	});  
 
 @stop
 

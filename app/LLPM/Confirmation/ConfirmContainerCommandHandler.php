@@ -243,7 +243,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
     public function updateSTContainer($confirmation)
     {
-        $workorder = $this->workOrderRepository->getByWorkOrderNo($confirmation[2]);
+        $workorder = $this->workOrderRepository->getById($confirmation[2]);
         $ctn = $this->containerRepository->getById($confirmation[0]);
 
         $cargoes = explode(',', $ctn->pre_stuffing);

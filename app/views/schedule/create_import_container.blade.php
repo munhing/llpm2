@@ -33,7 +33,7 @@
 		</ul>
 	</div>	
 
-	{{ Form::open() }}
+	{{ Form::open(['id' => 'form_containers']) }}
 
 	<div class="row">
 		<div class="col-md-8 ">
@@ -60,7 +60,7 @@
 	<div class="row">
 		<div class="col-md-6 ">
 			<div class="form-actions">
-				<button type="submit" id="register-submit-btn" class="btn blue">
+				<button type="submit" id="register-submit-btn" class="btn blue" data-confirm>
 				Register <i class="m-icon-swapright m-icon-white"></i>
 				</button>
 			</div>
