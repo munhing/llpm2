@@ -127,7 +127,7 @@
 			</div>
 		</div>
 
-		{{ Form::open(['route' => ['workorders.containers.add', $workOrder->id]]) }}	
+		{{ Form::open(['route' => ['workorders.containers.add', $workOrder->id], 'id' => 'form_add_container']) }}	
 
 		<div id="myModal_autocomplete" class="modal fade" role="dialog" aria-hidden="true">
 			<div class="modal-dialog">
@@ -155,7 +155,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<input type="submit" class="btn btn-primary" id="but_add_container">
+						<input type="submit" class="btn btn-primary" id="but_add_container" data-confirm>
 					</div>
 				</div>
 			</div>
@@ -209,9 +209,9 @@
 											@endif
 										</td>
 										<td>@if($container->pivot->confirmed == 0)
-											{{ Form::open() }}
+											{{ Form::open(['id' => 'form_unlink_container']) }}
 											{{ Form::hidden('container_id', $container->id) }}
-					                            <button class='btn btn-sm btn-danger' type='button' data-toggle="modal" data-target="#myModal" data-title="Cancel Container" data-body="Cancel this container?">
+					                            <button class='btn btn-sm btn-danger' data-confirm="Cancel this container?">
 					                                <i class="glyphicon glyphicon-remove"></i>
 					                            </button>											
 											{{ Form::close() }}

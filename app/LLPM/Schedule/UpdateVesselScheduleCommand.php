@@ -2,7 +2,7 @@
 
 class UpdateVesselScheduleCommand {
 
-	public $id;
+	public $schedule_id;
     public $vessel_id;
     public $portuser_id;
     public $voyage_no_arrival;
@@ -14,9 +14,9 @@ class UpdateVesselScheduleCommand {
     public $m3_arrival;
     public $m3_departure; 
 
-    public function __construct($id, $vessel_id, $portuser_id, $voyage_no_arrival, $voyage_no_departure, $eta, $etd, $mt_arrival, $mt_departure, $m3_arrival, $m3_departure)
+    public function __construct($schedule_id, $vessel_id, $portuser_id, $voyage_no_arrival, $voyage_no_departure, $eta, $etd, $mt_arrival, $mt_departure, $m3_arrival, $m3_departure)
     {
-        $this->id = $id;
+        $this->schedule_id = $schedule_id;
         $this->vessel_id = $vessel_id;
         $this->portuser_id = $portuser_id;
         $this->voyage_no_arrival = $voyage_no_arrival;

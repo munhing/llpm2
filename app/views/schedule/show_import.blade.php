@@ -68,9 +68,9 @@
 										<td>{{ $container->m_content }}</td>
 										<td>
 											@if(count($container->workorders) == 0 && $container->content != 'L')												
-												{{ Form::open(['route'=>['manifest.schedule.import.containers.delete', $container->import_vessel_schedule_id]]) }}
+												{{ Form::open(['route'=>['manifest.schedule.import.containers.delete', $container->import_vessel_schedule_id], 'id' => 'form_remove_container']) }}
 												{{ Form::hidden('container_id', $container->id) }}
-						                            <button class='btn btn-sm btn-danger' type='button' data-toggle="modal" data-target="#myModal" data-title="Remove Container" data-body="Remove this container?">
+						                            <button class='btn btn-sm btn-danger' data-confirm="Remove this container?">
 						                                <i class="glyphicon glyphicon-remove"></i>
 						                            </button>											
 												{{ Form::close() }}
@@ -149,21 +149,14 @@
 
 @section('page_level_plugins')
 
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
 
 @stop
 
 @section('page_level_scripts')
-<script type="text/javascript" src="{{ URL::asset('assets/app/js/app.js') }}"></script>
-<script src="{{ URL::asset('assets/admin/pages/scripts/table-advanced.js') }}"></script>
+
 
 @stop
 
 @section('scripts')
-	TableAdvanced.init();
+	// TableAdvanced.init();
 @stop

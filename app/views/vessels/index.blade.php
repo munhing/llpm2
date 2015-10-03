@@ -40,14 +40,10 @@
 	<div class="portlet-body">
 		<table class="table table-striped table-bordered table-hover" id="sample_1">
 		<thead>
-		<tr>
-			<th>
-				 Vessel Name
-			</th>		
-			<th>
-				 Created At
-			</th>
-		</tr>
+			<tr>
+				<th>Vessel Name</th>		
+				<th>Created At</th>
+			</tr>
 		</thead>
 		<tbody>
 			@foreach($vessels as $vessel)
@@ -70,17 +66,16 @@
 
 @section('page_level_plugins')
 
-@{{<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/select2/select2.min.js') }}"></script>}}
+<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js') }}"></script>
-@{{ <script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js') }}"></script> }}
-@{{ <script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js') }}"></script> }}
+<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
 
 @stop
 
 @section('page_level_scripts')
-
 <script src="{{ URL::asset('assets/admin/pages/scripts/table-advanced.js') }}"></script>
 
 @stop

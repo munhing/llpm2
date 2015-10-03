@@ -37,7 +37,7 @@
 		</ul>
 	</div>	
 
-	{{ Form::open(['route'=>['manifest.schedule.import.cargoes.item.update', $schedule->id, $cargo->id, $cargoItem->id]]) }}
+	{{ Form::open(['route'=>['manifest.schedule.import.cargoes.item.update', $schedule->id, $cargo->id, $cargoItem->id], 'id' => 'form_cargo_item']) }}
 	{{ Form::hidden('cargo_item_id', $cargoItem->id) }}
 	{{ Form::hidden('import_vessel_schedule_id', $cargo->import_vessel_schedule_id) }}
 
@@ -77,7 +77,7 @@
 					</div>
 
 					<div class="form-actions">
-						<button type="submit" id="register-submit-btn" class="btn blue">
+						<button type="submit" id="register-submit-btn" class="btn blue" data-confirm>
 						Update <i class="m-icon-swapright m-icon-white"></i>
 						</button>
 					</div>

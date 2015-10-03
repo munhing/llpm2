@@ -171,6 +171,7 @@ class VesselScheduleController extends \BaseController {
 	 */
 	public function update($id)
 	{
+		
 		$this->vesselScheduleForm->validate(Input::all());
 
 		$vesselSchedule = $this->execute(UpdateVesselScheduleCommand::class);
@@ -368,6 +369,8 @@ class VesselScheduleController extends \BaseController {
 	{
 		$input = Input::all();
 		$input['export_vessel_schedule_id'] = $id;
+
+		// dd($input);
 
 		//$input['containers'] = $this->filterContainers($input['containers'], 'L', 1);
 

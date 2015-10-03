@@ -97,8 +97,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script src="{{ URL::asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
 <script src="{{ URL::asset('assets/global/plugins/jquery.blockui.min.js') }}" type="text/javascript"></script>
 <script src="{{ URL::asset('assets/global/plugins/jquery.cokie.min.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('assets/global/plugins/uniform/jquery.uniform.min.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}" type="text/javascript"></script>
+<script src="{{ URL::asset('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
@@ -108,7 +107,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="{{ URL::asset('assets/global/scripts/metronic.js') }}" type="text/javascript"></script>
 <script src="{{ URL::asset('assets/admin/layout/scripts/layout.js') }}" type="text/javascript"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/app/js/modal_auth.js') }}"></script>
+<script src="{{ URL::asset('assets/app/js/modal_auth.js') }}" type="text/javascript"></script>
+<script src="{{ URL::asset('assets/app/js/app.js') }}" type="text/javascript"></script>
 
 @yield('page_level_scripts')
 

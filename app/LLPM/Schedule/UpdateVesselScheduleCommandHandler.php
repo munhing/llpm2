@@ -28,7 +28,7 @@ class UpdateVesselScheduleCommandHandler implements CommandHandler {
     	//dd($command);
 
 		$vesselSchedule = VesselSchedule::edit(
-			$command->id,
+			$command->schedule_id,
 	        $command->vessel_id,
 	        $command->portuser_id,
 	        $command->voyage_no_arrival,

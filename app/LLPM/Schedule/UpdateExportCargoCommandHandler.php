@@ -35,7 +35,7 @@ class UpdateExportCargoCommandHandler implements CommandHandler {
     	//dd($command);
 
 		$cargo = Cargo::editExport(
-			$command->id,
+			$command->cargo_id,
 			$command->bl_no,
 			$command->consignor_id, 
 			$command->consignee_id,

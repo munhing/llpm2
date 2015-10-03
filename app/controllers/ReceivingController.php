@@ -63,6 +63,8 @@ class ReceivingController extends \BaseController {
 			Session::put('receiving.date', date('m/Y'));
 		}
 
+		// dd(Session::get('receiving.date'));
+
 		$receiving = $this->receivingRepository->getAllByMonth(convertMonthToMySQLDate(Session::get('receiving.date')));
 		return View::make('receiving/index', compact('receiving'));
 	}
@@ -132,7 +134,7 @@ class ReceivingController extends \BaseController {
 	public function updateCargo($receiving_id, $cargo_id)
 	{
 		$input = Input::all();
-		//dd($input);
+		// dd($input);
 		$cargo = $this->execute(UpdateExportCargoCommand::class, $input);
 
 		Flash::success("Cargo with B/L No: ".$cargo->bl_no." has been updated!");

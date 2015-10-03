@@ -34,7 +34,7 @@
 	</div>	
 
 	<div class="row">
-		{{ Form::open(['route'=>['manifest.schedule.import.cargoes.issue', $importCargo->import_vessel_schedule_id, $importCargo->id]]) }}	
+		{{ Form::open(['route'=>['manifest.schedule.import.cargoes.issue', $importCargo->import_vessel_schedule_id, $importCargo->id], 'id' => 'form_issue_dl']) }}	
 		<div class="col-md-8 ">
 			<!-- BEGIN Portlet PORTLET-->
 			<div class="portlet box blue-hoki">
@@ -47,7 +47,7 @@
 					<div class="actions">
 						@if($importCargo->dl_no == 0 && $importCargo->status == 2)
                             
-                            <button class='btn btn-sm btn-info' type='button' data-toggle="modal" data-target="#myModal" data-title="Issue DL" data-body="Are you sure you want to Issue DL ?">
+                            <button class='btn btn-sm btn-info' data-confirm>
                                 Issue DL
                             </button>
                             
@@ -245,9 +245,9 @@
 										<td>{{ $container->m_content }}</td>
 										<td>
 											@if($container->status == 1 && $container->current_movement == 0)
-											{{ Form::open(['route'=>['manifest.schedule.import.cargoes.detach', $importCargo->import_vessel_schedule_id, $importCargo->id]]) }}
+											{{ Form::open(['route'=>['manifest.schedule.import.cargoes.detach', $importCargo->import_vessel_schedule_id, $importCargo->id], 'id' => 'form_unlink_container']) }}
 											{{ Form::hidden('container_id', $container->id) }}
-					                            <button class='btn btn-sm btn-danger' type='button' data-toggle="modal" data-target="#myModal" data-title="Unlink Cargo" data-body="Unlink cargo from this container?">
+					                            <button class='btn btn-sm btn-danger' data-confirm>
 					                                <i class="fa fa-unlink"></i>
 					                            </button>											
 											{{ Form::close() }}

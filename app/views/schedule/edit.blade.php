@@ -28,7 +28,7 @@
 	</div>	
 
 	{{ Form::open(['id' => 'form_schedule_edit']) }}
-		{{ Form::hidden('id', $vesselSchedule->id) }}
+		{{ Form::hidden('schedule_id', $vesselSchedule->id) }}
 		<div class="row">
 			<div class="col-md-6">
 				<div class="form-group">

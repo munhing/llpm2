@@ -33,7 +33,7 @@
 		</ul>
 	</div>
 
-	{{ Form::open(['route'=>['receiving.cargo.item.update', $cargo->receiving_id, $cargo->id, $cargoItem->id]]) }}
+	{{ Form::open(['route'=>['receiving.cargo.item.update', $cargo->receiving_id, $cargo->id, $cargoItem->id], 'id' => 'form_cargo_item']) }}
 	{{ Form::hidden('cargo_item_id', $cargoItem->id) }}
 	{{ Form::hidden('receiving_id', $cargo->receiving_id) }}
 
@@ -73,7 +73,7 @@
 					</div>
 
 					<div class="form-actions">
-						<button type="submit" id="register-submit-btn" class="btn blue">
+						<button type="submit" id="register-submit-btn" class="btn blue" data-confirm>
 						Update <i class="m-icon-swapright m-icon-white"></i>
 						</button>
 					</div>
