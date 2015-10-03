@@ -3,40 +3,39 @@
 use Indatus\Dispatcher\Drivers\Cron\Scheduler;
 use Indatus\Dispatcher\Scheduling\Schedulable;
 use Indatus\Dispatcher\Scheduling\ScheduledCommand;
-use LLPM\Containers\CalculateContainerCharges;
+use LLPM\WorkOrders\DailyWorkOrderChargesCalculation;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class CalculateContainerChargesCommand extends ScheduledCommand {
+class CalculateWorkOrderChargesCommand extends ScheduledCommand {
+	protected $dailyWorkOrderChargesCalculation;
 
-	protected $calculateContainerCharges;
 
 	/**
 	 * The console command name.
 	 *
 	 * @var string
 	 */
-	protected $name = 'llpm:calculate-container-charges';
+	protected $name = 'llpm:calculate-workorder-charges';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Recalculate days and charges for active containers in the port';
+	protected $description = 'This is a cron to recalculate workorder charges daily after the cron: calculate-container-days is ran. This cron will be set to run pass midnight.';
 
 	/**
 	 * Create a new command instance.
 	 *
 	 * @return void
 	 */
-	public function __construct(CalculateContainerCharges $calculateContainerCharges)
+	public function __construct(DailyWorkOrderChargesCalculation $dailyWorkOrderChargesCalculation)
 	{
-		$this->calculateContainerCharges = $calculateContainerCharges;
+		$this->dailyWorkOrderChargesCalculation = $dailyWorkOrderChargesCalculation;
 
 		parent::__construct();
 	}
-
 
 	/**
 	 * When a command should run
@@ -56,8 +55,8 @@ class CalculateContainerChargesCommand extends ScheduledCommand {
 	 */
 	public function fire()
 	{
-		Log::info('Calculate container charges');
-		$this->calculateContainerCharges->fire();
+		Log::info('Calculate workorder charges');
+		$this->dailyWorkOrderChargesCalculation->fire();
 	}
 
 	/**

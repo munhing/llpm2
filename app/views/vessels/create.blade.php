@@ -23,7 +23,7 @@
 		</ul>
 	</div>	
 
-	{{ Form::open() }}
+	{{ Form::open(['id' => 'form_vessel']) }}
 
 		<div class="form-group">
 
@@ -36,7 +36,7 @@
 
 		<div class="form-actions">
 
-			<button type="submit" id="register-submit-btn" class="btn blue">
+			<button type="submit" id="register-submit-btn" class="btn blue" data-confirm>
 			Register <i class="m-icon-swapright m-icon-white"></i>
 			</button>
 		</div>

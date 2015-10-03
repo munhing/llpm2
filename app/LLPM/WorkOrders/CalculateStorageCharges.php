@@ -28,7 +28,7 @@ class CalculateStorageCharges
 		}
 
 		// return 0 if there's no containers attached to the workorder
-		if(count($workorder->contaienrs) == 0) {
+		if(count($workorder->containers) == 0) {
 			return 0;
 		}
 

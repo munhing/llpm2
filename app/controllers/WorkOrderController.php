@@ -81,7 +81,7 @@ class WorkOrderController extends \BaseController {
 	{
 		//$handlers = $this->portUserRepository->getAll();
 		//dd('Hello');
-		return View::make('workorders/create');
+		return View::make('workorders/create2');
 	}
 
 	public function carrierList()
@@ -153,6 +153,9 @@ class WorkOrderController extends \BaseController {
 				break;				
 			case "TF":				
 				$containerList = $this->containerRepository->getForStatus(3,$movement[1]);
+				break;
+			case "US":
+				$containerList = $this->containerRepository->getActiveLadenContainers();
 				break;					
 		}
 

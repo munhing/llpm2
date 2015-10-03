@@ -29,7 +29,7 @@
 		</ul>
 	</div>	
 
-	{{ Form::open() }}
+	{{ Form::open(['id' => 'form_cargo']) }}
 
 		<div class="form-group">
 			{{ Form::label('bl_no', 'B/L No', ['class' => 'control-label']) }}
@@ -96,7 +96,7 @@
 		</div>
 
 		<div class="form-actions">
-			<button type="submit" id="register-submit-btn" class="btn blue">
+			<button type="submit" id="register-submit-btn" class="btn blue" data-confirm>
 			Register <i class="m-icon-swapright m-icon-white"></i>
 			</button>
 		</div>

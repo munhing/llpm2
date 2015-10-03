@@ -34,7 +34,7 @@ class CalculateContainerDays
 
         $days['L'] = 0;
         $days['E'] = 0;
-        $days['total'] = Carbon::createFromFormat('Y-m-d', $valid_workorders[0]->pivot->updated_at->format('Y-m-d'))->diffInDays() + 1;
+        $days['total'] = Carbon::createFromFormat('Y-m-d H', $valid_workorders[0]->pivot->updated_at->format('Y-m-d') . ' 0')->diffInDays() + 1;
 
         echo 'Valid Workorders: ' . "\n" . json_encode($valid_workorders) . "\n" . "\n";
         echo 'Total Workorders: ' . json_encode($total_workorders) . "\n" . "\n";
@@ -46,7 +46,9 @@ class CalculateContainerDays
 
             // reason for creating a new carbon so that it will capture the date and not the time.
             // Carbon diffInDays() compute 0 if less than 24 hours
-            $fromDate = Carbon::createFromFormat('Y-m-d', $valid_workorders[$i]->pivot->updated_at->format('Y-m-d'));
+            $fromDate = Carbon::createFromFormat('Y-m-d H', $valid_workorders[$i]->pivot->updated_at->format('Y-m-d') . ' 0');
+
+            // dd($fromDate);
 
             $movement = $valid_workorders[$i]->pivot->movement;
 
@@ -62,7 +64,7 @@ class CalculateContainerDays
             if($i+1 == $total_workorders) {
                 $toDate = Carbon::now();
             } else {
-                $toDate = Carbon::createFromFormat('Y-m-d', $valid_workorders[$i+1]->pivot->updated_at->format('Y-m-d'));
+                $toDate = Carbon::createFromFormat('Y-m-d H', $valid_workorders[$i+1]->pivot->updated_at->format('Y-m-d') . ' 0');
             }
 
             $diffDays = $fromDate->diffInDays($toDate);

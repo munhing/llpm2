@@ -2,12 +2,13 @@
 
 namespace LLPM\Containers;
 
-use Carbon\Carbon;
 use Activity;
-use LLPM\Repositories\ContainerRepository;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use LLPM\Containers\CalculateContainerDays;
+use LLPM\Repositories\ContainerRepository;
 
-class CalculateContainerCharges
+class DailyContainerDaysCalculation
 {
 
     protected $containerRepository;
@@ -39,12 +40,15 @@ class CalculateContainerCharges
             // 3. Calculate container's days empty and laden
             // this need to create a command of it's own because there will be other class needing this
             // {"L":11,"E":0,"total":11}
+            Log::info("Calculating container#: $container->container_no");
+
             $days = $this->calculateContainerDays->fire($container);
 
-            echo json_encode($days) . "\n";
+            Log::info(" => Done, updating to database...");
             
             // 4. Update DB
             $this->containerRepository->updateDays($container->id, $days);
+            Log::info(" => Updated! \n");
         }
         
 

@@ -1,4 +1,6 @@
-<?php namespace LLPM\Repositories;
+<?php
+
+namespace LLPM\Repositories;
 
 use ContainerConfirmation;
 
@@ -49,5 +51,12 @@ class ContainerConfirmationRepository {
 	{
 		return ContainerConfirmation::where('confirmed', 0)
 										->get();
+	}
+
+	public function getPendingHERO()
+	{
+		return ContainerConfirmation::where('confirmed', 0)
+									->wherein('movement', ['HE', 'RO-1', 'RO-3'])
+									->get();
 	}
 }

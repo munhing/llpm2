@@ -15,7 +15,8 @@ class Container extends \Eloquent {
 	public static function boot()
 	{
 		static::saved(function($sql){
-			Log::info($sql);
+			//Log::info($q);
+			//dd($sql->toArray());
 		});
 	}
 
