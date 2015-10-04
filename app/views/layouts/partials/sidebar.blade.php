@@ -113,6 +113,18 @@
                         Export Cargo </a>
                     </li>                            
                 </ul>                             
+            </li>  
+<!--
+|--------------------------------------------------------------------------
+| Reports
+|--------------------------------------------------------------------------
+-->
+            <li class="{{ Request::is('admin/reports') ? 'start active' : '' }}">
+                <a href="{{ URL::route('reports') }}">
+                <i class="fa fa-file"></i>
+                <span class="title">Reports</span>
+                <span class="selected"></span>
+                </a>
             </li>    
 
 <!--
