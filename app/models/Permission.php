@@ -2,7 +2,7 @@
 
 class Permission extends \Eloquent {
 
-	protected $fillable = ['name'];
+	protected $fillable = ['route_name', 'description'];
 
 	public function roles()
 	{

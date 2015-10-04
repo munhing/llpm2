@@ -350,7 +350,7 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
  */
     // Route::group(['prefix' => 'access', 'before' => ['auth', 'permitted']], function() {
 
-    Route::group(['prefix' => 'access'], function () {
+    Route::group(['prefix' => 'access', 'before' => ['permitted']], function () {
 
         Route::get('users', [
             'as' => 'users',
@@ -917,15 +917,18 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
 | Admin | Settings
 |--------------------------------------------------------------------------
  */
-    Route::get('settings/fees', [
-        'as' => 'settings.fees',
-        'uses' => 'SettingsController@feesIndex',
-    ]);
+    Route::group(['prefix' => 'settings', 'before' => 'permitted'], function () {
+        
+        Route::get('fees', [
+            'as' => 'settings.fees',
+            'uses' => 'SettingsController@feesIndex',
+        ]);
 
-    Route::post('settings/fees', [
-        'as' => 'settings.fees',
-        'uses' => 'SettingsController@feesStore',
-    ]);
+        Route::post('fees', [
+            'as' => 'settings.fees',
+            'uses' => 'SettingsController@feesStore',
+        ]);
+    });
 });
 
 /*

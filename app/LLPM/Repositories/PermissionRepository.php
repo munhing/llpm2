@@ -6,6 +6,6 @@ class PermissionRepository {
 
 	public function getAll()
 	{
-		return Permission::orderBy('name')->get();
+		return Permission::orderBy('route_name')->get();
 	}
 }

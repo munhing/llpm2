@@ -45,18 +45,16 @@
 		<table class="table table-striped table-bordered table-hover" id="sample_1">
 		<thead>
 		<tr>
-			<th>
-				 Name
-			</th>
+			<th>Route Name</th>
+			<th>Description</th>
 		</tr>
 		</thead>
 		<tbody>
 			@foreach($permissions as $permission)
 				<tr>
-					<td>
-						 {{ $permission->name }}
-					</td>
-				</tr>
+					<td>{{ $permission->route_name }}</td>
+					<td>{{ $permission->description }}</td>
+				</tr>				
 			@endforeach
 		</tbody>
 		</table>

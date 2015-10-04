@@ -38,7 +38,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                <a href="javascript:;" class="primary-link">Brain</a>
+                                    <a href="javascript:;" class="primary-link">Top Vessel</a>
                                 </td>
 
                             </tr>
@@ -58,7 +58,17 @@
                 </div>    
             </div>
             <div class="portlet-body">
-       
+                <div class="table-scrollable table-scrollable-borderless">
+                    <table class="table table-hover table-condensed table-light">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="javascript:;" class="primary-link">Total TEUs</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>       
             </div>
         </div>
     </div>
@@ -72,7 +82,17 @@
                 </div>    
             </div>
             <div class="portlet-body">
-        
+                <div class="table-scrollable table-scrollable-borderless">
+                    <table class="table table-hover table-condensed table-light">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="javascript:;" class="primary-link">Top Cargo</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>         
             </div>
         </div>
     </div>
@@ -86,7 +106,17 @@
                 </div>    
             </div>
             <div class="portlet-body">
-        
+                <div class="table-scrollable table-scrollable-borderless">
+                    <table class="table table-hover table-condensed table-light">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="javascript:;" class="primary-link">Total Consignee</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>         
             </div>
         </div>
     </div>    

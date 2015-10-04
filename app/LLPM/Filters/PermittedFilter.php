@@ -1,4 +1,6 @@
-<?php namespace LLPM\Filters;
+<?php
+
+namespace LLPM\Filters;
 
 use Auth;
 use Flash;
@@ -8,7 +10,7 @@ class PermittedFilter {
 
     public function filter($route, $request)
     {
-        $permitted = false;
+        $permitted = true;
         
         $user = Auth::user();
 
@@ -16,8 +18,8 @@ class PermittedFilter {
 
             foreach($role->permissions as $permission) {
 
-                if($permission->name == ($route->getName())) {
-                    $permitted = true;
+                if($permission->route_name == ($route->getName())) {
+                    $permitted = false;
                     break;                   
                 }
 
@@ -25,7 +27,7 @@ class PermittedFilter {
         }
        
         if(!$permitted) {
-            Flash::warning('You are not allowed to access the requested page!' . $route->getName());
+            Flash::warning('You are not allowed to access the requested page! ' . $route->getName());
             return Redirect::back();
         }
     }
