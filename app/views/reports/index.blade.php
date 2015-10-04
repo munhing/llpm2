@@ -23,20 +23,74 @@
 		</ul>
 	</div>	
 
-<div class="portlet light bordered">
-    <div class="portlet-body">
-        <div class="caption font-green-sharp">
-            <span class="caption-subject uppercase"> Total TEUs</span>
-            <span class="caption-helper">weekly stats...</span>
-        </div>
-        <hr />
-        <div class="caption font-blue-hoki">
-            <span class="caption-subject uppercase"> Portlet</span>
-            <div class="caption-helper">weekly stats...</div>
-        </div>          
-    </div>
-</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption font-green-sharp">
+                    <span class="caption-subject bold uppercase">Vessel</span>
+                    <span class="caption-helper">reports</span>
+                </div>    
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable table-scrollable-borderless">
+                    <table class="table table-hover table-condensed table-light">
+                        <tbody>
+                            <tr>
+                                <td>
+                                <a href="javascript:;" class="primary-link">Brain</a>
+                                </td>
 
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption font-blue-steel">
+                    <span class="caption-subject bold uppercase">Container</span>
+                    <span class="caption-helper">reports</span>
+                </div>    
+            </div>
+            <div class="portlet-body">
+       
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption font-red-thunderbird">
+                    <span class="caption-subject bold uppercase">Cargo</span>
+                    <span class="caption-helper">reports</span>
+                </div>    
+            </div>
+            <div class="portlet-body">
+        
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption font-yellow-gold">
+                    <span class="caption-subject bold uppercase">Miscellaneous</span>
+                    <span class="caption-helper">reports</span>
+                </div>    
+            </div>
+            <div class="portlet-body">
+        
+            </div>
+        </div>
+    </div>    
+</div>
 
 
 
