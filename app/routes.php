@@ -392,6 +392,16 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
             'uses' => 'UsersController@storeRole',
         ]);
 
+        Route::get('roles/{role_id}/permissions', [
+            'as' => 'roles.permissions',
+            'uses' => 'UsersController@rolePermissions',
+        ]);
+
+        Route::post('roles/{role_id}/permissions', [
+            'as' => 'roles.permissions',
+            'uses' => 'UsersController@rolePermissionsUpdate',
+        ]);
+
         Route::get('permissions', [
             'as' => 'permissions',
             'uses' => 'UsersController@indexPermission',
@@ -419,7 +429,7 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
 |--------------------------------------------------------------------------
  */
 
-    Route::group(['prefix' => 'manifest'], function () {
+    Route::group(['prefix' => 'manifest', 'before' => ['permitted']], function () {
 
         Route::any('schedule', [
             'as' => 'manifest.schedule',
@@ -597,7 +607,7 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
 |--------------------------------------------------------------------------
  */
 
-    Route::group(['prefix' => 'receiving'], function () {
+    Route::group(['prefix' => 'receiving', 'before' => ['permitted']], function () {
 
         Route::any('/', [
             'as' => 'receiving',
@@ -694,7 +704,7 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
 |--------------------------------------------------------------------------
  */
 
-        Route::group(['prefix' => 'workorders'], function () {
+        Route::group(['prefix' => 'workorders', 'before' => ['permitted']], function () {
 
             Route::any('/', [
                 'as' => 'workorders',
@@ -783,7 +793,7 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
 |--------------------------------------------------------------------------
  */
 
-        Route::group(['prefix' => 'containers'], function () {
+        Route::group(['prefix' => 'containers', 'before' => ['permitted']], function () {
 
             Route::get('/', [
                 'as' => 'containers',
@@ -808,7 +818,7 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
 |--------------------------------------------------------------------------
  */
 
-        Route::group(['prefix' => 'confirmation'], function () {
+        Route::group(['prefix' => 'confirmation', 'before' => ['permitted']], function () {
 
             Route::get('/', [
                 'as' => 'confirmation',
@@ -829,7 +839,7 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
 | Admin | Cargo
 |--------------------------------------------------------------------------
  */
-    Route::group(['prefix' => 'cargo'], function () {
+    Route::group(['prefix' => 'cargo', 'before' => ['permitted']], function () {
 
         Route::get('/list', [
             'as' => 'cargo',
@@ -841,7 +851,7 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
 |--------------------------------------------------------------------------
  */
 
-        Route::group(['prefix' => 'confirmation'], function () {
+        Route::group(['prefix' => 'confirmation', 'before' => ['permitted']], function () {
 
             Route::get('import', [
                 'as' => 'cargo.confirmation.import',

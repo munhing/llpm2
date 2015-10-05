@@ -2,17 +2,13 @@ $('input[data-confirm], button[data-confirm]').on('click', function(e){
 
     e.preventDefault();
 
-    var thisInput = $(this);
-    var thisForm = thisInput.closest('form'); // get the real form
+    var thisBut = $(this);
+    var thisForm = thisBut.closest('form'); // get the real form
     var but = $('input[data-submit-form], button[data-submit-form]'); // get the modal-auth submit button
 
-    console.log("THis form id is " + but.data('submit-form'));
-    console.log(thisInput);
-
-    but.data('submit-form', thisForm.prop('id')); // update modal-auth submit button's data-submit-form with the form's id to be submitted
+    but.data('form', thisForm); // update modal-auth submit button's data-submit-form with the form's id to be submitted
 
     $('.modal-auth').modal('show');
-
 });
 
 $('input[data-auth], button[data-auth]').on('click', function(e){
@@ -24,7 +20,7 @@ $('input[data-auth], button[data-auth]').on('click', function(e){
 
     thisBut = $(this);
 
-    console.log('form_id = ' + thisBut.data('submit-form'));
+    // console.log(thisBut.data('submit-form'));
 
     // ajax to check on the password is correct
     var formData = $('.form-password').serialize();
@@ -32,7 +28,7 @@ $('input[data-auth], button[data-auth]').on('click', function(e){
 
     var closestForm = $(this).closest('form');
 
-    console.log(closestForm);
+    console.log(thisBut.data('form'));
 
     submitForm = validatePassword(pwd);
     
@@ -47,7 +43,8 @@ $('input[data-auth], button[data-auth]').on('click', function(e){
 
                 if (data == 1) {
                     // submit form
-                     $('#' + thisBut.data('submit-form')).submit();
+                     // $('#' + thisBut.data('submit-form')).submit();
+                     thisBut.data('form').submit();
                 } else {
                     alert('Password is Incorrect!');
                 }              

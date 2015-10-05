@@ -92,7 +92,7 @@ class PermissionsTableSeeder extends Seeder
 		
 		Permission::create([
 			'route_name' => 'manifest.vessels.create',
-			'description' => 'Create New Vessel'
+			'description' => 'Register New Vessel'
 		]);	
 			
 		Permission::create([

@@ -11,7 +11,7 @@
 @section('content')
 
 	<h3 class="page-title">
-		Registered Roles <small>list</small>
+		{{ $role->description }} <small>access</small>
 	</h3>
 
 	<div class="page-bar">
@@ -22,11 +22,7 @@
 				<i class="fa fa-angle-right"></i>
 			</li>
 			<li>
-				<a href="{{ URL::route('users') }}">Users</a>
-				<i class="fa fa-angle-right"></i>
-			</li>			
-			<li>
-				Roles
+				Access
 			</li>					
 		</ul>
 	</div>	
@@ -36,7 +32,7 @@
 <div class="portlet box blue-hoki">
 	<div class="portlet-title">
 		<div class="caption">
-			<i class="fa fa-globe"></i>List of Roles
+			<i class="fa fa-globe"></i>Access
 		</div>
 		<div class="tools">
 		</div>
@@ -45,16 +41,33 @@
 		<table class="table table-striped table-bordered table-hover" id="sample_1">
 		<thead>
 		<tr>
-			<th>
-				 Role
-			</th>
+            <th>Access</th>
+			<th>Status</th>
+			<th>Action</th>
 		</tr>
 		</thead>
 		<tbody>
-			@foreach($roles as $role)
+			@foreach($permissions as $permit)
 				<tr>
+                    <td>{{ link_to(route($permit->route_name), $permit->description) }}</td>
 					<td>
-						 <a href="{{ route('roles.permissions', $role->id) }}">{{ $role->description }}</a>
+                        @if($role->permissions->contains($permit->id))
+                            <span class="label label-danger">Disallowed</span>
+                        @else
+                            <span class="label label-success">Allowed</span>
+                        @endif               
+                    </td>
+					<td>
+                        {{ Form::open() }}
+                        {{ Form::hidden('permit_id', $permit->id) }}
+						<button class="btn btn-xs btn-default" data-permit-id="{{ $permit->id }}" data-confirm>
+                            @if($role->permissions->contains($permit->id))
+                                Allow
+                            @else
+                                Disallow
+                            @endif                        
+						</button>
+                        {{ Form::close() }}
 					</td>
 				</tr>
 			@endforeach
@@ -62,7 +75,6 @@
 		</table>
 	</div>
 </div>
-
 
 @stop
 
@@ -72,7 +84,7 @@
 <script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js') }}"></script> 
 <script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
 
 @stop

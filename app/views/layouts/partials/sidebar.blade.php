@@ -171,11 +171,7 @@
                     <li class="{{ Request::is('admin/access/roles*') ? 'active' : '' }}">
                         <a href="{{ URL::route('roles') }}">
                         Roles </a>
-                    </li>
-                    <li class="{{ Request::is('admin/access/permissions*') ? 'active' : '' }}">
-                        <a href="{{ URL::route('permissions') }}">
-                        Permissions </a>
-                    </li>                    
+                    </li>                   
                 </ul>                
             </li>   
 

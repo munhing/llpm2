@@ -150,7 +150,25 @@ class UsersController extends \BaseController {
 		return Redirect::route('roles');
 	}
 
+	public function rolePermissions($role_id)
+	{
+		// dd($role_id);
+		$role = $this->roleRepository->getById($role_id);
+		$permissions = $this->permissionRepository->getAll();
+		return View::make('users/role_permission', compact('role', 'permissions'));		
+	}
 
+	public function rolePermissionsUpdate($role_id)
+	{
+		$input = Input::all();
+		$input['role_id'] = $role_id;
+		// dd($input);
+		$this->roleRepository->updatePermission($input['role_id'], $input['permit_id']);
+
+		Flash::success("Access updated!");
+
+		return Redirect::back();		
+	}
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -158,6 +176,7 @@ class UsersController extends \BaseController {
 	 */
 	public function indexPermission()
 	{
+
 		$permissions = $this->permissionRepository->getAll();
 		return View::make('users/index_permission', compact('permissions'));
 	}
