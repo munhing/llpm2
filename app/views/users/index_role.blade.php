@@ -54,7 +54,7 @@
 			@foreach($roles as $role)
 				<tr>
 					<td>
-						 {{ $role->role }}
+						 {{ $role->description }}
 					</td>
 				</tr>
 			@endforeach

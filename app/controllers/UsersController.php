@@ -6,6 +6,8 @@ use LLPM\Repositories\UserRepository;
 use LLPM\Repositories\RoleRepository;
 use LLPM\Repositories\PermissionRepository;
 use LLPM\Users\RegisterUserCommand;
+use LLPM\Users\UpdateUserCommand;
+use LLPM\Users\UpdateUserPasswordCommand;
 use LLPM\Users\RegisterRoleCommand;
 
 class UsersController extends \BaseController {
@@ -39,8 +41,9 @@ class UsersController extends \BaseController {
 	public function index()
 	{
 		$users = $this->userRepository->getAll();
+		$roles = $this->roleRepository->getAll();
 		// dd($users->toArray());
-		return View::make('users/index', compact('users'));
+		return View::make('users/index', compact('users', 'roles'));
 	}
 
 	/**
@@ -51,7 +54,9 @@ class UsersController extends \BaseController {
 	public function create()
 	{
 		//dd('register');
-		return View::make('users/create');
+		$roles = $this->roleRepository->getAll();
+		// dd($roles->toArray());
+		return View::make('users/create', compact('roles'));
 	}
 
 
@@ -78,13 +83,37 @@ class UsersController extends \BaseController {
 
 		$user = $this->execute(RegisterUserCommand::class);
 
-		//Auth::login($user);
-
 		Flash::success("User $user->username has been registered!");
 
-		return Redirect::home();
+		return Redirect::route('users');
 	}
 
+	public function update()
+	{
+		$input = Input::all();
+
+		$this->userForm->validateUpdate($input);
+		// dd($input);
+
+		$user = $this->execute(UpdateUserCommand::class);
+
+		Flash::success("User $user->username has been updated!");
+
+		return Redirect::route('users');		
+	}
+
+	public function updatePassword()
+	{
+		$input = Input::all();
+		
+		$this->userForm->validateUpdatePassword($input);
+
+		$user = $this->execute(UpdateUserPasswordCommand::class);
+
+		Flash::success("Password changed for User $user->username!");
+
+		return Redirect::route('users');		
+	}
 
 	/**
 	 * Show the form for creating a new resource.

@@ -1,4 +1,6 @@
-<?php namespace LLPM\Users;
+<?php 
+
+namespace LLPM\Users;
 
 use Laracasts\Commander\CommandHandler;
 use Laracasts\Commander\Events\DispatchableTrait;
@@ -6,7 +8,7 @@ use LLPM\Repositories\UserRepository;
 use User;
 
 
-class RegisterUserCommandHandler implements CommandHandler {
+class UpdateUserPasswordCommandHandler implements CommandHandler {
 
 	use DispatchableTrait;
 
@@ -27,20 +29,13 @@ class RegisterUserCommandHandler implements CommandHandler {
     {
     	// dd($command);
 
-		$user = User::register(
-			$command->name, 
-			$command->username, 
-			$command->email, 
+		$user = User::editPassword(
+			$command->password_user_id, 
 			$command->password
 		);
 
 		$this->userRepository->save($user);
 
-		$user->roles()->attach($command->role);
-
-		$this->dispatchEventsFor($user);
-
 		return $user;
     }
-
 }

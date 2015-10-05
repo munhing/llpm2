@@ -1,6 +1,8 @@
-<?php namespace LLPM\Users;
+<?php
 
-class RegisterUserCommand {
+namespace LLPM\Users;
+
+class UpdateUserCommand {
 
     /**
      * @var string
@@ -15,24 +17,25 @@ class RegisterUserCommand {
     /**
      * @var string
      */
-    public $password;
 
     public $name;
 
     public $role;
+
+    public $user_id;
 
     /**
      * @param string username
      * @param string email
      * @param string password
      */
-    public function __construct($username, $email, $password, $name, $role)
+    public function __construct($username, $email, $name, $role, $user_id)
     {
         $this->username = $username;
         $this->email = $email;
-        $this->password = $password;
         $this->name = $name;
         $this->role = $role;
+        $this->user_id = $user_id;
     }
 
 }

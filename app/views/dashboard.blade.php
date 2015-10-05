@@ -25,7 +25,7 @@
 
 	<!-- BEGIN DASHBOARD STATS -->
 	<div class="row">
-		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="col-md-4 col-sm-6 col-xs-12">
 			<div class="dashboard-stat blue-madison">
 				<div class="visual">
 					<i class="fa fa-comments"></i>
@@ -38,12 +38,12 @@
 						 Containers in Yard
 					</div>
 				</div>
-				<a class="more" href="#">
+				<a class="more" href="{{ URL::route('containers') }}">
 				View more <i class="m-icon-swapright m-icon-white"></i>
 				</a>
 			</div>
 		</div>
-		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="col-md-4 col-sm-6 col-xs-12">
 			<div class="dashboard-stat red-intense">
 				<div class="visual">
 					<i class="fa fa-bar-chart-o"></i>
@@ -56,12 +56,12 @@
 						 Total Work Orders Today
 					</div>
 				</div>
-				<a class="more" href="#">
+				<a class="more" href="{{ URL::route('workorders') }}">
 				View more <i class="m-icon-swapright m-icon-white"></i>
 				</a>
 			</div>
 		</div>
-		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="col-md-4 col-sm-6 col-xs-12">
 			<div class="dashboard-stat green-haze">
 				<div class="visual">
 					<i class="fa fa-shopping-cart"></i>
@@ -74,25 +74,7 @@
 						 Pending Container Confirmation
 					</div>
 				</div>
-				<a class="more" href="#">
-				View more <i class="m-icon-swapright m-icon-white"></i>
-				</a>
-			</div>
-		</div>
-		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-			<div class="dashboard-stat purple-plum">
-				<div class="visual">
-					<i class="fa fa-globe"></i>
-				</div>
-				<div class="details">
-					<div class="number counter">
-						 89
-					</div>
-					<div class="desc">
-						 Brand Popularity
-					</div>
-				</div>
-				<a class="more" href="#">
+				<a class="more" href="{{ URL::route('confirmation') }}">
 				View more <i class="m-icon-swapright m-icon-white"></i>
 				</a>
 			</div>

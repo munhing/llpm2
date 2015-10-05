@@ -23,39 +23,35 @@
 		</ul>
 	</div>	
 
-	{{ Form::open() }}
-
+	{{ Form::open(['id' => 'form_user']) }}
 		<div class="form-group">
-
-			{{ Form::label('username', 'Username', ['class' => 'control-label visible-ie8 visible-ie9']) }}
-			<div class="input-icon">
-				<i class="fa fa-user"></i>
-				{{ Form::text('username', null, ['class' => 'form-control placeholder-no-fix', 'autocomplete' => 'off', 'placeholder' => 'Username']) }}
-			</div>
+			{{ Form::label('name', 'Name', ['class' => 'control-label visible-ie8 visible-ie9']) }}
+			{{ Form::text('name', null, ['class' => 'form-control placeholder-no-fix', 'autocomplete' => 'off', 'placeholder' => 'Name']) }}
 		</div>
+
 		<div class="form-group">
 			<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
 			{{ Form::label('email', 'Email', ['class' => 'control-label visible-ie8 visible-ie9']) }}
-			<div class="input-icon">
-				<i class="fa fa-envelope"></i>
-				{{ Form::text('email', null, ['class' => 'form-control placeholder-no-fix', 'placeholder' => 'Email']) }}
-			</div>
+			{{ Form::text('email', null, ['class' => 'form-control placeholder-no-fix', 'placeholder' => 'Email']) }}
 		</div>		
+
+		<div class="form-group">
+			{{ Form::label('role', 'Role', ['class' => 'control-label visible-ie8 visible-ie9']) }}
+			{{ Form::select('role', [null => "Please assign a role..."] + $roles->lists('description', 'id'), null, ['class' => 'form-control placeholder-no-fix', 'autocomplete' => 'off', 'placeholder' => 'Role']) }}
+		</div>
+		
+		<div class="form-group">
+			{{ Form::label('username', 'Username', ['class' => 'control-label visible-ie8 visible-ie9']) }}
+			{{ Form::text('username', null, ['class' => 'form-control placeholder-no-fix', 'autocomplete' => 'off', 'placeholder' => 'Username']) }}
+		</div>
+
 		<div class="form-group">
 			{{ Form::label('password', 'Password', ['class' => 'control-label visible-ie8 visible-ie9']) }}
-			<div class="input-icon">
-				<i class="fa fa-lock"></i>
-				{{ Form::password('password', ['class' => 'form-control placeholder-no-fix', 'autocomplete' => 'off', 'placeholder' => 'Password']) }}
-			</div>
+			{{ Form::password('password', ['class' => 'form-control placeholder-no-fix', 'autocomplete' => 'off', 'placeholder' => 'Password']) }}
 		</div>
 		<div class="form-group">
 			{{ Form::label('password_confirmation', 'Re-type Your Password', ['class' => 'control-label visible-ie8 visible-ie9']) }}
-			<div class="controls">
-				<div class="input-icon">
-					<i class="fa fa-check"></i>
-					{{ Form::password('password_confirmation', ['class' => 'form-control placeholder-no-fix', 'autocomplete' => 'off', 'placeholder' => 'Re-type Your Password']) }}
-				</div>
-			</div>
+			{{ Form::password('password_confirmation', ['class' => 'form-control placeholder-no-fix', 'autocomplete' => 'off', 'placeholder' => 'Re-type Your Password']) }}
 		</div>
 
 		<div class="form-actions">

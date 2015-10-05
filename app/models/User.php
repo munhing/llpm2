@@ -42,9 +42,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$this->attributes['password'] = Hash::make($password);
 	}
 
-	public static function register($username, $name, $email, $password)
+	public static function register($name, $username, $email, $password)
 	{
-		$user = new static(compact('username', 'name', 'email', 'password'));
+		$user = new static(compact('name', 'username', 'email', 'password'));
 
 		$user->raise(new UserWasRegistered($user));
 
@@ -52,5 +52,25 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	}
 
+	public static function edit($id, $name, $username, $email)
+	{
+		$user = static::find($id);
 
+		$user->name = $name;
+		$user->username = $username;
+		$user->email = $email;
+
+		return $user;
+
+	}
+
+	public static function editPassword($id, $password)
+	{
+		$user = static::find($id);
+
+		$user->password = $password;
+
+		return $user;
+
+	}
 }
