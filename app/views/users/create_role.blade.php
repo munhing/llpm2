@@ -31,11 +31,14 @@
 
 		<div class="form-group">
 
-			{{ Form::label('role', 'Role', ['class' => 'control-label visible-ie8 visible-ie9']) }}
-			<div class="input-icon">
-				<i class="fa fa-user"></i>
-				{{ Form::text('role', null, ['class' => 'form-control placeholder-no-fix', 'autocomplete' => 'off', 'placeholder' => 'Role']) }}
-			</div>
+			{{ Form::label('role', 'Code', ['class' => 'control-label']) }}
+			{{ Form::text('role', null, ['class' => 'form-control placeholder-no-fix', 'autocomplete' => 'off', 'placeholder' => 'Code']) }}
+		</div>
+
+		<div class="form-group">
+
+			{{ Form::label('description', 'Description', ['class' => 'control-label']) }}
+			{{ Form::text('description', null, ['class' => 'form-control placeholder-no-fix', 'autocomplete' => 'off', 'placeholder' => 'Description']) }}
 		</div>
 
 		<div class="form-actions">

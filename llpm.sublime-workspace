@@ -312,10 +312,74 @@
 	"buffers":
 	[
 		{
-			"file": ".env.local.php",
+			"file": "app/views/users/role_permission.blade.php",
 			"settings":
 			{
-				"buffer_size": 585,
+				"buffer_size": 3793,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/users/index_role.blade.php",
+			"settings":
+			{
+				"buffer_size": 2936,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/users/create_role.blade.php",
+			"settings":
+			{
+				"buffer_size": 1318,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/controllers/UsersController.php",
+			"settings":
+			{
+				"buffer_size": 4372,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/LLPM/Users/RegisterRoleCommand.php",
+			"settings":
+			{
+				"buffer_size": 319,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/LLPM/Users/RegisterRoleCommandHandler.php",
+			"settings":
+			{
+				"buffer_size": 707,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/models/Role.php",
+			"settings":
+			{
+				"buffer_size": 533,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/LLPM/Forms/RoleForm.php",
+			"settings":
+			{
+				"buffer_size": 208,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/database/seeds/RoleTableSeeder.php",
+			"settings":
+			{
+				"buffer_size": 721,
 				"line_ending": "Windows"
 			}
 		}
@@ -389,33 +453,61 @@
 	"expanded_folders":
 	[
 		"/C/Development/Projects/llpm",
+		"/C/Development/Projects/llpm/app",
 		"/C/Development/Projects/llpm/app/controllers",
-		"/C/Development/Projects/llpm/public/assets",
-		"/C/Development/Projects/llpm/public/assets/app",
-		"/C/Development/Projects/llpm/public/assets/app/bootstrap-datepicker-1.4.0-dist",
-		"/C/Development/Projects/llpm/public/assets/app/bootstrap-datepicker-1.4.0-dist/js"
+		"/C/Development/Projects/llpm/app/database",
+		"/C/Development/Projects/llpm/app/database/seeds",
+		"/C/Development/Projects/llpm/app/views",
+		"/C/Development/Projects/llpm/app/views/users"
 	],
 	"file_history":
 	[
-		"/C/Development/Projects/llpm/app/LLPM/WorkOrders/CalculateChargesByWorkOrder.php",
+		"/C/Development/Projects/llpm/app/routes.php",
+		"/C/Development/Projects/llpm/app/LLPM/WorkOrders/RegisterWorkOrderCommandHandler.php",
+		"/C/Development/Projects/llpm/vendor/sebastian/global-state/src/RuntimeException.php",
+		"/C/Development/Projects/llpm/app/models/Role.php",
+		"/C/Development/Projects/llpm/app/controllers/UsersController.php",
+		"/C/Development/Projects/llpm/app/views/users/profile.blade.php",
+		"/C/Development/Projects/llpm/app/database/seeds/DatabaseSeeder.php",
+		"/C/Development/Projects/llpm/app/views/layouts/default.blade.php",
+		"/C/Development/Projects/llpm/app/views/layouts/partials/header.blade.php",
+		"/C/Development/Projects/llpm/vendor/phpseclib/phpseclib/tests/Functional/Net/SCPSSH2UserStoryTest.php",
+		"/C/Development/Projects/llpm/app/models/User.php",
+		"/C/Development/Projects/llpm/app/database/seeds/UpdateSchedule.php",
 		"/C/Development/Projects/llpm/app/controllers/SettingsController.php",
+		"/C/Development/Projects/llpm/app/models/WorkOrder.php",
+		"/C/Development/Projects/llpm/app/models/Fee.php",
+		"/C/Development/Projects/llpm/app/LLPM/Settings/UpdateStorageFeeCommand.php",
+		"/C/Development/Projects/llpm/app/LLPM/Settings/UpdateStorageFeeCommandHandler.php",
+		"/C/Development/Projects/llpm/app/LLPM/Settings/RegisterStorageFeeCommandHandler.php",
+		"/C/Development/Projects/llpm/app/LLPM/Repositories/FeeRepository.php",
+		"/C/Development/Projects/llpm/app/LLPM/Settings/UpdateHandlingFeeCommand.php",
+		"/C/Development/Projects/llpm/app/LLPM/Settings/RegisterStorageFeeCommand.php",
+		"/C/Development/Projects/llpm/app/LLPM/Settings/UpdateHandlingFeeCommandHandler.php",
+		"/C/Development/Projects/llpm/app/LLPM/Settings/RegisterHandlingFeeCommandHandler.php",
+		"/C/Development/Projects/llpm/app/controllers/WorkOrderController.php",
+		"/C/Development/Projects/llpm/public/assets/global/plugins/amcharts/ammap/maps/js/worldHigh.js",
+		"/C/Development/Projects/llpm/app/controllers/PortUsersController.php",
+		"/C/Development/Projects/llpm/app/storage/jsondata/portuser.json",
+		"/C/Development/Projects/llpm/app/models/PortUser.php",
+		"/C/Development/Projects/llpm/app/LLPM/Forms/PortUserForm.php",
+		"/C/Development/Projects/llpm/app/LLPM/Repositories/PortUserRepository.php",
+		"/C/Development/Projects/llpm/phpunit.xml",
+		"/C/Development/Projects/llpm/public/assets/admin/pages/css/profile-old.css",
+		"/C/Development/Projects/llpm/app/LLPM/Settings/RegisterHandlingFeeCommand.php",
+		"/C/Development/Projects/llpm/app/models/Setting.php",
+		"/C/Development/Projects/llpm/vendor/predis/predis/tests/Predis/Command/HashSetTest.php",
+		"/C/Development/Projects/llpm/vendor/nesbot/carbon/tests/StartEndOfTest.php",
+		"/C/Development/Projects/llpm/app/views/schedule/show_export.blade.php",
+		"/C/Development/Projects/llpm/server.php",
+		"/C/Development/Projects/llpm/app/LLPM/WorkOrders/CalculateChargesByWorkOrder.php",
 		"/C/Development/Projects/llpm/app/views/settings/fees_index.blade.php",
 		"/C/Development/Projects/llpm/app/views/dashboard.blade.php",
-		"/C/Development/Projects/llpm/app/routes.php",
-		"/C/Development/Projects/llpm/app/controllers/WorkOrderController.php",
 		"/C/Development/Projects/llpm/app/LLPM/Repositories/WorkOrderRepository.php",
 		"/C/Development/Projects/llpm/app/LLPM/WorkOrders/CalculateStorageCharges.php",
 		"/C/Development/Projects/llpm/app/LLPM/WorkOrders/CalculateHandlingCharges.php",
-		"/C/Development/Projects/llpm/app/models/WorkOrder.php",
-		"/C/Development/Projects/llpm/app/LLPM/Repositories/FeeRepository.php",
-		"/C/Development/Projects/llpm/app/views/layouts/default.blade.php",
 		"/C/Development/.homestead/Homestead.yaml",
 		"/C/Development/Projects/llpm/app/views/layouts/partials/sidebar.blade.php",
-		"/C/Development/Projects/llpm/server.php",
-		"/C/Development/Projects/llpm/app/views/schedule/show_export.blade.php",
-		"/C/Development/Projects/llpm/vendor/nesbot/carbon/tests/StartEndOfTest.php",
-		"/C/Development/Projects/llpm/vendor/predis/predis/tests/Predis/Command/HashSetTest.php",
-		"/C/Development/Projects/llpm/app/models/Setting.php",
 		"/C/Development/Projects/llpm/app/database/seeds/SettingsTableSeeder.php",
 		"/C/Development/Projects/llpm/public/assets/global/plugins/slider-revolution-slider/rs-plugin/css/settings.css",
 		"/C/Development/Projects/llpm/vendor/laravel/framework/src/Illuminate/Database/Eloquent/SoftDeletingScope.php",
@@ -452,7 +544,6 @@
 		"/C/Development/Projects/llpm/app/controllers/ContainerConfirmationController.php",
 		"/C/Development/Projects/llpm/public/assets/admin/pages/scripts/charts-amcharts.js",
 		"/C/Development/Projects/llpm/app/views/layouts/default_login.blade.php",
-		"/C/Development/Projects/llpm/app/database/seeds/DatabaseSeeder.php",
 		"/C/Development/Projects/llpm/app/views/schedule/show_import_cargo.blade.php",
 		"/C/Development/Projects/llpm/app/controllers/MobileController.php",
 		"/C/Development/Homestead/scripts/homestead.rb",
@@ -467,20 +558,17 @@
 		"/C/Development/Projects/llpm/public/assets/mobile/mobile.css",
 		"/C/Development/Projects/llpm/vendor/phpunit/phpunit-mock-objects/tests/MockObjectTest.php",
 		"/C/Development/Projects/llpm/app/config/mail.php",
-		"/C/Development/Projects/llpm/app/database/seeds/UpdateSchedule.php",
 		"/C/Development/Projects/llpm/app/database/migrations/2015_01_02_125453_create_workorders_table.php",
 		"/C/Development/Projects/llpm/app/database/seeds/UpdateAutoIncrement.php",
 		"/C/Development/Projects/llpm/app/database/seeds/CargoTableSeeder.php",
 		"/C/Development/Projects/llpm/app/database/seeds/ContainerTableSeeder.php",
 		"/C/Development/Projects/llpm/app/database/seeds/AttachContainerToCargoSeeder.php",
 		"/C/Development/Projects/llpm/app/storage/logs/laravel.log",
-		"/C/Development/Projects/llpm/app/LLPM/WorkOrders/RegisterWorkOrderCommandHandler.php",
 		"//brighton.local/home$/ks/desktop/emptycharges.php",
 		"/C/Development/Projects/llpm/app/commands/CalculateContainerChargesCommand.php",
 		"/C/Development/Projects/llpm/vendor/phpunit/phpunit/tests/TextUI/colors-always.phpt",
 		"/C/Development/Projects/llpm/app/LLPM/WorkOrders/RegisterWorkOrderCommand.php",
 		"/C/Development/Projects/llpm/app/LLPM/Users/RegisterRoleCommand.php",
-		"/C/Development/Projects/llpm/vendor/sebastian/global-state/src/RuntimeException.php",
 		"/C/Development/Projects/llpm/vendor/symfony/debug/Symfony/Component/Debug/Exception/FatalErrorException.php",
 		"/C/Development/Projects/llpm/public/assets/admin/pages/scripts/form-editable.js",
 		"/C/Development/Projects/llpm/app/filters.php",
@@ -501,34 +589,11 @@
 		"/C/Development/Projects/llpm/containers.txt",
 		"/C/Development/Projects/llpm/vendor/phpunit/phpunit/CODE_OF_CONDUCT.md",
 		"/C/Development/Projects/llpm/vendor/guzzlehttp/guzzle/docs/conf.py",
-		"/C/Development/Projects/llpm/app/LLPM/Containers/CalculateContainerDaysCommand.php",
-		"/C/Development/Projects/llpm/app/database/migrations/2015_01_02_130857_create_container_workorder_table.php",
-		"/C/Development/Projects/llpm/public/assets/admin/pages/scripts/table-advanced.js",
-		"/C/Development/Projects/llpm/public/assets/global/plugins/datatables/extensions/TableTools/examples/alter_buttons.html",
-		"/C/Development/Projects/llpm/public/assets/global/plugins/amcharts/ammap/maps/js/taiwanLow.js",
-		"/C/Development/Projects/llpm/app/tests/TestCase.php",
-		"/C/Users/ks/AppData/Roaming/Sublime Text 3/Packages/User/snippets/Private Function.sublime-snippet",
-		"/C/Users/ks/AppData/Roaming/Sublime Text 3/Packages/User/snippets/Function.sublime-snippet",
-		"/Users/munhing1980/Library/Application Support/Sublime Text 3/Packages/User/snippets/New Function.sublime-snippet",
-		"/Users/munhing1980/Library/Application Support/Sublime Text 3/Packages/User/snippets/New Private Function.sublime-snippet",
-		"/Users/munhing1980/projects/llpm/app/database/migrations/2015_07_17_230510_create_container_workorder_confirmation_table.php",
-		"/Users/munhing1980/projects/llpm/app/views/containers/report.blade.php",
-		"/Users/munhing1980/projects/llpm/app/models/ContainerConfirmation.php",
-		"/Users/munhing1980/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/ContainerConfirmationRepository.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/ContainerWorkorderConfirmationRepository.php",
-		"/Users/munhing1980/projects/llpm/app/models/ContainerWorkorderConfirmation.php",
-		"/Users/munhing1980/projects/llpm/app/controllers/ReceivingController.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Confirmation/ConfirmContainerCommandHandler.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/helpers.php",
-		"/Users/munhing1980/projects/llpm/app/controllers/WorkOrderController.php",
-		"/Users/munhing1980/projects/llpm/app/controllers/VesselScheduleController.php",
-		"/Users/munhing1980/projects/llpm/app/controllers/ContainerController.php",
-		"/Users/munhing1980/projects/llpm/app/views/workorders/create_unstuffing.blade.php"
+		"/C/Development/Projects/llpm/app/LLPM/Containers/CalculateContainerDaysCommand.php"
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 22.0
 	},
 	"find_in_files":
 	{
@@ -542,6 +607,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"role",
+			"user",
+			"profile",
 			"genera",
 			"effective_date",
 			"effective-date",
@@ -666,10 +734,7 @@
 			"$cargo_id",
 			"issued",
 			"container",
-			"containerRepository",
-			"CountryListServiceProvider",
-			"dk",
-			"INSERT INTO country VALUES ("
+			"containerRepository"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -699,28 +764,207 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 6,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": ".env.local.php",
-					"semi_transient": true,
+					"file": "app/views/users/role_permission.blade.php",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 585,
+						"buffer_size": 3793,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								365,
-								0
+								1092,
+								1092
 							]
 						],
 						"settings":
 						{
+							"auto_complete": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 84.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/views/users/index_role.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2936,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1790,
+								1790
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 294.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/views/users/create_role.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1318,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								813,
+								813
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/controllers/UsersController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4372,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3000,
+								3019
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 1609.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/LLPM/Users/RegisterRoleCommand.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 319,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								171,
+								171
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/LLPM/Users/RegisterRoleCommandHandler.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 707,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								555,
+								555
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "app/models/Role.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 533,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								531,
+								531
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
 							"syntax": "Packages/PHP/PHP.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
@@ -730,13 +974,72 @@
 					},
 					"stack_index": 0,
 					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "app/LLPM/Forms/RoleForm.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 208,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								208,
+								208
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "app/database/seeds/RoleTableSeeder.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 721,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								375,
+								375
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
 				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 22.0
 	},
 	"input":
 	{
@@ -772,7 +1075,7 @@
 	"project": "llpm.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 40.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -780,6 +1083,58 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"role",
+				"app\\models\\Role.php"
+			],
+			[
+				"registerrole",
+				"app\\LLPM\\Users\\RegisterRoleCommandHandler.php"
+			],
+			[
+				"registerrolecommand",
+				"app\\LLPM\\Users\\RegisterRoleCommand.php"
+			],
+			[
+				"rolefor",
+				"app\\LLPM\\Forms\\RoleForm.php"
+			],
+			[
+				"user",
+				"app\\controllers\\UsersController.php"
+			],
+			[
+				"userscontro",
+				"app\\controllers\\UsersController.php"
+			],
+			[
+				"routes",
+				"app\\routes.php"
+			],
+			[
+				"work",
+				"app\\models\\WorkOrder.php"
+			],
+			[
+				"feere",
+				"app\\LLPM\\Repositories\\FeeRepository.php"
+			],
+			[
+				"port",
+				"app\\LLPM\\Repositories\\PortUserRepository.php"
+			],
+			[
+				"fee",
+				"app\\models\\Fee.php"
+			],
+			[
+				"registerhandlingfeecommand",
+				"app\\LLPM\\Settings\\RegisterHandlingFeeCommandHandler.php"
+			],
+			[
+				"settingsc",
+				"app\\controllers\\SettingsController.php"
+			],
 			[
 				"workorder",
 				"app\\controllers\\WorkOrderController.php"
@@ -789,16 +1144,8 @@
 				"app\\LLPM\\Repositories\\WorkOrderRepository.php"
 			],
 			[
-				"feere",
-				"app\\LLPM\\Repositories\\FeeRepository.php"
-			],
-			[
 				"workordercontrol",
 				"app\\controllers\\WorkOrderController.php"
-			],
-			[
-				"routes",
-				"app\\routes.php"
 			],
 			[
 				"tariffre",
@@ -951,10 +1298,6 @@
 			[
 				"confirmconta",
 				"llpm\\app\\LLPM\\Confirmation\\ConfirmContainerCommandHandler.php"
-			],
-			[
-				"user",
-				"llpm\\app\\models\\User.php"
 			],
 			[
 				"registeruser",
@@ -1251,46 +1594,6 @@
 			[
 				"workorderrepo",
 				"llpm\\app\\LLPM\\Repositories\\WorkOrderRepository.php"
-			],
-			[
-				"workorderco",
-				"llpm\\app\\controllers\\WorkOrderController.php"
-			],
-			[
-				"layouts/partials/",
-				"llpm\\app\\views\\layouts\\partials\\errors.blade.php"
-			],
-			[
-				"llpmvali",
-				"llpm\\app\\LLPM\\Validators\\LLPMValidator.php"
-			],
-			[
-				"validator",
-				"llpm\\vendor\\laravel\\framework\\src\\Illuminate\\Validation\\Validator.php"
-			],
-			[
-				"llpmvalid",
-				"llpm\\app\\LLPM\\Validators\\LLPMValidator.php"
-			],
-			[
-				"status",
-				"llpm\\app\\LLPM\\Validators\\StatusOneValidator.php"
-			],
-			[
-				"valida",
-				"llpm\\vendor\\laravel\\framework\\src\\Illuminate\\Validation\\Validator.php"
-			],
-			[
-				"cargorep",
-				"llpm\\app\\LLPM\\Repositories\\CargoRepository.php"
-			],
-			[
-				"updateimportcargocommand",
-				"llpm\\app\\LLPM\\Schedule\\UpdateImportCargoCommandHandler.php"
-			],
-			[
-				"associat",
-				"llpm\\app\\LLPM\\Schedule\\AssociateContainersWithCargoCommandHandler.php"
 			]
 		],
 		"width": 0.0

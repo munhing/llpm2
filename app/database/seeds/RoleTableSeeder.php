@@ -17,7 +17,7 @@ class RoleTableSeeder extends Seeder
 
 		Role::create([
 			'role' => 'WF',
-			'description' => 'WHARF'
+			'description' => 'WHARF OPERATOR'
 		]);
 
 		Role::create([
@@ -38,6 +38,11 @@ class RoleTableSeeder extends Seeder
 		Role::create([
 			'role' => 'CY3',
 			'description' => 'CY3 OPERATOR'
-		]);						
+		]);		
+
+		Role::create([
+			'role' => 'WH',
+			'description' => 'WAREHOUSE OPERATOR'
+		]);							
 	}
 }

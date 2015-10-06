@@ -7,7 +7,7 @@ class Role extends \Eloquent {
 
 	use EventGenerator;
 
-	protected $fillable = ['role'];
+	protected $fillable = ['role', 'description'];
 
 	public function users()
 	{
@@ -19,9 +19,9 @@ class Role extends \Eloquent {
 		return $this->belongsToMany('Permission');
 	}
 
-	public static function register($role)
+	public static function register($role, $description)
 	{
-		$role = new static(compact('role'));
+		$role = new static(compact('role', 'description'));
 
 		$role->raise(new RoleWasRegistered($role));
 

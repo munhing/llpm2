@@ -22,6 +22,14 @@
 				<i class="fa fa-angle-right"></i>
 			</li>
 			<li>
+				<a href="{{ URL::route('users') }}">Users</a>
+				<i class="fa fa-angle-right"></i>
+			</li>			
+			<li>
+				<a href="{{ URL::route('roles') }}">Roles</a>
+				<i class="fa fa-angle-right"></i>
+			</li>			
+			<li>
 				Access
 			</li>					
 		</ul>

@@ -45,18 +45,22 @@
 		<table class="table table-striped table-bordered table-hover" id="sample_1">
 		<thead>
 		<tr>
-			<th>
-				 Role
-			</th>
+			<th>Code</th>
+			<th>Description</th>
 		</tr>
 		</thead>
 		<tbody>
 			@foreach($roles as $role)
+				@if($role->id != 1)
 				<tr>
+					<td>
+						 <a href="{{ route('roles.permissions', $role->id) }}">{{ $role->role }}</a>
+					</td>				
 					<td>
 						 <a href="{{ route('roles.permissions', $role->id) }}">{{ $role->description }}</a>
 					</td>
 				</tr>
+				@endif
 			@endforeach
 		</tbody>
 		</table>

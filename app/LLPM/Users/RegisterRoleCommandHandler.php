@@ -26,7 +26,8 @@ class RegisterRoleCommandHandler implements CommandHandler {
     {
 
 		$role = Role::register(
-			$command->role
+			$command->role,
+			$command->description
 		);
 
 		$this->roleRepository->save($role);
