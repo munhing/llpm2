@@ -46,7 +46,17 @@ class UserForm extends FormValidator{
 
         return $this->validate($input);
     }
-  
+
+    public function validateUpdateProfile(array $input)
+    {
+        $this->rules['email'] .= ',email,'.$input['user_id'];
+        $this->rules['username'] .= ',username,'.$input['user_id'];
+        $this->rules['role'] = '';
+        $this->rules['password'] = '';
+
+        return $this->validate($input);
+    }
+
     public function validateUpdatePassword(array $input)
     {
         $this->rules['name'] 	= '';

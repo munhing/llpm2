@@ -7,6 +7,7 @@ use LLPM\Repositories\RoleRepository;
 use LLPM\Repositories\PermissionRepository;
 use LLPM\Users\RegisterUserCommand;
 use LLPM\Users\UpdateUserCommand;
+use LLPM\Users\UpdateUserProfileCommand;
 use LLPM\Users\UpdateUserPasswordCommand;
 use LLPM\Users\RegisterRoleCommand;
 
@@ -99,7 +100,20 @@ class UsersController extends \BaseController {
 
 		Flash::success("User $user->username has been updated!");
 
-		return Redirect::route('users');		
+		return Redirect::back();		
+	}
+
+	public function updateProfile()
+	{
+		$input = Input::all();
+
+		$this->userForm->validateUpdateProfile($input);
+
+		$user = $this->execute(UpdateUserProfileCommand::class);
+
+		Flash::success("User $user->username has been updated!");
+
+		return Redirect::back();		
 	}
 
 	public function updatePassword()
@@ -112,7 +126,7 @@ class UsersController extends \BaseController {
 
 		Flash::success("Password changed for User $user->username!");
 
-		return Redirect::route('users');		
+		return Redirect::back();		
 	}
 
 	/**

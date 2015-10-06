@@ -52,7 +52,7 @@ Route::filter('auth', function()
 		$admin_access = false;
 
 		foreach(Auth::user()->roles as $role) {
-			if($role->role == "AD") {
+			if($role->role == "AD" || $role->role == "FO") {
 				$admin_access = true;
 			}
 		}

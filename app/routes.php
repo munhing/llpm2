@@ -372,6 +372,11 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
             'uses' => 'UsersController@update',
         ]);
 
+        Route::post('users/update_profile', [
+            'as' => 'users.update.profile',
+            'uses' => 'UsersController@updateProfile',
+        ]);
+
         Route::post('users/update_password', [
             'as' => 'users.update.password',
             'uses' => 'UsersController@updatePassword',
