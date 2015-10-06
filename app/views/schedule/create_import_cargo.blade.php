@@ -42,20 +42,19 @@
 				{{ Form::text('bl_no', null, ['class' => 'form-control placeholder-no-fix', 'autocomplete' => 'off', 'placeholder' => 'B/L No']) }}
 			</div>
 		</div>
-
 		<div class="form-group">
 			{{ Form::label('consignor_id', 'Consignor', ['class' => 'control-label']) }}
 			<div class="input-group">
-				<span class="input-group-addon"><i class="fa fa-male"></i></span>
-				{{ Form::select('consignor_id', $portUsers, null, ['class' => 'form-control select2me']) }}
+				<span class="input-group-addon"><i class="fa fa-male"></i></span>			
+				{{ Form::text('consignor_id','', ['id'=>'consignor_id','class'=>'form-control', 'data-placeholder'=>"Choose a Consignor..."]) }}
 			</div>
-		</div>
+		</div>		
 
 		<div class="form-group">
 			{{ Form::label('consignee_id', 'Consignee', ['class' => 'control-label']) }}
 			<div class="input-group">
-				<span class="input-group-addon"><i class="fa fa-male"></i></span>
-				{{ Form::select('consignee_id', $portUsers, null, ['class' => 'form-control select2me']) }}
+				<span class="input-group-addon"><i class="fa fa-male"></i></span>			
+				{{ Form::text('consignee_id','', ['id'=>'consignee_id','class'=>'form-control', 'data-placeholder'=>"Choose a Consignee..."]) }}
 			</div>
 		</div>
 
@@ -113,5 +112,32 @@
 @section('scripts')
 ComponentsPickers.init();
 ComponentsDropdowns.init();
+
+	portUserPlugin('#consignor_id');
+	portUserPlugin('#consignee_id');
+
+	function portUserPlugin(inputName)
+	{
+		$(inputName).select2({
+			minimumInputLength: 4,
+			ajax: {
+				url: '{{ route('workorders.handler_list') }}',
+				quietMillis: 1000,
+				type: 'GET',
+				data: function (term, page) {
+					return {
+						q:term
+					};
+				},
+				results: function (data, page) {
+					console.log(data);
+					return {
+						results: data
+					};
+				}
+			},
+		});
+	}	
+
 @stop
 

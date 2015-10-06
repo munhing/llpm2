@@ -36,7 +36,7 @@
 			</li>						
 		</ul>
 	</div>	
-
+	{{ route('workorders.handler_list') }}
 	<div class="row">
 
 		{{ Form::open(['route'=>['manifest.schedule.import.cargoes.update', $schedule->id, $cargo->id], 'id' => 'form_cargo_edit']) }}
@@ -65,7 +65,7 @@
 						{{ Form::label('consignor_id', 'Consignor', ['class' => 'control-label']) }}
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-male"></i></span>
-							{{ Form::select('consignor_id', $portUsers, $cargo->consignor_id, ['class' => 'form-control select2me']) }}
+							{{ Form::text('consignor_id',$cargo->consignor_id, ['id'=>'consignor_id','class'=>'form-control', 'data-placeholder'=>"Choose a Consignor..."]) }}
 						</div>
 					</div>
 
@@ -73,7 +73,7 @@
 						{{ Form::label('consignee_id', 'Consignee', ['class' => 'control-label']) }}
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-male"></i></span>
-							{{ Form::select('consignee_id', $portUsers, $cargo->consignee_id, ['class' => 'form-control select2me']) }}
+							{{ Form::text('consignee_id',$cargo->consignee_id, ['id'=>'consignee_id','class'=>'form-control', 'data-placeholder'=>"Choose a Consignee..."]) }}
 						</div>
 					</div>
 
@@ -214,5 +214,46 @@ ComponentsDropdowns.init();
         
     });
 
+	portUserPlugin('#consignor_id', "kesu");
+	portUserPlugin('#consignee_id', "{{ $cargo->consignee->name }}");
+
+	function portUserPlugin(inputName, defaultValue)
+	{
+		$(inputName).select2({
+			minimumInputLength: 4,
+			ajax: {
+				url: '{{ route('workorders.handler_list') }}',
+				quietMillis: 1000,
+				type: 'GET',
+				data: function (term, page) {
+					return {
+						q:term
+					};
+				},
+				results: function (data, page) {
+					console.log(data);
+					return {
+						results: data
+					};
+				}
+			},
+			initSelection: function(element, callback) {
+
+				url = "{{route('workorders.handler_list')}}?q=" + defaultValue;
+				console.log(defaultValue);
+		        // the input tag has a value attribute preloaded that points to a preselected repository's id
+		        // this function resolves that id attribute to an object that select2 can render
+		        // using its formatResult renderer - that way the repository name is shown preselected
+		        if (defaultValue !== "") {
+		            $.ajax("{{route('workorders.handler_list')}}" + "?q=" + defaultValue, {
+		                dataType: "json"
+		            }).done(function(data) {
+		            	console.log(data);
+		            	callback(data); 
+		            });
+		        }
+		    },
+		});
+	}
 @stop
 
