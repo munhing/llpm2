@@ -4,23 +4,27 @@ use Carbon\Carbon;
 use LLPM\Repositories\ContainerRepository;
 use LLPM\Repositories\ContainerWorkorderConfirmationRepository;
 use LLPM\Repositories\FeeRepository;
+use LLPM\Repositories\VesselScheduleRepository;
 
 class ContainerController extends \BaseController {
 
 	protected $containerRepository;
 	protected $containerWorkorderConfirmationRepository;
 	protected $feeRepository;
+	protected $vesselScheduleRepository;
 	protected $totalStorageCharges = 0;
 
 	function __construct(
 		ContainerRepository $containerRepository,
 		ContainerWorkorderConfirmationRepository $containerWorkorderConfirmationRepository,
-		FeeRepository $feeRepository
+		FeeRepository $feeRepository,
+		VesselScheduleRepository $vesselScheduleRepository
 	)
 	{
 		$this->containerRepository = $containerRepository;
 		$this->containerWorkorderConfirmationRepository = $containerWorkorderConfirmationRepository;
 		$this->feeRepository = $feeRepository;
+		$this->vesselScheduleRepository = $vesselScheduleRepository;
 	}	
 	/**
 	 * Display a listing of the resource.
@@ -118,13 +122,16 @@ class ContainerController extends \BaseController {
 		foreach($ctnlist as $key => $list) {
 			$i=1;
 			foreach($list as $cwc) {
-				// dd($cwc);
+				// dd($cwc->toArray());
 				if($i==1) {
+
+					$processedList[$key]['vessel'] = $this->getVessel($cwc);
+
 					$processedList[$key]['date'] = $cwc->confirmed_at->format('Y-m-d');
 					$processedList[$key]['container_no'] = $cwc->container->container_no;
 					$processedList[$key]['size'] = $cwc->container->size;
 					$processedList[$key]['content'] = $cwc->containerConfirmation->content;
-					$processedList[$key]['workorder_no'] = $cwc->workorder->workorder_no;
+					$processedList[$key]['workorder_id'] = $cwc->workorder->id;
 					$processedList[$key]['movement'] = $cwc->workorder->movement;
 					$processedList[$key]['vehicle'] = $cwc->containerConfirmation->vehicle;
 					$processedList[$key]['lifter'] = $cwc->containerConfirmation->lifter;
@@ -149,6 +156,29 @@ class ContainerController extends \BaseController {
 
 		// dd($processedList);
 		return View::make('containers/report', compact('processedList'));
+	}
+
+
+	public function getVessel($cwc)
+	{
+		$movement = $cwc->workorder->movement;
+
+		if($movement == 'HI' || $movement == 'HE') {
+			// dd($cwc->workorder->movement);
+			$schedule = $this->vesselScheduleRepository->getById($cwc->workorder->vessel_schedule_id);
+
+			if($movement == 'HI') {
+				return $schedule->vessel->name . " V" . $schedule->voyage_no_arrival;
+			}			
+
+			if($movement == 'HE') {
+				return $schedule->vessel->name . " V" . $schedule->voyage_no_departure;
+			}
+			// dd($schedule);
+		}
+
+		return;
+
 	}
 
 	/**

@@ -54,6 +54,7 @@
 							<th>E/L</th>
 							<th>WO</th>
 							<th>Movement</th>
+							<th>Vessel</th>
 							<th>Date Time</th>
 							<th>Operator</th>
 							<th>Confirmed By</th>
@@ -70,8 +71,9 @@
 								<td>{{ $cwc['container_no'] }}</td>
 								<td>{{ $cwc['size'] }}</td>
 								<td>{{ $cwc['content'] }}</td>
-								<td>{{ $cwc['workorder_no'] }}</td>
+								<td>{{ $cwc['workorder_id'] }}</td>
 								<td>{{ $cwc['movement'] }}</td>
+								<td>{{ $cwc['vessel'] }}</td>
 								<td>{{ $cwc['confirmed_at'] }}</td>
 								<td>{{ $cwc['operator'] }}</td>
 								<td>{{ $cwc['confirmed_by'] }}</td>
