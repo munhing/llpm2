@@ -28,6 +28,6 @@ class ContainerWorkorderConfirmationRepository {
 
 	public function getAll()
 	{
-		return ContainerWorkorderConfirmation::with('user', 'operator', 'container', 'workorder', 'containerConfirmation')->get();
+		return ContainerWorkorderConfirmation::with('user', 'operator', 'container', 'workorder', 'containerConfirmation')->orderBy('confirmed_at', 'desc')->get();
 	}
 }

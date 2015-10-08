@@ -214,7 +214,7 @@ ComponentsDropdowns.init();
         
     });
 
-	portUserPlugin('#consignor_id', "kesu");
+	portUserPlugin('#consignor_id', "{{$cargo->consignor->name}}");
 	portUserPlugin('#consignee_id', "{{ $cargo->consignee->name }}");
 
 	function portUserPlugin(inputName, defaultValue)
@@ -241,6 +241,7 @@ ComponentsDropdowns.init();
 
 				url = "{{route('workorders.handler_list')}}?q=" + defaultValue;
 				console.log(defaultValue);
+				console.log(callback);
 		        // the input tag has a value attribute preloaded that points to a preselected repository's id
 		        // this function resolves that id attribute to an object that select2 can render
 		        // using its formatResult renderer - that way the repository name is shown preselected
@@ -249,7 +250,7 @@ ComponentsDropdowns.init();
 		                dataType: "json"
 		            }).done(function(data) {
 		            	console.log(data);
-		            	callback(data); 
+		            	callback(data[0]); 
 		            });
 		        }
 		    },

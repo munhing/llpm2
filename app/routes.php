@@ -466,6 +466,11 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
             'uses' => 'VesselsController@store',
         ]);
 
+        Route::get('vessels/list', [
+            'as' => 'manifest.vessels.list',
+            'uses' => 'VesselsController@vesselList',
+        ]);
+
         Route::get('schedule/{id}/edit', [
             'as' => 'manifest.schedule.edit',
             'uses' => 'VesselScheduleController@edit',

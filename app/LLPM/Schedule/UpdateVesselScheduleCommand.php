@@ -21,8 +21,10 @@ class UpdateVesselScheduleCommand {
         $this->portuser_id = $portuser_id;
         $this->voyage_no_arrival = $voyage_no_arrival;
         $this->voyage_no_departure = $voyage_no_departure;
-        $this->eta = convertToMySQLDate($eta);
-        $this->etd = convertToMySQLDate($etd);
+        $this->eta = $eta;
+        // $this->eta = convertToMySQLDate($eta);
+        $this->etd = $etd;
+        // $this->etd = convertToMySQLDate($etd);
         $this->mt_arrival = $mt_arrival;
         $this->mt_departure = $mt_departure;
         $this->m3_arrival = $m3_arrival;

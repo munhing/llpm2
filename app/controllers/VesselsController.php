@@ -57,6 +57,21 @@ class VesselsController extends \BaseController {
 		return Redirect::route('manifest.vessels');
 	}
 
+
+	public function vesselList()
+	{
+		$q = Input::get('q');
+		$vessels= [];
+
+		if ($q) {
+			$vessels = $this->vesselRepository->searchByName($q);	
+		}
+
+		//dd($handlers);
+
+		return json_encode($vessels);		
+	}
+	
 	/**
 	 * Display the specified resource.
 	 * GET /vessels/{id}

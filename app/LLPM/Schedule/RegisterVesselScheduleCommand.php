@@ -13,8 +13,10 @@ class RegisterVesselScheduleCommand {
         $this->vessel_id = $vessel_id;
         $this->voyage_no_arrival = $voyage_no_arrival;
         $this->portuser_id = $portuser_id;
-        $this->eta = convertToMySQLDate($eta);
-        $this->etd = convertToMySQLDate($etd);
+        $this->eta = $eta;
+        // $this->eta = convertToMySQLDate($eta);
+        $this->etd = $etd;
+        // $this->etd = convertToMySQLDate($etd);
     }
 
 }
