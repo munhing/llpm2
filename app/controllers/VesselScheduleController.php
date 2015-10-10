@@ -22,7 +22,7 @@ use LLPM\Schedule\RegisterImportContainersCommand;
 use LLPM\Schedule\RegisterVesselScheduleCommand;
 use LLPM\Schedule\UpdateExportCargoCommand;
 use LLPM\Schedule\UpdateImportCargoCommand;
-use LLPM\Schedule\UpdateImportCargoItemCommand;
+use LLPM\Schedule\UpdateCargoItemCommand;
 use LLPM\Schedule\UpdateVesselScheduleCommand;
 
 class VesselScheduleController extends \BaseController {
@@ -325,8 +325,7 @@ class VesselScheduleController extends \BaseController {
 		$schedule = $this->vesselScheduleRepository->getById($id);
 		$cargo = $this->cargoRepository->getImportById($cargo_id);
 		$portUsers = $this->portUserRepository->getAll()->lists('name', 'id');
-		$country = $this->countryRepository->getAll()->lists('name', 'iso');;
-		$country[] = ['' => ' '];
+		$country = [null => "Please select a country"] + $this->countryRepository->getAll()->lists('name', 'iso');
 		//dd($country);
 
 		//dd($schedule->toArray());
@@ -338,8 +337,7 @@ class VesselScheduleController extends \BaseController {
 		$schedule = $this->vesselScheduleRepository->getById($id);
 		$cargo = $this->cargoRepository->getImportById($cargo_id);
 		$portUsers = $this->portUserRepository->getAll()->lists('name', 'id');
-		$country = $this->countryRepository->getAll()->lists('name', 'iso');;
-		$country[] = ['' => ' '];
+		$country = [null => "Please select a country"] + $this->countryRepository->getAll()->lists('name', 'iso');
 		//dd($country);
 
 		//dd($schedule->toArray());
@@ -414,7 +412,7 @@ class VesselScheduleController extends \BaseController {
 		
 		$this->cargoItemForm->validate($input);
 
-		$importCargo = $this->execute(UpdateImportCargoItemCommand::class, $input);
+		$importCargo = $this->execute(UpdateCargoItemCommand::class, $input);
 
 		//$this->registerImportContainers($input, $importCargo);
 
@@ -423,18 +421,19 @@ class VesselScheduleController extends \BaseController {
 		return Redirect::route('manifest.schedule.import.cargoes.show', [$schedule_id, $cargo_id]);
 	}	
 
-	public function updateExportCargoItem($schedule_id, $cargo_id, $cargo_item_id)
+	public function updateExportCargoItem($schedule_id, $cargo_id)
 	{
 		$input = Input::all();
 
-		if(!$input['custom_tariff_code'] || !$input['description'] || !$input['quantity']){
-			Flash::error("Cargo Item form not completed.");	
-			return Redirect::back()->withInput();
-		}
 
-		//dd($input);
+		$input['schedule_id'] = $schedule_id;
+		$input['cargo_id'] = $cargo_id;
+		
+		// dd($input);
+		
+		$this->cargoItemForm->validate($input);
 
-		$cargo = $this->execute(UpdateImportCargoItemCommand::class, $input);
+		$importCargo = $this->execute(UpdateCargoItemCommand::class, $input);
 
 		//$this->registerImportContainers($input, $importCargo);
 
@@ -465,7 +464,6 @@ class VesselScheduleController extends \BaseController {
 	{
 		$input = Input::all();
 
-		$input['schedule_id'] = $schedule_id;
 		$input['cargo_id'] = $cargo_id;
 		
 		$this->cargoItemForm->validate($input);
@@ -482,15 +480,11 @@ class VesselScheduleController extends \BaseController {
 	{
 		$input = Input::all();
 
-		$input['schedule_id'] = $schedule_id;
 		$input['cargo_id'] = $cargo_id;
 		
-		if(!$input['custom_tariff_code'] || !$input['description'] || !$input['quantity']){
-			Flash::error("Cargo Item form not completed.");	
-			return Redirect::back()->withInput();
-		}
+		$this->cargoItemForm->validate($input);
 
-		//dd($input);
+		// dd($input);
 
 		$this->execute(AddItemToCargoCommand::class, $input);
 

@@ -397,22 +397,13 @@
 @stop
 
 @section('page_level_plugins')
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
-<script src="{{ URL::asset('assets/admin/pages/scripts/components-pickers.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js') }}"></script>
-<script src="{{ URL::asset('assets/admin/pages/scripts/components-dropdowns.js') }}"></script>
 @stop
 
 @section('page_level_scripts')
-<script type="text/javascript" src="{{ URL::asset('assets/app/js/app.js') }}"></script>
 
 @stop
 
 @section('scripts')
-ComponentsPickers.init();
-ComponentsDropdowns.init();
 
 $('#but_add_container1').on('click', function(event){
 	event.preventDefault();

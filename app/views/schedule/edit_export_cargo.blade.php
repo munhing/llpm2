@@ -64,7 +64,7 @@
 						{{ Form::label('consignor_id', 'Consignor', ['class' => 'control-label']) }}
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-male"></i></span>
-							{{ Form::select('consignor_id', $portUsers, $cargo->consignor_id, ['class' => 'form-control select2me']) }}
+							{{ Form::text('consignor_id',$cargo->consignor->id, ['class'=>'form-control']) }}
 						</div>
 					</div>
 
@@ -72,7 +72,7 @@
 						{{ Form::label('consignee_id', 'Consignee', ['class' => 'control-label']) }}
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-male"></i></span>
-							{{ Form::select('consignee_id', $portUsers, $cargo->consignee_id, ['class' => 'form-control select2me']) }}
+							{{ Form::text('consignee_id',$cargo->consignee->id, ['class'=>'form-control']) }}
 						</div>
 					</div>
 
@@ -112,7 +112,7 @@
 						{{ Form::label('country_code1', 'Port of Discharge: Country', ['class' => 'control-label']) }}
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-male"></i></span>
-							{{ Form::select('country_code', $country, $cargo->country_code, ['class' => 'form-control', 'placeholder' => 'Country']) }}
+							{{ Form::select('country_code', $country, $cargo->country_code,['class'=>'form-control select-select2']) }}
 						</div>
 					</div>
 
@@ -155,23 +155,13 @@
 @stop
 
 @section('page_level_plugins')
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
-<script src="{{ URL::asset('assets/admin/pages/scripts/components-pickers.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js') }}"></script>
-<script src="{{ URL::asset('assets/admin/pages/scripts/components-dropdowns.js') }}"></script>
 @stop
 
 @section('scripts')
-ComponentsPickers.init();
-ComponentsDropdowns.init();
 
-    $('#country_code').select2({
-        allowClear: true,
-        placeholder: "Select Country"
-        
-    });
+
+	select2Plugin('#consignor_id', "{{route('workorders.handler_list')}}", "{{$cargo->consignor->name}}", "Please select a consignor");
+	select2Plugin('#consignee_id', "{{route('workorders.handler_list')}}", "{{$cargo->consignee->name}}", "Please select a consignee");
 
 @stop
 

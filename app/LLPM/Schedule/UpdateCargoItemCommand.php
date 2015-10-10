@@ -2,7 +2,7 @@
 
 namespace LLPM\Schedule;
 
-class UpdateImportCargoItemCommand {
+class UpdateCargoItemCommand {
 
 	public $cargo_item_id;
 	public $custom_tariff_code;

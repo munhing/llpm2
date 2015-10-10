@@ -36,7 +36,6 @@
 			</li>						
 		</ul>
 	</div>	
-	{{ route('workorders.handler_list') }}
 	<div class="row">
 
 		{{ Form::open(['route'=>['manifest.schedule.import.cargoes.update', $schedule->id, $cargo->id], 'id' => 'form_cargo_edit']) }}
@@ -65,7 +64,7 @@
 						{{ Form::label('consignor_id', 'Consignor', ['class' => 'control-label']) }}
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-male"></i></span>
-							{{ Form::text('consignor_id',$cargo->consignor_id, ['id'=>'consignor_id','class'=>'form-control', 'data-placeholder'=>"Choose a Consignor..."]) }}
+							{{ Form::text('consignor_id',$cargo->consignor->id, ['class'=>'form-control']) }}
 						</div>
 					</div>
 
@@ -73,7 +72,7 @@
 						{{ Form::label('consignee_id', 'Consignee', ['class' => 'control-label']) }}
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-male"></i></span>
-							{{ Form::text('consignee_id',$cargo->consignee_id, ['id'=>'consignee_id','class'=>'form-control', 'data-placeholder'=>"Choose a Consignee..."]) }}
+							{{ Form::text('consignee_id',$cargo->consignee->id, ['class'=>'form-control']) }}
 						</div>
 					</div>
 
@@ -110,10 +109,10 @@
 					</div>
 
 					<div class="form-group">
-						{{ Form::label('country_code1', 'Port of Loading: Country', ['class' => 'control-label']) }}
+						{{ Form::label('country_code', 'Port of Loading: Country', ['class' => 'control-label']) }}
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-male"></i></span>
-							{{ Form::select('country_code', $country, '', ['class' => 'form-control', 'placeholder' => 'Country']) }}
+							{{ Form::select('country_code', $country, null,['class'=>'form-control select-select2']) }}
 						</div>
 					</div>
 
@@ -196,65 +195,13 @@
 @stop
 
 @section('page_level_plugins')
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
-<script src="{{ URL::asset('assets/admin/pages/scripts/components-pickers.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js') }}"></script>
-<script src="{{ URL::asset('assets/admin/pages/scripts/components-dropdowns.js') }}"></script>
+
 @stop
 
 @section('scripts')
-ComponentsPickers.init();
-ComponentsDropdowns.init();
 
-    $('#country_code').select2({
-        allowClear: true,
-        placeholder: "Select Country"
-        
-    });
+	select2Plugin('#consignor_id', "{{route('workorders.handler_list')}}", "{{$cargo->consignor->name}}", "Please select a consignor");
+	select2Plugin('#consignee_id', "{{route('workorders.handler_list')}}", "{{$cargo->consignee->name}}", "Please select a consignee");
 
-	portUserPlugin('#consignor_id', "{{$cargo->consignor->name}}");
-	portUserPlugin('#consignee_id', "{{ $cargo->consignee->name }}");
-
-	function portUserPlugin(inputName, defaultValue)
-	{
-		$(inputName).select2({
-			minimumInputLength: 4,
-			ajax: {
-				url: '{{ route('workorders.handler_list') }}',
-				quietMillis: 1000,
-				type: 'GET',
-				data: function (term, page) {
-					return {
-						q:term
-					};
-				},
-				results: function (data, page) {
-					console.log(data);
-					return {
-						results: data
-					};
-				}
-			},
-			initSelection: function(element, callback) {
-
-				url = "{{route('workorders.handler_list')}}?q=" + defaultValue;
-				console.log(defaultValue);
-				console.log(callback);
-		        // the input tag has a value attribute preloaded that points to a preselected repository's id
-		        // this function resolves that id attribute to an object that select2 can render
-		        // using its formatResult renderer - that way the repository name is shown preselected
-		        if (defaultValue !== "") {
-		            $.ajax("{{route('workorders.handler_list')}}" + "?q=" + defaultValue, {
-		                dataType: "json"
-		            }).done(function(data) {
-		            	console.log(data);
-		            	callback(data[0]); 
-		            });
-		        }
-		    },
-		});
-	}
 @stop
 

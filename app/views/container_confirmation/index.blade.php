@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css') }}"/>
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css') }}"/>
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/app/jquery-timepicker-1.3.2/jquery.timepicker.min.css') }}"/>
 <!-- END PAGE LEVEL STYLES -->
 @stop
 @section('content')
@@ -105,6 +106,10 @@
                                  {{ Form::select('a_operator', [], 0, ['class' => 'form-control select2me', 'placeholder' => 'Select Operator', 'id'=>'a_operator', 'spinner']) }}
                           </div>                                      
                           <div class="form-group">
+                                 {{ Form::label('a_date','Date') }}
+                                 {{ Form::text('a_date','', ['class'=>'form-control date-picker']) }}
+                          </div>    
+                          <div class="form-group">
                                  {{ Form::label('confirmed_at','Confirmed At') }}
                                  {{ Form::text('a_confirmed_at','', ['id'=>'a_confirmed_at', 'class'=>'form-control']) }}
                           </div>                       
@@ -116,7 +121,7 @@
                                  {{ Form::label('lifter','Lifter') }}
                                  {{ Form::text('a_lifter','', ['id'=>'a_lifter', 'class'=>'form-control']) }}
                           </div>                          
-                          <button class="btn btn-lg btn-success btn-block edit-btn">
+                          <button class="btn btn-lg btn-success btn-block edit-btn" data-confirm>
                                 Confirm
                           </button>
                         {{ Form::close() }}
@@ -130,26 +135,16 @@
 
 @section('page_level_plugins')
 
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('assets/app/bootstrap-datepicker-1.4.0-dist/js/bootstrap-datepicker.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
-
 
 @stop
 
 @section('page_level_scripts')
 
-<script src="{{ URL::asset('assets/admin/pages/scripts/table-advanced.js') }}"></script>
-<script src="{{ URL::asset('assets/admin/pages/scripts/components-pickers.js') }}"></script>
-
 @stop
 
 @section('scripts')
-	//TableAdvanced.init();
-	ComponentsPickers.init();
 
 	jQuery(document).ready(function(){
 
@@ -191,12 +186,26 @@
 			});		  
 		});
 
-        $('#a_confirmed_at').timepicker({
-            autoclose: true,
-            minuteStep: 1,
-            showMeridian: false
-        });
+		$('#a_confirmed_at').timepicker({ 
+			template: false,
+	        minuteStep: 1,
+	        showSeconds: false,
+	        showMeridian: false
+		});
 
+		$('.date-picker').datepicker({
+		    format: "yyyy-mm-dd",
+		    todayBtn: "linked",
+		    autoclose: true,
+		    todayHighlight: true
+		});
+
+		$(".date-picker").datepicker().on('show.bs.modal', function(event) {
+		    // prevent datepicker from firing bootstrap modal "show.bs.modal"
+		    event.stopPropagation(); 
+		});
+
+		$('.date-picker').datepicker('update', new Date());
 
     });
 @stop

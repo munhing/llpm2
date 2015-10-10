@@ -1,26 +1,24 @@
 <?php
 
-use LLPM\Repositories\ReceivingRepository;
-use LLPM\Repositories\PortUserRepository;
-use LLPM\Repositories\VesselScheduleRepository;
-use LLPM\Repositories\ContainerRepository;
-use LLPM\Repositories\CargoRepository;
-use LLPM\Repositories\CargoItemRepository;
-use LLPM\Repositories\CountryRepository;
-
+use LLPM\ContainerHelper;
+use LLPM\Forms\CargoItemForm;
 use LLPM\Forms\ImportCargoForm;
-
-use LLPM\Receiving\RegisterReceivingContainersCommand;
-use LLPM\Receiving\RegisterExportCargoCommand;
-use LLPM\Receiving\UpdateExportCargoCommand;
 use LLPM\Receiving\AssociateContainersWithCargoCommand;
 use LLPM\Receiving\DeleteReceivingContainerCommand;
-use LLPM\Receiving\UnlinkReceivingContainerCommand;
 use LLPM\Receiving\IssueExportCargoCommand;
-use LLPM\Receiving\AddItemToCargoCommand;
-use LLPM\Receiving\UpdateCargoItemCommand;
-
-use LLPM\ContainerHelper;
+use LLPM\Receiving\RegisterExportCargoCommand;
+use LLPM\Receiving\RegisterReceivingContainersCommand;
+use LLPM\Receiving\UnlinkReceivingContainerCommand;
+use LLPM\Receiving\UpdateExportCargoCommand;
+use LLPM\Repositories\CargoItemRepository;
+use LLPM\Repositories\CargoRepository;
+use LLPM\Repositories\ContainerRepository;
+use LLPM\Repositories\CountryRepository;
+use LLPM\Repositories\PortUserRepository;
+use LLPM\Repositories\ReceivingRepository;
+use LLPM\Repositories\VesselScheduleRepository;
+use LLPM\Schedule\AddItemToCargoCommand;
+use LLPM\Schedule\UpdateCargoItemCommand;
 
 class ReceivingController extends \BaseController {
 
@@ -32,10 +30,20 @@ class ReceivingController extends \BaseController {
 	protected $cargoItemRepository;
 	protected $countryRepository;
 	protected $importCargoForm;
+	protected $cargoItemForm;
 
 	use ContainerHelper;
 
-	function __construct(ReceivingRepository $receivingRepository, PortUserRepository $portUserRepository, VesselScheduleRepository $vesselScheduleRepository, ImportCargoForm $importCargoForm, ContainerRepository $containerRepository, CargoRepository $cargoRepository, CargoItemRepository $cargoItemRepository, CountryRepository $countryRepository)
+	function __construct(
+		ReceivingRepository $receivingRepository,
+		PortUserRepository $portUserRepository,
+		VesselScheduleRepository $vesselScheduleRepository,
+		ImportCargoForm $importCargoForm,
+		ContainerRepository $containerRepository,
+		CargoRepository $cargoRepository,
+		CargoItemRepository $cargoItemRepository,
+		CountryRepository $countryRepository,
+		CargoItemForm $cargoItemForm)
 	{
 		$this->receivingRepository = $receivingRepository;
 		$this->portUserRepository = $portUserRepository;
@@ -46,6 +54,7 @@ class ReceivingController extends \BaseController {
 		$this->countryRepository = $countryRepository;
 
 		$this->importCargoForm = $importCargoForm;
+		$this->cargoItemForm = $cargoItemForm;
 	}
 	/**
 	 * Display a listing of the resource.
@@ -114,7 +123,7 @@ class ReceivingController extends \BaseController {
 		$cargo = $this->cargoRepository->getExportById($cargo_id);
 		$cargoItems = $this->cargoItemRepository->getAllByCargoId($cargo_id);
 		$vessel = Vessel::lists('name', 'id');
-		//dd($cargoItems->toArray());
+		// dd($cargo->toArray());
 
 		return View::make('receiving/show_cargo', compact('cargo', 'cargoItems', 'vessel'));
 	}
@@ -124,8 +133,8 @@ class ReceivingController extends \BaseController {
 		//dd('Edit export cargo details');
 		$cargo = $this->cargoRepository->getExportById($cargo_id);
 		$portUsers = $this->portUserRepository->getAll()->lists('name', 'id');
-		$country = $this->countryRepository->getAll()->lists('name', 'iso');
-		$country[] = ['' => ' '];		
+		$country = [null=>"Choose a country"] + $this->countryRepository->getAll()->lists('name', 'iso');
+		
 		//dd($cargo->toArray());
 
 		return View::make('receiving/edit_cargo', compact('cargo', 'portUsers', 'country'));
@@ -168,19 +177,13 @@ class ReceivingController extends \BaseController {
 		$input['receiving_id'] = $receiving_id;
 		$input['cargo_id'] = $cargo_id;
 		
-		if(!$input['custom_tariff_code'] || !$input['description'] || !$input['quantity']){
-			Flash::error("Cargo Item form not completed.");	
-			return Redirect::back()->withInput();
-		}
-
-		//dd($input);
+		$this->cargoItemForm->validate($input);
 
 		$this->execute(AddItemToCargoCommand::class, $input);
 
 		Flash::success("Item has been registered!");
 
 		return Redirect::route('receiving.cargo.show', [$receiving_id, $cargo_id]);
-
 
 	}
 
@@ -192,20 +195,13 @@ class ReceivingController extends \BaseController {
 		return View::make('receiving/edit_cargo_item', compact('cargo', 'cargoItem'));
 	}
 
-	public function cargoItemUpdate($receiving_id, $cargo_id, $cargo_item_id)
+	public function cargoItemUpdate($receiving_id, $cargo_id)
 	{
 		$input = Input::all();
 
-		if(!$input['custom_tariff_code'] || !$input['description'] || !$input['quantity']){
-			Flash::error("Cargo Item form not completed.");	
-			return Redirect::back()->withInput();
-		}
-
-		//dd($input);
+		$this->cargoItemForm->validate($input);
 
 		$cargoItem = $this->execute(UpdateCargoItemCommand::class, $input);
-
-		//$this->registerImportContainers($input, $importCargo);
 
 		Flash::success("Item successfully updated!");
 
@@ -298,7 +294,7 @@ class ReceivingController extends \BaseController {
 	}
 	public function createCargo()
 	{
-		$schedule = $this->vesselScheduleRepository->getActiveSchedule()->lists('name', 'id');
+		$schedule = [null => "Choose a vessel"] + $this->vesselScheduleRepository->getActiveSchedule()->lists('name', 'id');
 		$portUsers = $this->portUserRepository->getAll()->lists('name', 'id');
 		return View::make('receiving/create_cargo', compact('portUsers', 'schedule'));
 	}
@@ -307,6 +303,7 @@ class ReceivingController extends \BaseController {
 	{
 
 		$input = Input::all();
+		// dd($input);
 		$input['receiving_id'] = $this->receivingRepository->generateReceivingId()->id;
 
 		// filterContainers(containers in string, $content, $status)

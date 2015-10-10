@@ -11,7 +11,7 @@ use Laracasts\Commander\CommanderTrait;
 use Laracasts\Commander\Events\DispatchableTrait;
 
 
-class UpdateImportCargoItemCommandHandler implements CommandHandler {
+class UpdateCargoItemCommandHandler implements CommandHandler {
 
 	use DispatchableTrait;
 	use CommanderTrait;

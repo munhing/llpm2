@@ -32,7 +32,7 @@ class UpdateExportCargoCommandHandler implements CommandHandler {
      */
     public function handle($command)
     {
-    	//dd($command);
+    	// dd($command);
 
 		$cargo = Cargo::editExport(
 			$command->cargo_id,

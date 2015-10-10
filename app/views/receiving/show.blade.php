@@ -11,7 +11,7 @@
 @section('content')
 
 	<h3 class="page-title">
-		Receiving<small>receiving</small>
+		Receiving <small>receiving</small>
 	</h3>
 
 	<div class="page-bar">
@@ -66,7 +66,7 @@
 											@if(count($container->workorders) == 0 && $container->content != 'L')
 												{{ Form::open(['route'=>['receiving.container.delete', $container->receiving_id]]) }}
 												{{ Form::hidden('container_id', $container->id) }}
-						                            <button class='btn btn-sm btn-danger' type='button' data-toggle="modal" data-target="#myModal" data-title="Remove Container" data-body="Remove this container?">
+						                            <button class='btn btn-sm btn-danger' data-confirm>
 						                                <i class="glyphicon glyphicon-remove"></i>
 						                            </button>											
 												{{ Form::close() }}

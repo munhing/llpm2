@@ -32,6 +32,7 @@ class RegisterExportCargoCommandHandler implements CommandHandler {
      */
     public function handle($command)
     {
+    	// dd($command);
 
 		$exportCargo = Cargo::registerExport(
 			$command->bl_no,

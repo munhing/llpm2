@@ -71,7 +71,7 @@
 					</tbody>
 				</table>
 
-                <button class='btn btn-sm blue' type='button' data-toggle="modal" data-target="#myModal" data-title="Cargo Confirmation" data-body="Confirm this cargo?">
+                <button class='btn btn-sm blue' data-confirm>
                     Confirm <i class="m-icon-swapright m-icon-white"></i>
                 </button>											
 

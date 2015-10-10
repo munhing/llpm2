@@ -157,7 +157,8 @@ class ConfirmContainerCommandHandler implements CommandHandler
             return Carbon::now();
         }
 
-        return Carbon::createFromFormat('H:i', json_decode($command->a_confirmed_at)[0]);
+        // dd(Carbon::createFromFormat('Y-m-d H:i', json_decode($command->a_date)[0] . ' ' . json_decode($command->a_confirmed_at)[0]));
+        return Carbon::createFromFormat('Y-m-d H:i', json_decode($command->a_date)[0] . ' ' . json_decode($command->a_confirmed_at)[0]);
 
     }
        

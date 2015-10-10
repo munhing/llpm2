@@ -35,7 +35,7 @@
 					{{ Form::label('vessel_id', 'Vessel', ['class' => 'control-label']) }}
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-anchor"></i></span>
-						{{ Form::text('vessel_id', '', ['class' => 'form-control']) }}
+						{{ Form::text('vessel_id', $vesselSchedule->vessel->id, ['class' => 'form-control']) }}
 					</div>
 				</div>
 			</div>
@@ -45,7 +45,7 @@
 					{{ Form::label('portuser_id', 'Agent', ['class' => 'control-label']) }}
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-user"></i></span>
-						{{ Form::text('portuser_id', '', ['class' => 'form-control']) }}
+						{{ Form::text('portuser_id', $vesselSchedule->portUser->id, ['class' => 'form-control']) }}
 					</div>
 				</div>
 			</div>
@@ -184,8 +184,6 @@
 @stop
 
 @section('scripts')
-// ComponentsPickers.init();
-// ComponentsDropdowns.init();
 
 	$('.date-picker').datepicker({
 	    format: "yyyy-mm-dd",
@@ -202,45 +200,5 @@
 	select2Plugin('#vessel_id', "{{route('manifest.vessels.list')}}", "{{$vesselSchedule->vessel->name}}", "Please select a vessel");
 	select2Plugin('#portuser_id', "{{route('workorders.handler_list')}}", "{{$vesselSchedule->portUser->name}}", "Please select an agent");
 
-	function select2Plugin(inputName, url, defaultValue, nullStatement)
-	{
-		$(inputName).select2({
-			minimumInputLength: 4,
-			ajax: {
-				url: url,
-				quietMillis: 1000,
-				type: 'GET',
-				data: function (term, page) {
-					return {
-						q:term
-					};
-				},
-				results: function (data, page) {
-					console.log(data);
-					return {
-						results: data
-					};
-				}
-			},
-			initSelection: function(element, callback) {
-
-				console.log(defaultValue);
-				console.log(callback);
-		        // the input tag has a value attribute preloaded that points to a preselected repository's id
-		        // this function resolves that id attribute to an object that select2 can render
-		        // using its formatResult renderer - that way the repository name is shown preselected
-		        if (defaultValue !== "") {
-		            $.ajax(url + "?q=" + defaultValue, {
-		                dataType: "json"
-		            }).done(function(data) {
-		            	console.log(data);
-		            	callback(data[0]); 
-		            });
-		        } else {
-		        	callback({'id':null, 'text':nullStatement})
-		        }
-		    },
-		});
-	}
 @stop
 

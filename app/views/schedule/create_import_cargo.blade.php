@@ -46,7 +46,7 @@
 			{{ Form::label('consignor_id', 'Consignor', ['class' => 'control-label']) }}
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-male"></i></span>			
-				{{ Form::text('consignor_id','', ['id'=>'consignor_id','class'=>'form-control', 'data-placeholder'=>"Choose a Consignor..."]) }}
+				{{ Form::text('consignor_id','', ['class'=>'form-control', 'data-placeholder'=>"Choose a Consignor..."]) }}
 			</div>
 		</div>		
 
@@ -54,7 +54,7 @@
 			{{ Form::label('consignee_id', 'Consignee', ['class' => 'control-label']) }}
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-male"></i></span>			
-				{{ Form::text('consignee_id','', ['id'=>'consignee_id','class'=>'form-control', 'data-placeholder'=>"Choose a Consignee..."]) }}
+				{{ Form::text('consignee_id','', ['class'=>'form-control', 'data-placeholder'=>"Choose a Consignee..."]) }}
 			</div>
 		</div>
 
@@ -101,43 +101,13 @@
 @stop
 
 @section('page_level_plugins')
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
-<script src="{{ URL::asset('assets/admin/pages/scripts/components-pickers.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js') }}"></script>
-<script src="{{ URL::asset('assets/admin/pages/scripts/components-dropdowns.js') }}"></script>
 @stop
 
 @section('scripts')
-ComponentsPickers.init();
-ComponentsDropdowns.init();
 
-	portUserPlugin('#consignor_id');
-	portUserPlugin('#consignee_id');
+	select2Plugin('#consignor_id', "{{route('workorders.handler_list')}}", "", "Please select a consignor");
+	select2Plugin('#consignee_id', "{{route('workorders.handler_list')}}", "", "Please select a consignee");
 
-	function portUserPlugin(inputName)
-	{
-		$(inputName).select2({
-			minimumInputLength: 4,
-			ajax: {
-				url: '{{ route('workorders.handler_list') }}',
-				quietMillis: 1000,
-				type: 'GET',
-				data: function (term, page) {
-					return {
-						q:term
-					};
-				},
-				results: function (data, page) {
-					console.log(data);
-					return {
-						results: data
-					};
-				}
-			},
-		});
-	}	
 
 @stop
 

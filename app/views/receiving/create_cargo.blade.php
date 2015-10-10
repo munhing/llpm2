@@ -43,7 +43,7 @@
 			{{ Form::label('export_vessel_schedule_id', 'Vessel', ['class' => 'control-label']) }}
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-male"></i></span>
-				{{ Form::select('export_vessel_schedule_id', $schedule, null, ['class' => 'form-control select2me']) }}
+				{{ Form::select('export_vessel_schedule_id', $schedule, null, ['class' => 'form-control select-select2']) }}
 			</div>
 		</div>
 
@@ -51,7 +51,7 @@
 			{{ Form::label('consignor_id', 'Consignor', ['class' => 'control-label']) }}
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-male"></i></span>
-				{{ Form::select('consignor_id', $portUsers, null, ['class' => 'form-control select2me']) }}
+				{{ Form::text('consignor_id','', ['class'=>'form-control', 'data-placeholder'=>"Choose a Consignor..."]) }}
 			</div>
 		</div>
 
@@ -59,7 +59,7 @@
 			{{ Form::label('consignee_id', 'Consignee', ['class' => 'control-label']) }}
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-male"></i></span>
-				{{ Form::select('consignee_id', $portUsers, null, ['class' => 'form-control select2me']) }}
+				{{ Form::text('consignee_id','', ['class'=>'form-control', 'data-placeholder'=>"Choose a Consignee..."]) }}
 			</div>
 		</div>
 
@@ -106,16 +106,10 @@
 @stop
 
 @section('page_level_plugins')
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
-<script src="{{ URL::asset('assets/admin/pages/scripts/components-pickers.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js') }}"></script>
-<script src="{{ URL::asset('assets/admin/pages/scripts/components-dropdowns.js') }}"></script>
 @stop
 
 @section('scripts')
-ComponentsPickers.init();
-ComponentsDropdowns.init();
+	select2Plugin('#consignor_id', "{{route('workorders.handler_list')}}", "", "Please select a consignor");
+	select2Plugin('#consignee_id', "{{route('workorders.handler_list')}}", "", "Please select a consignee");
 @stop
 

@@ -591,7 +591,7 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
             'uses' => 'VesselScheduleController@updateImportCargoItem',
         ]);
 
-        Route::post('schedule/{id}/export/cargoes/{cargo_id}/{cargo_item_id}/update', [
+        Route::post('schedule/{id}/export/cargoes/{cargo_id}/item/update', [
             'as' => 'manifest.schedule.export.cargoes.item.update',
             'uses' => 'VesselScheduleController@updateExportCargoItem',
         ]);
@@ -654,7 +654,7 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
             'uses' => 'ReceivingController@cargoItemEdit',
         ]);
 
-        Route::post('{id}/cargo/{cargo_id}/item/{item_id}/update', [
+        Route::post('{id}/cargo/{cargo_id}/item/update', [
             'as' => 'receiving.cargo.item.update',
             'uses' => 'ReceivingController@cargoItemUpdate',
         ]);
