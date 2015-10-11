@@ -37,6 +37,20 @@ class WorkOrderRepository {
 				->get();
 	}
 
+	public function getAllByScheduleId($schedule_id, $movement)
+	{
+		// dd($movement);
+		if($movement != '') {
+			return WorkOrder::where('vessel_schedule_id', $schedule_id)
+					->where('movement', $movement)
+					->orderBy('workorders.date', 'desc')
+					->get();			
+		}
+		return WorkOrder::where('vessel_schedule_id', $schedule_id)
+				->orderBy('workorders.date', 'desc')
+				->get();
+	}
+
 	// public function getByWorkOrderNo($workorder_no)
 	// {
 	// 	return WorkOrder::where('workorder_no', $workorder_no)->first();

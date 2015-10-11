@@ -26,6 +26,27 @@ class ContainerWorkorderConfirmationRepository {
 
 	}
 
+	public function getAllByWorkorders($workorder_list)
+	{
+		return ContainerWorkorderConfirmation::with(['container', 'user', 'containerConfirmation'])->whereIn('workorder_id', $workorder_list)->orderBy('confirmed_at')->get();
+	}
+
+	public function getAllByDateAndLocations($date, $locations = null)
+	{
+		if($locations == null) {
+			return ContainerWorkorderConfirmation::with(['container', 'containerConfirmation'])
+					->where('confirmed_at', 'like', $date->format('Y-m-d') . '%')
+					->orderBy('confirmed_at')
+					->get();
+		}
+
+		return ContainerWorkorderConfirmation::with(['container', 'containerConfirmation'])
+				->where('confirmed_at', 'like', $date->format('Y-m-d') . '%')
+				->whereIn('role', $locations)
+				->orderBy('confirmed_at')
+				->get();		
+	}
+
 	public function getAll()
 	{
 		return ContainerWorkorderConfirmation::with('user', 'operator', 'container', 'workorder', 'containerConfirmation')->orderBy('confirmed_at', 'desc')->get();

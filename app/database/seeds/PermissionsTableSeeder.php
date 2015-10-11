@@ -6,6 +6,11 @@ class PermissionsTableSeeder extends Seeder
 	public function run()
 	{
 		Permission::create([
+			'route_name' => 'home',
+			'description' => 'Access this system'
+		]);
+
+		Permission::create([
 			'route_name' => 'manifest.schedule',
 			'description' => 'View Vessel Schedule'
 		]);		

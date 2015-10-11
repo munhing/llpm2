@@ -55,6 +55,11 @@ class VesselScheduleRepository {
 			])->find($id);
 	}
 
+	public function getByVesselId($vessel_id)
+	{
+		return VesselSchedule::where('vessel_id', $vessel_id)->orderBy('eta', 'desc')->get();
+	}
+
 		// $reports = Report::with('client')->selectRaw("reports.*, clients.name, (`next_inspection`) > (NOW())  AS `status`")
 		//        ->join('clients', 'reports.client_id', '=', 'clients.id')
 		//        ->orderBy($sortby, $order)

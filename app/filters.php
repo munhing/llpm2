@@ -49,13 +49,25 @@ Route::filter('auth', function()
 
 	if(Auth::check()){
 
-		$admin_access = false;
+		$admin_access = true;
 
-		foreach(Auth::user()->roles as $role) {
-			if($role->role == "AD" || $role->role == "FO") {
-				$admin_access = true;
-			}
-		}
+		// foreach(Auth::user()->roles as $role) {
+		// 	if($role->role == "AD" || $role->role == "FO") {
+		// 		$admin_access = false;
+		// 	}
+		// }
+
+        foreach(Auth::user()->roles as $role) {
+
+            foreach($role->permissions as $permission) {
+            	// dd($permission->toArray());
+                if($permission->route_name == 'home' ) {
+                    $admin_access = false;
+                    break;                   
+                }
+
+            }
+        }
 
 		if($admin_access == false) {
 			return Redirect::route('mobile');

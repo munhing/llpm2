@@ -40,6 +40,30 @@ class ContainerConfirmationRepository {
 		       	->get();										
 	}
 
+	public function getAllConfirmedByDate($date)
+	{
+		return ContainerConfirmation::with('container')
+				->where('updated_at', 'like', $date->format('Y-m-d') . '%')
+				->where('confirmed', 1)
+				->orderBy('updated_at')
+				->get();
+	}
+
+	public function getAllConfirmedByDateAndMovements($date, $movements)
+	{
+		// dd($movements);
+		if($movements == null) {
+			return $this->getAllConfirmedByDate($date);
+		}
+
+		return ContainerConfirmation::with('container')
+				->where('updated_at', 'like', $date->format('Y-m-d') . '%')
+				->where('confirmed', 1)
+				->whereIn('movement', $movements)
+				->orderBy('updated_at')
+				->get();
+	}
+
 	public function getPendingByContainerId($container_id)
 	{
 		return ContainerConfirmation::where('container_id', $container_id)

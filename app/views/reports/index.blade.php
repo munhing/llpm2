@@ -61,11 +61,15 @@
                 <div class="table-scrollable table-scrollable-borderless">
                     <table class="table table-hover table-condensed table-light">
                         <tbody>
-                            <tr>
-                                <td>
-                                    <a href="javascript:;" class="primary-link">Total TEUs</a>
-                                </td>
-                            </tr>
+                            <tr><td>
+                                <a href="{{route('reports.container.loading.discharging.conf')}}" class="primary-link">Loading & Discharge By Vessel</a>
+                            </td></tr>                        
+                            <tr><td>
+                                <a href="{{route('reports.container.movement.conf')}}" class="primary-link">Container Movement</a>
+                            </td></tr>                            
+                            <tr><td>
+                                <a href="javascript:;" class="primary-link">Total TEUs</a>
+                            </td></tr>
                         </tbody>
                     </table>
                 </div>       

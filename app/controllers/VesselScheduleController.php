@@ -532,4 +532,11 @@ class VesselScheduleController extends \BaseController {
 
 		return Redirect::back()->with('infos', $messages->all());			
 	}
+
+	public function searchByVesselId()
+	{
+		$vessel_id = Input::get('vessel_id');
+		$schedule = $this->vesselScheduleRepository->getByVesselId($vessel_id);
+		return json_encode($schedule);
+	}
 }

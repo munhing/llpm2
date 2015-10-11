@@ -610,6 +610,12 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
             'as' => 'manifest.schedule.export.cargoes.update',
             'uses' => 'VesselScheduleController@updateExportCargo',
         ]);
+
+        Route::get('schedule/search', [
+            'as' => 'manifest.schedule.search',
+            'uses' => 'VesselScheduleController@searchByVesselId',
+        ]);
+        
     });
 /*
 |--------------------------------------------------------------------------
@@ -892,10 +898,33 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
 | Admin | Reports
 |--------------------------------------------------------------------------
  */
-    Route::get('reports', [
-        'as' => 'reports',
-        'uses' => 'ReportsController@index',
-    ]);
+    Route::group(['prefix' => 'reports', 'before' => ['permitted']], function () {
+
+        Route::get('/', [
+            'as' => 'reports',
+            'uses' => 'ReportsController@index',
+        ]);
+
+        Route::get('/container/loading_discharging/conf', [
+            'as' => 'reports.container.loading.discharging.conf',
+            'uses' => 'ReportsController@containerLoadingDischargingConf',
+        ]); 
+
+        Route::get('/container/loading_discharging/rpt', [
+            'as' => 'reports.container.loading.discharging.rpt',
+            'uses' => 'ReportsController@containerLoadingDischargingRpt',
+        ]);
+
+        Route::get('/container/movement/conf', [
+            'as' => 'reports.container.movement.conf',
+            'uses' => 'ReportsController@containerMovementConf',
+        ]);
+
+        Route::get('/container/movement/rpt', [
+            'as' => 'reports.container.movement.rpt',
+            'uses' => 'ReportsController@containerMovementRpt',
+        ]);        
+    });
 
 /*
 |--------------------------------------------------------------------------
