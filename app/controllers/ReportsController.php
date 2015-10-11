@@ -59,6 +59,7 @@ class ReportsController extends \BaseController {
 	{
 		$schedule_id = Input::get('schedule_id');
 		$movement = Input::get('movement');
+		$rpt = [];
 
 		$workorders = $this->workOrderRepository->getAllByScheduleId($schedule_id, $movement);
 		$schedule = $this->vesselScheduleRepository->getById($schedule_id);
@@ -109,6 +110,7 @@ class ReportsController extends \BaseController {
 	{
 		$date = Carbon::createFromFormat('Y-m-d H', Input::get('date') . " 0");
 		$locations = json_decode(Input::get('locations'), true);
+		$rpt = [];
 
 		// dd($locations);
 		$info['date'] = $date;
