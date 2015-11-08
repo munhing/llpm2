@@ -309,7 +309,9 @@ class ReceivingController extends \BaseController {
 		// filterContainers(containers in string, $content, $status)
 		//$input['containers'] = $this->filterContainers($input['containers'], 'L', 2);
 
-		$this->importCargoForm->validate($input);
+		// $this->importCargoForm->validate($input);
+		$export_vessel_schedule_id = $input['export_vessel_schedule_id'];
+		
 
 		//dd($input);
 		$exportCargo = $this->execute(RegisterExportCargoCommand::class, $input);

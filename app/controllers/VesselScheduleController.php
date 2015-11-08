@@ -308,10 +308,12 @@ class VesselScheduleController extends \BaseController {
 		$input['import_vessel_schedule_id'] = $id;
 		$input['receiving_id'] = 0;
 
+		$import_vessel_schedule_id = $id;
+
 		// filterContainers(containers in string, $content, $status)
 		//$input['containers'] = $this->filterContainers($input['containers'], 'L', 1);
 
-		$this->importCargoForm->validate($input);
+		$this->importCargoForm->validateRegister($input, $import_vessel_schedule_id, 'import_vessel_schedule_id');
 
 		$importCargo = $this->execute(RegisterImportCargoCommand::class, $input);
 
@@ -349,10 +351,12 @@ class VesselScheduleController extends \BaseController {
 		$input = Input::all();
 		$input['import_vessel_schedule_id'] = $id;
 		$input['receiving_id'] = 0;
+
+		$import_vessel_schedule_id = $id;
 		
 		//$input['containers'] = $this->filterContainers($input['containers'], 'L', 1);
 
-		$this->importCargoForm->validateUpdate($input, $cargo_id);
+		$this->importCargoForm->validateUpdate($input, $cargo_id, $import_vessel_schedule_id, 'import_vessel_schedule_id');
 		// dd($input);
 		$importCargo = $this->execute(UpdateImportCargoCommand::class, $input);
 

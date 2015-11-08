@@ -2,7 +2,7 @@
 
 use Carbon\Carbon;
 
-class CargoTableSeeder extends Seeder
+class CargoExportTableSeeder extends Seeder
 {
 
 	public function run()
@@ -34,57 +34,58 @@ class CargoTableSeeder extends Seeder
 		// }
 	
 		// real data for Import Cargo
-		// $results = DB::select('select * from cargo where crgid > ?', array(133673));
-		// $results = DB::select('select * from cargo where crgid > ? limit 20000', array(119664));
-		$results = DB::select('select * from cargo where crgid > ? limit 20000', array(140090));
+		// $results = DB::select('select * from cargoexport where crgexid > ? limit 20000', array(30162));
+		$results = DB::select('select * from cargoexport where crgexid > ? limit 20000', array(36585));
 
 		// dd(count($results));
 
 		foreach($results as $row) {
 
-			var_dump('Proccessing '. $row->crgid);
+			var_dump('Proccessing '. $row->crgexid);
+
+			$shipper = DB::select("select * from shipper where shid = ?", array($row->crgexshid));
+
+			$portuser = PortUser::where('name', $shipper[0]->shname)->first();
 
 			$cargo = Cargo::create(array(
-				'id'	=> $row->crgid,
-				'bl_no'	=> $row->crgblno,
-				'consignee_id'	=> $row->crgcsgnid,
-				'consignor_id'	=> $row->crgcsgnid,
-				'mt'	=> $row->crgmt,
-				'm3'	=> $row->crgm3,
-				'status' => 1,
-				'description'	=> $row->crgdesc,
-				'markings'	=> $row->crgmarks,
-				'port_code'	=> $row->crgorigin,
-				'custom_form_no'	=> $row->crgkno ? 'K' . $row->crgkno : '',
-				'dl_no'	=> $row->crgdl,
-				'import_vessel_schedule_id'	=> $row->crgvsid
+				'id'	=> $row->crgexid,
+				'bl_no'	=> $row->crgexblno,
+				'consignee_id'	=> $portuser->id,
+				'consignor_id'	=> $portuser->id,
+				'mt'	=> $row->crgexmt,
+				'm3'	=> $row->crgexm3,
+				'description'	=> $row->crgexdesc,
+				'markings'	=> $row->crgexmarks,
+				'port_code'	=> $row->crgexdestination,
+				'custom_form_no'	=> $row->crgexkno ? 'K' . $row->crgexkno : '',
+				'dl_no'	=> $row->crgexdl,
+				'export_vessel_schedule_id'	=> $row->crgexvsid
 			));
 
-			if($row->crglanded != '0000-00-00') {
+			if($row->crgexlanded != '0000-00-00') {
 				$cargo->received_by = 1;
-				$cargo->received_date = $row->crglanded;
+				$cargo->received_date = $row->crgexlanded;
 				$cargo->status = 2;
 				$cargo->save();
 			}
 
-			if($row->crgissued != '0000-00-00') {
+			if($row->crgexissued != '0000-00-00') {
 				$cargo->issued_by = 1;
-				$cargo->issued_date = $row->crgissued;
+				$cargo->issued_date = $row->crgexissued;
 				$cargo->status = 3;
 				$cargo->save();
 			}
 
-			if($row->crgdelivered != '0000-00-00') {
+			if($row->crgexdelivered != '0000-00-00') {
 				$cargo->released_by = 1;
-				$cargo->released_date = $row->crgdelivered;
+				$cargo->released_date = $row->crgexdelivered;
 				$cargo->status = 4;
 				$cargo->save();
 			}
-
-			if($row->crgdl != 0) {
-				ImportDL::create([
-					'id' => $row->crgdl,
-					'cargo_id' => $row->crgid
+			if($row->crgexdl != 0) {
+				ExportDL::create([
+					'id' => $row->crgexdl,
+					'cargo_id' => $row->crgexid
 				]);
 			}
 		}

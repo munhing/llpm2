@@ -41,6 +41,7 @@ class ContainerController extends \BaseController {
 		// dd($containers->first()->workorders->first()->pivot->updated_at);
 		// dd($containers->first()->toArray());
 
+		// dd($containers[50]->workorders->first()->pivot->updated_at->format('Y-m-d'));
 		return View::make('containers/index', compact('containers', 'totalStorageCharges'));
 	}
 

@@ -50,7 +50,7 @@
 	</div>
 	<div class="portlet-body">
 		<div class="table-responsive">
-		<table class="table table-striped table-bordered table-hover">
+		<table class="table table-striped table-bordered table-hover table-condensed">
 		<thead>
 			<tr>
 				<th>Work Order #</th>

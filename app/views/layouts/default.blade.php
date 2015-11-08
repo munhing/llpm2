@@ -44,6 +44,11 @@ License: You must have a valid license purchased only from themeforest(the above
 <link href="{{ URL::asset('assets/admin/layout/css/themes/blue.css') }}" rel="stylesheet" type="text/css" id="style_color"/>
 <link href="{{ URL::asset('assets/admin/layout/css/custom.css') }}" rel="stylesheet" type="text/css"/>
 <style>
+	@media print {
+	  a[href]:after {
+	    content: none !important;
+	  }
+	}
     .cp {
         background-color:#337ab7;
         color: white;

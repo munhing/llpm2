@@ -49,9 +49,17 @@ class VesselScheduleRepository {
 	{
 		return VesselSchedule::with(['vessel', 'portUser', 
 				'importCargoes' => function($query){
-					$query->with('m_containers');
+					$query->with('m_containers')->orderBy('bl_no');
 				}, 
-				'importContainers'
+				'exportCargoes' => function($query){
+					$query->orderBy('bl_no');
+				}, 				
+				'importContainers' => function($query){
+					$query->orderBy('container_no');
+				},
+				'exportContainers' => function($query){
+					$query->orderBy('container_no');
+				}				
 			])->find($id);
 	}
 

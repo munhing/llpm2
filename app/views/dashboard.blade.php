@@ -151,7 +151,7 @@ $.ajax({
             $("#vessel-schedule tbody").append( 
                 "<tr>" +
                     "<td>" + i + "</td>" +
-                    "<td><a href='" + window.location.origin + "/admin/manifest/schedule/" + data.vessel_schedule[row].id + "/import'>" + data.vessel_schedule[row].name + " v." + data.vessel_schedule[row].voyage_no_arrival + "</a></td>" +
+                    "<td>" + data.vessel_schedule[row].name + " v." + data.vessel_schedule[row].voyage_no_arrival + " <a href='" + window.location.origin + "/admin/manifest/schedule/" + data.vessel_schedule[row].id + "/import'>Import</a>  | <a href='" + window.location.origin + "/admin/manifest/schedule/" + data.vessel_schedule[row].id + "/export'>Export</a></td>" +
                     "<td>" + jeta.getFullYear() + "-" + (jeta.getMonth() + 1) + "-" + jeta.getDate() + "</td>" +
                     "<td>" + jetd.getFullYear() + "-" + (jetd.getMonth() + 1) + "-" + jetd.getDate() + "</td>" +
                 "</tr>"

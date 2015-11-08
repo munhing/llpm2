@@ -2,6 +2,11 @@
 
 Route::filter('permitted', 'LLPM\Filters\PermittedFilter');
 
+
+// Auth::attempting(function($credentials, $remember, $login)
+// {
+//     dd(Hash::make($credentials['password']));
+// });
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -117,161 +122,15 @@ Route::get('/queue', function () {
 
 Route::get('/test', function () {
 
-    $time = '21:56';
+    $results = DB::select('select * from containermovement where ctnmid > ? limit 100', array(165888));
 
-    $dt = Carbon\Carbon::createFromFormat('H:i', $time);
+    foreach($results as $row) {
+        
+        // var_dump("$row");
+        var_dump($row->ctnmid . " | " . $row->ctnmctnno);
 
-    dd($dt);
+    }
 
-
-    // $feeRepo = new LLPM\Repositories\FeeRepository;
-    // $fee = json_decode($feeRepo->getHandlingFee(), true);
-
-    // $a = ["20E"=>60, "20L"=>120];
-
-    // $calculation = App::make('LLPM\WorkOrders\CalculateChargesByWorkOrder');
-
-    // $woRepo = new LLPM\Repositories\WorkOrderRepository;
-
-    // $wo = $woRepo->getById(256324);
-
-    // $chr = $calculation->fire($wo);
-
-    // dd($fee);
-
-    // $containerConfirmationProcessRepository = new LLPM\Repositories\ContainerConfirmationProcessRepository;
-
-    // $ccp = $containerConfirmationProcessRepository->getProcess('RI-1');
-
-    // $who_is_involved = [];
-
-    // for($i=1;$i<=4;$i++) {
-
-    //     if(!$ccp->{'cp'.$i}){continue;}
-
-    //     $who_is_involved[] = $ccp->{'cp'.$i};
-    // }
-
-    // $json = json_encode($who_is_involved);
-
-    // $arr = json_decode($json);
-
-    // dd(in_array('PB', $arr));
-
-    // $ctn = $ctnRepo->getById(2);
-
-    // $pusher_data = [
-    //     "id" => $ctn->container_no,
-    // ];
-
-    // // $pusher_data = [
-    // //     "id"=> $ctn->id . ',' . $ctn->content . ',' . $ctn->current_movement . ',' . $ctn->workorders->last()->movement,
-    // //     "container_no"=> $ctn->container_no
-    // // ];
-
-    // dd($pusher_data);
-
-    // $movement = 'HE';
-
-    // $movement_array = explode('-', $movement);
-
-    // var_dump($movement_array);
-    // dd(count($movement_array));
-
-    // $cargo = cargo::find(9);
-
-    // dd(count($cargo->containers));
-
-    // $container = Container::find(23);
-
-    // dd(count($container->cargoes));
-
-    //dd(App::make('countryList')->toArray());
-    //dd(Config::get('countryList.list.MY'));
-    // App::make('LLPMValidator', [1]);
-    //dd($errors);
-    // $ctn = Container::find(4);
-    // dd($ctn->workorders()->updateExistingPivot(1,['confirm'=>1, 'confirm_by'=>1]));
-
-    // $cargo = Cargo::with('m_containers')->find(1);
-    // $container = Container::find(1);
-
-    // //var_dump($cargo);
-    // //var_dump($container);
-
-    // dd($cargo->m_containers);
-
-    // $ctn = Container::all();
-
-    // var_dump($ctn->first()->cargoes->toArray());
-
-    // $list = ContainerConfirmation::selectRaw('container_workorder.*, containers.container_no, workorders.workorder_no, workorders.movement')
-    //                              ->join('containers','container_workorder.container_id','=','containers.id')
-    //                              ->join('workorders','container_workorder.workorder_id','=','workorders.id')
-    //                              ->where('workorders.movement','HI')
-    //                              ->get();
-    // dd($list->lists('container_no', 'id'));
-
-    //date_default_timezone_set('Asia/Kuala_Lumpur');
-    // dd(date_default_timezone_get() . " " . date('h:i:s'));
-    // dd(date('h:i:s'));
-
-    // $faker = Faker\Factory::create();
-
-    // $date = $faker->dateTimeThisYear()->format('Y-m-d');
-
-    // $date = Carbon\Carbon::now()->format('Y-m-d');
-    // dd($date);
-    // //dd($date);
-    // $date2 = Carbon\Carbon::createFromFormat('Y-m-d', $date)->addDays($faker->randomDigit);
-
-    //  dd($date . " - " .$date2->format('Y-m-d'));
-
-    //dd(Vessel::orderBy(DB::raw('RAND()'))->first()->id);
-    // 'portuser_id' => PortUser::orderBy(DB::raw('RAND()'))->first()->id,
-    // 'voyage_no_arrival' => $faker->dateTimeThisYear(),
-
-    //echo convertToMySQLDate('3/1/2010');
-    //return URL::current();
-    //return Route::getName();
-    // $user = User::first();
-    // return $user->getKeyName();
-
-    // $munhing = User::find(1);
-    // $admin = Role::find(1);
-
-    // if (!$munhing->roles->contains($admin->id)) {
-    //     var_dump('Adding admin role to munhing');
-    //     $munhing->roles()->attach($admin);
-    // } else {
-    //  dd('I am already an admin');
-    // }
-
-    // $ctnRepo = new LLPM\Repositories\ImportContainerRepository;
-    // $crgRepo = new LLPM\Repositories\ImportCargoRepository;
-
-    // $ctn = $ctnRepo->getByContainerNoAndScheduleId('TCIU4443332', '246');
-    // $crg = $crgRepo->getByBlNo('BMTLBU140000005');
-
-    // //dd($crg->toArray());
-
-    // if (!$ctn->importCargoes->contains($crg->id)) {
-    //  var_dump('Attaching...');
-    //     //$ctn->importCargoes()->attach($crg->id);
-    //     $crg->importContainers()->attach($ctn);
-    // } else {
-    //  var_dump('Attached');
-    // }
-
-    // $admin = User::find(2);
-    // $admin->roles()->attach(1);
-
-    // $joe = User::find(3);
-    // $joe->roles()->attach(2);
-
-    // $admin = Role::find(1);
-    // $admin->permissions()->attach(4);
-    // $admin->permissions()->attach(5);
 });
 
 /*
@@ -334,6 +193,9 @@ Route::controller('password', 'RemindersController');
  */
 
 Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
+// Route::group(['prefix' => 'admin'], function () {
+
+    // Auth::login(User::find(1));
 
     Route::get('/', [
         'as' => 'home',

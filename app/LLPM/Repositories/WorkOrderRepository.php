@@ -19,8 +19,12 @@ class WorkOrderRepository {
 
 	public function getDetailsById($id)
 	{
-		return WorkOrder::with('handler', 'carrier', 'vesselSchedule', 'containers')
-				->find($id);
+		return WorkOrder::with(['handler', 'carrier', 'vesselSchedule', 
+				'containers' => function($query){
+					$query->orderBy('container_no');
+				}
+			])
+			->find($id);
 	}
 
 	public function getAllToday()
@@ -33,7 +37,7 @@ class WorkOrderRepository {
 	{
 		return WorkOrder::with('handler', 'carrier', 'vesselSchedule')
 				->where('date', 'like', $month . '%')
-				->orderBy('workorders.date', 'desc')
+				->orderBy('workorders.id', 'desc')
 				->get();
 	}
 

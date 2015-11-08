@@ -105,8 +105,16 @@
 									<tr>
 										<td>{{ $i }}</td>
 										<td>{{ link_to_route('manifest.schedule.export.cargoes.show', $cargo->bl_no, [$cargo->export_vessel_schedule_id, $cargo->id]) }}</td>
-										<td>{{ $cargo->consignor->name }}</td>
-										<td>{{ $cargo->consignee->name }}</td>
+										<td>
+											@if(count($cargo->consignor) != 0)
+											{{ $cargo->consignor->name }}
+											@endif
+										</td>
+										<td>
+											@if(count($cargo->consignee) != 0)
+											{{ $cargo->consignee->name }}
+											@endif
+										</td>
 										<td>{{ listContainersInString($cargo->containers) }}</td>
 										<td>{{ $cargo->mt }}</td>
 										<td>{{ $cargo->m3 }}</td>

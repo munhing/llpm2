@@ -13,16 +13,25 @@ class VesselTableSeeder extends Seeder
 		// 	]);	
 		// }
 
-		 
-		$json = File::get(storage_path() . "/jsondata/vessel.json");
-		$vessels = json_decode($json);
+		// Option 1
+		// $json = File::get(storage_path() . "/jsondata/vessel.json");
+		// $vessels = json_decode($json);
 
-		//dd($vessels);
-		foreach ($vessels as $vessel) {
+		// //dd($vessels);
+		// foreach ($vessels as $vessel) {
 
-			//dd($vessel->name);
+		// 	//dd($vessel->name);
+		// 	Vessel::create(array(
+		// 		'name' => $vessel->name
+		// 	));
+		// }
+
+		// Option 2
+		$results = DB::select('select * from vessel', array());
+		foreach($results as $row) {
 			Vessel::create(array(
-				'name' => $vessel->name
+				'id'	=> $row->vid,
+				'name' => $row->vname
 			));
 		}
 

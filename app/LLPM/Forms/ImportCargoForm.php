@@ -6,7 +6,7 @@ use Laracasts\Validation\FormValidationException;
 class ImportCargoForm extends FormValidator{
 
 	protected $rules = [
-		'bl_no' 	=> 'required|unique:cargoes',
+		'bl_no' 	=> 'required|unique:cargoes,bl_no',
 		'consignor_id'  => 'required',
 		'consignee_id'  => 'required',
 		'mt'  => 'required',
@@ -36,12 +36,18 @@ class ImportCargoForm extends FormValidator{
 		return true;
 	}
 
-    public function validateUpdate(array $input, $id)
+    public function validateUpdate(array $input, $id, $vessel_schedule_id, $column_name)
     {
-        $this->rules['bl_no'] .= ',bl_no,'.$id;
+        $this->rules['bl_no'] .= ','.$id.',id,'. $column_name .','.$vessel_schedule_id;
         return $this->validate($input);
     }
-    
+
+    public function validateRegister(array $input, $vessel_schedule_id, $column_name)
+    {
+        $this->rules['bl_no'] .= ',NULL,id,'. $column_name.','.$vessel_schedule_id;
+        return $this->validate($input);
+    }
+
 	public function getChangeAttributes()
 	{
 		return $this->changeAttributes;

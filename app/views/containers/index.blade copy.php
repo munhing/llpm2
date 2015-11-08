@@ -44,10 +44,10 @@
 		
 			<h3>Total Storage Charges: RM {{ number_format($totalStorageCharges, 2)}} </h3>
 
-			<table class="table table-striped table-bordered table-hover table-condensed" id="sample_1">
+			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
-						<!-- <th>No</th> -->
+						<th>No</th>
 						<th>Container #</th>
 						<th>Size</th>
 						<th>Location</th>
@@ -63,18 +63,12 @@
 					<?php $i=1; ?>
 					@foreach($containers as $container)
 					<tr>
-						<!-- <td>{{ $i }}</td> -->
+						<td>{{ $i }}</td>
 						<td>{{ link_to_route('containers.show', $container->container_no, $container->id) }}</td>
 						<td>{{ $container->size . $container->content }}</td>
 						<td>{{ $container->location }}</td>
-						<td>@if(count($container->workorders) != 0)
-							{{ $container->workorders->first()->movement . " - " . $container->workorders->first()->id }}
-							@endif
-						</td>
-						<td>@if(count($container->workorders) != 0)
-							{{ $container->workorders->first()->pivot->updated_at->format('Y-m-d') }}
-							@endif
-						</td>
+						<td>{{ $container->workorders->first()->movement . " - " . $container->workorders->first()->id }}</td>
+						<td>{{ $container->workorders->first()->pivot->updated_at->format('d/m/Y') }}</td>
 						<td>{{ $container->days_total }}</td>
 						<td>{{ $container->days_empty }}</td>
 						<td>{{ $container->days_laden }}</td>
@@ -93,18 +87,12 @@
 
 @section('page_level_plugins')
 
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
+
 @stop
 
 @section('page_level_scripts')
-<script src="{{ URL::asset('assets/admin/pages/scripts/table-advanced.js') }}"></script>
+
 @stop
 
 @section('scripts')
-	TableAdvanced.init();
 @stop	

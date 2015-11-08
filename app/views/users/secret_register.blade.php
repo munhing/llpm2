@@ -17,6 +17,22 @@
 			</div>
 		</div>
 		<div class="form-group">
+
+			{{ Form::label('name', 'Name', ['class' => 'control-label visible-ie8 visible-ie9']) }}
+			<div class="input-icon">
+				<i class="fa fa-user"></i>
+				{{ Form::text('name', null, ['class' => 'form-control placeholder-no-fix', 'autocomplete' => 'off', 'placeholder' => 'Name']) }}
+			</div>
+		</div>
+		<div class="form-group">
+
+			{{ Form::label('role', 'Role', ['class' => 'control-label visible-ie8 visible-ie9']) }}
+			<div class="input-icon">
+				<i class="fa fa-user"></i>
+				{{ Form::text('role', null, ['class' => 'form-control placeholder-no-fix', 'autocomplete' => 'off', 'placeholder' => 'Role']) }}
+			</div>
+		</div>			
+		<div class="form-group">
 			<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
 			{{ Form::label('email', 'Email', ['class' => 'control-label visible-ie8 visible-ie9']) }}
 			<div class="input-icon">

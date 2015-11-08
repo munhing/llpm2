@@ -50,7 +50,7 @@
 	</div>
 	<div class="portlet-body">
 		<div class="table-responsive">
-		<table class="table table-striped table-bordered table-hover">
+		<table class="table table-striped table-bordered table-hover table-condensed">
 		<thead>
 		<tr>
 			<th rowspan="2" style="text-align:center;vertical-align:middle">Vessel</th>

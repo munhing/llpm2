@@ -35,6 +35,9 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
+	// die('Not Authenticated');
+	
+
 	if (Auth::guest())
 	{
 		if (Request::ajax())
@@ -48,7 +51,6 @@ Route::filter('auth', function()
 	}
 
 	if(Auth::check()){
-
 		$admin_access = true;
 
 		// foreach(Auth::user()->roles as $role) {
