@@ -8,13 +8,13 @@ class Fee extends \Eloquent {
 
 	protected $table = 'fees';
 
-	protected $fillable = ['type', 'fee', 'effective_date'];
+	protected $fillable = ['type', 'movement', 'fee', 'effective_date'];
 
 	protected $dates = array('effective_date');
 
-	public static function register($type, $fee, $effective_date)
+	public static function register($type, $movement, $fee, $effective_date)
 	{
-		$handlingFee = new static(compact('type', 'fee', 'effective_date'));
+		$handlingFee = new static(compact('type', 'movement', 'fee', 'effective_date'));
 
 		// $portUser->raise(new PortUserWasRegistered($portUser));
 
@@ -23,13 +23,13 @@ class Fee extends \Eloquent {
 
 	public static function edit($id, $fee, $effective_date)
 	{
-		$handlingFee = static::find($id);
+		$fees = static::find($id);
 
-        $handlingFee->fee = $fee;
-        $handlingFee->effective_date = $effective_date;
+        $fees->fee = $fee;
+        $fees->effective_date = $effective_date;
 
 		// $workorder->raise(new WorkOrderWasUpdated($workorder));
 
-		return $handlingFee;
+		return $fees;
 	}		
 }

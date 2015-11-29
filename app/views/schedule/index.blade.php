@@ -53,6 +53,7 @@
 		<table class="table table-striped table-bordered table-hover table-condensed">
 		<thead>
 		<tr>
+			<th rowspan="2" style="text-align:center;vertical-align:middle">ID</th>
 			<th rowspan="2" style="text-align:center;vertical-align:middle">Vessel</th>
 			<th rowspan="2" style="text-align:center;vertical-align:middle">Agent</th>
 			<th colspan="2" style="text-align:center;vertical-align:middle;border-bottom: 1px solid #ccc;">Import</th>
@@ -71,6 +72,7 @@
 		<tbody>
 			@foreach($vesselSchedule as $schedule)
 				<tr>
+					<td>LP{{ $schedule->registered_vessel_id }}</td>	
 					<td>{{ $schedule->vessel->name }}</td>	
 					<td>
 						@if(! $schedule->portuser == 0)

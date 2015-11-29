@@ -25,6 +25,7 @@ class CreateContainerWorkorderTable extends Migration {
 			$table->string('lifter');
 			$table->boolean('confirmed');
 			$table->integer('confirmed_by');			
+			$table->timestamp('confirmed_at');			
 			$table->timestamps();
 		});
 	}

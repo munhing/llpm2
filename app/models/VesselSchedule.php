@@ -10,7 +10,7 @@ class VesselSchedule extends \Eloquent {
 
 	protected $table = 'vessel_schedule';
 
-	protected $fillable = ['vessel_id', 'portuser_id', 'voyage_no_arrival', 'voyage_no_departure', 'eta', 'etd', 'mt_arrival', 'mt_departure', 'm3_arrival', 'm3_departure'];
+	protected $fillable = ['registered_vessel_id', 'vessel_id', 'portuser_id', 'voyage_no_arrival', 'voyage_no_departure', 'eta', 'etd', 'mt_arrival', 'mt_departure', 'm3_arrival', 'm3_departure'];
 
 	protected $dates = array('eta', 'etd');
 
@@ -44,9 +44,9 @@ class VesselSchedule extends \Eloquent {
 		return $this->hasMany('Cargo', 'export_vessel_schedule_id');
 	}
 
-	public static function register($vessel_id, $voyage_no_arrival, $portuser_id, $eta, $etd)
+	public static function register($registered_vessel_id, $vessel_id, $voyage_no_arrival, $portuser_id, $eta, $etd)
 	{
-		$vesselSchedule = new static(compact('vessel_id', 'voyage_no_arrival', 'portuser_id', 'eta', 'etd'));
+		$vesselSchedule = new static(compact('registered_vessel_id', 'vessel_id', 'voyage_no_arrival', 'portuser_id', 'eta', 'etd'));
 
 		$vesselSchedule->raise(new VesselScheduleWasRegistered($vesselSchedule));
 

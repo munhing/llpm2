@@ -19,10 +19,12 @@ class CreateWorkordersTable extends Migration {
 			$table->timestamp('date');
 			$table->integer('carrier_id');
 			$table->integer('handler_id');
+			$table->integer('agent_id');
 			$table->integer('vessel_schedule_id');
 			$table->integer('container_location');
 			$table->integer('container_status');
 			$table->string('who_is_involved');		
+			$table->integer('finalized');
 			$table->decimal('storage_charges', 10, 2);
 			$table->decimal('handling_charges', 10, 2);							
 			$table->timestamps();

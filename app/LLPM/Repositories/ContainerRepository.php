@@ -21,6 +21,23 @@ class ContainerRepository {
 				->get();
 	}
 
+	public function getSpecificContainer()
+	{
+		return Container::with('workorders')
+				->where('id', 177613)
+				->get();
+	}
+
+	public function getAllWithStatus3And4()
+	{
+		return Container::with('workorders')
+				->whereIn('status', [3,4])
+				->orderBy('container_no')
+				->skip(25000)
+				->take(5000)
+				->get();
+	}
+
 	public function getAll()
 	{
 		return Container::all();

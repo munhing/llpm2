@@ -1,3 +1,5 @@
+authSubmit();
+
 $('input[data-confirm], button[data-confirm]').on('click', function(e){
 
     e.preventDefault();
@@ -11,52 +13,56 @@ $('input[data-confirm], button[data-confirm]').on('click', function(e){
     $('.modal-auth').modal('show');
 });
 
-$('input[data-auth], button[data-auth]').on('click', function(e){
-	
-    e.preventDefault();
+function authSubmit() {
 
-    var submitForm = true;
-    var baseUrl = window.location.origin;
+    $('input[data-auth], button[data-auth]').one('click', function(e){
+    	
+        e.preventDefault();
 
-    thisBut = $(this);
+        var submitForm = true;
+        var baseUrl = window.location.origin;
 
-    // console.log(thisBut.data('submit-form'));
+        thisBut = $(this);
 
-    // ajax to check on the password is correct
-    var formData = $('.form-password').serialize();
-    var pwd = $('#auth_password').val();
+        // console.log(thisBut.data('submit-form'));
 
-    var closestForm = $(this).closest('form');
+        // ajax to check on the password is correct
+        var formData = $('.form-password').serialize();
+        var pwd = $('#auth_password').val();
 
-    console.log(thisBut.data('form'));
+        var closestForm = $(this).closest('form');
 
-    submitForm = validatePassword(pwd);
-    
-    if(submitForm) {
+        console.log(thisBut.data('form'));
 
-        $.ajax({
-            url: baseUrl + "/admin/access/check_auth",
-            type: 'POST',
-            data: formData,
-            success: function(data) {
-                // alert(data);
+        submitForm = validatePassword(pwd);
+        
+        if(submitForm) {
 
-                if (data == 1) {
-                    // submit form
-                     // $('#' + thisBut.data('submit-form')).submit();
-                     thisBut.data('form').submit();
-                } else {
-                    alert('Password is Incorrect!');
-                }              
+            $.ajax({
+                url: baseUrl + "/admin/access/check_auth",
+                type: 'POST',
+                data: formData,
+                success: function(data) {
+                    // alert(data);
 
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                alert(errorThrown);
-            }
-        });
-    }
+                    if (data == 1) {
+                        // submit form
+                         // $('#' + thisBut.data('submit-form')).submit();
+                         thisBut.data('form').submit();
+                    } else {
+                        alert('Password is Incorrect!');
+                        authSubmit();
+                    }              
 
-});
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+        }
+
+    });
+}
 
 function validatePassword(password)
 {
@@ -69,4 +75,4 @@ function validatePassword(password)
 
     return true;
     
-};
+}

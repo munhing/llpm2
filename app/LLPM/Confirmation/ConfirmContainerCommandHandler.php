@@ -110,7 +110,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
             // if all check points is not completed, cannot proceed
             if ($cp['complete']) {
-                $this->confirmContainer($confirmation);
+                $this->confirmContainer($confirmation, $confirmed_at);
 
                 if ($confirmation[3] == 'ST') {
                     $this->updateSTContainer($confirmation);
@@ -230,10 +230,10 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
     }
 
-    public function confirmContainer($confirmation)
+    public function confirmContainer($confirmation, $confirmed_at)
     {
         $containerConfirmation = ContainerConfirmation::confirm(
-            $confirmation[0], 1, Auth::user()->id
+            $confirmation[0], 1, Auth::user()->id, $confirmed_at
         );
 
         $containerConfirmation->save();
@@ -251,7 +251,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
         $ctn->content = 'L';
         $ctn->current_movement = 0;
-        $ctn->dl_check = 1;
+        $ctn->dl_check = 0;
         $ctn->pre_stuffing = '';
 
         $ctn->save();

@@ -11,8 +11,8 @@ class WorkOrderTableSeeder extends Seeder
 
 		$errors = [];
 
-		// real data 2014 onwards
-		$results = DB::select('select * from workorder where woid > ?', array(85210));
+		// real data 2015 July onwards
+		$results = DB::select('select * from workorder where woid > ?', array(104623));
 
 		// dd(count($results));
 
@@ -48,7 +48,7 @@ class WorkOrderTableSeeder extends Seeder
 			if($proceed){
 				try{
 
-					var_dump('Registering '. $row->wono);
+					// var_dump('Registering '. $row->wono);
 
 					WorkOrder::create(array(
 						'id'		=> $row->wono,
@@ -61,12 +61,12 @@ class WorkOrderTableSeeder extends Seeder
 						'handling_charges'		=> $row->hdlcharges
 					));
 				} catch(Exception $e) {
-					$errors[] = $e;
+					var_dump($row->wono);
 				}
 			}
 		}
 
-		var_dump($errors);
+		// var_dump($errors);
 
 	}
 }

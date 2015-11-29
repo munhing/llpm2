@@ -27,7 +27,7 @@ class CargoRepository {
 	{
 		return Cargo::where('containerized', 0)
 				->whereIn('status', [1,3])
-				->where('receiving_id', 0)
+				->where('import_vessel_schedule_id', '!=', 0)
 				->orderBy('bl_no')
 				->get();
 	}
@@ -36,7 +36,7 @@ class CargoRepository {
 	{
 		return Cargo::where('containerized', 0)
 				->whereIn('status', [1,3])
-				->where('receiving_id', '!=' , 0)
+				->where('export_vessel_schedule_id', '!=' , 0)
 				->orderBy('bl_no')
 				->get();
 	}
@@ -124,7 +124,7 @@ class CargoRepository {
 	{
 		return Cargo::selectRaw("id, bl_no AS text")
 			->where('export_vessel_schedule_id', '!=', 0)
-			->where('status', 2)
+			->where('status', 3)
 			->orderBy('text')
 			->get();
 	}	

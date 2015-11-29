@@ -12,8 +12,12 @@ use LLPM\Repositories\VesselScheduleRepository;
 use LLPM\Repositories\WorkOrderRepository;
 use LLPM\WorkOrders\AttachedContainersToWorkOrderCommand;
 use LLPM\WorkOrders\CalculateChargesByWorkOrder;
+use LLPM\WorkOrders\CalculateStorageChargesByWorkOrder;
 use LLPM\WorkOrders\CancelContainerCommand;
 use LLPM\WorkOrders\RegisterWorkOrderCommand;
+use LLPM\WorkOrders\FinalizeWorkOrderCommand;
+use LLPM\WorkOrders\UpdateWorkOrderWithAgentCommand;
+use Carbon\Carbon;
 
 class WorkOrderController extends \BaseController {
 
@@ -28,6 +32,10 @@ class WorkOrderController extends \BaseController {
 	protected $feeRepository;
 	Protected $workOrderForm;
 
+	protected $movement;
+	protected $content;
+	private $calculateStorageChargesByWorkOrder;
+
 	function __construct(
 		WorkOrderRepository $workOrderRepository, 
 		ContainerRepository $containerRepository, 
@@ -38,7 +46,8 @@ class WorkOrderController extends \BaseController {
 		CargoRepository $cargoRepository,
 		CalculateChargesByWorkOrder $calculateChargesByWorkOrder,
 		FeeRepository $feeRepository,
-		WorkOrderForm $workOrderForm
+		WorkOrderForm $workOrderForm,
+		CalculateStorageChargesByWorkOrder $calculateStorageChargesByWorkOrder
 	)
 	{
 		$this->workOrderRepository = $workOrderRepository;
@@ -51,6 +60,7 @@ class WorkOrderController extends \BaseController {
 		$this->calculateChargesByWorkOrder = $calculateChargesByWorkOrder;
 		$this->feeRepository = $feeRepository;
 		$this->workOrderForm = $workOrderForm;
+		$this->calculateStorageChargesByWorkOrder = $calculateStorageChargesByWorkOrder;
 	}
 
 	/**
@@ -205,7 +215,7 @@ class WorkOrderController extends \BaseController {
 
 		$workorder = $this->execute(RegisterWorkOrderCommand::class, $input);
 
-		Flash::success("Work Order $workorder->workorder_no successfully registered!");
+		Flash::success("Work Order $workorder->id successfully registered!");
 
 		return Redirect::route('workorders');		
 	}
@@ -253,33 +263,16 @@ class WorkOrderController extends \BaseController {
 			$carrier = $this->portUserRepository->getById($workOrder->carrier_id)->name;
 		}
 
-		// dd($carrierObj->vessel->name);
-		// dd($carrier);
-
-		$movement['HI'] = 'Haulage Import';
-		$movement['HE'] = 'Haulage Export';
-		// $movement['RI-1'] = 'Remove In (CY1)';
-		$movement['RI-1'] = 'Remove In to CY1';
-		$movement['RI-3'] = 'Remove In to CY3';
-		// $movement['RI-3'] = 'Remove In (CY3)';
-		// $movement['RO-1'] = 'Remove Out (CY1)';
-		$movement['RO-1'] = 'Remove Out from CY1';
-		// $movement['RO-3'] = 'Remove Out (CY3)';
-		$movement['RO-3'] = 'Remove Out from CY3';
-		$movement['TF-3-1'] = 'Transfer to CY1';
-		$movement['TF-1-3'] = 'Transfer to CY3';
-		$movement['US'] = 'Unstuffing';
-		$movement['ST'] = 'Stuffing';
-
-		$content['E'] = 'Empty';
-		$content['L'] = 'Laden';
-
 		//dd($workOrder);
 		//$containersConfirmation = $this->containerConfirmationRepository->getByWorkOrderId($id);
 
 		//dd($workOrder->containers->toArray());
 
 		//dd($containersConfirmation->first()->container->container_no);
+		$this->definition();
+		$movement = $this->movement;
+		$content = $this->content;
+
 		return View::make('workorders/generate_workorder', compact('workOrder', 'handler', 'carrier', 'movement', 'content'));
 	}
 
@@ -288,7 +281,7 @@ class WorkOrderController extends \BaseController {
 
 		$workOrder = $this->workOrderRepository->getDetailsById($workorder_id);
 		$handler = $this->portUserRepository->getById($workOrder->handler_id);
-		$fees = json_decode($this->feeRepository->getHandlingFeeByDate($workOrder->date), true);
+		$fees = json_decode($this->feeRepository->getHandlingFeeByDate($workOrder->movement, $workOrder->date), true);
 		$containerList = new Collection;
 		$total_charges = 0;
 
@@ -306,30 +299,16 @@ class WorkOrderController extends \BaseController {
 			$carrier = $this->portUserRepository->getById($workOrder->carrier_id)->name;
 		}
 
-		// dd($carrierObj->vessel->name);
-		// dd($carrier);
-
-		$movement['HI'] = 'Haulage Import';
-		$movement['HE'] = 'Haulage Export';
-		// $movement['RI-1'] = 'Remove In (CY1)';
-		$movement['RI-1'] = 'Remove In to CY1';
-		$movement['RI-3'] = 'Remove In to CY3';
-		// $movement['RI-3'] = 'Remove In (CY3)';
-		// $movement['RO-1'] = 'Remove Out (CY1)';
-		$movement['RO-1'] = 'Remove Out from CY1';
-		// $movement['RO-3'] = 'Remove Out (CY3)';
-		$movement['RO-3'] = 'Remove Out from CY3';
-		$movement['TF-3-1'] = 'Transfer to CY1';
-		$movement['TF-1-3'] = 'Transfer to CY3';
-		$movement['US'] = 'Unstuffing';
-		$movement['ST'] = 'Stuffing';
-
-		$content['E'] = 'Empty';
-		$content['L'] = 'Laden';
-
 		foreach($workOrder->containers as $container) {
-			$getFeeType = $container->size . $container->content;
-			$fee = $fees[$getFeeType];
+			$feeSize = $container->size;
+			$feeSizeContent = $container->size . $container->pivot->content;
+			// $getFeeType = $container->size . $container->content;
+			
+			if(isset($fees[$feeSize])) {
+				$fee = $fees[$feeSize];
+			} else {
+				$fee = $fees[$feeSizeContent];
+			}
 			$total_charges += $fee;
 
 			$newContainer = $container->toArray();
@@ -344,8 +323,116 @@ class WorkOrderController extends \BaseController {
 
 		//dd($workOrder->containers->toArray());
 
+		$this->definition();
+		$movement = $this->movement;
+		$content = $this->content;
 		//dd($containersConfirmation->first()->container->container_no);
 		return View::make('workorders/generate_handling', compact('containerList', 'workOrder', 'handler', 'carrier', 'movement', 'content', 'total_charges'));
+	}
+
+	public function generate_storage($workorder_id)
+	{
+		$workOrder = $this->workOrderRepository->getDetailsById($workorder_id);
+		$handler = $this->portUserRepository->getById($workOrder->handler_id);
+		$agent = $this->portUserRepository->getById($workOrder->agent_id);
+		$fees = json_decode($this->feeRepository->getStorageFeeByDate($workOrder->date), true);
+		$containerList = new Collection;
+		$total_charges = 0;
+
+		// dd($fees);
+
+		foreach($workOrder->containers as $container) {
+
+			$containerInfo = $this->getContainerInfo($container, $fees);
+			$total_charges += $containerInfo['charges'];
+			$containerList->push($containerInfo);
+
+		}
+
+		$this->definition();
+		$movement = $this->movement;
+		$content = $this->content;
+
+		// dd($total_charges);
+		return View::make('workorders/generate_storage', compact('containerList', 'workOrder', 'agent', 'movement', 'content', 'total_charges'));
+	}
+
+	public function getContainerInfo($container, $fees)
+	{
+		$info['container_no'] = $container->container_no;
+		$info['size'] = $container->size;
+		$info['days_empty'] = $container->days_empty;
+		$info['charges'] = ($container->days_empty - 5) * $fees[$container->size];
+
+		if($container->days_empty - 5 < 0) {
+			$info['charges'] = 0;
+		}
+
+
+		$info['us_workorder'] = '';
+		$info['us_date'] = '';
+		$info['us_content'] = '';
+
+		$info['st_workorder'] = '';
+		$info['st_date'] = '';
+		$info['st_content'] = '';				
+		// dd($container->workorders->toArray());
+
+		foreach($container->workorders as $workorder) {
+
+			$movement = explode('-', $workorder->movement);
+
+			$confirmed_at = Carbon::createFromFormat('Y-m-d H:i:s', $workorder->pivot->confirmed_at);
+
+			// dd($confirmed_at);
+			// var_dump($movement);
+
+			if($movement[0] == 'HI' || $movement[0] == 'RI') {
+				$info['in_workorder'] = $workorder->id;
+				$info['in_date'] = $confirmed_at;
+				$info['in_content'] = $workorder->pivot->content;
+			}
+
+			if($movement[0] == 'US') {
+				$info['us_workorder'] = $workorder->id;
+				$info['us_date'] = $confirmed_at;
+				$info['us_content'] = $workorder->pivot->content;
+			}
+
+			if($movement[0] == 'ST') {
+				$info['st_workorder'] = $workorder->id;
+				$info['st_date'] = $confirmed_at;
+				$info['st_content'] = $workorder->pivot->content;
+			}
+
+			if($movement[0] == 'HE' || $movement[0] == 'RO') {
+				$info['out_workorder'] = $workorder->id;
+				$info['out_date'] = $confirmed_at;
+				$info['out_content'] = $workorder->pivot->content;
+			}			
+		}
+
+		return $info;
+	}
+
+	public function definition()
+	{
+		$movement['HI'] = 'Haulage Import';
+		$movement['HE'] = 'Haulage Export';
+		$movement['RI-1'] = 'Remove In to CY1';
+		$movement['RI-3'] = 'Remove In to CY3';
+		$movement['RO-1'] = 'Remove Out from CY1';
+		$movement['RO-3'] = 'Remove Out from CY3';
+		$movement['TF-3-1'] = 'Transfer to CY1';
+		$movement['TF-1-3'] = 'Transfer to CY3';
+		$movement['US'] = 'Unstuffing';
+		$movement['ST'] = 'Stuffing';
+
+		$content['E'] = 'Empty';
+		$content['L'] = 'Laden';
+
+		$this->movement = $movement;
+		$this->content = $content;
 	}
 	/**
 	 * Show the form for editing the specified resource.
@@ -429,7 +516,7 @@ class WorkOrderController extends \BaseController {
 
 		$workorder = $this->execute(RegisterWorkOrderCommand::class, $input);
 
-		Flash::success("Work Order $workorder->workorder_no successfully registered!");
+		Flash::success("Work Order $workorder->id successfully registered!");
 
 		return Redirect::route('workorders');		
 	}	
@@ -458,7 +545,7 @@ class WorkOrderController extends \BaseController {
 
 		$workorder = $this->execute(RegisterWorkOrderCommand::class, $input);
 
-		Flash::success("Work Order $workorder->workorder_no successfully registered!");
+		Flash::success("Work Order $workorder->id successfully registered!");
 
 		return Redirect::route('workorders');			
 	}	
@@ -478,7 +565,7 @@ class WorkOrderController extends \BaseController {
 
 		$workorder = $this->execute(AttachedContainersToWorkOrderCommand::class, $input);
 
-		Flash::success("Work Order $workorder->workorder_no successfully updated!");
+		Flash::success("Work Order $workorder->id successfully updated!");
 
 		return Redirect::route('workorders.show', $workorder_id);			
 	}
@@ -491,5 +578,55 @@ class WorkOrderController extends \BaseController {
 
 		return Redirect::route('workorders.show', $workorder_id);
 
+	}
+
+	public function recalculateStorage($workorder_id)
+	{
+		// dd($workorder_id);
+		$workorder = $this->workOrderRepository->getById($workorder_id);
+		$this->calculateStorageChargesByWorkOrder->fire($workorder);
+
+		return Redirect::route('workorders.show', $workorder_id);
+
+	}
+
+	public function finalize($workorder_id)
+	{
+		$input['workorder_id'] = $workorder_id;
+		// dd($input);
+
+		$workorder = $this->execute(FinalizeWorkOrderCommand::class, $input);
+
+		if(! $workorder) {
+
+			Flash::error("Unable to finalize at this moment. Please make sure all containers are confirmed.");
+			return Redirect::back();		
+		}	
+
+		// Calculate Storage Charges
+		$this->calculateStorageChargesByWorkOrder->fire($workorder);
+
+		Flash::success("Work Order $workorder->id successfully finalized!");
+
+		return Redirect::route('workorders.show', $workorder_id);
+	}
+
+	public function storeAgent($workorder_id)
+	{
+		$input = Input::all();
+		$input['workorder_id'] = $workorder_id;
+
+		if(! $input['agent_id']) {
+
+			Flash::error("No agent was selected.");
+			return Redirect::back();		
+		}
+
+		$workorder = $this->execute(UpdateWorkOrderWithAgentCommand::class, $input);
+
+		Flash::success("Agent id, ". $input['agent_id'].", was selected for Workorder $workorder->id");
+
+		return Redirect::route('workorders.show', $workorder_id);		
+		// dd($input);
 	}
 }

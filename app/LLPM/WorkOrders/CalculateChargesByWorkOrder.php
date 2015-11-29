@@ -30,20 +30,23 @@ class CalculateChargesByWorkOrder
 		$workorder = $this->checkInstance($workorder);
 		
 		$handlingCharges = $this->calculateHandlingCharges->fire($workorder);
-		$storageCharges = $this->calculateStorageCharges->fire($workorder);
+
+		// No need to calculate storage charges here because the containers are not finalize yet. 
+		// Storage charges are calculated based on the confirmed date of the containers and not the date of the workorder.
+		// $storageCharges = $this->calculateStorageCharges->fire($workorder);
 
 		// Update workorder
-		$this->updateWorkorder($workorder, $handlingCharges, $storageCharges);
+		$this->updateWorkorder($workorder, $handlingCharges);
 
-		Log::info('Storage Charges: ' . $storageCharges);
+		// Log::info('Storage Charges: ' . $storageCharges);
 		Log::info('Handling Charges: ' . $handlingCharges);
 
 	}
 
-	public function updateWorkorder($workorder, $handlingCharges, $storageCharges)
+	public function updateWorkorder($workorder, $handlingCharges)
 	{
 		$workorder->handling_charges = $handlingCharges;
-		$workorder->storage_charges = $storageCharges;
+		// $workorder->storage_charges = $storageCharges;
 
 		$workorder->save();
 	}

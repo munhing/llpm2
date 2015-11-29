@@ -23,7 +23,8 @@ class CalculateStorageCharges
 
 		$movement = explode('-', $workorder->movement);
 
-		if($movement[0] != 'HE' || $movement[0] != 'RO') {
+
+		if(!($movement[0] == 'HE' || $movement[0] == 'RO')) {
 			return 0;
 		}
 
@@ -32,10 +33,13 @@ class CalculateStorageCharges
 			return 0;
 		}
 
+
 		$this->fees = $this->getFees($workorder->date);
+
 
 		foreach($workorder->containers as $container) {
 			$charges += $this->getCharge($container);
+			// dd($container->toArray());
 		}
 
 		return $charges;

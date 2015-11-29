@@ -18,8 +18,8 @@ class CreateCargoesTable extends Migration {
 			$table->string('bl_no');
 			$table->integer('consignor_id');
 			$table->integer('consignee_id');			
-			$table->double('mt');
-			$table->double('m3');
+			$table->decimal('mt', 10, 5);
+			$table->decimal('m3', 10, 5);
 			$table->integer('status');
 			$table->text('description');
 			$table->text('markings');

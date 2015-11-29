@@ -12,10 +12,10 @@ class WorkOrderTransformMovementTableSeeder extends Seeder
 		$errors = [];
 
 		// real data 2014 onwards
-		// $workorders = WorkOrder::take(10000)->get();
+		$workorders = WorkOrder::take(10000)->get();
 		// $workorders = WorkOrder::skip(10000)->take(10000)->get();
 		// $workorders = WorkOrder::skip(20000)->take(10000)->get();
-		$workorders = WorkOrder::skip(30000)->take(10000)->get();
+		// $workorders = WorkOrder::skip(30000)->take(10000)->get();
 		// DB::table('users')->skip(10)->take(5)->get();
 		// $workorders = WorkOrder::take(100)->get();
 
@@ -45,7 +45,7 @@ class WorkOrderTransformMovementTableSeeder extends Seeder
     {
         $who_is_involved = [];
 
-        $ccp = ContainerConfirmationProcess::where('movement', $movement);
+        $ccp = ContainerConfirmationProcess::where('movement', $movement)->first();
 
         for($i=1;$i<=4;$i++) {
 

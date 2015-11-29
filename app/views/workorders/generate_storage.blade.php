@@ -18,7 +18,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8"/>
-<title>LLPM | Handling Charges</title>
+<title>LLPM | Storage Charges</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -38,6 +38,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <link rel="shortcut icon" href="favicon.ico"/>
 
 <style>
+
 html, body {
 	margin:0px 20px 0px 50px;
 	padding:0;
@@ -102,15 +103,16 @@ html, body {
 .table > thead > tr > td,
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
-  border-top: 0px solid #ddd;
+  border-top: 1px solid #ddd;
 }
 .table > thead > tr > th {
-  border-bottom: 0px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 
 .break {
 	page-break-after: always;
 }
+
 
 </style>
 
@@ -119,9 +121,9 @@ html, body {
 <body>
 
 
-<?php $page_total = ceil(count($containerList) / 40); ?>
+<?php $page_total = ceil(count($containerList) / 25); ?>
 <?php $no = 1; ?>
-<?php  $container_chunk = array_chunk($containerList->toArray(), 40, true) ?>
+<?php  $container_chunk = array_chunk($containerList->toArray(), 25, true) ?>
 
 @for ($page_counter = 1; $page_counter < ($page_total + 1); $page_counter++)
 
@@ -140,7 +142,7 @@ html, body {
 			</div>
 			<div class="row">
 				<div class="col-xs-8">
-					<h1 class="text-left no-margin"><b>Handling</b>
+					<h1 class="text-left no-margin"><b>Storage</b>
 						<span class="muted">
 							{{ $movement[$workOrder->movement] }}	
 						</span>
@@ -151,7 +153,7 @@ html, body {
 						#: {{ $workOrder->id }}
 					</h2>
 				</div>
-			</div>
+			</div>			
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="invoice-payment">
@@ -160,11 +162,8 @@ html, body {
 								<strong>Date:</strong> {{ $workOrder->date->toFormattedDateString() }} | <strong>Total Charges: RM </strong> {{ number_format($total_charges, 2) }}
 							</li>
 							<li>
-								<strong>Handler:</strong> {{ $handler->name }}
+								<strong>Account: </strong> {{ $agent->name }}
 							</li>
-							<li>
-								<strong>Carrier:</strong> {{ $carrier }}
-							</li>						
 						</ul>
 					</div>				
 				</div>
@@ -180,41 +179,87 @@ html, body {
 					<table class="table table-striped table-condensed table-hover">
 						<thead>
 							<tr>
-								<th>
+								<th class="text-center">
 									 #
 								</th>
-								<th>
+								<th class="text-center">
 									 Container #
 								</th>
-								<th class="hidden-480">
+								<th class="hidden-480 text-center">
 									 Size
 								</th>
-								<th class="hidden-480">
-									 Status
+								<th class="hidden-480 text-center">
+									 In
 								</th>
-								<th class="hidden-480">
+								<th class="hidden-480 text-center">
+									 In Date
+								</th>
+								<th class="hidden-480 text-center">
+									 In Status
+								</th>	
+								<th class="hidden-480 text-center">
+									 Unstuff
+								</th>
+								<th class="hidden-480 text-center">
+									 Stuffing
+								</th>	
+								<th class="hidden-480 text-center">
+									 Out Status
+								</th>	
+								<th class="hidden-480 text-center">
+									 Out Date
+								</th>
+								<th class="hidden-480 text-center">
+									 Days Empty
+								</th>	
+								<th class="hidden-480 text-center">
 									 Charges
-								</th>
+								</th>																																												
 							</tr>
 						</thead>
 					<tbody>
 					
 					@foreach($container_chunk[$page_counter - 1] as $container)
 					<tr>
-						<td>
+						<td class="hidden-480 text-center">
 							 {{ $no }}
 						</td>
-						<td>
+						<td class="hidden-480 text-center">
 							 {{ $container['container_no'] }}
 						</td>
-						<td class="hidden-480">
+						<td class="hidden-480" align="center">
 							 {{ $container['size'] }}
 						</td>
-						<td class="hidden-480">
-							 {{ $container['pivot']['content'] }}
+						<td class="hidden-480" align="center">
+							 {{ $container['in_workorder'] }}
 						</td>
-						<td class="hidden-480">
-							 {{ number_format($container['handling'], 2) }}
+						<td class="hidden-480" align="center">
+							 {{ $container['in_date']->format('d/m/Y') }}
+						</td>	
+						<td class="hidden-480" align="center">
+							 {{ $container['in_content'] }}
+						</td>	
+						<td class="hidden-480" align="center">
+							@if($container['us_date'])
+							 {{ $container['us_date']->format('d/m/Y') }}
+							@endif
+						</td>	
+						<td class="hidden-480" align="center">
+							@if($container['st_date'])
+							 {{ $container['st_date']->format('d/m/Y') }}
+							@endif							 
+						</td>	
+						<td class="hidden-480" align="center">
+							 {{ $container['out_content'] }}
+						</td>							
+						<td class="hidden-480" align="center">
+							 {{ $container['out_date']->format('d/m/Y') }}
+						</td>					
+						<td class="hidden-480" align="center">
+							 {{ $container['days_empty'] }}
+						</td>																											
+						<td class="hidden-480" align="right">
+							 {{ number_format($container['charges'], 2) }}
 						</td>
 					</tr>
 					<?php $no++; ?>

@@ -25,9 +25,33 @@ class FeeRepository {
 	}
 
 	// Get all handling fees
-	public function getHandlingFees()
+	public function getHandlingFees($handlingType)
 	{
-		return Fee::where('type','handling')->orderBy('effective_date', 'desc')->get();
+		return Fee::where('type',$handlingType)->orderBy('effective_date', 'desc')->get();
+	}
+
+	// Get all haulage fees
+	public function getHaulageFees()
+	{
+		return Fee::where('type','haulage')->orderBy('effective_date', 'desc')->get();
+	}
+
+	// Get all lifting fees
+	public function getLiftingFees()
+	{
+		return Fee::where('type','lifting')->orderBy('effective_date', 'desc')->get();
+	}
+
+	// Get all activity fees
+	public function getActivityFees()
+	{
+		return Fee::where('type','activity')->orderBy('effective_date', 'desc')->get();
+	}
+
+	// Get all transfer fees
+	public function getTransferFees()
+	{
+		return Fee::where('type','transfer')->orderBy('effective_date', 'desc')->get();
 	}
 
 	// Get all storage fees
@@ -38,12 +62,13 @@ class FeeRepository {
 
 	// Get correct Handling fees according to the workorder date
 	// the Date must be a Carbon object
-	public function getHandlingFeeByDate($carbonDate)
+	public function getHandlingFeeByDate($movement, $carbonDate)
 	{
 		// dd($carbonDate);
+		$handlingType = $this->getHandlingType($movement);
 		$carbonDate = $this->checkCarbon($carbonDate);
 
-		$fees = $this->getHandlingFees();
+		$fees = $this->getHandlingFees($handlingType);
 
 		foreach($fees as $fee) {
 
@@ -79,4 +104,21 @@ class FeeRepository {
 
 		return Carbon::parse($date);
 	}
+
+	public function getHandlingType($movement)
+	{
+		$movement = explode('-', $movement);
+
+		$handlingType = [
+			'HI' => 'haulage',
+			'HE' => 'haulage',
+			'RI' => 'lifting',
+			'RO' => 'lifting',
+			'ST' => 'activity',
+			'US' => 'activity',
+			'TF' => 'transfer',
+		];
+
+		return $handlingType[$movement[0]];
+	}	
 }

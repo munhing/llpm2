@@ -22,9 +22,9 @@
 			<li>
 				<a href="{{ URL::route('manifest.schedule') }}">Schedule</a>
 				<i class="fa fa-angle-right"></i>
-			</li>
+			</li>		
 			<li>
-				<a href="{{ route('manifest.schedule.export', $schedule->id ) }}"> {{ $schedule->vessel->name}} v.{{ $schedule->voyage_no_departure }}</a>
+				<a href="{{ route('manifest.schedule.export', $schedule->id ) }}"> {{ $schedule->vessel->name}} v.{{ $schedule->voyage_no_departure }} - Export</a>
 				<i class="fa fa-angle-right"></i>
 			</li>			
 			<li>
@@ -80,7 +80,15 @@
 							D/L #:
 						</div>
 						<div class="col-md-9 value">
-							{{ $cargo->dl_no }}
+							@if( $cargo->status == 1)
+								<span class="font-red-thunderbird">Unable to issue DL until this cargo has confirmed received.</span>
+							@else
+								@if( $cargo->dl_no == 0)
+									<span class="font-blue">DL not issue yet.</span>
+								@else
+									{{ $cargo->dl_no }}
+								@endif
+							@endif							
 						</div>						
 					</div>
 

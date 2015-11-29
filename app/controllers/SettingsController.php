@@ -3,6 +3,8 @@
 use LLPM\Forms\HandlingFeeForm;
 use LLPM\Forms\StorageFeeForm;
 use LLPM\Repositories\FeeRepository;
+use LLPM\Settings\RegisterFeeCommand;
+use LLPM\Settings\UpdateFeeCommand;
 use LLPM\Settings\RegisterHandlingFeeCommand;
 use LLPM\Settings\UpdateHandlingFeeCommand;
 use LLPM\Settings\RegisterStorageFeeCommand;
@@ -33,7 +35,10 @@ class SettingsController extends \BaseController {
 	public function feesIndex()
 	{
 		// dd('Fees Index');
-		$handlingFees = $this->feeRepository->getHandlingFees();
+		$haulageFees = $this->feeRepository->getHaulageFees();
+		$liftingFees = $this->feeRepository->getLiftingFees();
+		$activityFees = $this->feeRepository->getActivityFees();
+		$transferFees = $this->feeRepository->getTransferFees();
 		$storageFees = $this->feeRepository->getStorageFees();
 
 
@@ -41,7 +46,7 @@ class SettingsController extends \BaseController {
 		// var_dump($handlingFee);
 		// var_dump($storageFee);
 
-		return View::make('settings/fees_index', compact('handlingFees', 'storageFees'));
+		return View::make('settings/fees_index', compact('haulageFees', 'liftingFees', 'activityFees', 'transferFees', 'storageFees'));
 	}
 
 	/**
@@ -55,35 +60,19 @@ class SettingsController extends \BaseController {
 		$input = Input::all();
 		// dd($input);
 
-		if($input['fee_type'] == 'handling') {
-
-			$this->handlingFeeForm->validate($input);
-
-			if($input['form_action'] == 'update') {
-				$this->execute(UpdateHandlingFeeCommand::class);
-				Flash::success("Handling fee updated!");
-			} else {
-				$this->execute(RegisterHandlingFeeCommand::class);
-				Flash::success("New handling fee was registered!");
-			}
-
+		// for update
+		// UpdateFeeCommand
+		if($input['form_action'] == 'update') {
+			// dd('update');
+			$this->execute(UpdateFeeCommand::class);
+			Flash::success("Fee updated!");			
+		} else {
+			// dd('new');
+			$this->execute(RegisterFeeCommand::class);
+			Flash::success("New Fee was registered!");			
 		}
 
-		if($input['fee_type'] == 'storage'){
-
-			$this->storageFeeForm->validate($input);
-
-			if($input['form_action'] == 'update') {
-				$this->execute(UpdateStorageFeeCommand::class);
-				Flash::success("Storage fee updated!");
-			} else {
-				$this->execute(RegisterStorageFeeCommand::class);
-				Flash::success("New Storage fee was registered!");
-			}
-
-		}
-
-		return Redirect::back();
+		return Redirect::back();	
 	}
 
 	/**

@@ -9,84 +9,83 @@ class ContainerTableSeeder extends Seeder
 	{
 		$faker = Faker\Factory::create();
 
-		// fake data
-		// $import_vessel_schedule_id = 284;
-		// $receiving_id = 0;
+        Excel::load('cy3.xls', function($reader) {
 
-		// for ($i=0;$i<150;$i++) {
+            $results = $reader->all();
 
-		// 	$eta = $faker->dateTimeThisYear()->format('Y-m-d');
+            $results->each(function($sheet) {
+                // var_dump($sheet->container);
+                // PCIU9012682
 
-		// 	$etd = Carbon::createFromFormat('Y-m-d', $eta)->addDays($faker->randomDigit);
+                $results = DB::select('select * from containermovement where ctnmctnno = ? order by ctnmid desc limit 1', array($sheet->container));
+                // $results = DB::select('select * from containermovement where ctnmctnno = ? order by ctnmid desc limit 1', array('PCIU9012682'));
 
-		// 	Container::create([
-		// 		'container_no' => strtoupper($faker->bothify('????#######')),
-		// 		'size' => $faker->randomElement([20,40]),
-		// 		'content' => 'E',
-		// 		'status' => 1,
-		// 		'dl_check' => 0,
-		// 		'm_content' => 'E',
-		// 		'import_vessel_schedule_id' => $import_vessel_schedule_id
-		// 	]);
-		// }
-		
-		// real data
-		
-		// $results = DB::select('select * from containermovement where ctnmid > ? limit 15000', array(146143));
-		// $results = DB::select('select * from containermovement where ctnmid > ? limit 15000', array(161315));
-		$results = DB::select('select * from containermovement where ctnmid > ? limit 15000', array(176444));
-		// 
-		// $results = DB::select('select * from containermovement where ctnmid > ? limit 1000', array(176444));
-		// 
-		// $results = DB::select('select * from containermovement where ctnmid = ? limit 10000', array(177172));
-		// $results = DB::select('select * from containermovement where ctnmid > ?', array(150000));
-		// $results = DB::select('select * from containermovement where ctnmid = ?', array(152214));
-		// $results = DB::select('select * from containermovement where ctnmid > ?', array(175528));
+                $row = $results[0];
 
-		// dd(count($results));
+                // if($results[0]->ctnmcurloc != 1) {
+                // 	var_dump($sheet->container);
+                // }
 
-		foreach($results as $row) {
-			var_dump($row->ctnmid . ' | ' . $row->ctnmctnno);
+                // if($results[0]->ctnmwonoout != 0) {
+                // 	var_dump($sheet->container);
+                // 	$workorder = DB::select('select * from workorder where wono = ?', array($results[0]->ctnmwonoout));
+                // 	var_dump($workorder[0]->wom . ' - ' . $workorder[0]->wono);
+                // }
 
-			$container = [];
-			$container['id'] = $row->ctnmid;
-			$container['container_no'] = $row->ctnmctnno;
-			$container['size'] = $row->ctnmctnsize;
-			$container['import_vessel_schedule_id'] = $row->ctnmvsidin;
-			$container['export_vessel_schedule_id'] = $row->ctnmvsidout;
+                // if($results[0]->ctnmconfirmdelivered != 0) {
+                // 	var_dump($sheet->container);
+                // } // There are 6 iso tanks
 
-			$workorders = [];
+                // if(count($results) == 0) {
+                // 	var_dump($sheet->container);
+                // }
+                
+				// var_dump($row->ctnmid . ' | ' . $row->ctnmctnno);
 
-			// dd($container);
+				$container = [];
+				$container['id'] = $row->ctnmid;
+				$container['container_no'] = $row->ctnmctnno;
+				$container['size'] = $row->ctnmctnsize;
+				$container['import_vessel_schedule_id'] = $row->ctnmvsidin;
+				$container['export_vessel_schedule_id'] = $row->ctnmvsidout;
 
-			//validate container information
-			$proceed = $this->validateContainerInfo($row);
+				$workorders = [];
 
-			if(! $proceed) {
-				var_dump('Skipped!');
-				continue;
-			}
+				// dd($container);
 
-			// get all workorders and content
-			// firstly get the wonoin
-			// 
-			$proceed = $this->validateWorkOrderStatusPair($row);
+				//validate container information
+				$proceed = $this->validateContainerInfo($row);
 
-			if($proceed) {
-				$workorders = $this->getAllWorkOrders($row);
-			}
+				if(! $proceed) {
+					var_dump($row->ctnmid . ' | ' . $row->ctnmctnno . ' - Skipped! 1');
+					continue;
+				}
 
-			ksort($workorders);
+				// get all workorders and content
+				// firstly get the wonoin
+				// 
+				$proceed = $this->validateWorkOrderStatusPair($row);
 
-			$proceed = $this->validateWorkOrders($workorders);
+				if($proceed) {
+					$workorders = $this->getAllWorkOrders($row);
+				} else {
+					var_dump($row->ctnmid . ' | ' . $row->ctnmctnno . ' - Skipped! 2');
+				}
 
-			if($proceed) {
-				$this->migrateContainer($container, $workorders, $row);
-			}
+				ksort($workorders);
 
-			// dd(json_encode($workorders));
-			// dd($workorders);
-		}
+				$proceed = $this->validateWorkOrders($workorders);
+
+				if($proceed) {
+					$this->migrateContainer($container, $workorders, $row);
+				} else {
+					var_dump($row->ctnmid . ' | ' . $row->ctnmctnno . ' - Skipped! 3');
+				}
+
+				// die();      
+            });
+
+        });
 	}
 
 	public function validateContainerInfo($row)
@@ -327,11 +326,19 @@ class ContainerTableSeeder extends Seeder
 				'content' => $wo['content'],
 				'confirmed' => 1,
 				'confirmed_by' => 1,
+				'confirmed_at' => $workorder->date,
 				'updated_at' => $workorder->date
 			]);
 
 			var_dump($id . ' | ' . $container->container_no . ' attached to ' . $workorder->id);
-		}	
+		}
+
+		$container 	= Container::find($container_id);
+
+		if($container->location == 1) {
+			$container->location = 3;
+			$container->save();
+		}
 	}
 
 	public function changeContent($content)

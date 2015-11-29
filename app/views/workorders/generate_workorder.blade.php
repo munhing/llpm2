@@ -147,7 +147,7 @@ html, body {
 				</div>
 				<div class="col-xs-4">
 					<h2 class="text-right no-margin">
-						No: {{ $workOrder->id }}
+						#: {{ $workOrder->id }}
 					</h2>
 				</div>
 			</div>

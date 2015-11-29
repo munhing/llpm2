@@ -40,7 +40,8 @@ class TestCron extends ScheduledCommand {
 	 */
 	public function schedule(Schedulable $scheduler)
 	{
-		return $scheduler->everyMinutes(15);
+		return $scheduler->everyWeekDay()->hours(5);
+		// return $scheduler->;
 	}
 
 	/**

@@ -112,7 +112,7 @@
 						{{ Form::label('country_code', 'Port of Loading: Country', ['class' => 'control-label']) }}
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-male"></i></span>
-							{{ Form::select('country_code', $country, null,['class'=>'form-control select-select2']) }}
+							{{ Form::select('country_code', $country, $cargo->country_code,['class'=>'form-control select-select2']) }}
 						</div>
 					</div>
 
@@ -136,7 +136,7 @@
 						{{ Form::label('custom_form_no', 'Custom Form No (eg. K1, K2, K8)', ['class' => 'control-label']) }}
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-check"></i></span>
-							{{ Form::text('custom_form_no', $cargo->custom_form_no, ['class' => 'form-control placeholder-no-fix', 'autocomplete' => 'off', 'placeholder' => 'Custom Form No']) }}
+							{{ Form::select('custom_form_no', [null => "Custom Form No"] + ['K1'=>'K1', 'K1A'=>'K1A', 'K2'=>'K2', 'K3'=>'K3', 'K8'=>'K8', 'K9'=>'K9'], $cargo->custom_form_no, ['class' => 'form-control placeholder-no-fix', 'autocomplete' => 'off']) }}
 						</div>
 					</div>
 

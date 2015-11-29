@@ -75,6 +75,7 @@ class AttachedContainersToWorkOrderCommandHandler implements CommandHandler {
 
             if($workOrder->movement == 'ST') {
                 $ctn->pre_stuffing = $cargoes_id;
+                // $ctn->dl_check = 0;
             }
 
             $ctn->save();

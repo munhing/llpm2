@@ -11,135 +11,296 @@
 @stop
 @section('content')
 
-	<h3 class="page-title">
-		Fees <small>settings</small>
-	</h3>
+<h3 class="page-title">
+	Fees <small>settings</small>
+</h3>
 
-	<div class="page-bar">
-		<ul class="page-breadcrumb">
-			<li>
-				<i class="fa fa-home"></i>
-				<a href="{{ URL::route('home') }}">Home</a>
-				<i class="fa fa-angle-right"></i>
-			</li>
-			<li>
-				Settings - Fees
-			</li>					
-		</ul>
-	</div>	
+<div class="page-bar">
+	<ul class="page-breadcrumb">
+		<li>
+			<i class="fa fa-home"></i>
+			<a href="{{ URL::route('home') }}">Home</a>
+			<i class="fa fa-angle-right"></i>
+		</li>
+		<li>
+			Settings - Fees
+		</li>					
+	</ul>
+</div>	
 
-
-<div class="portlet light bordered">
-    <div class="portlet-title">
-        <div class="caption font-green-sharp">
-            <i class="fa fa-dollar font-green-sharp"></i>
-            <span class="caption-subject bold uppercase"> Handling Fee</span>
-            <span class="caption-helper">setting</span>
-        </div>
-        <div class="actions">
-            <button class='btn btn-default btn-sm' type='button' data-toggle="modal" data-target="#myModal_handlingFee" data-title="Add Handling Fee" data-fee-type="handling">
-                <i class="fa fa-plus"></i> Add 
-            </button>        
+<div class="row">
+    <div class="col-md-6">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption font-green-sharp">
+                    <i class="fa fa-dollar font-green-sharp"></i>
+                    <span class="caption-subject bold uppercase"> Haulage Fee</span>
+                    <span class="caption-helper">setting</span>
+                </div>
+                <div class="actions">
+                    <button class='btn btn-default btn-xs' type='button' data-toggle="modal" data-target="#myModal_feeTemplate1" data-title="Add Haulage Fee" data-fee-type="haulage">
+                        <i class="fa fa-plus"></i> Add 
+                    </button>        
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>20E</th>
+                        <th>20L</th>
+                        <th>40E</th>    
+                        <th>40L</th>    
+                        <th>Effective Date</th>   
+                        <th>Action</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i = 1; ?>
+                    @foreach($haulageFees as $haulageFee)
+                        <?php $fee = json_decode($haulageFee->fee, true); ?>
+                        <tr>
+                            <td align="center">{{ $i }}</td> 
+                            <td align="right">{{ number_format($fee['20E'], 2) }}</td>
+                            <td align="right">{{ number_format($fee['20L'], 2) }}</td>
+                            <td align="right">{{ number_format($fee['40E'], 2) }}</td>                             
+                            <td align="right">{{ number_format($fee['40L'], 2) }}</td>
+                            <td align="center">{{ $haulageFee->effective_date->format('Y-m-d') }}</td>
+                            <td align="center">
+                                <button class='btn btn-default btn-xs' type='button' data-toggle="modal" data-target="#myModal_feeTemplate1" data-title="Update Haulage Fee" data-action="update" data-fee-type="haulage" data-fee-id="{{$haulageFee->id}}" data-e20="{{$fee['20E']}}" data-l20="{{$fee['20L']}}" data-e40="{{$fee['40E']}}" data-l40="{{$fee['40L']}}" data-effective-date="{{$haulageFee->effective_date->format('Y-m-d')}}">
+                                    <i class="fa fa-pencil"></i> Edit 
+                                </button>                         
+                            </td>                                       
+                        </tr>
+                        <?php $i++; ?>
+                    @endforeach
+                </tbody>
+                </table>
+                </div>        
+            </div>
         </div>
     </div>
-    <div class="portlet-body">
-        <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>20E</th>
-                <th>20L</th>
-                <th>40E</th>    
-                <th>40L</th>    
-                <th>Effective Date</th>   
-                <th>Action</th> 
-            </tr>
-        </thead>
-        <tbody>
-            <?php $i = 1; ?>
-            @foreach($handlingFees as $handlingFee)
-                <?php $fee = json_decode($handlingFee->fee, true); ?>
-                <tr>
-                    <td>{{ $i }}</td> 
-                    <td align="right">{{ number_format($fee['20E'], 2) }}</td>
-                    <td align="right">{{ number_format($fee['20L'], 2) }}</td>
-                    <td align="right">{{ number_format($fee['40E'], 2) }}</td>                             
-                    <td align="right">{{ number_format($fee['40L'], 2) }}</td>
-                    <td>{{ $handlingFee->effective_date->format('Y-m-d') }}</td>
-                    <td>
-                        <button class='btn btn-default btn-sm' type='button' data-toggle="modal" data-target="#myModal_handlingFee" data-title="Update Handling Fee" data-action="update" data-fee-type="handling" data-handling-fee-id="{{$handlingFee->id}}" data-e20="{{$fee['20E']}}" data-l20="{{$fee['20L']}}" data-e40="{{$fee['40E']}}" data-l40="{{$fee['40L']}}" data-effective-date="{{$handlingFee->effective_date->format('Y-m-d')}}">
-                            <i class="fa fa-pencil"></i> Edit 
-                        </button>                         
-                    </td>                                       
-                </tr>
-                <?php $i++; ?>
-            @endforeach
-        </tbody>
-        </table>
-        </div>        
+    <div class="col-md-6">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption font-green-sharp">
+                    <i class="fa fa-dollar font-green-sharp"></i>
+                    <span class="caption-subject bold uppercase"> Lifting Fee</span>
+                    <span class="caption-helper">setting</span>
+                </div>
+                <div class="actions">
+                    <button class='btn btn-default btn-xs' type='button' data-toggle="modal" data-target="#myModal_feeTemplate1" data-title="Add Lifting Fee" data-fee-type="lifting">
+                        <i class="fa fa-plus"></i> Add 
+                    </button>        
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>20E</th>
+                        <th>20L</th>
+                        <th>40E</th>    
+                        <th>40L</th>    
+                        <th>Effective Date</th>   
+                        <th>Action</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i = 1; ?>
+                    @foreach($liftingFees as $liftingFee)
+                        <?php $fee = json_decode($liftingFee->fee, true); ?>
+                        <tr>
+                            <td align="center">{{ $i }}</td> 
+                            <td align="right">{{ number_format($fee['20E'], 2) }}</td>
+                            <td align="right">{{ number_format($fee['20L'], 2) }}</td>
+                            <td align="right">{{ number_format($fee['40E'], 2) }}</td>                             
+                            <td align="right">{{ number_format($fee['40L'], 2) }}</td>
+                            <td align="center">{{ $liftingFee->effective_date->format('Y-m-d') }}</td>
+                            <td align="center">
+                                <button class='btn btn-default btn-xs' type='button' data-toggle="modal" data-target="#myModal_feeTemplate1" data-title="Update lifting Fee" data-action="update" data-fee-type="lifting" data-fee-id="{{$liftingFee->id}}" data-e20="{{$fee['20E']}}" data-l20="{{$fee['20L']}}" data-e40="{{$fee['40E']}}" data-l40="{{$fee['40L']}}" data-effective-date="{{$liftingFee->effective_date->format('Y-m-d')}}">
+                                    <i class="fa fa-pencil"></i> Edit 
+                                </button>                         
+                            </td>                                       
+                        </tr>
+                        <?php $i++; ?>
+                    @endforeach
+                </tbody>
+                </table>
+                </div>        
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="portlet light bordered">
-    <div class="portlet-title">
-        <div class="caption font-green-sharp">
-            <i class="fa fa-dollar font-green-sharp"></i>
-            <span class="caption-subject bold uppercase"> Storage Fee</span>
-            <span class="caption-helper">setting</span>
-        </div>
-        <div class="actions">
-            <button class='btn btn-default btn-sm' type='button' data-toggle="modal" data-target="#myModal_storageFee" data-title="Add Storage Fee" data-fee-type="storage">
-                <i class="fa fa-plus"></i> Add 
-            </button>         
+<div class="row">
+    <div class="col-md-6">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption font-green-sharp">
+                    <i class="fa fa-dollar font-green-sharp"></i>
+                    <span class="caption-subject bold uppercase"> Activity Fee</span>
+                    <span class="caption-helper">setting</span>
+                </div>
+                <div class="actions">
+                    <button class='btn btn-default btn-sm' type='button' data-toggle="modal" data-target="#myModal_feeTemplate2" data-title="Add Activity Fee" data-fee-type="activity">
+                        <i class="fa fa-plus"></i> Add 
+                    </button>        
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>20</th>
+                        <th>40</th>    
+                        <th>Effective Date</th>   
+                        <th>Action</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i = 1; ?>
+                    @foreach($activityFees as $activityFee)
+                        <?php $fee = json_decode($activityFee->fee, true); ?>
+                        <tr>
+                            <td align="center">{{ $i }}</td> 
+                            <td align="right">{{ number_format($fee['20'], 2) }}</td>
+                            <td align="right">{{ number_format($fee['40'], 2) }}</td>
+                            <td align="center">{{ $activityFee->effective_date->format('Y-m-d') }}</td>
+                            <td align="center">
+                                <button class='btn btn-default btn-xs' type='button' data-toggle="modal" data-target="#myModal_feeTemplate2" data-title="Update Activity Fee" data-action="update" data-fee-type="activity" data-fee-id="{{$activityFee->id}}" data-s20="{{$fee['20']}}" data-s40="{{$fee['40']}}" data-effective-date="{{$activityFee->effective_date->format('Y-m-d')}}">
+                                    <i class="fa fa-pencil"></i> Edit 
+                                </button>                         
+                            </td>                                       
+                        </tr>
+                        <?php $i++; ?>
+                    @endforeach
+                </tbody>
+                </table>
+                </div>        
+            </div>
         </div>
     </div>
-    <div class="portlet-body">
-        <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>20</th>
-                <th>40</th>    
-                <th>Effective Date</th>   
-                <th>Action</th> 
-            </tr>
-        </thead>
-        <tbody>
-            <?php $i = 1; ?>
-            @foreach($storageFees as $storageFee)
-                <?php $fee = json_decode($storageFee->fee, true); ?>
-                <tr>
-                    <td>{{ $i }}</td> 
-                    <td align="right">{{ number_format($fee['20'], 2) }}</td>
-                    <td align="right">{{ number_format($fee['40'], 2) }}</td>                             
-                    <td>{{ $storageFee->effective_date->format('Y-m-d') }}</td>
-                    <td>
-                        <button class='btn btn-default btn-sm' type='button' data-toggle="modal" data-target="#myModal_storageFee" data-title="Update Storage Fee" data-action="update" data-fee-type="storage" data-storage-fee-id="{{$storageFee->id}}" data-s20="{{$fee['20']}}" data-s40="{{$fee['40']}}" data-effective-date="{{$storageFee->effective_date->format('Y-m-d')}}">
-                            <i class="fa fa-pencil"></i> Edit 
-                        </button>                         
-                    </td>                                       
-                </tr>
-                <?php $i++; ?>
-            @endforeach
-        </tbody>
-        </table>
-        </div> 
+    <div class="col-md-6">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption font-green-sharp">
+                    <i class="fa fa-dollar font-green-sharp"></i>
+                    <span class="caption-subject bold uppercase"> Transfer Fee</span>
+                    <span class="caption-helper">setting</span>
+                </div>
+                <div class="actions">
+                    <button class='btn btn-default btn-sm' type='button' data-toggle="modal" data-target="#myModal_feeTemplate2" data-title="Add Transfer Fee" data-fee-type="transfer">
+                        <i class="fa fa-plus"></i> Add 
+                    </button>        
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>20</th>
+                        <th>40</th>    
+                        <th>Effective Date</th>   
+                        <th>Action</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i = 1; ?>
+                    @foreach($transferFees as $transferFee)
+                        <?php $fee = json_decode($transferFee->fee, true); ?>
+                        <tr>
+                            <td align="center">{{ $i }}</td> 
+                            <td align="right">{{ number_format($fee['20'], 2) }}</td>
+                            <td align="right">{{ number_format($fee['40'], 2) }}</td>
+                            <td align="center">{{ $transferFee->effective_date->format('Y-m-d') }}</td>
+                            <td align="center">
+                                <button class='btn btn-default btn-xs' type='button' data-toggle="modal" data-target="#myModal_feeTemplate2" data-title="Update Transfer Fee" data-action="update" data-fee-type="transfer" data-fee-id="{{$transferFee->id}}" data-s20="{{$fee['20']}}" data-s40="{{$fee['40']}}" data-effective-date="{{$transferFee->effective_date->format('Y-m-d')}}">
+                                    <i class="fa fa-pencil"></i> Edit 
+                                </button>                         
+                            </td>                                       
+                        </tr>
+                        <?php $i++; ?>
+                    @endforeach
+                </tbody>
+                </table>
+                </div>        
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption font-green-sharp">
+                    <i class="fa fa-dollar font-green-sharp"></i>
+                    <span class="caption-subject bold uppercase"> Storage Fee</span>
+                    <span class="caption-helper">setting</span>
+                </div>
+                <div class="actions">
+                    <button class='btn btn-default btn-sm' type='button' data-toggle="modal" data-target="#myModal_feeTemplate2" data-title="Add Storage Fee" data-fee-type="storage">
+                        <i class="fa fa-plus"></i> Add 
+                    </button>         
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>20</th>
+                        <th>40</th>    
+                        <th>Effective Date</th>   
+                        <th>Action</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i = 1; ?>
+                    @foreach($storageFees as $storageFee)
+                        <?php $fee = json_decode($storageFee->fee, true); ?>
+                        <tr>
+                            <td align="center">{{ $i }}</td> 
+                            <td align="right">{{ number_format($fee['20'], 2) }}</td>
+                            <td align="right">{{ number_format($fee['40'], 2) }}</td>                             
+                            <td align="center">{{ $storageFee->effective_date->format('Y-m-d') }}</td>
+                            <td align="center">
+                                <button class='btn btn-default btn-xs' type='button' data-toggle="modal" data-target="#myModal_feeTemplate2" data-title="Update Storage Fee" data-action="update" data-fee-type="storage" data-fee-id="{{$storageFee->id}}" data-s20="{{$fee['20']}}" data-s40="{{$fee['40']}}" data-effective-date="{{$storageFee->effective_date->format('Y-m-d')}}">
+                                    <i class="fa fa-pencil"></i> Edit 
+                                </button>                        
+                            </td>                                       
+                        </tr>
+                        <?php $i++; ?>
+                    @endforeach
+                </tbody>
+                </table>
+                </div> 
+            </div>
+        </div>
     </div>
 </div>
 
     <div class="row">
-    {{ Form::open(['id'=>'form_handling_fee']) }}   
+    {{ Form::open(['id'=>'form_fee_template1']) }}   
 
-    <div class="modal fade" id="myModal_handlingFee" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal fade" id="myModal_feeTemplate1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title" id="myModalLabel">Add Handling Fee</h4>
                     {{ Form::hidden('form_action', '', ['id'=>'form_action']) }}
-                    {{ Form::hidden('handling_fee_id', '', ['id'=>'handling_fee_id']) }}
+                    {{ Form::hidden('fee_id', '', ['id'=>'fee_id']) }}
                     {{ Form::hidden('fee_type', '', ['id'=>'fee_type']) }}
                 </div>
                 <div class="modal-body">
@@ -187,7 +348,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-5">Effective Date</label>
                                     <div class="col-md-4">
-                                        {{ Form::text('handling_effective_date','', ['id'=>'handling_effective_date', 'class'=>'form-control date-picker']) }}
+                                        {{ Form::text('effective_date1','', ['id'=>'effective_date1', 'class'=>'form-control date-picker']) }}
                                     </div>
                                 </div>
                             </div>                                                                     
@@ -208,16 +369,16 @@
     </div>
 
     <div class="row">
-    {{ Form::open(['id'=>'form_storage_fee']) }}   
+    {{ Form::open(['id'=>'form_fee_template2']) }}   
 
-    <div class="modal fade" id="myModal_storageFee" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal fade" id="myModal_feeTemplate2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title" id="myModalLabel">Add Handling Fee</h4>
                     {{ Form::hidden('form_action') }}
-                    {{ Form::hidden('storage_fee_id', '', ['id'=>'storage_fee_id']) }}
+                    {{ Form::hidden('fee_id', '', ['id'=>'fee_id']) }}
                     {{ Form::hidden('fee_type') }}
                 </div>
                 <div class="modal-body">
@@ -246,7 +407,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-5">Effective Date</label>
                                     <div class="col-md-4">
-                                        {{ Form::text('storage_effective_date','', ['id'=>'storage_effective_date', 'class'=>'form-control date-picker']) }}
+                                        {{ Form::text('effective_date2','', ['id'=>'effective_date2', 'class'=>'form-control date-picker']) }}
                                     </div>
                                 </div>
                             </div>                                                                     
@@ -275,7 +436,7 @@
 
 @section('scripts')
 
-$('#myModal_handlingFee').on('show.bs.modal', function (e) {
+$('#myModal_feeTemplate1').on('show.bs.modal', function (e) {
 
     $button = $(e.relatedTarget);
     $title = $button.data('title');
@@ -286,7 +447,7 @@ $('#myModal_handlingFee').on('show.bs.modal', function (e) {
     $l40 = $button.data('l40');
     $effectiveDate = $button.data('effective-date');
     console.log('Eff_Date: ' + $effectiveDate);
-    $handlingFeeId = $button.data('handling-fee-id');
+    $feeId = $button.data('fee-id');
     $feeType = $button.data('fee-type');
     $action = $button.data('action');
 
@@ -299,21 +460,22 @@ $('#myModal_handlingFee').on('show.bs.modal', function (e) {
     $('#l20').val($l20);
     $('#e40').val($e40);
     $('#l40').val($l40);
-    $('#handling_fee_id').val($handlingFeeId);
+    // $('#fee_id').val($feeId);
+    $("input[name='fee_id']").val($feeId);
     $("input[name='fee_type']").val($feeType);
     $("input[name='form_action']").val($action);    
 
     if($effectiveDate) {
         var strDate = $effectiveDate.split(/[- :]/);
         var newDate = new Date(strDate[0], strDate[1]-1, strDate[2]);
-        $('#handling_effective_date').datepicker('update',newDate);
+        $('#effective_date1').datepicker('update',newDate);
     } else {
-        $('#handling_effective_date').datepicker('update', new Date());
+        $('#effective_date1').datepicker('update', new Date());
     }
 
 });
 
-$('#myModal_storageFee').on('show.bs.modal', function (e) {
+$('#myModal_feeTemplate2').on('show.bs.modal', function (e) {
 
     $button = $(e.relatedTarget);
     $title = $button.data('title');
@@ -322,7 +484,7 @@ $('#myModal_storageFee').on('show.bs.modal', function (e) {
     $s40 = $button.data('s40');
     $effectiveDate = $button.data('effective-date');
     console.log('Eff_Date: ' + $effectiveDate);
-    $storageFeeId = $button.data('storage-fee-id');
+    $feeId = $button.data('fee-id');
     $feeType = $button.data('fee-type');
     $action = $button.data('action');
 
@@ -333,16 +495,17 @@ $('#myModal_storageFee').on('show.bs.modal', function (e) {
 
     $('#s20').val($s20);
     $('#s40').val($s40);
-    $('#storage_fee_id').val($storageFeeId);
+    // $('#fee_id').val($feeId);
+    $("input[name='fee_id']").val($feeId);
     $("input[name='fee_type']").val($feeType);
     $("input[name='form_action']").val($action);
 
     if($effectiveDate) {
         var strDate = $effectiveDate.split(/[- :]/);
         var newDate = new Date(strDate[0], strDate[1]-1, strDate[2]);
-        $('#storage_effective_date').datepicker('update',newDate);
+        $('#effective_date2').datepicker('update',newDate);
     } else {
-        $('#storage_effective_date').datepicker('update', new Date());
+        $('#effective_date2').datepicker('update', new Date());
     }
 
 });

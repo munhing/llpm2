@@ -35,7 +35,7 @@ class CargoExportTableSeeder extends Seeder
 	
 		// real data for Import Cargo
 		// $results = DB::select('select * from cargoexport where crgexid > ? limit 20000', array(30162));
-		$results = DB::select('select * from cargoexport where crgexid > ? limit 20000', array(36585));
+		$results = DB::select('select * from cargoexport where crgexid > ? limit 20000', array(35701));
 
 		// dd(count($results));
 

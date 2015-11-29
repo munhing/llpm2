@@ -10,13 +10,13 @@ class WorkOrder extends \Eloquent {
 
 	protected $table = 'workorders';
 
-	protected $fillable = ['movement', 'date', 'carrier_id', 'handler_id', 'vessel_schedule_id', 'container_location', 'container_status', 'who_is_involved'];
+	protected $fillable = ['movement', 'date', 'carrier_id', 'handler_id', 'agent_id', 'vessel_schedule_id', 'container_location', 'container_status', 'who_is_involved'];
 
 	protected $dates = array('date');
 
 	public function containers()
 	{
-		return $this->belongsToMany('Container', 'container_workorder', 'workorder_id', 'container_id')->withTimestamps()->withPivot('movement', 'content', 'vehicle', 'lifter', 'confirmed', 'confirmed_by', 'updated_at');;
+		return $this->belongsToMany('Container', 'container_workorder', 'workorder_id', 'container_id')->withTimestamps()->withPivot('movement', 'content', 'vehicle', 'lifter', 'confirmed', 'confirmed_by', 'confirmed_at', 'updated_at');;
 	}		
 
 	public function handler()
@@ -69,6 +69,15 @@ class WorkOrder extends \Eloquent {
         $workorder->vessel_schedule_id = $vessel_schedule_id; 
 
 		$workorder->raise(new WorkOrderWasUpdated($workorder));
+
+		return $workorder;
+	}
+
+	public static function finalize($id)
+	{
+		$workorder = static::find($id);
+
+        $workorder->finalized = 1; 
 
 		return $workorder;
 	}		

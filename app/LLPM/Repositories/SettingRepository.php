@@ -38,4 +38,11 @@ class SettingRepository {
 		$this->save($settings); 
 	}
 
+	public function saveRegisteredVesselId($id)
+	{
+		$settings = $this->getAll();
+		
+		$settings->registered_vessel_id = $id;
+		$this->save($settings);
+	}
 }

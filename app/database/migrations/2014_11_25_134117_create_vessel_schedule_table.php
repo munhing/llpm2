@@ -15,16 +15,17 @@ class CreateVesselScheduleTable extends Migration {
 		Schema::create('vessel_schedule', function(Blueprint $table)
 		{
 			$table->increments('id')->unsigned();
+			$table->integer('registered_vessel_id')->unique();
 			$table->integer('vessel_id');
 			$table->integer('portuser_id');
 			$table->string('voyage_no_arrival');
 			$table->string('voyage_no_departure');
 			$table->timestamp('eta');
 			$table->timestamp('etd');
-			$table->double('mt_arrival');
-			$table->double('mt_departure');
-			$table->double('m3_arrival');
-			$table->double('m3_departure');
+			$table->decimal('mt_arrival', 10, 5);
+			$table->decimal('mt_departure', 10, 5);
+			$table->decimal('m3_arrival', 10, 5);
+			$table->decimal('m3_departure', 10, 5);
 			$table->timestamps();
 		});
 	}

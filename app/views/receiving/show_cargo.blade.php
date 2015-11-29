@@ -76,7 +76,15 @@
 							D/L #:
 						</div>
 						<div class="col-md-9 value">
-							{{ $cargo->dl_no }}
+							@if( $cargo->status == 1)
+								<span class="font-red-thunderbird">Unable to issue DL until this cargo has confirmed received.</span>
+							@else
+								@if( $cargo->dl_no == 0)
+									<span class="font-blue">DL not issue yet.</span>
+								@else
+									{{ $cargo->dl_no }}
+								@endif
+							@endif								
 						</div>						
 					</div>
 

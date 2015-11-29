@@ -33,6 +33,8 @@ class VesselScheduleTableSeeder extends Seeder
 		// Import real data
 		$results = DB::select('select * from vschedule', array());
 
+		// dd('Schedule');
+
 		$errors = [];
 
 		// dd(count($results));		
@@ -50,6 +52,7 @@ class VesselScheduleTableSeeder extends Seeder
 				try{
 					VesselSchedule::create(array(
 						'id'			=> $row->vsid,
+						'registered_vessel_id' => $row->vsid,
 						'vessel_id' 	=> $row->vsvid,
 						'portuser_id' 	=> $portuser->id,
 						'voyage_no_arrival' 	=> $row->vsvoy,
@@ -63,11 +66,11 @@ class VesselScheduleTableSeeder extends Seeder
 					));
 
 				} catch (Exception $e){
-					$errors[] = $e;
+					var_dump($row->vsid);
 				}
 			}
 		}
 
-		var_dump($errors);
+		// var_dump($errors);
 	}
 }

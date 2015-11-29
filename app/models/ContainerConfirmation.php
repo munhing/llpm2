@@ -8,7 +8,7 @@ class ContainerConfirmation extends \Eloquent {
 
 	protected $table = 'container_workorder';
 
-	protected $fillable = ['content', 'vehicle', 'lifter', 'confirmed', 'confirmed_by'];
+	protected $fillable = ['content', 'vehicle', 'lifter', 'confirmed', 'confirmed_by', 'confirmed_at'];
 
 	public function container()
 	{
@@ -25,12 +25,13 @@ class ContainerConfirmation extends \Eloquent {
 		return $this->belongsTo('User', 'confirmed_by');
 	}
 
-	public static function confirm($container_id, $confirmed, $confirmed_by)
+	public static function confirm($container_id, $confirmed, $confirmed_by, $confirmed_at)
 	{
 		$confirmation = static::where('container_id',$container_id)->where('confirmed', 0)->first();
 
         $confirmation->confirmed = $confirmed;
         $confirmation->confirmed_by = $confirmed_by;
+        $confirmation->confirmed_at = $confirmed_at;
 
 		//$confirmation->raise(new ContainerWasUpdated($container));
 

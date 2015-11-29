@@ -24,7 +24,7 @@
 				<i class="fa fa-angle-right"></i>
 			</li>
 			<li>
-				<a href="{{ route('manifest.schedule.import', $schedule->id ) }}"> {{ $schedule->vessel->name}} v.{{ $schedule->voyage_no_arrival }}</a>
+				<a href="{{ route('manifest.schedule.import', $schedule->id ) }}"> {{ $schedule->vessel->name}} v.{{ $schedule->voyage_no_arrival }} - Import</a>
 				<i class="fa fa-angle-right"></i>
 			</li>			
 			<li>
@@ -80,7 +80,15 @@
 							D/L #:
 						</div>
 						<div class="col-md-9 value">
-							{{ $importCargo->dl_no }}
+							@if($importCargo->status == 1)
+								<span class="font-red-thunderbird">Unable to issue DL until this cargo has confirmed received.</span>
+							@else
+								@if( $importCargo->dl_no == 0)
+									<span class="font-blue">DL not issue yet.</span>
+								@else
+									{{ $importCargo->dl_no }}
+								@endif								
+							@endif
 						</div>						
 					</div>
 

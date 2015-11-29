@@ -122,14 +122,7 @@ Route::get('/queue', function () {
 
 Route::get('/test', function () {
 
-    $results = DB::select('select * from containermovement where ctnmid > ? limit 100', array(165888));
-
-    foreach($results as $row) {
-        
-        // var_dump("$row");
-        var_dump($row->ctnmid . " | " . $row->ctnmctnno);
-
-    }
+    dd(date("Y-m-d H:i:s"));
 
 });
 
@@ -376,6 +369,16 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
         Route::post('schedule/{id}/import/cargoes/create', [
             'as' => 'manifest.schedule.import.cargoes.create',
             'uses' => 'VesselScheduleController@storeImportCargo',
+        ]);
+
+        Route::post('schedule/{id}/import/cargoes/delete', [
+            'as' => 'manifest.schedule.import.cargoes.delete',
+            'uses' => 'VesselScheduleController@deleteCargo',
+        ]);
+
+        Route::post('schedule/{id}/export/cargoes/delete', [
+            'as' => 'manifest.schedule.export.cargoes.delete',
+            'uses' => 'VesselScheduleController@deleteCargo',
         ]);
 
         Route::post('schedule/{id}/import/cargoes/{cargo_id}/containers/create', [
@@ -629,9 +632,24 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
                 'uses' => 'WorkOrderController@generate_handling',
             ]);
 
+            Route::get('{id}/generate/storage', [
+                'as' => 'workorders.generate.storage',
+                'uses' => 'WorkOrderController@generate_storage',
+            ]);
+
             Route::get('{id}/recalculate', [
                 'as' => 'workorders.recalculate',
                 'uses' => 'WorkOrderController@recalculate',
+            ]);
+
+            Route::get('{id}/recalculate_storage', [
+                'as' => 'workorders.recalculate.storage',
+                'uses' => 'WorkOrderController@recalculateStorage',
+            ]);
+
+            Route::post('{id}/finalize', [
+                'as' => 'workorders.finalize',
+                'uses' => 'WorkOrderController@finalize',
             ]);
 
             Route::post('{id}', [
@@ -662,7 +680,11 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
             Route::post('{workorder_id}/add', [
                 'as' => 'workorders.containers.add',
                 'uses' => 'WorkOrderController@addContainers',
-            ]);            
+            ]);   
+            Route::post('{workorder_id}/agent', [
+                'as' => 'workorders.agent',
+                'uses' => 'WorkOrderController@storeAgent',
+            ]);                     
         });
 
 /*

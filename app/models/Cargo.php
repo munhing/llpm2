@@ -50,6 +50,11 @@ class Cargo extends \Eloquent {
 		return $this->belongsToMany('Container', 'cargo_container', 'cargo_id', 'container_id')->withTimestamps();
 	}
 
+	public function cargoItems()
+	{
+		return $this->hasMany('CargoItem');
+	}
+
 	public function m_containers()
 	{
 		return $this->belongsToMany('Container', 'm_cargo_container', 'cargo_id', 'container_id')->withTimestamps();

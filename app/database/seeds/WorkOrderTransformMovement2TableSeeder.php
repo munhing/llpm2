@@ -44,8 +44,6 @@ class WorkOrderTransformMovement2TableSeeder extends Seeder
         $who_is_involved = [];
 
         $ccp = ContainerConfirmationProcess::where('movement', $movement)->first();
-        // dd($ccp->toArray());
-
 
         for($i=1;$i<=4;$i++) {
 

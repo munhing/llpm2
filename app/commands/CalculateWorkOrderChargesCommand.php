@@ -45,7 +45,8 @@ class CalculateWorkOrderChargesCommand extends ScheduledCommand {
 	 */
 	public function schedule(Schedulable $scheduler)
 	{
-		return $scheduler->everyMinutes(10);
+		// return $scheduler->everyMinutes(10);
+		return $scheduler->daily();
 	}
 
 	/**

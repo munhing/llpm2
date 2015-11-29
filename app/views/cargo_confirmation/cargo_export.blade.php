@@ -65,6 +65,7 @@
 							<td>
 								{{ $cargo->bl_no }}							
 							</td>
+
 							<td>{{ exportCargoStatusTranslator($cargo->status) }}</td>
 						</tr>
 						@endforeach

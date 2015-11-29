@@ -113,7 +113,7 @@
 									<th>MT</th>
 									<th>M3</th>
 									<th>Status</th>
-									<th></th>
+									<th>Action</th>
 								</tr>
 							</thead>							
 							<tbody>
@@ -128,7 +128,18 @@
 										<td>{{ $cargo->mt }}</td>
 										<td>{{ $cargo->m3 }}</td>
 										<td>{{ importCargoStatusTranslator($cargo->status) }}</td>
-										<td>{{ link_to_route('manifest.schedule.import.cargoes.edit', 'Edit', [$vesselSchedule->id, $cargo->id]) }}</td>
+										<td>
+											{{ Form::open(['route'=>['manifest.schedule.import.cargoes.delete', $cargo->import_vessel_schedule_id]]) }}
+											{{ Form::hidden('cargo_id', $cargo->id) }}
+
+											{{ HTML::decode(link_to_route('manifest.schedule.import.cargoes.edit', '<i class="fa fa-edit"></i>', [$vesselSchedule->id, $cargo->id], ['class'=>'btn btn-xs btn-info'])) }}
+											@if($cargo->status == 1)
+						                            <button class='btn btn-xs btn-danger' data-confirm>
+						                                <i class="fa fa-remove"></i>
+						                            </button>	
+												@endif											
+											{{ Form::close() }}
+										</td>
 									</tr>
 								<?php $i++; ?>
 								@endforeach

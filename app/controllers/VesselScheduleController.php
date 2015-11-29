@@ -14,6 +14,7 @@ use LLPM\Repositories\VesselScheduleRepository;
 use LLPM\Schedule\AddItemToCargoCommand;
 use LLPM\Schedule\AssociateContainersWithCargoCommand;
 use LLPM\Schedule\DeleteImportContainerCommand;
+use LLPM\Schedule\DeleteCargoCommand;
 use LLPM\Schedule\DetachContainerFromCargoCommand;
 use LLPM\Schedule\IssueExportCargoCommand;
 use LLPM\Schedule\IssueImportCargoCommand;
@@ -334,6 +335,24 @@ class VesselScheduleController extends \BaseController {
 		return View::make('schedule/edit_import_cargo', compact('schedule', 'portUsers', 'cargo', 'country'));
 	}	
 
+	public function deleteCargo($schedule_id)
+	{
+		$input = Input::all();
+
+		// dd($input);
+
+		$cargo = $this->execute(DeleteCargoCommand::class, $input);
+
+		if(! $cargo) {
+			Flash::error("There are items registered to this cargo. Kindly delete all items first before you can delete this cargo.");
+			return Redirect::back();
+		}
+
+		Flash::success("Cargo with B/L No: ".$cargo->bl_no." has been deleted!");
+
+		return Redirect::back();
+	}
+
 	public function editExportCargo($id, $cargo_id)
 	{
 		$schedule = $this->vesselScheduleRepository->getById($id);
@@ -372,11 +391,13 @@ class VesselScheduleController extends \BaseController {
 		$input = Input::all();
 		$input['export_vessel_schedule_id'] = $id;
 
+		$export_vessel_schedule_id = $id;
 		// dd($input);
 
 		//$input['containers'] = $this->filterContainers($input['containers'], 'L', 1);
 
-		$this->importCargoForm->validateUpdate($input, $cargo_id);
+		// $this->importCargoForm->validateUpdate($input, $cargo_id);
+		$this->importCargoForm->validateUpdate($input, $cargo_id, $export_vessel_schedule_id, 'export_vessel_schedule_id');
 
 		$cargo = $this->execute(UpdateExportCargoCommand::class, $input);
 

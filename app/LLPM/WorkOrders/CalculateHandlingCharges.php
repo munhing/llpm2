@@ -26,8 +26,8 @@ class CalculateHandlingCharges
 			return 0;
 		}
 
-		// get fees based on the workorder date
-		$this->fees = $this->getFees($workorder->date);
+		// get fees based on the workorder type and date
+		$this->fees = $this->getFees($workorder);
 
 		// dd($this->fees);
 		foreach($workorder->containers as $container) {
@@ -42,29 +42,26 @@ class CalculateHandlingCharges
 		// get handling fees
 		// $fees = $this->getFees();
 
-		if($container->size == 20) {
-			if($container->content == 'E') {
-				return $this->fees['20E'];
-			}
+		// the content should be based on the pivot table and not directly from the containers table
 
-			if($container->content == 'L') {
-				return $this->fees['20L'];
-			}
-		}
+		$size = (string)$container->size;
+		$sizeContent = $container->size . $container->pivot->content;
 
-		if($container->size == 40) {
-			if($container->content == 'E') {
-				return $this->fees['40E'];
-			}
-
-			if($container->content == 'L') {
-				return $this->fees['40L'];
-			}
+		// dd($size);
+		if(isset($this->fees[$size])) {
+			return $this->fees[$size];
+			// dd($this->fees[$size]);
+		} else {
+			return $this->fees[$sizeContent];
+			// dd($this->fees[$sizeContent]);
 		}
 	}
 
-	public function getFees($carbonDate)
+	public function getFees($workorder)
 	{
-		return json_decode($this->feeRepository->getHandlingFeeByDate($carbonDate), true); // arg true is to convert to array instead of object
+		// $handlingType = $this->feeRepository->getHandlingType($workorder->movement);
+
+		return json_decode($this->feeRepository->getHandlingFeeByDate($workorder->movement, $workorder->date), true); // arg true is to convert to array instead of object
 	}
+	
 }

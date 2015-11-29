@@ -53,6 +53,9 @@ License: You must have a valid license purchased only from themeforest(the above
         background-color:#337ab7;
         color: white;
     }
+    th {
+    	text-align: center;
+    }
 </style>
 <!-- END THEME STYLES -->
 <!-- <link rel="shortcut icon" href="favicon.ico"/> -->

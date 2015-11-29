@@ -34,6 +34,9 @@ class CalculateContainerDays
 
         $days['L'] = 0;
         $days['E'] = 0;
+
+
+
         $days['total'] = Carbon::createFromFormat('Y-m-d H', $valid_workorders[0]->pivot->updated_at->format('Y-m-d') . ' 0')->diffInDays() + 1;
 
         echo 'Valid Workorders: ' . "\n" . json_encode($valid_workorders) . "\n" . "\n";
@@ -60,9 +63,18 @@ class CalculateContainerDays
                 $content = 'L';
             }
 
+            $arr_movement = explode('-', $movement);
+            // dd($arr_movement[0]);
 
             if($i+1 == $total_workorders) {
-                $toDate = Carbon::now();
+                if($arr_movement[0] == 'HE' || $arr_movement[0] == 'RO'){
+                    $toDate = Carbon::createFromFormat('Y-m-d H', $valid_workorders[$i]->pivot->updated_at->format('Y-m-d') . ' 0');
+
+                    $days['total'] = Carbon::createFromFormat('Y-m-d H', $valid_workorders[0]->pivot->updated_at->format('Y-m-d') . ' 0')->diffInDays(Carbon::createFromFormat('Y-m-d H', $valid_workorders[$i]->pivot->updated_at->format('Y-m-d') . ' 0')) + 1;
+
+                } else {
+                    $toDate = Carbon::now();
+                } 
             } else {
                 $toDate = Carbon::createFromFormat('Y-m-d H', $valid_workorders[$i+1]->pivot->updated_at->format('Y-m-d') . ' 0');
             }

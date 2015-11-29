@@ -33,10 +33,8 @@ class CargoTableSeeder extends Seeder
 		// 	]);
 		// }
 	
-		// real data for Import Cargo
-		// $results = DB::select('select * from cargo where crgid > ?', array(133673));
-		// $results = DB::select('select * from cargo where crgid > ? limit 20000', array(119664));
-		$results = DB::select('select * from cargo where crgid > ? limit 20000', array(140090));
+		// real data for Import Cargo July 2015
+		$results = DB::select('select * from cargo where crgid > ? limit 20000', array(139522));
 
 		// dd(count($results));
 
