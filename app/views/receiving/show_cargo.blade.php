@@ -41,7 +41,7 @@
 
 					
 					<div class="actions">
-						@if($cargo->dl_no == 0 && $cargo->status == 2)
+						@if($cargo->dl_no == 0 && $cargo->status == 1)
                             
                             <button class='btn btn-sm btn-info' data-confirm>
                                 Issue DL
@@ -76,14 +76,10 @@
 							D/L #:
 						</div>
 						<div class="col-md-9 value">
-							@if( $cargo->status == 1)
-								<span class="font-red-thunderbird">Unable to issue DL until this cargo has confirmed received.</span>
+							@if( $cargo->dl_no == 0)
+								<span class="font-blue">DL not issue yet.</span>
 							@else
-								@if( $cargo->dl_no == 0)
-									<span class="font-blue">DL not issue yet.</span>
-								@else
-									{{ $cargo->dl_no }}
-								@endif
+								{{ $cargo->dl_no }}
 							@endif								
 						</div>						
 					</div>

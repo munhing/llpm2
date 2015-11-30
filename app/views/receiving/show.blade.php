@@ -118,7 +118,7 @@
 										<td>{{ listContainersInString($cargo->containers) }}</td>
 										<td>{{ $cargo->mt }}</td>
 										<td>{{ $cargo->m3 }}</td>
-										<td>{{ importCargoStatusTranslator($cargo->status) }}</td>
+										<td>{{ exportCargoStatusTranslator($cargo->status) }}</td>
 										<td>{{ link_to_route('receiving.cargo.edit', 'Edit', [$cargo->receiving_id, $cargo->id]) }}</td>										
 									</tr>
 								<?php $i++; ?>

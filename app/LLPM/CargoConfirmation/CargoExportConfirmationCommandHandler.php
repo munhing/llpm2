@@ -34,7 +34,7 @@ class CargoExportConfirmationCommandHandler implements CommandHandler {
     	{
     		$cargo = $this->cargoRepository->getById($cargo_id);
 
-    		if($cargo->status == 1) {
+    		if($cargo->status == 2) {
     			$column_by = 'received_by';
     			$column_date = 'received_date';
     		} elseif ($cargo->status == 3) {

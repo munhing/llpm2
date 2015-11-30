@@ -86,10 +86,10 @@ function exportCargoStatusTranslator($status)
 	        echo "<span class='badge badge-danger badge-roundless'>With Agent</span>";
 	        break;
 	    case "2":
-	        echo "<span class='badge badge-warning badge-roundless'>In the Port</span>";
+	        echo "<span class='badge badge-info badge-roundless'>DL Issued</span>";
 	        break;
 	    case "3":
-	        echo "<span class='badge badge-info badge-roundless'>DL Issued</span>";
+	        echo "<span class='badge badge-warning badge-roundless'>In the Port</span>";
 	        break;
 	    case "4":
 	        echo "<span class='badge badge-success badge-roundless'>Released</span>";
