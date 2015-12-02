@@ -64,6 +64,9 @@ class DatabaseSeeder extends Seeder {
         // $this->call('CargoTableSeeder');
         // $this->call('CargoExportTableSeeder');
         
+
+        $this->call('ChangeWorkorderNo');
+        
         // $this->call('ContainerConfirmationTableSeeder');	// Set the value for $import_vessel_schedule_id
 
 	}

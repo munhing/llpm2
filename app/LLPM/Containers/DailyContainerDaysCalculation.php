@@ -32,9 +32,9 @@ class DailyContainerDaysCalculation
     public function fire()
     {
         // 1. Obtain all active containers in the port, those with status 3
-        // $containers = $this->containerRepository->getAllActive();
+        $containers = $this->containerRepository->getAllActive();
         
-        $containers = $this->containerRepository->getSpecificContainer();
+        // $containers = $this->containerRepository->getSpecificContainer();
 
         // 2. Loop each container
         foreach($containers as $container) {
