@@ -198,6 +198,11 @@ class UsersController extends \BaseController {
 	public function getUsersByRole()
 	{
 		$role = Input::get('cp');
+
+		if($role == 'MG') {
+			$role = 'PB';
+		}
+
 		$users = $this->roleRepository->getByRole($role)->users;
 
 		return $users->toJson();
