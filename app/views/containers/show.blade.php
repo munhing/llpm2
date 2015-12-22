@@ -62,6 +62,7 @@
 					<tbody>
 						<?php $i=1; ?>
 						@foreach($container->workorders as $workorder)
+						<?php $confirmed_at = DateTime::createFromFormat('Y-m-d H:i:s', $workorder->pivot->confirmed_at); ?>
 						<tr>
 							<td>{{ $i }}</td>
 							<td>{{ $workorder->id }}</td>
@@ -69,7 +70,7 @@
 							<td>{{ $workorder->date->format('d/m/Y') }}</td>
 							<td>
 								@if($workorder->pivot->confirmed == 1)
-									{{ $workorder->pivot->updated_at->format('d/m/Y') }}
+									{{ $confirmed_at->format('d/m/Y H:i') }}
 								@endif
 							</td>
 							<td>

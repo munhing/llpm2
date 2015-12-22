@@ -262,7 +262,7 @@
 								<?php ?>
 								@foreach($workOrder->containers as $container)
 									@if($container->pivot->confirmed != 0)
-										<?php $confirmed_at = Datetime::createFromFormat('Y-m-d H:i:s', $container->pivot->confirmed_at)->format('d/m/y'); ?>
+										<?php $confirmed_at = Datetime::createFromFormat('Y-m-d H:i:s', $container->pivot->confirmed_at)->format('d/m/Y H:i'); ?>
 									@else
 										<?php $confirmed_at = ''; ?>
 									@endif

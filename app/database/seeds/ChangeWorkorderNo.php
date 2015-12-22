@@ -9,9 +9,9 @@ class ChangeWorkorderNo extends Seeder
 		// dd('Hello');
 		DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-		$w1 = 119806;
-		$w2 = 119805;
-		$temp = 111;
+		$w1 = 120098;
+		$w2 = 120096;
+		// $temp = 111;
 
 		// change the workorder id that you want to a temporary small number
 
@@ -20,6 +20,7 @@ class ChangeWorkorderNo extends Seeder
 		// *******************************************
 		
 		// change the container_workorder first
+/*
 		$tempNo = WorkOrder::find($w2);
 		var_dump($tempNo->id);
 		foreach($tempNo->containers as $container) {
@@ -48,7 +49,7 @@ class ChangeWorkorderNo extends Seeder
 
 		$tempNo->id = $temp;
 		$tempNo->save();
-
+*/
 		// *******************************************
 		// Change w1 to w2
 		// *******************************************
@@ -86,7 +87,7 @@ class ChangeWorkorderNo extends Seeder
 		// *******************************************
 		// Change temp to w1
 		// *******************************************
-		
+/*		
 		$workorder2 = WorkOrder::find($temp);
 		var_dump($workorder2->id);
 
@@ -116,7 +117,7 @@ class ChangeWorkorderNo extends Seeder
 
 		$workorder2->id = $w1;
 		$workorder2->save();
-
+*/
 		DB::statement('SET FOREIGN_KEY_CHECKS=1;');		
 
 	}
