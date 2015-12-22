@@ -35,7 +35,7 @@ class VesselScheduleRepository {
 	{
 		return VesselSchedule::selectRaw('vessel_schedule.*, vessels.name')
 				->join('vessels', 'vessel_schedule.vessel_id', '=', 'vessels.id')
-				->whereRaw("(`etd`) >= NOW()")
+				->whereRaw("(`etd`) >= (NOW() - INTERVAL 1 DAY)")
 				->orderBy('vessels.name')
 				->get();
 	}

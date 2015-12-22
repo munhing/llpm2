@@ -294,7 +294,7 @@ class ReceivingController extends \BaseController {
 	}
 	public function createCargo()
 	{
-		$schedule = [null => "Choose a vessel"] + $this->vesselScheduleRepository->getActiveSchedule()->lists('name', 'id');
+		$schedule = [null => "Choose a vessel"] + $this->vesselScheduleRepository->getActiveSchedule()->lists('vessel_voyage', 'id');
 		$portUsers = $this->portUserRepository->getAll()->lists('name', 'id');
 		return View::make('receiving/create_cargo', compact('portUsers', 'schedule'));
 	}

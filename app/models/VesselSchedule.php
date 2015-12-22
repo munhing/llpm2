@@ -44,6 +44,16 @@ class VesselSchedule extends \Eloquent {
 		return $this->hasMany('Cargo', 'export_vessel_schedule_id');
 	}
 
+        public function getVesselVoyageAttribute()
+        {
+                return $this->vessel->name . " V." . $this->voyage_no_arrival . " | " . $this->voyage_no_departure;
+        }
+
+        public function getVesselVoyageExportAttribute()
+        {
+                return $this->vessel->name . " V." . $this->voyage_no_departure;
+        }
+
 	public static function register($registered_vessel_id, $vessel_id, $voyage_no_arrival, $portuser_id, $eta, $etd)
 	{
 		$vesselSchedule = new static(compact('registered_vessel_id', 'vessel_id', 'voyage_no_arrival', 'portuser_id', 'eta', 'etd'));
