@@ -20,6 +20,13 @@ class Container extends \Eloquent {
 		});
 	}
 
+	public function newPivot(Eloquent $parent, array $attributes, $table, $exists)
+	{
+	    if ($parent instanceof WorkOrder) return new ContainerWorkorderPivot($parent, $attributes, $table, $exists);
+
+	    return parent::newPivot($parent, $attributes, $table, $exists);
+	}
+
 	public function import_schedule()
 	{
 		return $this->belongsTo('VesselSchedule', 'import_vessel_schedule_id');

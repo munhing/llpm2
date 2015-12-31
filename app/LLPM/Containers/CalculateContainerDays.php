@@ -36,8 +36,12 @@ class CalculateContainerDays
         $days['E'] = 0;
 
 
-
-        $days['total'] = Carbon::createFromFormat('Y-m-d H', $valid_workorders[0]->pivot->updated_at->format('Y-m-d') . ' 0')->diffInDays() + 1;
+        // If container not confirmed, get date from the creation of the workorder
+        if($valid_workorders[0]->pivot->confirmed_at != '0000-00-00 00:00:00') {
+            $days['total'] = Carbon::createFromFormat('Y-m-d H', $valid_workorders[0]->pivot->confirmed_at->format('Y-m-d') . ' 0')->diffInDays() + 1;
+        } else {
+            $days['total'] = Carbon::createFromFormat('Y-m-d H', $valid_workorders[0]->date->format('Y-m-d') . ' 0')->diffInDays() + 1;
+        }
 
         echo 'Valid Workorders: ' . "\n" . json_encode($valid_workorders) . "\n" . "\n";
         echo 'Total Workorders: ' . json_encode($total_workorders) . "\n" . "\n";
@@ -49,7 +53,11 @@ class CalculateContainerDays
 
             // reason for creating a new carbon so that it will capture the date and not the time.
             // Carbon diffInDays() compute 0 if less than 24 hours
-            $fromDate = Carbon::createFromFormat('Y-m-d H', $valid_workorders[$i]->pivot->updated_at->format('Y-m-d') . ' 0');
+            if($valid_workorders[$i]->pivot->confirmed_at != '0000-00-00 00:00:00') {
+                $fromDate = Carbon::createFromFormat('Y-m-d H', $valid_workorders[$i]->pivot->confirmed_at->format('Y-m-d') . ' 0');
+            } else {
+                $fromDate = Carbon::createFromFormat('Y-m-d H', $valid_workorders[$i]->date->format('Y-m-d') . ' 0');
+            }
 
             // dd($fromDate);
 
@@ -68,15 +76,35 @@ class CalculateContainerDays
 
             if($i+1 == $total_workorders) {
                 if($arr_movement[0] == 'HE' || $arr_movement[0] == 'RO'){
-                    $toDate = Carbon::createFromFormat('Y-m-d H', $valid_workorders[$i]->pivot->updated_at->format('Y-m-d') . ' 0');
+                    if($valid_workorders[$i]->pivot->confirmed_at != '0000-00-00 00:00:00') {
+                        $toDate = Carbon::createFromFormat('Y-m-d H', $valid_workorders[$i]->pivot->confirmed_at->format('Y-m-d') . ' 0');
+                    } else {
+                        $toDate = Carbon::createFromFormat('Y-m-d H', $valid_workorders[$i]->date->format('Y-m-d') . ' 0');
+                    }
 
-                    $days['total'] = Carbon::createFromFormat('Y-m-d H', $valid_workorders[0]->pivot->updated_at->format('Y-m-d') . ' 0')->diffInDays(Carbon::createFromFormat('Y-m-d H', $valid_workorders[$i]->pivot->updated_at->format('Y-m-d') . ' 0')) + 1;
+                    if($valid_workorders[0]->pivot->confirmed_at != '0000-00-00 00:00:00') {
+                        if($valid_workorders[$i]->pivot->confirmed_at != '0000-00-00 00:00:00') {
+                            $days['total'] = Carbon::createFromFormat('Y-m-d H', $valid_workorders[0]->pivot->confirmed_at->format('Y-m-d') . ' 0')->diffInDays(Carbon::createFromFormat('Y-m-d H', $valid_workorders[$i]->pivot->updated_at->format('Y-m-d') . ' 0')) + 1;
+                        }else {
+                            $days['total'] = Carbon::createFromFormat('Y-m-d H', $valid_workorders[0]->pivot->confirmed_at->format('Y-m-d') . ' 0')->diffInDays(Carbon::createFromFormat('Y-m-d H', $valid_workorders[$i]->date->format('Y-m-d') . ' 0')) + 1;
+                        }
+                    } else {
+                        if($valid_workorders[$i]->pivot->confirmed_at != '0000-00-00 00:00:00') {
+                            $days['total'] = Carbon::createFromFormat('Y-m-d H', $valid_workorders[0]->date->format('Y-m-d') . ' 0')->diffInDays(Carbon::createFromFormat('Y-m-d H', $valid_workorders[$i]->pivot->updated_at->format('Y-m-d') . ' 0')) + 1;
+                        } else {
+                            $days['total'] = Carbon::createFromFormat('Y-m-d H', $valid_workorders[0]->date->format('Y-m-d') . ' 0')->diffInDays(Carbon::createFromFormat('Y-m-d H', $valid_workorders[$i]->date->format('Y-m-d') . ' 0')) + 1;
+                        }
+                    }
 
                 } else {
                     $toDate = Carbon::now();
                 } 
             } else {
-                $toDate = Carbon::createFromFormat('Y-m-d H', $valid_workorders[$i+1]->pivot->updated_at->format('Y-m-d') . ' 0');
+                if($valid_workorders[$i+1]->pivot->confirmed_at != '0000-00-00 00:00:00') {
+                    $toDate = Carbon::createFromFormat('Y-m-d H', $valid_workorders[$i+1]->pivot->confirmed_at->format('Y-m-d') . ' 0');
+                } else {
+                    $toDate = Carbon::createFromFormat('Y-m-d H', $valid_workorders[$i+1]->date>format('Y-m-d') . ' 0');
+                }
             }
 
             $diffDays = $fromDate->diffInDays($toDate);

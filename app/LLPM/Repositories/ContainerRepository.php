@@ -21,10 +21,10 @@ class ContainerRepository {
 				->get();
 	}
 
-	public function getSpecificContainer()
+	public function getSpecificContainer($container_id)
 	{
 		return Container::with('workorders')
-				->where('id', 177613)
+				->where('id', $container_id)
 				->get();
 	}
 

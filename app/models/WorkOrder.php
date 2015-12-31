@@ -14,6 +14,13 @@ class WorkOrder extends \Eloquent {
 
 	protected $dates = array('date');
 
+	public function newPivot(Eloquent $parent, array $attributes, $table, $exists)
+	{
+	    if ($parent instanceof Container) return new ContainerWorkorderPivot($parent, $attributes, $table, $exists);
+
+	    return parent::newPivot($parent, $attributes, $table, $exists);
+	}
+
 	public function containers()
 	{
 		return $this->belongsToMany('Container', 'container_workorder', 'workorder_id', 'container_id')->withTimestamps()->withPivot('movement', 'content', 'vehicle', 'lifter', 'confirmed', 'confirmed_by', 'confirmed_at', 'updated_at');;
