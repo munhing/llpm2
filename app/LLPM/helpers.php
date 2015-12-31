@@ -78,6 +78,61 @@ function importCargoStatusTranslator($status)
 
 }
 
+function cargoStatusTranslator($status, $import_vessel_schedule_id)
+{
+
+	if ($import_vessel_schedule_id != 0) {
+
+		switch ($status) {
+		    case "1":
+		        echo "<span class='badge badge-danger badge-roundless'>Onboard</span>";
+		        break;
+		    case "2":
+		        echo "<span class='badge badge-warning badge-roundless'>Received</span>";
+		        break;
+		    case "3":
+		        echo "<span class='badge badge-info badge-roundless'>DL Issued</span>";
+		        break;
+		    case "4":
+		        echo "<span class='badge badge-success badge-roundless'>Released</span>";
+		        break;	        
+		    default:
+		        break;
+		}
+
+	}
+
+	if ($import_vessel_schedule_id == 0) {
+
+		switch ($status) {
+		    case "1":
+		        echo "<span class='badge badge-danger badge-roundless'>With Agent</span>";
+		        break;
+		    case "2":
+		        echo "<span class='badge badge-warning badge-roundless'>DL Issued</span>";
+		        break;
+		    case "3":
+		        echo "<span class='badge badge-info badge-roundless'>In the Port</span>";
+		        break;
+		    case "4":
+		        echo "<span class='badge badge-success badge-roundless'>Released</span>";
+		        break;	        
+		    default:
+		        break;
+		}
+			
+	}
+}
+
+function cargoMovementTranslator($import_vessel_schedule_id)
+{
+	if ($import_vessel_schedule_id == 0) {
+		return "<span class='badge badge-warning badge-roundless'>Export</span>";
+	}
+
+	return "<span class='badge badge-success badge-roundless'>Import</span>";
+}
+
 function exportCargoStatusTranslator($status)
 {
 

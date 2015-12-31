@@ -50,6 +50,10 @@
 							<th></th>
 							<th>BL #</th>
 							<th>Vessel</th>
+							<th>Consignee</th>
+							<th>MT</th>
+							<th>M3</th>
+							<th>Description</th>
 							<th>Status</th>
 						</tr>
 					</thead>
@@ -66,8 +70,12 @@
 							<td>
 								{{ $cargo->bl_no }}							
 							</td>
-							<td>{{ $cargo->importSchedule->vessel->name . 'v.' . $cargo->importSchedule->voyage_no_arrival }}</td>
-							<td>{{ importCargoStatusTranslator($cargo->status) }}</td>
+							<td>{{ $cargo->vessel_schedule_import }}</td>
+							<td>{{ $cargo->consignee_name }}</td>
+							<td>{{ $cargo->mt }}</td>
+							<td>{{ $cargo->m3 }}</td>
+							<td>{{ $cargo->desciption }}</td>
+							<td>{{ cargoStatusTranslator($cargo->status, $cargo->import_vessel_schedule_id) }}</td>
 						</tr>
 						@endforeach
 					</tbody>

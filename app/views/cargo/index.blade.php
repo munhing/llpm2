@@ -49,38 +49,53 @@
 						<tr>
 							<th></th>
 							<th>BL #</th>
+							<th>Vessel</th>
+							<th>Consignee / Shipper</th>
 							<th>MT</th>
 							<th>M3</th>
+							<th>Description</th>
 							<th>Status</th>
 							<th>Container(s)</th>
 						</tr>
 					</thead>
 					<tbody>
+						<?php $count = 1;?>
 						@foreach($cargoes as $cargo)
 						<tr>
 							<td>
-
+								{{ $count }}
 							</td>
 							<td>
-								{{ $cargo->bl_no }}							
+								{{ cargoMovementTranslator($cargo->import_vessel_schedule_id) }} {{ $cargo->bl_no }}	
+							</td>
+							<td>
+								@if($cargo->import_vessel_schedule_id == 0)
+									{{ $cargo->vessel_schedule_export }}
+								@else
+									{{ $cargo->vessel_schedule_import }}
+								@endif
+							</td>
+							<td>
+								@if($cargo->import_vessel_schedule_id == 0)
+									{{ $cargo->shipper_name }}
+								@else
+									{{ $cargo->consignee_name }}
+								@endif								
 							</td>
 							<td>{{ $cargo->mt }}</td>
 							<td>{{ $cargo->m3 }}</td>
-							<td>{{ importCargoStatusTranslator($cargo->status) }}</td>
+							<td>{{ $cargo->description }}</td>
+							<td>{{ cargoStatusTranslator($cargo->status, $cargo->import_vessel_schedule_id) }}</td>
 							<td>
 								@foreach($cargo->containers as $ctn)
 									{{ $ctn->container_no }}
 								@endforeach
 							</td>
 						</tr>
+						<?php $count++; ?>
 						@endforeach
 					</tbody>
 				</table>
-
-                <button class='btn btn-sm blue' type='button' data-toggle="modal" data-target="#myModal" data-title="Cargo Confirmation" data-body="Confirm this cargo?">
-                    Confirm <i class="m-icon-swapright m-icon-white"></i>
-                </button>											
-
 
 			{{ Form::close() }}
 

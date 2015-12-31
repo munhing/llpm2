@@ -32,9 +32,10 @@ class CargoRepository {
 				->get();
 	}
 
-	public function getExportLooseCargoWithStatus1And3()
+	public function getExportLooseCargoWithStatus2And3()
 	{
-		return Cargo::where('containerized', 0)
+		return Cargo::with('exportSchedule')
+				->where('containerized', 0)
 				->whereIn('status', [2,3])
 				->where('export_vessel_schedule_id', '!=' , 0)
 				->orderBy('bl_no')

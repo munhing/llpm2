@@ -25,6 +25,13 @@ class CargoConfirmationController extends \BaseController {
 
 		$cargoes = $this->cargoRepository->getImportLooseCargoWithStatus1And3();
 
+        // foreach($cargoes as $crg) {
+
+        //     var_dump($crg->importSchedule->vessel);
+        // }
+
+        // die();
+
 		return View::make('cargo_confirmation/index', compact('cargoes'));		
 	}
 
@@ -32,7 +39,16 @@ class CargoConfirmationController extends \BaseController {
 	public function indexExport()
 	{
 		// return "CargoConfiration";
-		$cargoes = $this->cargoRepository->getExportLooseCargoWithStatus1And3();
+		$cargoes = $this->cargoRepository->getExportLooseCargoWithStatus2And3();
+
+        // foreach($cargoes as $crg) {
+
+        //     var_dump(DB::getQueryLog());
+        //     var_dump($crg->exportSchedule);
+        // }
+
+
+        // die();
 
 		return View::make('cargo_confirmation/cargo_export', compact('cargoes'));		
 	}

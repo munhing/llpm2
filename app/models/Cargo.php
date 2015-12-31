@@ -69,6 +69,42 @@ class Cargo extends \Eloquent {
 		return $importCargo;
 	}	
 
+    public function getVesselScheduleImportAttribute()
+    {
+    	if(is_null($this->importSchedule)) {
+    		return '';
+    	}
+
+        return $this->importSchedule->vessel->name . " V." . $this->importSchedule->voyage_no_arrival;
+    }
+
+    public function getVesselScheduleExportAttribute()
+    {
+    	if(is_null($this->exportSchedule)) {
+    		return '';
+    	}
+
+        return $this->exportSchedule->vessel->name . " V." . $this->exportSchedule->voyage_no_departure;
+    }
+
+    public function getConsigneeNameAttribute()
+    {
+    	if(is_null($this->consignee)) {
+    		return '';
+    	}
+
+        return $this->consignee->name;
+    }
+
+    public function getShipperNameAttribute()
+    {
+    	if(is_null($this->consignor)) {
+    		return '';
+    	}
+
+        return $this->consignor->name;
+    }
+
 	public static function registerExport($bl_no, $consignor_id, $consignee_id, $mt, $m3, $status, $description, $markings, $export_vessel_schedule_id, $receiving_id)
 	{
 		$exportCargo = new static(compact('bl_no', 'consignor_id', 'consignee_id', 'mt', 'm3', 'status', 'description', 'markings', 'export_vessel_schedule_id', 'receiving_id'));

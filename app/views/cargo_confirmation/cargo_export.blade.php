@@ -49,6 +49,11 @@
 						<tr>
 							<th></th>
 							<th>BL #</th>
+							<th>Vessel</th>
+							<th>Shipper</th>
+							<th>MT</th>
+							<th>M3</th>
+							<th>Description</th>
 							<th>Status</th>
 						</tr>
 					</thead>
@@ -66,6 +71,11 @@
 								{{ $cargo->bl_no }}							
 							</td>
 
+							<td>{{ $cargo->vessel_schedule_export }}</td>
+							<td>{{ $cargo->shipper_name }}</td>
+							<td>{{ $cargo->mt }}</td>
+							<td>{{ $cargo->m3 }}</td>
+							<td>{{ $cargo->description }}</td>
 							<td>{{ exportCargoStatusTranslator($cargo->status) }}</td>
 						</tr>
 						@endforeach
