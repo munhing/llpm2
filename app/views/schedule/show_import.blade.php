@@ -109,6 +109,7 @@
 									<th>B/L #</th>
 									<th>Consignor</th>
 									<th>Consignee</th>
+									<th>Description</th>
 									<th>Containers</th>
 									<th>MT</th>
 									<th>M3</th>
@@ -124,6 +125,7 @@
 										<td>{{ link_to_route('manifest.schedule.import.cargoes.show', $cargo->bl_no, [$cargo->import_vessel_schedule_id, $cargo->id]) }}</td>
 										<td>{{ $cargo->consignor->name }}</td>
 										<td>{{ $cargo->consignee->name }}</td>
+										<td>{{ $cargo->description }}</td>
 										<td>{{ listContainersInString($cargo->m_containers) }}</td>
 										<td>{{ $cargo->mt }}</td>
 										<td>{{ $cargo->m3 }}</td>

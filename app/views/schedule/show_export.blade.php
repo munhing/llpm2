@@ -92,6 +92,7 @@
 									<th>B/L #</th>
 									<th>Consignor</th>
 									<th>Consignee</th>
+									<th>Description</th>
 									<th>Containers</th>
 									<th>MT</th>
 									<th>M3</th>
@@ -115,6 +116,7 @@
 											{{ $cargo->consignee->name }}
 											@endif
 										</td>
+										<td>{{ $cargo->description }}</td>
 										<td>{{ listContainersInString($cargo->containers) }}</td>
 										<td>{{ $cargo->mt }}</td>
 										<td>{{ $cargo->m3 }}</td>
