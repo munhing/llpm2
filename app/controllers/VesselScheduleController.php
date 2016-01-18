@@ -160,6 +160,8 @@ class VesselScheduleController extends \BaseController {
 		//dd($vesselSchedule->id);
 		$vessels = $this->vesselRepository->getAll()->lists('name', 'id');
 		$portUsers = $this->portUserRepository->getAll()->lists('name', 'id');
+
+		// dd($portUsers);
 		return View::make('schedule/edit', compact('vesselSchedule', 'vessels', 'portUsers'));
 	}
 

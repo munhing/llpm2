@@ -39,7 +39,6 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="col-md-6">
 				<div class="form-group">
 					{{ Form::label('portuser_id', 'Agent', ['class' => 'control-label']) }}

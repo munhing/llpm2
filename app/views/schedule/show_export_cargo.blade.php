@@ -45,7 +45,7 @@
 
 					
 					<div class="actions">
-						@if($cargo->dl_no == 0 && $cargo->status == 2)
+						@if($cargo->dl_no == 0 && $cargo->status == 1)
                             
                             <button class='btn btn-sm btn-info' data-confirm>
                                 Issue DL
@@ -80,14 +80,10 @@
 							D/L #:
 						</div>
 						<div class="col-md-9 value">
-							@if( $cargo->status == 1)
-								<span class="font-red-thunderbird">Unable to issue DL until this cargo has confirmed received.</span>
+							@if( $cargo->dl_no == 0)
+								<span class="font-blue">DL not issue yet.</span>
 							@else
-								@if( $cargo->dl_no == 0)
-									<span class="font-blue">DL not issue yet.</span>
-								@else
-									{{ $cargo->dl_no }}
-								@endif
+								{{ $cargo->dl_no }}
 							@endif							
 						</div>						
 					</div>
@@ -177,7 +173,45 @@
 		</div>
 		{{ Form::close() }}
 
-		
+		{{ Form::open(['route'=>['receiving.cargo.containers.create', $cargo->receiving_id, $cargo->id], 'id'=>'form_add_containers']) }}
+
+		<div id="myModal_autocomplete" class="modal fade" role="dialog" aria-hidden="true" data-backdrop="static">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						<h4 class="modal-title">Add Containers</h4>
+					</div>
+					<div class="modal-body form">
+						
+						
+						<div class="form-horizontal form-row-seperated">
+							<div class="form-group">
+								<div class="col-sm-12">
+									<div class="input-group">
+										<span class="input-group-addon">
+										<i class="fa fa-user"></i>
+										</span>
+										{{ Form::textarea('containers', null, ['class' => 'form-control placeholder-no-fix', 'autocomplete' => 'off', 'placeholder' => 'Containers', 'rows' => '3', 'id' => 'containers']) }}
+									</div>
+									<p class="help-block">
+										E.g: PCIU1112223-20, TCIU4443332-40
+									</p>
+								</div>
+							</div>
+						</div>	
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<input type="submit" class="btn btn-primary" id="but_add_container" data-confirm>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{{ Form::close() }}
+				
 		<div class="col-md-4">
 			<!-- BEGIN Portlet PORTLET-->
 			<div class="portlet box red">

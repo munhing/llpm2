@@ -97,6 +97,7 @@ class ContainerRepository {
 
 	public function getForStatus($status, $location = 0)
 	{
+		// For Transfer
 		if($location != 0) {
 			return Container::where('status', $status)
 					->where('current_movement', 0)
@@ -105,8 +106,10 @@ class ContainerRepository {
 					->get();
 		}
 		
+		// For Remove In
 		return Container::where('status', $status)
 				->where('current_movement', 0)
+				->where('dl_check', 0)
 				->orderBy('container_no')
 				->get();
 	}
