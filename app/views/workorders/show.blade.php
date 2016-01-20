@@ -70,54 +70,56 @@
 				</div>
 				<div class="portlet-body">
 					<div class="row static-info">
-						<div class="col-md-3 name name">
+						<div class="col-md-4 name name">
 							Work Order #:
 						</div>
-						<div class="col-md-9 name value">
+						<div class="col-md-8 name value">
 							{{ $workOrder->id }}
 						</div>						
 					</div>
 
 					<div class="row static-info">
-						<div class="col-md-3 name">
+						<div class="col-md-4 name">
 							Nature of Work:
 						</div>
-						<div class="col-md-9 value">
+						<div class="col-md-8 value">
 							{{ $workOrder->movement }}
 						</div>						
 					</div>
 
 					<div class="row static-info">
-						<div class="col-md-3 name">
+						<div class="col-md-4 name">
 							Date:
 						</div>
-						<div class="col-md-9 value">
+						<div class="col-md-8 value">
 							{{ $workOrder->date->format('d/m/Y') }}
 						</div>						
 					</div>
 
 					<div class="row static-info">
-						<div class="col-md-3 name">
+						<div class="col-md-4 name">
 							Handler:
 						</div>
-						<div class="col-md-9 value">
-							{{ $workOrder->handler->name }}
+						<div class="col-md-8 value">
+							@if(!is_null($workOrder->handler))
+								{{ $workOrder->handler->name }}
+							@endif						
 						</div>						
 					</div>
 
 					<div class="row static-info">
-						<div class="col-md-3 name">
+						<div class="col-md-4 name">
 							Carrier:
 						</div>
-						<div class="col-md-9 value">
+						<div class="col-md-8 value">
 							{{ $workOrder->getCarrier() }}
 						</div>						
 					</div>
 					<div class="row static-info">
-						<div class="col-md-3 name">
+						<div class="col-md-4 name">
 							Storage Charges:
 						</div>
-						<div class="col-md-9 value">
+						<div class="col-md-8 value">
 							@if(! ($movement[0] == 'HE' || $movement[0] == 'RO'))
 								Nil
 							@else
@@ -143,10 +145,10 @@
 						</div>						
 					</div>
 					<div class="row static-info">
-						<div class="col-md-3 name">
+						<div class="col-md-4 name">
 							Handling Charges:
 						</div>
-						<div class="col-md-9 value">
+						<div class="col-md-8 value">
 							{{ number_format($workOrder->handling_charges, 2) }}
 							<a href="{{ URL::route('workorders.generate.handling', $workOrder->id) }}" class="btn btn-default btn-sm" target="_blank">
 								Details
@@ -155,7 +157,17 @@
 								<i class="fa fa-calculator"></i> Recalculate
 							</a>							
 						</div>						
-					</div>					
+					</div>	
+					<div class="row static-info">
+						<div class="col-md-4 name">
+							Issued by:
+						</div>
+						<div class="col-md-8 value">
+							@if(!is_null($workOrder->user))
+								{{ $workOrder->user->name }}
+							@endif
+						</div>						
+					</div>									
 				</div>
 			</div>
 		</div>

@@ -59,6 +59,7 @@
 				<th>Carrier</th>	
 				<th>Storage</th>	
 				<th>Handling</th>	
+				<th>Issued By</th>	
 				<th>Action</th>	
 			</tr>
 		</thead>
@@ -71,6 +72,11 @@
 					<td>{{ $workorder->getCarrier() }}</td>								
 					<td align="right">{{ number_format($workorder->storage_charges, 2) }}</td>
 					<td align="right">{{ number_format($workorder->handling_charges, 2) }}</td>
+					<td>
+						@if(!is_null($workorder->user))
+							{{ $workorder->user->name }}
+						@endif
+					</td>
 					<td></td>										
 				</tr>
 			@endforeach

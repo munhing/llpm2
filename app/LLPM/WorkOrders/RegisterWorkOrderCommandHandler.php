@@ -10,6 +10,7 @@ use LLPM\Repositories\ContainerConfirmationProcessRepository;
 use WorkOrder;
 use App;
 use Activity;
+use Auth;
 use LLPM\WorkOrders\AttachedContainersToWorkOrderCommandHandler;
 use LLPM\WorkOrders\CalculateChargesByWorkOrder;
 
@@ -83,7 +84,8 @@ class RegisterWorkOrderCommandHandler implements CommandHandler {
             $vessel_schedule_id,
             $container_location,
             $container_status,
-            $who_is_involved
+            $who_is_involved,
+            Auth::user()->id
         );
 
         //dd($workOrder->toArray());

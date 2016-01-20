@@ -10,7 +10,7 @@ class WorkOrder extends \Eloquent {
 
 	protected $table = 'workorders';
 
-	protected $fillable = ['movement', 'date', 'carrier_id', 'handler_id', 'agent_id', 'vessel_schedule_id', 'container_location', 'container_status', 'who_is_involved'];
+	protected $fillable = ['movement', 'date', 'carrier_id', 'handler_id', 'agent_id', 'vessel_schedule_id', 'container_location', 'container_status', 'who_is_involved', 'created_by'];
 
 	protected $dates = array('date');
 
@@ -47,6 +47,11 @@ class WorkOrder extends \Eloquent {
 		return $this->belongsTo('VesselSchedule', 'vessel_schedule_id');
 	}
 
+	public function user()
+	{
+		return $this->belongsTo('User', 'created_by');
+	}
+
 	public function getCarrier()
 	{
 		if ($this->movement == 'HI')
@@ -62,9 +67,9 @@ class WorkOrder extends \Eloquent {
 		return $this->carrier->name;
 	}
 
-	public static function register($movement, $date, $carrier_id, $handler_id, $vessel_schedule_id, $container_location, $container_status, $who_is_involved)
+	public static function register($movement, $date, $carrier_id, $handler_id, $vessel_schedule_id, $container_location, $container_status, $who_is_involved, $created_by)
 	{
-		$workorder = new static(compact('movement', 'date', 'carrier_id', 'handler_id', 'vessel_schedule_id', 'container_location', 'container_status', 'who_is_involved'));
+		$workorder = new static(compact('movement', 'date', 'carrier_id', 'handler_id', 'vessel_schedule_id', 'container_location', 'container_status', 'who_is_involved', 'created_by'));
 
 		//$workorder->raise(new WorkOrderWasRegistered($workorder));
 
