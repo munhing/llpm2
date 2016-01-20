@@ -51,7 +51,7 @@ class UpdateFeeCommandHandler implements CommandHandler {
         $feeSetting = Fee::edit(
             $command->fee_id,
             $fee,
-            $effective_date
+            convertToMySQLDate($effective_date)
         );
 
         $this->feeRepository->save($feeSetting);

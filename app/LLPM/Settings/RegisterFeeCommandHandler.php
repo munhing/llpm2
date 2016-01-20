@@ -56,7 +56,7 @@ class RegisterFeeCommandHandler implements CommandHandler {
             $command->fee_type,
             $movement,
             $fee,
-            $effective_date
+            convertToMySQLDate($effective_date)
         );
 
         $this->feeRepository->save($feeSetting);

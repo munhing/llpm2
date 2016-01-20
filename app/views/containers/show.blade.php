@@ -75,7 +75,7 @@
 							</td>
 							<td>
 								@if($workorder->pivot->confirmed == 1)
-									{{ $workorder->pivot->confirmed_by }}
+									{{ $workorder->users_name }}
 								@endif
 							</td>
 						</tr>

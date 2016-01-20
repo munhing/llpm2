@@ -34,7 +34,7 @@
             <div class="portlet-title">
                 <div class="caption font-green-sharp">
                     <i class="fa fa-dollar font-green-sharp"></i>
-                    <span class="caption-subject bold uppercase"> Haulage Fee</span>
+                    <span class="caption-subject bold uppercase"> Haulage Fee (HI/HE)</span>
                     <span class="caption-helper">setting</span>
                 </div>
                 <div class="actions">
@@ -67,7 +67,7 @@
                             <td align="right">{{ number_format($fee['20L'], 2) }}</td>
                             <td align="right">{{ number_format($fee['40E'], 2) }}</td>                             
                             <td align="right">{{ number_format($fee['40L'], 2) }}</td>
-                            <td align="center">{{ $haulageFee->effective_date->format('Y-m-d') }}</td>
+                            <td align="center">{{ $haulageFee->effective_date->format('d/m/Y') }}</td>
                             <td align="center">
                                 <button class='btn btn-default btn-xs' type='button' data-toggle="modal" data-target="#myModal_feeTemplate1" data-title="Update Haulage Fee" data-action="update" data-fee-type="haulage" data-fee-id="{{$haulageFee->id}}" data-e20="{{$fee['20E']}}" data-l20="{{$fee['20L']}}" data-e40="{{$fee['40E']}}" data-l40="{{$fee['40L']}}" data-effective-date="{{$haulageFee->effective_date->format('Y-m-d')}}">
                                     <i class="fa fa-pencil"></i> Edit 
@@ -87,7 +87,7 @@
             <div class="portlet-title">
                 <div class="caption font-green-sharp">
                     <i class="fa fa-dollar font-green-sharp"></i>
-                    <span class="caption-subject bold uppercase"> Lifting Fee</span>
+                    <span class="caption-subject bold uppercase"> Lifting Fee (RI/RO)</span>
                     <span class="caption-helper">setting</span>
                 </div>
                 <div class="actions">
@@ -120,7 +120,7 @@
                             <td align="right">{{ number_format($fee['20L'], 2) }}</td>
                             <td align="right">{{ number_format($fee['40E'], 2) }}</td>                             
                             <td align="right">{{ number_format($fee['40L'], 2) }}</td>
-                            <td align="center">{{ $liftingFee->effective_date->format('Y-m-d') }}</td>
+                            <td align="center">{{ $liftingFee->effective_date->format('d/m/Y') }}</td>
                             <td align="center">
                                 <button class='btn btn-default btn-xs' type='button' data-toggle="modal" data-target="#myModal_feeTemplate1" data-title="Update lifting Fee" data-action="update" data-fee-type="lifting" data-fee-id="{{$liftingFee->id}}" data-e20="{{$fee['20E']}}" data-l20="{{$fee['20L']}}" data-e40="{{$fee['40E']}}" data-l40="{{$fee['40L']}}" data-effective-date="{{$liftingFee->effective_date->format('Y-m-d')}}">
                                     <i class="fa fa-pencil"></i> Edit 
@@ -143,7 +143,7 @@
             <div class="portlet-title">
                 <div class="caption font-green-sharp">
                     <i class="fa fa-dollar font-green-sharp"></i>
-                    <span class="caption-subject bold uppercase"> Activity Fee</span>
+                    <span class="caption-subject bold uppercase"> Activity Fee (ST/US)</span>
                     <span class="caption-helper">setting</span>
                 </div>
                 <div class="actions">
@@ -172,7 +172,7 @@
                             <td align="center">{{ $i }}</td> 
                             <td align="right">{{ number_format($fee['20'], 2) }}</td>
                             <td align="right">{{ number_format($fee['40'], 2) }}</td>
-                            <td align="center">{{ $activityFee->effective_date->format('Y-m-d') }}</td>
+                            <td align="center">{{ $activityFee->effective_date->format('d/m/Y') }}</td>
                             <td align="center">
                                 <button class='btn btn-default btn-xs' type='button' data-toggle="modal" data-target="#myModal_feeTemplate2" data-title="Update Activity Fee" data-action="update" data-fee-type="activity" data-fee-id="{{$activityFee->id}}" data-s20="{{$fee['20']}}" data-s40="{{$fee['40']}}" data-effective-date="{{$activityFee->effective_date->format('Y-m-d')}}">
                                     <i class="fa fa-pencil"></i> Edit 
@@ -192,7 +192,7 @@
             <div class="portlet-title">
                 <div class="caption font-green-sharp">
                     <i class="fa fa-dollar font-green-sharp"></i>
-                    <span class="caption-subject bold uppercase"> Transfer Fee</span>
+                    <span class="caption-subject bold uppercase"> Transfer Fee (TF)</span>
                     <span class="caption-helper">setting</span>
                 </div>
                 <div class="actions">
@@ -221,7 +221,7 @@
                             <td align="center">{{ $i }}</td> 
                             <td align="right">{{ number_format($fee['20'], 2) }}</td>
                             <td align="right">{{ number_format($fee['40'], 2) }}</td>
-                            <td align="center">{{ $transferFee->effective_date->format('Y-m-d') }}</td>
+                            <td align="center">{{ $transferFee->effective_date->format('d/m/Y') }}</td>
                             <td align="center">
                                 <button class='btn btn-default btn-xs' type='button' data-toggle="modal" data-target="#myModal_feeTemplate2" data-title="Update Transfer Fee" data-action="update" data-fee-type="transfer" data-fee-id="{{$transferFee->id}}" data-s20="{{$fee['20']}}" data-s40="{{$fee['40']}}" data-effective-date="{{$transferFee->effective_date->format('Y-m-d')}}">
                                     <i class="fa fa-pencil"></i> Edit 
@@ -244,7 +244,7 @@
             <div class="portlet-title">
                 <div class="caption font-green-sharp">
                     <i class="fa fa-dollar font-green-sharp"></i>
-                    <span class="caption-subject bold uppercase"> Storage Fee</span>
+                    <span class="caption-subject bold uppercase"> Empty Storage Fee</span>
                     <span class="caption-helper">setting</span>
                 </div>
                 <div class="actions">
@@ -273,7 +273,7 @@
                             <td align="center">{{ $i }}</td> 
                             <td align="right">{{ number_format($fee['20'], 2) }}</td>
                             <td align="right">{{ number_format($fee['40'], 2) }}</td>                             
-                            <td align="center">{{ $storageFee->effective_date->format('Y-m-d') }}</td>
+                            <td align="center">{{ $storageFee->effective_date->format('d/m/Y') }}</td>
                             <td align="center">
                                 <button class='btn btn-default btn-xs' type='button' data-toggle="modal" data-target="#myModal_feeTemplate2" data-title="Update Storage Fee" data-action="update" data-fee-type="storage" data-fee-id="{{$storageFee->id}}" data-s20="{{$fee['20']}}" data-s40="{{$fee['40']}}" data-effective-date="{{$storageFee->effective_date->format('Y-m-d')}}">
                                     <i class="fa fa-pencil"></i> Edit 
@@ -467,6 +467,7 @@ $('#myModal_feeTemplate1').on('show.bs.modal', function (e) {
 
     if($effectiveDate) {
         var strDate = $effectiveDate.split(/[- :]/);
+        console.log(strDate);
         var newDate = new Date(strDate[0], strDate[1]-1, strDate[2]);
         $('#effective_date1').datepicker('update',newDate);
     } else {
@@ -511,7 +512,7 @@ $('#myModal_feeTemplate2').on('show.bs.modal', function (e) {
 });
 
 $('.date-picker').datepicker({
-    format: "yyyy-mm-dd",
+    format: "dd/mm/yyyy",
     todayBtn: "linked",
     autoclose: true,
     todayHighlight: true

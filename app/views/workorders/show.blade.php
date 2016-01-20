@@ -272,7 +272,7 @@
 										<td>{{ $container->container_no }}</td>
 										<td>{{ $container->size . $container->pivot->content }}</td>
 										<td>@if($container->pivot->confirmed_by != 0)
-											{{ $container->pivot->confirmed_by }}
+											{{ $container->users_name }}
 											@endif
 										</td>
 										<td>{{ $confirmed_at }}</td>
