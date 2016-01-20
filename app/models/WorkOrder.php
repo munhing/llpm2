@@ -26,7 +26,9 @@ class WorkOrder extends \Eloquent {
 		return $this->belongsToMany('Container', 'container_workorder', 'workorder_id', 'container_id')
 			->withTimestamps()
 			->withPivot('movement', 'content', 'vehicle', 'lifter', 'confirmed', 'confirmed_by', 'confirmed_at', 'updated_at')
-			->join('users', 'container_workorder.confirmed_by','=','users.id')
+			->leftjoin('users', function($join) {
+			      	$join->on('container_workorder.confirmed_by','=','users.id');
+			    })
 			->select('containers.*', 'users.name AS users_name');
 	}		
 

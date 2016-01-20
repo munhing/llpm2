@@ -54,10 +54,16 @@ class Container extends \Eloquent {
 
 	public function workorders()
 	{
+		// return $this->belongsToMany('WorkOrder', 'container_workorder', 'container_id', 'workorder_id')
+		// 	->withTimestamps()
+		// 	->withPivot('movement', 'content', 'vehicle', 'lifter', 'confirmed', 'confirmed_by', 'confirmed_at', 'updated_at');
+
 		return $this->belongsToMany('WorkOrder', 'container_workorder', 'container_id', 'workorder_id')
 			->withTimestamps()
 			->withPivot('movement', 'content', 'vehicle', 'lifter', 'confirmed', 'confirmed_by', 'confirmed_at', 'updated_at')
-			->join('users', 'container_workorder.confirmed_by','=','users.id')
+			->leftjoin('users', function($join) {
+			      	$join->on('container_workorder.confirmed_by','=','users.id');
+			    	})
 			->select('workorders.*', 'users.name AS users_name');
 	}		
 

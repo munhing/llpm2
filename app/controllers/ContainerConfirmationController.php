@@ -47,6 +47,10 @@ class ContainerConfirmationController extends \BaseController {
 		// }
 
 		// die();
+		// foreach($containers as $ctn) {
+
+		// 	var_dump($ctn->workorders->last()->pivot->vehicle);
+		// }
 
 		return View::make('container_confirmation/index', compact('containers', 'check_points'));
 
