@@ -84,7 +84,7 @@
 					</tbody>
 				</table>
 
-				<button type="submit" id="register-submit-btn" class="btn blue">
+				<button type="submit" id="register-submit-btn" class="btn blue hide">
 				Confirm <i class="m-icon-swapright m-icon-white"></i>
 				</button>
 
