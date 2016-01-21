@@ -419,10 +419,10 @@ class WorkOrderController extends \BaseController {
 	{
 		$movement['HI'] = 'Haulage Import';
 		$movement['HE'] = 'Haulage Export';
-		$movement['RI-1'] = 'Remove In to CY1';
-		$movement['RI-3'] = 'Remove In to CY3';
-		$movement['RO-1'] = 'Remove Out from CY1';
-		$movement['RO-3'] = 'Remove Out from CY3';
+		$movement['RI-1'] = 'Remove In (CY1)';
+		$movement['RI-3'] = 'Remove In (CY3)';
+		$movement['RO-1'] = 'Remove Out (CY1)';
+		$movement['RO-3'] = 'Remove Out (CY3)';
 		$movement['TF-3-1'] = 'Transfer to CY1';
 		$movement['TF-1-3'] = 'Transfer to CY3';
 		$movement['US'] = 'Unstuffing';

@@ -419,15 +419,39 @@
 			"file": "app/models/WorkOrder.php",
 			"settings":
 			{
-				"buffer_size": 2849,
+				"buffer_size": 2970,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/views/cargo_confirmation/cargo_export.blade.php",
+			"file": "app/views/workorders/index.blade.php",
 			"settings":
 			{
-				"buffer_size": 2768,
+				"buffer_size": 3175,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/workorders/show.blade.php",
+			"settings":
+			{
+				"buffer_size": 11716,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/database/migrations/2016_01_21_070051_add_column_created_by_to_workorders_table.php",
+			"settings":
+			{
+				"buffer_size": 569,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/LLPM/WorkOrders/RegisterWorkOrderCommandHandler.php",
+			"settings":
+			{
+				"buffer_size": 4564,
 				"line_ending": "Unix"
 			}
 		},
@@ -515,12 +539,12 @@
 	[
 		"/Users/munhing1980/projects/llpm",
 		"/Users/munhing1980/projects/llpm/app",
-		"/Users/munhing1980/projects/llpm/app/controllers",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Settings",
+		"/Users/munhing1980/projects/llpm/app/database/migrations",
+		"/Users/munhing1980/projects/llpm/app/LLPM",
+		"/Users/munhing1980/projects/llpm/app/LLPM/WorkOrders",
 		"/Users/munhing1980/projects/llpm/app/views",
-		"/Users/munhing1980/projects/llpm/app/views/cargo_confirmation",
-		"/Users/munhing1980/projects/llpm/app/views/container_confirmation",
-		"/Users/munhing1980/projects/llpm/app/views/settings"
+		"/Users/munhing1980/projects/llpm/app/views/settings",
+		"/Users/munhing1980/projects/llpm/app/views/workorders"
 	],
 	"file_history":
 	[
@@ -827,7 +851,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 5,
 			"sheets":
 			[
 				{
@@ -855,7 +879,7 @@
 						"translation.y": 812.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -884,7 +908,7 @@
 						"translation.y": 352.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -913,7 +937,7 @@
 						"translation.y": 368.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -922,15 +946,102 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2849,
+						"buffer_size": 2970,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1141,
-								1141
+								1498,
+								1498
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 25.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/views/workorders/index.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3175,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2647,
+								2647
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 425.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/views/workorders/show.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11716,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2895,
+								2895
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1103.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "app/database/migrations/2016_01_21_070051_add_column_created_by_to_workorders_table.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 569,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								357,
+								357
 							]
 						],
 						"settings":
@@ -942,40 +1053,41 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "app/views/cargo_confirmation/cargo_export.blade.php",
-					"semi_transient": true,
+					"buffer": 7,
+					"file": "app/LLPM/WorkOrders/RegisterWorkOrderCommandHandler.php",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2768,
+						"buffer_size": 4564,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2125,
-								2147
+								321,
+								321
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 474.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 8,
 					"file": "app/models/Cargo.php",
 					"semi_transient": false,
 					"settings":
@@ -999,7 +1111,7 @@
 						"translation.y": 650.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 8,
 					"type": "text"
 				}
 			]
@@ -1054,6 +1166,10 @@
 		"selected_items":
 		[
 			[
+				"workorder",
+				"app/models/WorkOrder.php"
+			],
+			[
 				"work",
 				"app/models/WorkOrder.php"
 			],
@@ -1064,10 +1180,6 @@
 			[
 				"cargo",
 				"app/models/Cargo.php"
-			],
-			[
-				"workorder",
-				"app/models/WorkOrder.php"
 			],
 			[
 				"routes",
@@ -1594,7 +1706,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 351.0,
+	"side_bar_width": 541.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

@@ -140,15 +140,15 @@ html, body {
 			</div>
 			<div class="row">
 				<div class="col-xs-8">
-					<h1 class="text-left no-margin"><b>Handling</b>
+					<h2 class="text-left no-margin"><b>Handling</b>
 						<span class="muted">
 							{{ $movement[$workOrder->movement] }}	
 						</span>
-					</h1>
+					</h2>
 				</div>
 				<div class="col-xs-4">
 					<h2 class="text-right no-margin">
-						#: {{ $workOrder->id }}
+						{{ $workOrder->id }}
 					</h2>
 				</div>
 			</div>
@@ -157,14 +157,17 @@ html, body {
 					<div class="invoice-payment">
 						<ul class="list-unstyled">
 							<li>
-								<strong>Date:</strong> {{ $workOrder->date->toFormattedDateString() }} | <strong>Total Charges: RM </strong> {{ number_format($total_charges, 2) }}
+								<strong>Work Order #:</strong> {{ $workOrder->id }} | <strong>Date:</strong> {{ $workOrder->date->toFormattedDateString() }}
 							</li>
-							<li>
+							<li class="hide">
 								<strong>Handler:</strong> {{ $handler->name }}
 							</li>
 							<li>
 								<strong>Carrier:</strong> {{ $carrier }}
 							</li>						
+							<li>
+								<strong>Total Charges: RM </strong> {{ number_format($total_charges, 2) }}
+							</li>
 						</ul>
 					</div>				
 				</div>
