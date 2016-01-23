@@ -39,7 +39,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <style>
 html, body {
-	margin:0px 20px 0px 50px;
+	margin:0px 0px 0px 10px;
+
 	padding:0;
 	height:100%;
 }
