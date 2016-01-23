@@ -362,12 +362,15 @@ class WorkOrderController extends \BaseController {
 		$info['container_no'] = $container->container_no;
 		$info['size'] = $container->size;
 		$info['days_empty'] = $container->days_empty;
-		$info['charges'] = ($container->days_empty - 5) * $fees[$container->size];
 
 		if($container->days_empty - 5 < 0) {
-			$info['charges'] = 0;
+			$days_charged = 0;
+		} else {
+			$days_charged = $container->days_empty - 5;
 		}
 
+		$info['days_charged'] = $days_charged;
+		$info['charges'] = $days_charged * $fees[$container->size];
 
 		$info['us_workorder'] = '';
 		$info['us_date'] = '';

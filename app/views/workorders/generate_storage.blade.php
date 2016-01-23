@@ -213,7 +213,7 @@ html, body {
 									 Out Date
 								</th>
 								<th class="hidden-480 text-center">
-									 Days Empty
+									 Days Empty (-5)
 								</th>	
 								<th class="hidden-480 text-center">
 									 Charges
@@ -259,7 +259,7 @@ html, body {
 							 {{ $container['out_date']->format('d/m/Y') }}
 						</td>					
 						<td class="hidden-480" align="center">
-							 {{ $container['days_empty'] }}
+							 {{ $container['days_charged'] }}
 						</td>																											
 						<td class="hidden-480" align="right">
 							 {{ number_format($container['charges'], 2) }}
