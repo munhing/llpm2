@@ -68,6 +68,14 @@
 				<div class="portlet-body">
 					<div class="row static-info">
 						<div class="col-md-3 name">
+							Vessel:
+						</div>
+						<div class="col-md-9 value">
+							{{ $importCargo->vessel_schedule_import }}
+						</div>						
+					</div>				
+					<div class="row static-info">
+						<div class="col-md-3 name">
 							B/L #:
 						</div>
 						<div class="col-md-9 value">

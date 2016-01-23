@@ -117,6 +117,7 @@ class FeeRepository {
 			'ST' => 'activity',
 			'US' => 'activity',
 			'TF' => 'transfer',
+			'EM' => 'activity',
 		];
 
 		return $handlingType[$movement[0]];

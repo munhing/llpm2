@@ -12,7 +12,10 @@ class WorkOrderTableSeeder extends Seeder
 		$errors = [];
 
 		// real data 2015 July onwards
-		$results = DB::select('select * from workorder where woid > ?', array(104623));
+		// $results = DB::select('select * from workorder where woid > ?', array(104623));
+		
+		// 2015 onwards
+		$results = DB::select('select * from workorder where woid > ? limit 20000', array(98299));
 
 		// dd(count($results));
 
@@ -45,6 +48,71 @@ class WorkOrderTableSeeder extends Seeder
 				}
 			}
 
+			$movement = $row->wom;
+
+			if($row->wom == 'T1') {
+				$movement = 'TF-3-1';
+			}
+
+			if($row->wom == 'T2') {
+				$movement = 'TF-1-3';
+			}
+
+			// if($row->wom == 'EM') {
+			// 	$results2 = DB::select('select * from containermovement where ctnmwonoin = ? limit 1', array($row->wono));
+			// 	if($results2) {
+			// 		foreach($results2 as $row2) {
+			// 			if($row2->ctnmstatusin == 'L') {
+			// 				$movement = 'US';
+			// 			} else {
+			// 				$movement = 'ST';
+			// 			}
+						
+			// 		}
+			// 	} else {
+
+			// 		$movement = 'US';
+			// 	}				
+			// }
+
+			if($row->wom == 'RI') {
+
+				$results2 = DB::select('select * from containermovement where ctnmwonoin = ? limit 1', array($row->wono));
+				if($results2) {
+					foreach($results2 as $row2) {
+						if($row2->ctnmstatusin == 'L') {
+							$movement = 'RI-1';
+						} else {
+							$movement = 'RI-3';
+						}
+						
+					}
+				} else {
+
+					$movement = 'RI-3';
+				}
+
+			}
+
+			if($row->wom == 'RO') {
+
+				$results2 = DB::select('select * from containermovement where ctnmwonoout = ? limit 1', array($row->wono));
+				if($results2) {
+					foreach($results2 as $row2) {
+						if($row2->ctnmstatusout == 'L') {
+							$movement = 'RO-1';
+						} else {
+							$movement = 'RO-3';
+						}
+						
+					}
+				} else {
+
+					$movement = 'RO-3';
+				}
+
+			}
+
 			if($proceed){
 				try{
 
@@ -52,7 +120,7 @@ class WorkOrderTableSeeder extends Seeder
 
 					WorkOrder::create(array(
 						'id'		=> $row->wono,
-						'movement'	=> $row->wom,
+						'movement'	=> $movement,
 						'date'		=> $row->wodate,
 						'carrier_id'	=> $carrier_id,
 						'handler_id'	=> $handler_id,

@@ -427,6 +427,7 @@ class WorkOrderController extends \BaseController {
 		$movement['TF-1-3'] = 'Transfer to CY3';
 		$movement['US'] = 'Unstuffing';
 		$movement['ST'] = 'Stuffing';
+		$movement['EM'] = 'Extra Movement';
 
 		$content['E'] = 'Empty';
 		$content['L'] = 'Laden';
