@@ -64,6 +64,14 @@
 				<div class="portlet-body">
 					<div class="row static-info">
 						<div class="col-md-3 name">
+							Vessel:
+						</div>
+						<div class="col-md-9 value">
+							{{ $cargo->vessel_schedule_export }}
+						</div>						
+					</div>				
+					<div class="row static-info">
+						<div class="col-md-3 name">
 							B/L #:
 						</div>
 						<div class="col-md-9 value">
@@ -81,15 +89,6 @@
 							@else
 								{{ $cargo->dl_no }}
 							@endif								
-						</div>						
-					</div>
-
-					<div class="row static-info">
-						<div class="col-md-3 name">
-							Name of Vessel:
-						</div>
-						<div class="col-md-9 value">
-							{{ $vessel[$cargo->exportSchedule->vessel_id] }} v.{{ $cargo->exportSchedule->voyage_no_departure }}
 						</div>						
 					</div>
 

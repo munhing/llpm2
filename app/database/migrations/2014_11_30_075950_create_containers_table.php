@@ -24,7 +24,7 @@ class CreateContainersTable extends Migration {
 			$table->string('to_confirm_by');
 			$table->integer('check_point');
 			$table->integer('dl_check');
-			$table->string('pre_stuffing');
+			$table->integer('pre_stuffing');
 			$table->string('m_content');
 			$table->integer('days_empty');
 			$table->integer('days_laden');

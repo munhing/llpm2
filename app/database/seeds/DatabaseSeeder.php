@@ -11,14 +11,15 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		$this->call('TruncateTables');
+		// $this->call('TruncateTables');
 		// $this->call('PortUserTableSeeder');
 		// $this->call('VesselTableSeeder');
 		// $this->call('VesselScheduleTableSeeder');
         // $this->call('CargoExportTableSeeder');
         // $this->call('CargoTableSeeder');
         // $this->call('WorkOrderTableSeeder');	// Set the value for $import_vessel_schedule_id
-        $this->call('ContainerTableSeeder2'); // Set the value for $import_vessel_schedule_id
+        // $this->call('ContainerTableSeeder5'); // Set the value for $import_vessel_schedule_id
+        $this->call('ConvertEMToActivity');
 		// $this->call('RoleTableSeeder');
 		// $this->call('UserTableSeeder');		
         // $this->call('PermissionsTableSeeder');

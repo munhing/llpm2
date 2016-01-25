@@ -56,6 +56,9 @@ class CancelContainerCommandHandler implements CommandHandler {
     {
         $container = $this->containerRepository->getById($container_id);
         $container->current_movement = 0;
+        $container->to_confirm_by = '';
+        $container->check_point = 0;
+        $container->pre_stuffing = 0;
         $container->save();
 
         return $container;
