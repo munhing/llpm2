@@ -135,7 +135,7 @@
 											Details
 										</a>
 									@endif
-									<a href="{{ URL::route('workorders.recalculate.storage', $workOrder->id) }}" class="btn btn-default btn-sm">
+									<a href="{{ URL::route('workorders.recalculate.storage', $workOrder->id) }}" class="btn btn-default btn-sm hide">
 										<i class="fa fa-calculator"></i> Recalculate
 									</a>													
 								@else
