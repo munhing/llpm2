@@ -22,7 +22,7 @@ class CalculateStorageChargesByWorkOrder
 	{
 		$this->calculateStorageCharges = $calculateStorageCharges;
 		$this->workOrderRepository = $workOrderRepository;
-		$this->$containerDaysCalculationByWorkOrder = $containerDaysCalculationByWorkOrder;
+		$this->containerDaysCalculationByWorkOrder = $containerDaysCalculationByWorkOrder;
 	}
 
 	public function fire($workorder)
