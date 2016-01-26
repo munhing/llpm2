@@ -43,13 +43,13 @@ class CalculateContainerDays
             $days['total'] = Carbon::createFromFormat('Y-m-d H', $valid_workorders[0]->date->format('Y-m-d') . ' 0')->diffInDays() + 1;
         }
 
-        echo 'Valid Workorders: ' . "\n" . json_encode($valid_workorders) . "\n" . "\n";
-        echo 'Total Workorders: ' . json_encode($total_workorders) . "\n" . "\n";
+        // echo 'Valid Workorders: ' . "\n" . json_encode($valid_workorders) . "\n" . "\n";
+        // echo 'Total Workorders: ' . json_encode($total_workorders) . "\n" . "\n";
 
 
         for($i=0; $i<$total_workorders; $i++) {
 
-            echo 'Workorder #: ' . $valid_workorders[$i]->id . "\n" . "\n";
+            // echo 'Workorder #: ' . $valid_workorders[$i]->id . "\n" . "\n";
 
             // reason for creating a new carbon so that it will capture the date and not the time.
             // Carbon diffInDays() compute 0 if less than 24 hours
@@ -123,10 +123,10 @@ class CalculateContainerDays
 
             $days[$content] += $diffDays;
 
-            echo 'FromDate : ' . $fromDate . "\n" . "\n";
-            echo 'ToDate : ' . $toDate . "\n" . "\n";
-            echo 'movement : ' . $movement . "\n" . "\n";
-            echo 'Content : ' . $content . "\n" . "\n";
+            // echo 'FromDate : ' . $fromDate . "\n" . "\n";
+            // echo 'ToDate : ' . $toDate . "\n" . "\n";
+            // echo 'movement : ' . $movement . "\n" . "\n";
+            // echo 'Content : ' . $content . "\n" . "\n";
         }
 
         return $days;
