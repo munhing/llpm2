@@ -33,9 +33,9 @@ class ContainerDaysCalculationByWorkOrder
     {
         // 1. Obtain all active containers in the port, those with status 3
         // $containers = $this->containerRepository->getAllActive();
-        dd($workorder);
+        // dd($workorder);
         
-        // $containers = $this->containerRepository->getSpecificContainer(181216);
+        $containers = $workorder->containers;
 
         // dd($containers->count());
 
