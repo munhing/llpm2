@@ -12,7 +12,7 @@ class CalculateStorageChargesByWorkOrder
 {
 	protected $calculateStorageCharges;
 	protected $workOrderRepository;
-	protected $$containerDaysCalculationByWorkOrder;
+	protected $containerDaysCalculationByWorkOrder;
 
 	public function __construct(
 		CalculateStorageCharges $calculateStorageCharges,
@@ -22,7 +22,7 @@ class CalculateStorageChargesByWorkOrder
 	{
 		$this->calculateStorageCharges = $calculateStorageCharges;
 		$this->workOrderRepository = $workOrderRepository;
-		$this->$containerDaysCalculationByWorkOrder = $$containerDaysCalculationByWorkOrder;
+		$this->$containerDaysCalculationByWorkOrder = $containerDaysCalculationByWorkOrder;
 	}
 
 	public function fire($workorder)
