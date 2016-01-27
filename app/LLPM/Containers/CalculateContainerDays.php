@@ -25,7 +25,10 @@ class CalculateContainerDays
     {
         $days = [];
 
-        $workorders = $container->workorders;
+        $workorders = $container->workorders->sortBy('id');
+
+        // dd(count($workorders));
+        // dd($workorders->sortBy('id')->toArray());
 
         // filter out workorders that are not confirmed yet
         $valid_workorders = $this->filterWorkorders($workorders);
