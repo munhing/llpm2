@@ -198,8 +198,8 @@ html, body {
 						<tr>
 							<td>{{ $importCargo->bl_no }}</td>
 							<td>{{ $importCargo->description }}</td>
-							<td>{{ $importCargo->mt }}</td>
-							<td>{{ $importCargo->m3 }}</td>
+							<td>{{ number_format($importCargo->mt, 2) }}</td>
+							<td>{{ number_format($importCargo->m3, 2) }}</td>
 							<td>{{ $importCargo->markings }}</td>
 							<td>
 								@foreach($importCargo->m_containers as $container)

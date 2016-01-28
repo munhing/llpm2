@@ -116,8 +116,8 @@
 										<td>{{ $cargo->consignor->name }}</td>
 										<td>{{ $cargo->consignee->name }}</td>
 										<td>{{ listContainersInString($cargo->containers) }}</td>
-										<td>{{ $cargo->mt }}</td>
-										<td>{{ $cargo->m3 }}</td>
+										<td align="right">{{ number_format($cargo->mt, 2) }}</td>
+										<td align="right">{{ number_format($cargo->m3, 2) }}</td>
 										<td>{{ exportCargoStatusTranslator($cargo->status) }}</td>
 										<td>{{ link_to_route('receiving.cargo.edit', 'Edit', [$cargo->receiving_id, $cargo->id]) }}</td>										
 									</tr>

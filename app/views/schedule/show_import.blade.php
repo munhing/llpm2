@@ -127,8 +127,8 @@
 										<td>{{ $cargo->consignee->name }}</td>
 										<td>{{ $cargo->description }}</td>
 										<td>{{ listContainersInString($cargo->m_containers) }}</td>
-										<td>{{ $cargo->mt }}</td>
-										<td>{{ $cargo->m3 }}</td>
+										<td align="right">{{ number_format($cargo->mt, 2) }}</td>
+										<td align="right">{{ number_format($cargo->m3, 2) }}</td>
 										<td>{{ importCargoStatusTranslator($cargo->status) }}</td>
 										<td>
 											{{ Form::open(['route'=>['manifest.schedule.import.cargoes.delete', $cargo->import_vessel_schedule_id]]) }}

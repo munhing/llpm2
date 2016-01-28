@@ -153,7 +153,7 @@
 							<a href="{{ URL::route('workorders.generate.handling', $workOrder->id) }}" class="btn btn-default btn-sm" target="_blank">
 								Details
 							</a>
-							<a href="{{ URL::route('workorders.recalculate', $workOrder->id) }}" class="btn btn-default btn-sm hide">
+							<a href="{{ URL::route('workorders.recalculate', $workOrder->id) }}" class="btn btn-default btn-sm">
 								<i class="fa fa-calculator"></i> Recalculate
 							</a>							
 						</div>						

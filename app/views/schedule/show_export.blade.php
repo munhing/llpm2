@@ -118,8 +118,8 @@
 										</td>
 										<td>{{ $cargo->description }}</td>
 										<td>{{ listContainersInString($cargo->containers) }}</td>
-										<td>{{ $cargo->mt }}</td>
-										<td>{{ $cargo->m3 }}</td>
+										<td align="right">{{ number_format($cargo->mt, 2) }}</td>
+										<td align="right">{{ number_format($cargo->m3, 2) }}</td>
 										<td>{{ exportCargoStatusTranslator($cargo->status) }}</td>
 										<td>
 											{{ Form::open(['route'=>['manifest.schedule.export.cargoes.delete', $cargo->export_vessel_schedule_id]]) }}
