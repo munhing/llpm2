@@ -189,10 +189,10 @@ class WorkOrderController extends \BaseController {
 				$containerList = $this->containerRepository->getForStatus(3,$movement[1]);
 				break;
 			case "US":
-				$containerList = $this->containerRepository->getActiveLadenContainers();
+				$containerList = $this->containerRepository->getActiveLadenContainersForUnstuffing();
 				break;				
 			case "ST":
-				$containerList = $this->containerRepository->getActiveEmptyContainers();
+				$containerList = $this->containerRepository->getActiveEmptyContainersForStuffing();
 				break;					
 		}
 

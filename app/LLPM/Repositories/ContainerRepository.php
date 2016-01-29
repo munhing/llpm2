@@ -77,6 +77,17 @@ class ContainerRepository {
 				->get();
 	}
 
+	public function getActiveLadenContainersForUnstuffing()
+	{
+		return Container::where('status', 3)
+				->where('current_movement', 0)
+				->where('content', 'L')
+				->where('dl_check', 0)
+				->where('location', 1)
+				->orderBy('container_no')
+				->get();
+	}
+
 	public function getActiveEmptyContainers()
 	{
 		return Container::where('status', 3)
@@ -85,6 +96,16 @@ class ContainerRepository {
 				->orderBy('container_no')
 				->get();
 	}	
+
+	public function getActiveEmptyContainersForStuffing()
+	{
+		return Container::where('status', 3)
+				->where('current_movement', 0)
+				->where('content', 'E')
+				->where('location', 1)
+				->orderBy('container_no')
+				->get();
+	}
 
 	public function getAllByReceivingId($id)
 	{
