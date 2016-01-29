@@ -28,7 +28,7 @@
 		</ul>
 	</div>	
 
-
+{{ Session::get('workorder.movement') }}
 
 <div class="portlet box blue-hoki">
 	<div class="portlet-title">
@@ -37,6 +37,9 @@
 		</div>
 		<div class="tools">
 			{{ Form::open(['class' => 'form-inline']) }}
+			<div class="form-group">
+			{{ Form::select('view_movement', [null => "Filter by movement"] + $movement, Session::get('workorder.movement'), ['class' => 'form-control placeholder-no-fix', 'autocomplete' => 'off', 'placeholder' => 'Role']) }}
+			</div>			
 			<div class="form-group">
 			{{ Form::text('view_date', Session::get('workorder.date'), ['class' => 'form-control form-control-inline input-sm month-picker', 'placeholder' => 'Month']) }}
 			</div>
@@ -99,7 +102,11 @@
 							{{ $workorder->user->name }}
 						@endif
 					</td>
-					<td></td>										
+					<td>
+						<a href="{{ URL::route('workorders.generate', $workorder->id) }}" target="_blank">
+							<i class="fa fa-file-text-o"></i>
+						</a>
+					</td>										
 				</tr>
 			@endforeach
 		</tbody>

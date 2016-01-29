@@ -33,8 +33,16 @@ class WorkOrderRepository {
 				->get();
 	}
 
-	public function getAllByMonth($month)
+	public function getAllByMonth($month, $movement = null)
 	{
+		if($movement) {
+			return WorkOrder::with('handler', 'carrier', 'vesselSchedule')
+					->where('date', 'like', $month . '%')
+					->where('movement', $movement)
+					->orderBy('workorders.id', 'desc')
+					->get();
+		}
+
 		return WorkOrder::with('handler', 'carrier', 'vesselSchedule')
 				->where('date', 'like', $month . '%')
 				->orderBy('workorders.id', 'desc')

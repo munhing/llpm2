@@ -71,6 +71,16 @@ class WorkOrderController extends \BaseController {
 	 */
 	public function index()
 	{
+		$this->definition();
+		$movement = $this->movement;
+
+		// if(Input::get('view_movement') || Input::get('view_movement') == '') {
+		// 	Session::put('workorder.movement', Input::get('view_movement'));
+		// } else {
+		// 	dd('Not valid!');
+		// }
+
+		// dd(Input::get('view_movement'));
 
 		if(Input::get('view_date')) {
 			Session::put('workorder.date', Input::get('view_date'));
@@ -80,8 +90,16 @@ class WorkOrderController extends \BaseController {
 			Session::put('workorder.date', date('m/Y'));
 		}
 
-		$workorders = $this->workOrderRepository->getAllByMonth(convertMonthToMySQLDate(Session::get('workorder.date')));
-		return View::make('workorders/index', compact('workorders'));
+		if(Input::get('view_movement') || Input::get('view_movement') == '') {
+			Session::put('workorder.movement', Input::get('view_movement'));
+		}
+
+		if(!Session::get('workorder.movement')) {
+			Session::put('workorder.movement', null);
+		}
+
+		$workorders = $this->workOrderRepository->getAllByMonth(convertMonthToMySQLDate(Session::get('workorder.date')), Session::get('workorder.movement'));
+		return View::make('workorders/index', compact('workorders', 'movement'));
 
 	}
 

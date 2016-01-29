@@ -227,7 +227,7 @@
 					<div class="caption">
 						<i class="fa fa-info"></i>Containers
 					</div>
-					@if($cargo->status == 1)
+					@if($cargo->status <= 2)
 					<div class="actions">
 						<a href="#myModal_autocomplete" role="button" class="btn btn-default btn-sm" data-toggle="modal">
 							<i class="fa fa-plus"></i> Add
