@@ -135,7 +135,7 @@
 											{{ Form::hidden('cargo_id', $cargo->id) }}
 
 											{{ HTML::decode(link_to_route('manifest.schedule.import.cargoes.edit', '<i class="fa fa-edit"></i>', [$vesselSchedule->id, $cargo->id], ['class'=>'btn btn-xs btn-info'])) }}
-											@if($cargo->status == 1)
+											@if($cargo->status == 1 && $cargo->containerized == 0)
 						                            <button class='btn btn-xs btn-danger' data-confirm>
 						                                <i class="fa fa-remove"></i>
 						                            </button>	

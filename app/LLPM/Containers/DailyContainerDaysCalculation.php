@@ -5,7 +5,7 @@ namespace LLPM\Containers;
 use Activity;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
-use LLPM\Containers\CalculateContainerDays;
+use LLPM\Containers\CalculateContainerDays2;
 use LLPM\Repositories\ContainerRepository;
 
 class DailyContainerDaysCalculation
@@ -16,7 +16,7 @@ class DailyContainerDaysCalculation
 
 	function __construct(
         ContainerRepository $containerRepository,
-        CalculateContainerDays $calculateContainerDays
+        CalculateContainerDays2 $calculateContainerDays
     )
 	{
         $this->containerRepository = $containerRepository;

@@ -5,7 +5,7 @@ namespace LLPM\Containers;
 use Activity;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
-use LLPM\Containers\CalculateContainerDays;
+use LLPM\Containers\CalculateContainerDays2;
 use LLPM\Repositories\ContainerRepository;
 
 class ContainerDaysCalculationByWorkOrder
@@ -16,11 +16,11 @@ class ContainerDaysCalculationByWorkOrder
 
 	function __construct(
         ContainerRepository $containerRepository,
-        CalculateContainerDays $calculateContainerDays
+        CalculateContainerDays2 $calculateContainerDays2
     )
 	{
         $this->containerRepository = $containerRepository;
-        $this->calculateContainerDays = $calculateContainerDays;
+        $this->calculateContainerDays2 = $calculateContainerDays2;
 	}
 
     /**
@@ -47,7 +47,7 @@ class ContainerDaysCalculationByWorkOrder
             // {"L":11,"E":0,"total":11}
             Log::info("Calculating container#: $container->container_no");
 
-            $days = $this->calculateContainerDays->fire($container);
+            $days = $this->calculateContainerDays2->fire($container);
 
             // dd($days);
 
