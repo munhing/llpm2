@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"save",
+				"saveToCookie"
+			],
+			[
+				"create",
+				"createCookie"
+			],
+			[
+				"cookie",
+				"cookie_containers"
+			],
+			[
+				"new",
+				"new_cookie"
+			],
+			[
+				"Container",
+				"ContainerRepository"
+			],
+			[
+				"Calculate",
+				"CalculateContainerDays2	(CalculateContainerDays2.php)"
+			],
+			[
 				"Work",
 				"WorkOrder	(ContainerTableSeeder6.php)"
 			],
@@ -304,10 +328,6 @@
 				"public_path"
 			],
 			[
-				"create",
-				"create_folder"
-			],
-			[
 				"imagecreate",
 				"imagecreatefromjpeg"
 			],
@@ -408,18 +428,82 @@
 	"buffers":
 	[
 		{
-			"file": "app/views/schedule/show_import.blade.php",
+			"file": "app/controllers/TrackingController.php",
 			"settings":
 			{
-				"buffer_size": 5834,
+				"buffer_size": 2990,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/views/schedule/show_export.blade.php",
+			"file": "app/views/tracking/tracking.blade.php",
 			"settings":
 			{
-				"buffer_size": 4909,
+				"buffer_size": 5728,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/workorders/generate_handling.blade.php",
+			"settings":
+			{
+				"buffer_size": 5768,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/LLPM/Containers/ContainerTracking.php",
+			"settings":
+			{
+				"buffer_size": 3562,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/tracking/index.blade.php",
+			"settings":
+			{
+				"buffer_size": 3794,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "public/assets/app/js/jscript.js",
+			"settings":
+			{
+				"buffer_size": 9912,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/assets/app/js/modal_auth.js",
+			"settings":
+			{
+				"buffer_size": 2056,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/workorders/index.blade.php",
+			"settings":
+			{
+				"buffer_size": 4334,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/LLPM/Repositories/ContainerRepository.php",
+			"settings":
+			{
+				"buffer_size": 6136,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/WorkOrderController.php",
+			"settings":
+			{
+				"buffer_size": 18171,
 				"line_ending": "Unix"
 			}
 		},
@@ -427,23 +511,15 @@
 			"file": "app/routes.php",
 			"settings":
 			{
-				"buffer_size": 28322,
+				"buffer_size": 28892,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/controllers/VesselScheduleController.php",
+			"file": "public/assets/global/scripts/metronic.js",
 			"settings":
 			{
-				"buffer_size": 16405,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/LLPM/Schedule/DeleteCargoCommandHandler.php",
-			"settings":
-			{
-				"buffer_size": 887,
+				"buffer_size": 31898,
 				"line_ending": "Unix"
 			}
 		}
@@ -523,15 +599,34 @@
 	[
 		"/Users/munhing1980/projects/llpm",
 		"/Users/munhing1980/projects/llpm/app",
+		"/Users/munhing1980/projects/llpm/app/commands",
 		"/Users/munhing1980/projects/llpm/app/controllers",
-		"/Users/munhing1980/projects/llpm/app/database",
+		"/Users/munhing1980/projects/llpm/app/LLPM",
+		"/Users/munhing1980/projects/llpm/app/LLPM/Containers",
 		"/Users/munhing1980/projects/llpm/app/views",
-		"/Users/munhing1980/projects/llpm/app/views/schedule",
-		"/Users/munhing1980/projects/llpm/app/views/users",
-		"/Users/munhing1980/projects/llpm/app/views/workorders"
+		"/Users/munhing1980/projects/llpm/app/views/tracking",
+		"/Users/munhing1980/projects/llpm/app/views/workorders",
+		"/Users/munhing1980/projects/llpm/public",
+		"/Users/munhing1980/projects/llpm/public/assets",
+		"/Users/munhing1980/projects/llpm/public/assets/app",
+		"/Users/munhing1980/projects/llpm/public/assets/app/js",
+		"/Users/munhing1980/projects/llpm/public/assets/global",
+		"/Users/munhing1980/projects/llpm/public/assets/global/scripts"
 	],
 	"file_history":
 	[
+		"/Users/munhing1980/projects/llpm/app/database/seeds/CalculateDaysByWorkorder.php",
+		"/Users/munhing1980/projects/llpm/app/routes.php",
+		"/Users/munhing1980/projects/llpm/app/controllers/ContainerController.php",
+		"/Users/munhing1980/projects/llpm/app/LLPM/Containers/CalculateContainerDays2.php",
+		"/Users/munhing1980/projects/llpm/app/LLPM/Containers/ContainerDaysCalculationByWorkOrder.php",
+		"/Users/munhing1980/projects/llpm/app/LLPM/Containers/DailyContainerDaysCalculation.php",
+		"/Users/munhing1980/projects/llpm/app/views/layouts/partials/sidebar.blade.php",
+		"/Users/munhing1980/projects/llpm/app/views/schedule/show_export.blade.php",
+		"/Users/munhing1980/projects/llpm/app/views/schedule/show_import.blade.php",
+		"/Users/munhing1980/projects/llpm/app/LLPM/Schedule/DeleteCargoCommandHandler.php",
+		"/Users/munhing1980/projects/llpm/app/database/seeds/DatabaseSeeder.php",
+		"/Users/munhing1980/projects/llpm/app/controllers/VesselScheduleController.php",
 		"/Users/munhing1980/projects/llpm/app/controllers/WorkOrderController.php",
 		"/Users/munhing1980/projects/llpm/app/database/seeds/WorkOrderTableSeeder2.php",
 		"/Users/munhing1980/projects/llpm/app/database/seeds/ContainerTableSeeder7.php",
@@ -539,9 +634,7 @@
 		"/Users/munhing1980/projects/llpm/app/views/receiving/show_cargo.blade.php",
 		"/Users/munhing1980/projects/llpm/app/views/schedule/show_export_cargo.blade.php",
 		"/Users/munhing1980/projects/llpm/app/views/workorders/index.blade.php",
-		"/Users/munhing1980/projects/llpm/app/routes.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/WorkOrderRepository.php",
-		"/Users/munhing1980/projects/llpm/app/database/seeds/DatabaseSeeder.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/ContainerRepository.php",
 		"/Users/munhing1980/projects/llpm/app/database/seeds/ContainerTableSeeder6.php",
 		"/Users/munhing1980/projects/llpm/app/views/schedule/generate_dl_import.blade.php",
@@ -549,8 +642,6 @@
 		"/Users/munhing1980/projects/llpm/app/LLPM/WorkOrders/AttachedContainersToWorkOrderCommandHandler.php",
 		"/Users/munhing1980/projects/llpm/app/database/seeds/ConvertEMToActivity.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Containers/CalculateContainerDays.php",
-		"/Users/munhing1980/projects/llpm/app/views/schedule/show_import.blade.php",
-		"/Users/munhing1980/projects/llpm/app/views/schedule/show_export.blade.php",
 		"/Users/munhing1980/projects/llpm/app/views/receiving/show.blade.php",
 		"/Users/munhing1980/projects/llpm/app/views/schedule/generate_dl_export.blade.php",
 		"/Users/munhing1980/projects/llpm/app/database/migrations/2014_11_30_075950_create_containers_table.php",
@@ -584,9 +675,7 @@
 		"/Users/munhing1980/projects/llpm/app/LLPM/Settings/RegisterFeeCommandHandler.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Settings/UpdateFeeCommandHandler.php",
 		"/Users/munhing1980/projects/llpm/app/views/schedule/edit.blade.php",
-		"/Users/munhing1980/projects/llpm/app/controllers/VesselScheduleController.php",
 		"/Users/munhing1980/projects/llpm/app/controllers/CargoConfirmationController.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Containers/DailyContainerDaysCalculation.php",
 		"/Users/munhing1980/projects/llpm/app/views/cargo/index.blade.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/helpers.php",
 		"/Users/munhing1980/projects/llpm/app/views/cargo_confirmation/index.blade.php",
@@ -614,7 +703,6 @@
 		"/Users/munhing1980/projects/llpm/app/database/migrations/2015_04_11_132958_create_cargo_items_table.php",
 		"/Users/munhing1980/projects/llpm/app/database/migrations/2014_11_25_134117_create_vessel_schedule_table.php",
 		"/Users/munhing1980/projects/llpm/app/database/migrations/2014_11_30_075932_create_cargoes_table.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Schedule/DeleteCargoCommandHandler.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Schedule/DeleteCargoCommand.php",
 		"/Users/munhing1980/projects/llpm/app/views/schedule/edit_import_cargo.blade.php",
 		"/Users/munhing1980/projects/llpm/app/controllers/ReceivingController.php",
@@ -623,7 +711,6 @@
 		"/Users/munhing1980/projects/llpm/app/LLPM/WorkOrders/FinalizeWorkOrderCommandHandler.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/WorkOrders/UpdateWorkOrderWithAgentCommandHandler.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/WorkOrders/UpdateWorkOrderWithAgentCommand.php",
-		"/Users/munhing1980/projects/llpm/app/controllers/ContainerController.php",
 		"/Users/munhing1980/projects/llpm/app/database/migrations/2015_01_02_125453_create_workorders_table.php",
 		"/Users/munhing1980/projects/llpm/app/database/seeds/VesselScheduleIdTableSeeder.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/IdGenerator.php",
@@ -655,11 +742,7 @@
 		"/Users/munhing1980/projects/llpm/app/database/seeds/ContainerConfirmationTableSeeder.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Forms/ImportCargoForm.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Users/RegisterUserCommandHandler.php",
-		"/Users/munhing1980/projects/llpm/app/filters.php",
-		"/Users/munhing1980/projects/llpm/vendor/laravel/framework/src/Illuminate/Auth/AuthManager.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/VesselScheduleRepository.php",
-		"/Users/munhing1980/projects/llpm/app/views/reports/container_loading_discharging_rpt.blade.php",
-		"/Users/munhing1980/projects/llpm/app/views/reports/container_loading_discharging_conf.blade.php"
+		"/Users/munhing1980/projects/llpm/app/filters.php"
 	],
 	"find":
 	{
@@ -677,6 +760,20 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"track",
+			"info",
+			"saveToCookie",
+			"fillOptions",
+			"clear",
+			"saveToCookie",
+			"listoption",
+			"gener",
+			"generate",
+			"handleSelect2",
+			"select",
+			"tag",
+			"select2",
+			"total",
 			"definition",
 			"migrateContainer",
 			"changeContent",
@@ -790,21 +887,7 @@
 			"elementKeydown",
 			"case 9",
 			"hidewidget",
-			"showwidget",
-			"element.trigger",
-			"show.timepicker",
-			"timepicker",
-			"a_confirmed_at",
-			"apply",
-			"changeTime.timepicker",
-			"auto",
-			"autoclose",
-			"case 9",
-			"hide",
-			"case 9",
-			"Keydown",
-			"inputKeydown",
-			"blur.timepicker"
+			"showwidget"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -840,19 +923,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "app/views/schedule/show_import.blade.php",
+					"file": "app/controllers/TrackingController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5834,
+						"buffer_size": 2990,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5442,
-								4759
+								2036,
+								2036
 							]
 						],
 						"settings":
@@ -861,27 +944,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1633.0,
+						"translation.y": 718.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "app/views/schedule/show_export.blade.php",
+					"file": "app/views/tracking/tracking.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4909,
+						"buffer_size": 5728,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4200,
-								4200
+								5695,
+								5695
 							]
 						],
 						"settings":
@@ -889,8 +972,8 @@
 							"syntax": "Packages/PHP/PHP.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 137.0,
-						"translation.y": 1400.0,
+						"translation.x": 0.0,
+						"translation.y": 2519.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -898,49 +981,19 @@
 				},
 				{
 					"buffer": 2,
-					"file": "app/routes.php",
-					"semi_transient": false,
+					"file": "app/views/workorders/generate_handling.blade.php",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 28322,
+						"buffer_size": 5768,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10187,
-								10187
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4876.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "app/controllers/VesselScheduleController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 16405,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								9905,
-								9923
+								0,
+								5768
 							]
 						],
 						"settings":
@@ -949,27 +1002,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 4305.0,
+						"translation.y": 2850.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "app/LLPM/Schedule/DeleteCargoCommandHandler.php",
+					"buffer": 3,
+					"file": "app/LLPM/Containers/ContainerTracking.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 887,
+						"buffer_size": 3562,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								829,
-								829
+								2743,
+								2743
 							]
 						],
 						"settings":
@@ -983,6 +1036,241 @@
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/views/tracking/index.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3794,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3186,
+								3186
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1121.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "public/assets/app/js/jscript.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9912,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								985,
+								985
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "public/assets/app/js/modal_auth.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2056,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								475,
+								475
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "app/views/workorders/index.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4334,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3810,
+								3816
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1094.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "app/LLPM/Repositories/ContainerRepository.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6136,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4180,
+								4211
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "app/controllers/WorkOrderController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 18171,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12961,
+								11369
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5166.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "app/routes.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 28892,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								24895,
+								24895
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 10710.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "public/assets/global/scripts/metronic.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 31898,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15117,
+								15130
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 5681.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
 					"type": "text"
 				}
 			]
@@ -1037,20 +1325,32 @@
 		"selected_items":
 		[
 			[
-				"deletecargocommand",
-				"app/LLPM/Schedule/DeleteCargoCommandHandler.php"
+				"ro",
+				"app/routes.php"
 			],
 			[
-				"vesselschedulecontroller",
-				"app/controllers/VesselScheduleController.php"
+				"routes",
+				"app/routes.php"
+			],
+			[
+				"containerre",
+				"app/LLPM/Repositories/ContainerRepository.php"
+			],
+			[
+				"workor",
+				"app/controllers/WorkOrderController.php"
 			],
 			[
 				"route",
 				"app/routes.php"
 			],
 			[
-				"containerre",
-				"app/LLPM/Repositories/ContainerRepository.php"
+				"deletecargocommand",
+				"app/LLPM/Schedule/DeleteCargoCommandHandler.php"
+			],
+			[
+				"vesselschedulecontroller",
+				"app/controllers/VesselScheduleController.php"
 			],
 			[
 				"workorderr",
@@ -1079,10 +1379,6 @@
 			[
 				"container",
 				"app/models/Container.php"
-			],
-			[
-				"routes",
-				"app/routes.php"
 			],
 			[
 				"containerrepo",
@@ -1539,14 +1835,6 @@
 			[
 				"registerreceiving",
 				"llpm\\app\\LLPM\\Receiving\\RegisterReceivingContainersCommand.php"
-			],
-			[
-				"registerw",
-				"llpm\\app\\LLPM\\WorkOrders\\RegisterWorkOrderCommandHandler.php"
-			],
-			[
-				"portusers",
-				"llpm\\app\\LLPM\\Repositories\\PortUserRepository.php"
 			]
 		],
 		"width": 0.0

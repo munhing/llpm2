@@ -185,6 +185,22 @@ class ContainerRepository {
 		return Container::with('cargoes', 'm_cargoes', 'workorders')->find($id);
 	}
 
+	public function getLatestByContainerNo($containerNo)
+	{
+		return Container::where('container_no', $containerNo)
+				->where('status', '<>', 0)
+				->orderBy('id', 'desc')
+				->take(1)
+				->get();
+	}
+
+	public function getByContainerNoWithStatus3And4($containerNo)
+	{
+		return Container::where('container_no', $containerNo)
+				->whereIn('status', [3,4])
+				->get();
+	}
+
 	public function attachToReceiving($container, $receiving)
 	{
 		return $container->receiving()->attach($receiving);

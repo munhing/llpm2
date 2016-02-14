@@ -112,7 +112,19 @@
                         Export Cargo </a>
                     </li>                            
                 </ul>                             
-            </li>  
+            </li> 
+<!--
+|--------------------------------------------------------------------------
+| Tracking
+|--------------------------------------------------------------------------
+-->
+            <li class="{{ Request::is('admin/tracking*') ? 'start active' : '' }}">
+                <a href="{{ URL::route('tracking.container') }}">
+                <i class="fa fa-location-arrow"></i>
+                <span class="title">Tracking</span>
+                <span class="selected"></span>
+                </a>
+            </li>                           
 <!--
 |--------------------------------------------------------------------------
 | Reports

@@ -779,6 +779,24 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
 
 /*
 |--------------------------------------------------------------------------
+| Admin | Tracking
+|--------------------------------------------------------------------------
+ */
+    Route::group(['prefix' => 'tracking', 'before' => ['permitted']], function () {
+
+        Route::get('/container', [
+            'as' => 'tracking.container',
+            'uses' => 'TrackingController@index',
+        ]);
+
+        Route::get('/container/track', [
+            'as' => 'tracking.container.track',
+            'uses' => 'TrackingController@track',
+        ]);
+       
+    });
+/*
+|--------------------------------------------------------------------------
 | Admin | Reports
 |--------------------------------------------------------------------------
  */
