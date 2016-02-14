@@ -151,7 +151,7 @@ html, body {
 
 							<td>{{ $count }}</td>
 							<td>{{ $ctnInfo['container_no'] }}</td>
-							<td>{{ $ctnInfo['size'] }}</td>
+							<td>{{ $ctnInfo['size'] . $ctnInfo['content']}}</td>
 
 							<td>{{ $ctnInfo['status_interpreter'] }}</td>
 
