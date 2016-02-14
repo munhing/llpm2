@@ -37,6 +37,24 @@ class Container extends \Eloquent {
 		return $this->belongsTo('VesselSchedule', 'export_vessel_schedule_id');
 	}	
 
+    public function getVesselScheduleImportAttribute()
+    {
+    	// if(is_null($this->import_schedule)) {
+    	// 	return '';
+    	// }
+
+        return $this->import_schedule->vessel->name . " V." . $this->import_schedule->voyage_no_arrival;
+    }
+
+    public function getVesselScheduleExportAttribute()
+    {
+    	if(is_null($this->export_schedule)) {
+    		return '';
+    	}
+
+        return $this->export_schedule->vessel->name . " V." . $this->export_schedule->voyage_no_departure;
+    }
+        
 	public function receiving()
 	{
 		return $this->belongsTo('Receiving', 'receiving_id');

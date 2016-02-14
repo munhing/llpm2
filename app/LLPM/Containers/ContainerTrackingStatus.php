@@ -48,6 +48,11 @@ class ContainerTrackingStatus
 
     public function getIndividualContainerInfo($container)
     {
+        // if($container->container_no == 'TEST1234567') {
+        //     // dd($container->import_schedule);
+        //     // dd($container->vessel_schedule_import);
+        // }
+
         $info['container_no'] = $container->container_no;
         $info['size'] = $container->size;
         $info['status'] = $container->status;
@@ -60,11 +65,11 @@ class ContainerTrackingStatus
         $info['status_interpreter'] = '';
 
         if($info['status'] == 1) {
-            $info['status_interpreter'] = 'Currently On Board a vessel.'; 
+            $info['status_interpreter'] = 'Currently On Board vessel ' . $container->vessel_schedule_import . '.'; 
         }
 
         if($info['status'] == 2) {
-            $info['status_interpreter'] = 'Currently with agent.'; 
+            $info['status_interpreter'] = 'Currently with agent and registered in receiving on '. $container->receiving->date->format('d/m/Y') . '.'; 
         }
 
         if($info['status'] == 3) {

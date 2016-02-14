@@ -187,7 +187,8 @@ class ContainerRepository {
 
 	public function getLatestByContainerNo($containerNo)
 	{
-		return Container::where('container_no', $containerNo)
+		return Container::with('import_schedule', 'export_schedule', 'receiving')
+				->where('container_no', $containerNo)
 				->where('status', '<>', 0)
 				->orderBy('id', 'desc')
 				->take(1)
