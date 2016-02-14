@@ -48,11 +48,7 @@ class ContainerTrackingStatus
 
     public function getIndividualContainerInfo($container)
     {
-        // if($container->container_no == 'TEST1234567') {
-        //     // dd($container->import_schedule);
-        //     // dd($container->vessel_schedule_import);
-        // }
-
+        $info['id'] = $container->id;
         $info['container_no'] = $container->container_no;
         $info['size'] = $container->size;
         $info['status'] = $container->status;

@@ -27,7 +27,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
 
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
-
+<link href="{{ URL::asset('assets/global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
 <link href="{{ URL::asset('assets/global/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
 <!-- END GLOBAL MANDATORY STYLES -->
 <link href="{{ URL::asset('assets/admin/pages/css/invoice.css') }}" rel="stylesheet" type="text/css"/>
@@ -139,6 +139,7 @@ html, body {
 				<th style="text-align:center;vertical-align:middle">#</th>
 				<th style="text-align:center;vertical-align:middle">Container #</th>
 				<th style="text-align:center;vertical-align:middle">Size</th>
+				<th style="text-align:center;vertical-align:middle"><i class="fa fa-file-text"></th>
 				<th style="text-align:center;vertical-align:middle">WO In</th>
 				<th style="text-align:center;vertical-align:middle">Date In</th>
 				<th style="text-align:center;vertical-align:middle">Status In</th>
@@ -172,6 +173,7 @@ html, body {
 								<td rowspan={{ $rowCount }}>{{ $ctnInfo['size'] }}</td>
 							@endif
 
+							<td><a href="{{ route('tracking.container.detail', $ctnInfo['id']) }}" target="_blank"><i title="Details {{ $ctnInfo['id'] }}" class="fa fa-file-text-o"></i></a></td>
 							<td>{{ $ctnInfo['in_workorder'] }}</td>
 							<td>
 								@if($ctnInfo['in_date'] != '')

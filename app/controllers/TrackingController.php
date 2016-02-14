@@ -137,9 +137,13 @@ class TrackingController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function detail($container_id)
 	{
+		$container = $this->containerRepository->getById($container_id);
 
+		// dd($container->toArray());
+
+		return View::make('tracking/details', compact('container'));
 	}
 
 	/**

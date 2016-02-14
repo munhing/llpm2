@@ -793,7 +793,11 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
             'as' => 'tracking.container.track',
             'uses' => 'TrackingController@track',
         ]);
-       
+
+        Route::get('/container/track/{container_id}', [
+            'as' => 'tracking.container.detail',
+            'uses' => 'TrackingController@detail',
+        ]);       
     });
 /*
 |--------------------------------------------------------------------------

@@ -48,6 +48,7 @@ class ContainerTracking
 
     public function getIndividualContainerInfo($container)
     {
+        $info['id'] = $container->id;
         $info['container_no'] = $container->container_no;
         $info['size'] = $container->size;
         $info['status'] = $container->status;
