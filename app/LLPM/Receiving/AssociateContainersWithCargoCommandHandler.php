@@ -50,7 +50,7 @@ class AssociateContainersWithCargoCommandHandler implements CommandHandler {
 
                 if($this->validateContainer($ctn)) {
 
-                    $ctn = $this->updateContainer($ctn);
+                    $ctn = $this->updateContainer($ctn, $command->cargo_id);
 
                     $this->registeredContainers[] = $ctn;
                 }
@@ -72,11 +72,19 @@ class AssociateContainersWithCargoCommandHandler implements CommandHandler {
         return false;
     }
 
-    public function updateContainer($container)
+    public function updateContainer($container, $cargo_id)
     {
         // update container content to Laden
+        
+        
         $container->content = 'L';
         $container->dl_check = 1;
+
+        // check if cargo already issued DL, if yes, dl_check = 0
+        if($this->hasIssuedDL($cargo_id)) {
+            $container->dl_check = 0;
+        }
+
         $container->save();
 
         return $container;
@@ -108,5 +116,16 @@ class AssociateContainersWithCargoCommandHandler implements CommandHandler {
     public function incrementContainerizedCargo($cargo_id, $count)
     {
         $this->cargoRepository->containerizedIncrement($cargo_id, $count);        
-    }    
+    }  
+
+    public function hasIssuedDL($cargo_id)
+    {
+        $cargo = $this->cargoRepository->getById($cargo_id);
+
+        if($cargo->dl_no != 0) {
+            return true;
+        }
+
+        return false;      
+    }       
 }
