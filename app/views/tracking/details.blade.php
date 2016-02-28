@@ -150,7 +150,7 @@ html, body {
 							<?php $confirmed_at = DateTime::createFromFormat('Y-m-d H:i:s', $workorder->pivot->confirmed_at); ?>
 							<tr>
 								<td>{{ $i }}</td>
-								<td>{{ $workorder->id }}</td>
+								<td>{{ $workorder->id }} {{ $workorder->pivot->remark == 'BYPASS' ? '<span class="label label-sm label-danger">bypass</span>' : '' }}</td>
 								<td>{{ $workorder->movement }}</td>
 								<td>{{ $workorder->date->format('d/m/Y') }}</td>
 								<td>

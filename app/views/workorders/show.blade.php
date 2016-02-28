@@ -281,7 +281,7 @@
 
 									<tr>
 										<td>{{ $i }}</td>
-										<td>{{ $container->container_no }}</td>
+										<td>{{ $container->container_no }} {{ $container->pivot->remark == 'BYPASS' ? '<span class="label label-sm label-danger">bypass</span>' : '' }}</td>
 										<td>{{ $container->size . $container->pivot->content }}</td>
 										<td>@if($container->pivot->confirmed_by != 0)
 											{{ $container->users_name }}
