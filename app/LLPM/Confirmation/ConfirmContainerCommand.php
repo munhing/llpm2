@@ -9,6 +9,7 @@ class ConfirmContainerCommand {
     public $a_date;
 	public $a_confirmed_at;
 	public $a_operator;
+    public $bypass;
 
     /**
      */
@@ -18,7 +19,8 @@ class ConfirmContainerCommand {
     	$a_lifter, 
         $a_date = '', 
     	$a_confirmed_at = '', 
-    	$a_operator = 0
+    	$a_operator = 0,
+        $bypass
     )
     {
 		$this->a_confirmation = $a_confirmation;
@@ -27,6 +29,7 @@ class ConfirmContainerCommand {
         $this->a_date = $a_date;
 		$this->a_confirmed_at = $a_confirmed_at;
 		$this->a_operator = $a_operator;
+        $this->bypass = $bypass;
     }
 
 }

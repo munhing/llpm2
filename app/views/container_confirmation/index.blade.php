@@ -101,6 +101,12 @@
                 <div class="modal-body">
                         {{ Form::open() }}                    
                         {{ Form::hidden('a_confirmation','', ['id'=>'a_confirmation']) }}
+                        	<?php $role = Auth::user()->roles->first()->role; ?>
+                          <div class="alert alert-warning {{ $role == 'AD' || $role == 'IT' ? '' : 'hide' }}" role="alert">
+                                 {{ Form::checkbox('bypass', 'true') }}
+                                 {{ Form::label('bypass','Bypass all check points') }}
+                          </div> 
+
                           <div class="form-group">
                                  {{ Form::label('operator','Operator In Charge') }}
                                  {{ Form::select('a_operator', [], 0, ['class' => 'form-control select2me', 'placeholder' => 'Select Operator', 'id'=>'a_operator', 'spinner']) }}
@@ -206,6 +212,17 @@
 		});
 
 		$('.date-picker').datepicker('update', new Date());
+
+		$('input[type="checkbox"]').click(function(e) {
+
+			if(this.checked) {
+	  			if(confirm( "Are you sure you want to bypass all check points?" )) {
+	  				$('input[type="checkbox"]').prop('checked', true);
+	  			} else {
+	  				$('input[type="checkbox"]').prop('checked', false);
+	  			}			
+			}
+		});
 
     });
 @stop

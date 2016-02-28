@@ -8,7 +8,7 @@ class ContainerConfirmation extends \Eloquent {
 
 	protected $table = 'container_workorder';
 
-	protected $fillable = ['content', 'vehicle', 'lifter', 'confirmed', 'confirmed_by', 'confirmed_at'];
+	protected $fillable = ['content', 'vehicle', 'lifter', 'remark', 'confirmed', 'confirmed_by', 'confirmed_at'];
 
 	public function container()
 	{
@@ -50,6 +50,16 @@ class ContainerConfirmation extends \Eloquent {
 		return $confirmation;
 	}
 
+	public static function update_bypass_remark($container_id)
+	{
+		$confirmation = static::where('container_id',$container_id)->where('confirmed', 0)->first();
+
+        $confirmation->remark = 'BYPASS';
+
+		//$confirmation->raise(new ContainerWasUpdated($container));
+
+		return $confirmation;
+	}
 }
 
         

@@ -69,10 +69,12 @@ class ConfirmContainerCommandHandler implements CommandHandler
         $a_cons = json_decode($command->a_confirmation);
         $a_car = json_decode($command->a_carrier);
         $a_lif = json_decode($command->a_lifter);
+        $bypass = json_decode($command->bypass);
+
         $operator = $this->getOperator($command);
         $confirmed_at = $this->getTime($command);
 
-        // dd($a_ope);
+        // dd($bypass[0]);
 
         foreach ($a_cons as $key => $confirmation) {
             $confirmationIds[] = explode(',', $confirmation);
@@ -89,24 +91,35 @@ class ConfirmContainerCommandHandler implements CommandHandler
             // dd($confirmation);
             // get confirmation details
 
-            // confirm at checkpoint
-            $ctn = $this->confirmAtCheckPoint($confirmation, $operator, $confirmed_at);
 
-            // update check point
-            $cp = $this->updateCheckPoint($ctn, $confirmation);
+            if($bypass[0]) {
+                $ctn = $this->containerRepository->getById($confirmation[0]);
+                $cp = $this->updateCheckPointBypass($ctn);
+                $this->updateBypassRemark($confirmation);
+
+            } else {
+
+                // confirm at checkpoint
+                $ctn = $this->confirmAtCheckPoint($confirmation, $operator, $confirmed_at);
+
+                // update check point
+                $cp = $this->updateCheckPoint($ctn, $confirmation);
+
+            }
+
 
             // update the carrier and lifter
             $this->updateVehicleLifter($confirmation);
 
-            if ($cp['role'] != '') {
+            // if ($cp['role'] != '') {
 
-                if (!array_key_exists($cp['role'], $roles)) {
-                    $roles[$cp['role']] = 0;
-                }
+            //     if (!array_key_exists($cp['role'], $roles)) {
+            //         $roles[$cp['role']] = 0;
+            //     }
 
-                $roles[$cp['role']]++;
+            //     $roles[$cp['role']]++;
 
-            }
+            // }
 
             // if all check points is not completed, cannot proceed
             if ($cp['complete']) {
@@ -182,6 +195,17 @@ class ConfirmContainerCommandHandler implements CommandHandler
         return $ctn;
     }
 
+    public function updateCheckPointBypass($ctn)
+    {
+        $cp['complete'] = true;
+
+        $ctn->to_confirm_by = '';
+        $ctn->check_point = 0;
+        $ctn->save();
+
+        return $cp;     
+    }
+
     public function updateCheckPoint($ctn, $confirmation)
     {
         // dd($confirmation);
@@ -216,6 +240,16 @@ class ConfirmContainerCommandHandler implements CommandHandler
         // $pusher->trigger('LLPM', $to_confirm_by, json_encode($pusher_data));
         // dd($ctn->toArray());
         return $cp;
+    }
+
+    public function updateBypassRemark($confirmation)
+    {
+        $containerConfirmation = ContainerConfirmation::update_bypass_remark($confirmation[0]);
+
+        $containerConfirmation->save();
+
+        return $containerConfirmation;
+
     }
 
     public function updateVehicleLifter($confirmation)

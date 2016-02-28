@@ -117,6 +117,10 @@ class ContainerConfirmationController extends \BaseController {
 
 		$this->containerConfirmationForm->validate($input);
 
+		if(! isset($input['bypass'])) {
+			$input['bypass'] = false;
+		}
+
 
         function jsonify($value)
         {
