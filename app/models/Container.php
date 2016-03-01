@@ -103,6 +103,18 @@ class Container extends \Eloquent {
 		return $container;
 	}	
 
+	public static function editBasic($id, $container_no, $size)
+	{
+		$container = static::find($id);
+
+        $container->container_no = $container_no;
+        $container->size = $size;
+
+		// $container->raise(new ContainerWasUpdated($container));
+
+		return $container;
+	}
+
 	public static function edit($id, $container_no, $size, $content, $location, $status, $current_movement)
 	{
 		$container = static::find($id);

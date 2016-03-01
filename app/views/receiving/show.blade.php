@@ -63,6 +63,14 @@
 										<td>{{ $container->size }}</td>
 										<td>{{ $container->content }}</td>
 										<td>
+
+											<?php $role = Auth::user()->roles->first()->role; ?>
+											@if($role == 'AD' || $role == 'IT')
+					                            <button class='btn btn-xs btn-primary' type='button' data-toggle="modal" data-target="#formModal" data-container-id="{{$container->id}}" data-container-no="{{ $container->container_no }}" data-size="{{ $container->size }}">
+					                                <i class="fa fa-edit"></i>
+					                            </button>										
+											@endif
+
 											@if(count($container->workorders) == 0 && $container->content != 'L')
 												{{ Form::open(['route'=>['receiving.container.delete', $container->receiving_id]]) }}
 												{{ Form::hidden('container_id', $container->id) }}
@@ -133,6 +141,35 @@
 	</div>
 	<!-- END Portlet PORTLET-->
 
+	<div class="modal fade edit-modal-sm" id="formModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	    <div class="modal-dialog modal-sm">
+	          <div class="modal-content">
+	                <div class="modal-header">
+	                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                      <h4 class="modal-title">Edit Container</h4>
+	                </div>
+	                <div class="modal-body">
+	                        {{ Form::open(['route'=>'receiving.containers.edit']) }}    
+                                {{ Form::hidden('container_id', '', ['id'=>'container_id']) }}
+                                {{ Form::hidden('container_no_old', '', ['id'=>'container_no_old']) }}
+                                {{ Form::hidden('size_old', '', ['id'=>'size_old']) }}
+                                <div class="form-group">
+                                     {{ Form::label('container_no','Container No') }}
+                                     {{ Form::text('container_no','', ['class'=>'form-control']) }}
+                                </div>    
+                                <div class="form-group">
+                                     {{ Form::label('size','Size') }}
+                                     {{ Form::text('size','', ['class'=>'form-control']) }}
+                                </div>                       
+
+                                <button class="btn btn-lg btn-success btn-block edit-btn" data-confirm>
+                                    Update
+                                </button>
+	                        {{ Form::close() }}
+	                </div>
+	          </div>
+	    </div>
+	</div>
 				
 	<div class="clearfix">
 	</div>
@@ -147,4 +184,23 @@
 @stop
 
 @section('scripts')
+
+	$('#formModal').on('show.bs.modal', function (event) {
+	
+		var button = $(event.relatedTarget); // Button that triggered the modal
+
+		var container_id = button.data('container-id'); // Extract info from data-* attributes
+        var container_no = button.data('container-no'); // Extract info from data-* attributes
+		var size = button.data('size'); // Extract info from data-* attributes
+
+		var modal = $(this);
+
+        modal.find('.modal-title').text('Edit ' + container_no);
+        modal.find('#container_id').val(container_id);
+        modal.find('#container_no').val(container_no);
+        modal.find('#container_no_old').val(container_no);
+        modal.find('#size').val(size);
+        modal.find('#size_old').val(size);
+	});
+	
 @stop

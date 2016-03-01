@@ -3,6 +3,7 @@
 use LLPM\ContainerHelper;
 use LLPM\Forms\CargoItemForm;
 use LLPM\Forms\ImportCargoForm;
+use LLPM\Forms\ContainerForm;
 use LLPM\Receiving\AssociateContainersWithCargoCommand;
 use LLPM\Receiving\DeleteReceivingContainerCommand;
 use LLPM\Receiving\IssueExportCargoCommand;
@@ -19,6 +20,7 @@ use LLPM\Repositories\ReceivingRepository;
 use LLPM\Repositories\VesselScheduleRepository;
 use LLPM\Schedule\AddItemToCargoCommand;
 use LLPM\Schedule\UpdateCargoItemCommand;
+use LLPM\Schedule\UpdateContainerCommand;
 
 class ReceivingController extends \BaseController {
 
@@ -31,6 +33,7 @@ class ReceivingController extends \BaseController {
 	protected $countryRepository;
 	protected $importCargoForm;
 	protected $cargoItemForm;
+	protected $containerForm;
 
 	use ContainerHelper;
 
@@ -43,7 +46,9 @@ class ReceivingController extends \BaseController {
 		CargoRepository $cargoRepository,
 		CargoItemRepository $cargoItemRepository,
 		CountryRepository $countryRepository,
-		CargoItemForm $cargoItemForm)
+		CargoItemForm $cargoItemForm,
+		ContainerForm $containerForm
+	)
 	{
 		$this->receivingRepository = $receivingRepository;
 		$this->portUserRepository = $portUserRepository;
@@ -55,6 +60,7 @@ class ReceivingController extends \BaseController {
 
 		$this->importCargoForm = $importCargoForm;
 		$this->cargoItemForm = $cargoItemForm;
+		$this->containerForm = $containerForm;
 	}
 	/**
 	 * Display a listing of the resource.
@@ -177,6 +183,8 @@ class ReceivingController extends \BaseController {
 		$input['receiving_id'] = $receiving_id;
 		$input['cargo_id'] = $cargo_id;
 		
+		// dd($input);
+
 		$this->cargoItemForm->validate($input);
 
 		$this->execute(AddItemToCargoCommand::class, $input);
@@ -199,6 +207,8 @@ class ReceivingController extends \BaseController {
 	{
 		$input = Input::all();
 
+		// dd($input);
+
 		$this->cargoItemForm->validate($input);
 
 		$cargoItem = $this->execute(UpdateCargoItemCommand::class, $input);
@@ -207,6 +217,20 @@ class ReceivingController extends \BaseController {
 
 		return Redirect::route('receiving.cargo.show', [$receiving_id, $cargo_id]);
 	}	
+
+	public function editContainer()
+	{
+		$input = Input::all();
+
+		$this->containerForm->validate(Input::all());
+
+		$container = $this->execute(UpdateContainerCommand::class, $input);
+
+		// dd($input);
+		Flash::success("Container No: ". $container->container_no ." was updated!");
+
+		return Redirect::back();
+	}
 
 	/**
 	 * Update the specified resource in storage.

@@ -356,6 +356,11 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
             'uses' => 'VesselScheduleController@storeImportContainer',
         ]);
 
+        Route::post('schedule/{id}/import/containers/edit', [
+            'as' => 'manifest.schedule.import.containers.edit',
+            'uses' => 'VesselScheduleController@editContainer',
+        ]);
+
         Route::post('schedule/{id}/import/containers/delete', [
             'as' => 'manifest.schedule.import.containers.delete',
             'uses' => 'VesselScheduleController@destroyImportContainer',
@@ -558,6 +563,11 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
         Route::post('containers/create', [
             'as' => 'receiving.containers.create',
             'uses' => 'ReceivingController@storeContainer',
+        ]);
+
+        Route::post('containers/edit', [
+            'as' => 'receiving.containers.edit',
+            'uses' => 'ReceivingController@editContainer',
         ]);
 
         Route::get('cargoes/create', [

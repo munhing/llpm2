@@ -4,6 +4,7 @@ use LLPM\ContainerHelper;
 use LLPM\Forms\CargoItemForm;
 use LLPM\Forms\ImportCargoForm;
 use LLPM\Forms\VesselScheduleForm;
+use LLPM\Forms\ContainerForm;
 use LLPM\Repositories\CargoItemRepository;
 use LLPM\Repositories\CargoRepository;
 use LLPM\Repositories\ContainerRepository;
@@ -25,6 +26,7 @@ use LLPM\Schedule\UpdateExportCargoCommand;
 use LLPM\Schedule\UpdateImportCargoCommand;
 use LLPM\Schedule\UpdateCargoItemCommand;
 use LLPM\Schedule\UpdateVesselScheduleCommand;
+use LLPM\Schedule\UpdateContainerCommand;
 
 class VesselScheduleController extends \BaseController {
 
@@ -38,6 +40,7 @@ class VesselScheduleController extends \BaseController {
 	protected $vesselScheduleForm;
 	protected $importCargoForm;
 	protected $cargoItemForm;
+	protected $containerForm;
 
 	use ContainerHelper;
 
@@ -51,7 +54,8 @@ class VesselScheduleController extends \BaseController {
 		CountryRepository $countryRepository,
 		VesselScheduleForm $vesselScheduleForm,
 		ImportCargoForm $importCargoForm,
-		CargoItemForm $cargoItemForm
+		CargoItemForm $cargoItemForm,
+		ContainerForm $containerForm
 	)
 	{
 		$this->vesselScheduleRepository = $vesselScheduleRepository;
@@ -63,6 +67,7 @@ class VesselScheduleController extends \BaseController {
 		$this->countryRepository = $countryRepository;
 		$this->vesselScheduleForm = $vesselScheduleForm;
 		$this->importCargoForm = $importCargoForm;
+		$this->containerForm = $containerForm;
 
 		$this->cargoItemForm = $cargoItemForm;
 	}
@@ -230,6 +235,20 @@ class VesselScheduleController extends \BaseController {
 
 		return Redirect::route('manifest.schedule.import', $id);
 
+	}
+
+	public function editContainer()
+	{
+		$input = Input::all();
+
+		$this->containerForm->validate(Input::all());
+
+		$container = $this->execute(UpdateContainerCommand::class, $input);
+
+		// dd($input);
+		Flash::success("Container No: ". $container->container_no ." was updated!");
+
+		return Redirect::back();
 	}
 
 	public function destroyImportContainer($schedule_id)
