@@ -51,6 +51,7 @@ Route::filter('auth', function()
 	}
 
 	if(Auth::check()){
+
 		$admin_access = true;
 
 		// foreach(Auth::user()->roles as $role) {
@@ -58,6 +59,15 @@ Route::filter('auth', function()
 		// 		$admin_access = false;
 		// 	}
 		// }
+
+		if(Auth::user()->is_staff == 0 || Auth::user()->is_staff == 3 ) {
+			Auth::logout();
+			return Redirect::guest('login');
+		}
+
+		if(Auth::user()->is_staff == 2) {
+			return Redirect::route('etracking');
+		}
 
         foreach(Auth::user()->roles as $role) {
 
@@ -67,12 +77,27 @@ Route::filter('auth', function()
                     $admin_access = false;
                     break;                   
                 }
-
             }
         }
 
 		if($admin_access == false) {
+
 			return Redirect::route('mobile');
+		}
+	}
+});
+
+Route::filter('auth.portuser', function()
+{
+	if (Auth::guest())
+	{
+		if (Request::ajax())
+		{
+			return Response::make('Unauthorized', 401);
+		}
+		else
+		{
+			return Redirect::guest('login');
 		}
 	}
 });

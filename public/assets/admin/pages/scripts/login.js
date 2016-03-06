@@ -154,9 +154,12 @@ var Login = function() {
             ignore: "",
             rules: {
 
-                fullname: {
+                name: {
                     required: true
                 },
+                company: {
+                    required: true
+                },                
                 email: {
                     required: true,
                     email: true

@@ -22,6 +22,8 @@ function authSubmit() {
         var submitForm = true;
         var baseUrl = window.location.origin;
 
+        console.log(baseUrl);
+
         thisBut = $(this);
 
         // console.log(thisBut.data('submit-form'));
@@ -39,10 +41,11 @@ function authSubmit() {
         if(submitForm) {
 
             $.ajax({
-                url: baseUrl + "/admin/access/check_auth",
+                url: baseUrl + "/authenticate",
                 type: 'POST',
                 data: formData,
                 success: function(data) {
+                    // console.log(data);
                     // alert(data);
 
                     if (data == 1) {

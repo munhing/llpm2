@@ -11,7 +11,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait, EventGenerator;
 
-	protected $fillable = ['username', 'name', 'email', 'password'];
+	protected $fillable = ['username', 'name', 'email', 'password', 'company'];
 
 	/**
 	 * The database table used by the model.
@@ -50,6 +50,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		return $user;
 
+	}	
+
+	public static function registerPortUser($name, $username, $email, $company, $password)
+	{
+		$user = new static(compact('name', 'username', 'email', 'company','password'));
+
+		$user->raise(new UserWasRegistered($user));
+
+		return $user;
+
 	}
 
 	public static function edit($id, $name, $username, $email)
@@ -59,6 +69,19 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$user->name = $name;
 		$user->username = $username;
 		$user->email = $email;
+
+		return $user;
+
+	}
+
+	public static function editPortUser($id, $name, $username, $email, $company)
+	{
+		$user = static::find($id);
+
+		$user->name = $name;
+		$user->username = $username;
+		$user->email = $email;
+		$user->company = $company;
 
 		return $user;
 

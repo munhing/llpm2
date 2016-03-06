@@ -182,7 +182,11 @@
                     <li class="{{ Request::is('admin/access/roles*') ? 'active' : '' }}">
                         <a href="{{ URL::route('roles') }}">
                         Roles </a>
-                    </li>                   
+                    </li>
+                    <li class="{{ Request::is('admin/access/portusers*') ? 'active' : '' }}">
+                        <a href="{{ URL::route('portusers_access') }}">
+                        Port Users </a>
+                    </li>                                      
                 </ul>                
             </li>   
 

@@ -1,15 +1,18 @@
 <?php
 
-use LLPM\Forms\UserForm;
+use LLPM\Forms\PortUserRegisterForm;
 use LLPM\Forms\RoleForm;
-use LLPM\Repositories\UserRepository;
-use LLPM\Repositories\RoleRepository;
+use LLPM\Forms\UserForm;
 use LLPM\Repositories\PermissionRepository;
-use LLPM\Users\RegisterUserCommand;
-use LLPM\Users\UpdateUserCommand;
-use LLPM\Users\UpdateUserProfileCommand;
-use LLPM\Users\UpdateUserPasswordCommand;
+use LLPM\Repositories\RoleRepository;
+use LLPM\Repositories\UserRepository;
 use LLPM\Users\RegisterRoleCommand;
+use LLPM\Users\RegisterUserCommand;
+use LLPM\Users\RegisterPortUserRegisterCommand;
+use LLPM\Users\UpdateUserCommand;
+use LLPM\Users\UpdatePortUserRegisterCommand;
+use LLPM\Users\UpdateUserPasswordCommand;
+use LLPM\Users\UpdateUserProfileCommand;
 
 class UsersController extends \BaseController {
 
@@ -18,13 +21,15 @@ class UsersController extends \BaseController {
 	private $userRepository;
 	private $roleRepository;
 	private $permissionRepository;
+	private $portUserRegisterForm;
 
 	function __construct(
 		UserForm $userForm, 
 		RoleForm $roleForm, 
 		UserRepository $userRepository, 
 		RoleRepository $roleRepository, 
-		PermissionRepository $permissionRepository
+		PermissionRepository $permissionRepository,
+		PortUserRegisterForm $portUserRegisterForm
 	)
 	{
 		$this->userForm = $userForm;
@@ -32,6 +37,7 @@ class UsersController extends \BaseController {
 		$this->userRepository = $userRepository;
 		$this->roleRepository = $roleRepository;
 		$this->permissionRepository = $permissionRepository;
+		$this->portUserRegisterForm = $portUserRegisterForm;
 	}
 
 	/**
@@ -41,12 +47,19 @@ class UsersController extends \BaseController {
 	 */
 	public function index()
 	{
-		$users = $this->userRepository->getAll();
+		$users = $this->userRepository->getAllStaff();
 		$roles = $this->roleRepository->getAll();
 		// dd($users->toArray());
 		return View::make('users/index', compact('users', 'roles'));
 	}
 
+	public function indexPortUser()
+	{
+		$portusers = $this->userRepository->getAllPortUsers();
+		// $roles = $this->roleRepository->getAll();
+		// dd($users->toArray());
+		return View::make('users/index_portuser', compact('portusers'));
+	}
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -55,7 +68,7 @@ class UsersController extends \BaseController {
 	public function create()
 	{
 		//dd('register');
-		$roles = $this->roleRepository->getAll();
+		$roles = $this->roleRepository->getAllStaff();
 		// dd($roles->toArray());
 		return View::make('users/create', compact('roles'));
 	}
@@ -89,6 +102,19 @@ class UsersController extends \BaseController {
 		return Redirect::route('users');
 	}
 
+	public function storePortUserRegister()
+	{
+		// dd(Input::all());
+
+		$this->portUserRegisterForm->validate(Input::all());
+
+		$user = $this->execute(RegisterPortUserRegisterCommand::class);
+
+		Flash::success("Thank you for registering with us. We will email you once your registration is approved.");
+
+		return Redirect::back();
+	}
+
 	public function update()
 	{
 		$input = Input::all();
@@ -99,6 +125,20 @@ class UsersController extends \BaseController {
 		$user = $this->execute(UpdateUserCommand::class);
 
 		Flash::success("User $user->username has been updated!");
+
+		return Redirect::back();		
+	}
+
+	public function updatePortUserRegister()
+	{
+		$input = Input::all();
+
+		$this->portUserRegisterForm->validateUpdate($input);
+		// dd($input);
+
+		$user = $this->execute(UpdatePortUserRegisterCommand::class);
+
+		Flash::success("Port User $user->username has been updated!");
 
 		return Redirect::back();		
 	}
@@ -226,5 +266,44 @@ class UsersController extends \BaseController {
 	{
 		// dd('My Profile');
 		return View::make('users/profile');
-	}		
+	}
+
+	public function approvePortUser()
+	{
+		$input = Input::all();
+
+		// dd($input);
+
+		$portuser = $this->userRepository->approvePortUser($input['portuser_id']);
+
+		Flash::success("Port User ". $portuser->name . " has been approved!");
+
+		return Redirect::back();		
+	}	
+
+	public function disablePortUser()
+	{
+		$input = Input::all();
+
+		// dd($input);
+
+		$portuser = $this->userRepository->disablePortUser($input['portuser_id']);
+
+		Flash::success("Port User ". $portuser->name . " has been disabled!");
+
+		return Redirect::back();		
+	}	
+
+	public function enablePortUser()
+	{
+		$input = Input::all();
+
+		// dd($input);
+
+		$portuser = $this->userRepository->enablePortUser($input['portuser_id']);
+
+		Flash::success("Port User ". $portuser->name . " has been enabled!");
+
+		return Redirect::back();		
+	}
 }

@@ -131,6 +131,12 @@ Route::get('/test', function () {
 | Sessions
 |--------------------------------------------------------------------------
  */
+
+Route::post('authenticate', [
+    'as' => 'authenticate',
+    'uses' => 'PublicAuthController@checkAuth',
+]);
+
 Route::get('/', function () {
     // return View::make('pages/guest');
     return Redirect::route('home');
@@ -171,6 +177,12 @@ Route::post('secret_register', [
     'uses' => 'UsersController@store',
 ]);
 
+Route::post('register', [
+    'as' => 'portuser_register',
+    'uses' => 'UsersController@storePortUserRegister',
+]);
+
+ 
 /*
 |--------------------------------------------------------------------------
 | Password Reset
@@ -179,6 +191,44 @@ Route::post('secret_register', [
 
 Route::controller('password', 'RemindersController');
 
+/*
+|--------------------------------------------------------------------------
+| eTracking
+|--------------------------------------------------------------------------
+ */
+
+Route::group(['prefix' => 'etracking', 'before' => 'auth.portuser'], function () {
+
+    Route::get('/', [
+        'as' => 'etracking',
+        'uses' => 'EtrackingController@index'
+    ]);
+
+    Route::get('/track', [
+        'as' => 'etracking.track',
+        'uses' => 'EtrackingController@track',
+    ]);
+
+    Route::get('/track/{container_id}', [
+        'as' => 'etracking.detail',
+        'uses' => 'EtrackingController@detail',
+    ]);  
+
+    Route::get('/profile', [
+        'as' => 'etracking.profile',
+        'uses' => 'EtrackingController@profile',
+    ]); 
+
+    Route::post('/update_profile', [
+        'as' => 'etracking.profile.update',
+        'uses' => 'EtrackingController@updateProfile',
+    ]);  
+
+    Route::post('/update_password', [
+        'as' => 'etracking.profile.password',
+        'uses' => 'EtrackingController@updatePassword',
+    ]);          
+});
 /*
 |--------------------------------------------------------------------------
 | Admin
@@ -194,7 +244,7 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
         'as' => 'home',
         'uses' => function () {
             return View::make('dashboard');
-        },
+        }
     ]);
 
 
@@ -260,6 +310,31 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
         Route::post('roles/{role_id}/permissions', [
             'as' => 'roles.permissions',
             'uses' => 'UsersController@rolePermissionsUpdate',
+        ]);
+
+        Route::get('portusers', [
+            'as' => 'portusers_access',
+            'uses' => 'UsersController@indexPortUser',
+        ]);
+
+        Route::post('portusers/update', [
+            'as' => 'portusers_access.update',
+            'uses' => 'UsersController@updatePortUserRegister',
+        ]);
+
+        Route::post('portusers/approve', [
+            'as' => 'portusers_access.approve',
+            'uses' => 'UsersController@approvePortUser',
+        ]);
+
+        Route::post('portusers/disable', [
+            'as' => 'portusers_access.disable',
+            'uses' => 'UsersController@disablePortUser',
+        ]);
+
+        Route::post('portusers/enable', [
+            'as' => 'portusers_access.enable',
+            'uses' => 'UsersController@enablePortUser',
         ]);
 
         Route::get('permissions', [

@@ -22,6 +22,21 @@ class SessionsController extends \BaseController {
 		//
 	}
 
+	public function checkAuth()
+	{
+		$input = Input::all();
+
+		return "hello";
+
+		if(Hash::check($input['auth_password'], Auth::user()->password))
+		{
+			// return true
+			return 1;
+		}
+
+		// return false
+		return 0;
+	}
 
 	/**
 	 * Show the form for creating a new resource.
@@ -30,7 +45,7 @@ class SessionsController extends \BaseController {
 	 */
 	public function login()
 	{
-		return View::make('sessions/login');
+		return View::make('sessions/login2');
 	}
 
 
