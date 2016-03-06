@@ -89,14 +89,18 @@ License: You must have a valid license purchased only from themeforest(the above
 		<div class="container">
 
 			<div class="row margin-top-10">
-
+				@include('flash::message')
+				@include('layouts/partials/errors')
+				@include('layouts/partials/modal')
+				
 				@yield('content')
 
+				@include('layouts/partials/modal_auth')
 			</div>
 		</div>
 	</div>
 
-	@include('layouts/partials/modal_auth')
+	
 
 </div>
 <!-- END CONTAINER -->

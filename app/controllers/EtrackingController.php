@@ -3,12 +3,13 @@
 use Carbon\Carbon;
 use LLPM\Containers\ContainerTracking;
 use LLPM\Containers\ContainerTrackingStatus;
-use LLPM\Users\UpdateUserProfileCommand;
+use LLPM\Users\UpdatePortUserRegisterCommand;
 use LLPM\Users\UpdateUserPasswordCommand;
 use LLPM\Repositories\ContainerRepository;
 use LLPM\Repositories\ContainerWorkorderConfirmationRepository;
 use LLPM\Repositories\FeeRepository;
 use LLPM\Repositories\VesselScheduleRepository;
+use LLPM\Forms\PortUserRegisterForm;
 
 class EtrackingController extends \BaseController {
 
@@ -18,6 +19,7 @@ class EtrackingController extends \BaseController {
 	protected $vesselScheduleRepository;
 	protected $containerTracking;
 	protected $containerTrackingStatus;
+	protected $portUserRegisterForm;
 	protected $totalStorageCharges = 0;
 
 	function __construct(
@@ -26,7 +28,8 @@ class EtrackingController extends \BaseController {
 		FeeRepository $feeRepository,
 		VesselScheduleRepository $vesselScheduleRepository,
 		ContainerTracking $containerTracking,
-		ContainerTrackingStatus $containerTrackingStatus
+		ContainerTrackingStatus $containerTrackingStatus,
+		PortUserRegisterForm $portUserRegisterForm
 	)
 	{
 		$this->containerRepository = $containerRepository;
@@ -35,6 +38,7 @@ class EtrackingController extends \BaseController {
 		$this->vesselScheduleRepository = $vesselScheduleRepository;
 		$this->containerTracking = $containerTracking;
 		$this->containerTrackingStatus = $containerTrackingStatus;
+		$this->portUserRegisterForm = $portUserRegisterForm;
 	}
 
 	/**
@@ -166,9 +170,9 @@ class EtrackingController extends \BaseController {
 
 		// dd($input);
 
-		// $this->userForm->validateUpdateProfile($input);
+		$this->portUserRegisterForm->validateUpdateProfile($input);
 
-		$user = $this->execute(UpdateUserProfileCommand::class);
+		$user = $this->execute(UpdatePortUserRegisterCommand::class);
 
 		Flash::success("Your profile has been updated!");
 
@@ -179,11 +183,11 @@ class EtrackingController extends \BaseController {
 	{
 		$input = Input::all();
 		
-		// $this->userForm->validateUpdatePassword($input);
+		$this->portUserRegisterForm->validateUpdatePassword($input);
 
 		$user = $this->execute(UpdateUserPasswordCommand::class);
 
-		Flash::success("Password changed for User $user->username!");
+		Flash::success("Your password has been changed successfully!");
 
 		return Redirect::back();		
 	}

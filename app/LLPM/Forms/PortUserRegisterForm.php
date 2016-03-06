@@ -61,6 +61,7 @@ class PortUserRegisterForm extends FormValidator{
         $this->rules['name'] 	= '';
         $this->rules['email'] 	= '';
         $this->rules['username'] = '';
+        $this->rules['company'] = '';
 
         return $this->validate($input);
     }

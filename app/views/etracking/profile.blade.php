@@ -27,7 +27,7 @@
             <button class='btn btn-default btn-sm' data-toggle="modal" data-target="#myModal_user_password" data-user-id="{{ Auth::user()->id }}">
                 <i class="fa fa-key"></i> Change Password 
             </button>   
-            <button class='btn btn-default btn-sm' data-toggle="modal" data-target="#myModal_user" data-user-id="{{ Auth::user()->id }}" data-name="{{ Auth::user()->name }}" data-username="{{ Auth::user()->username }}" data-email="{{ Auth::user()->email }}">
+            <button class='btn btn-default btn-sm' data-toggle="modal" data-target="#myModal_user" data-user-id="{{ Auth::user()->id }}" data-name="{{ Auth::user()->name }}" data-username="{{ Auth::user()->username }}" data-email="{{ Auth::user()->email }}" data-company="{{ Auth::user()->company }}">
                 <i class="fa fa-pencil"></i> Edit 
             </button>                  
         </div>
@@ -57,6 +57,14 @@
                  {{ Auth::user()->email }}
             </div>
         </div>
+        <div class="row static-info">
+            <div class="col-md-5 name">
+                 Company:
+            </div>
+            <div class="col-md-7 value">
+                 {{ Auth::user()->company }}
+            </div>
+        </div>        
     </div>    
 </div>
 
@@ -90,7 +98,15 @@
                                     {{ Form::text('email','', ['id'=>'email', 'class'=>'form-control']) }}
                                 </div>                                  
                             </div>  
-                        </div>                                                        
+                        </div> 
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Company</label>
+                                <div class="col-md-6">
+                                    {{ Form::text('company','', ['id'=>'company', 'class'=>'form-control']) }}
+                                </div>                                  
+                            </div>  
+                        </div>                                                                                
                         <div class="row">
                             <div class="form-group">
                                 <label class="control-label col-md-2">Username</label>
@@ -178,11 +194,13 @@
         $name = $button.data('name');
         $username = $button.data('username');
         $email = $button.data('email');
+        $company = $button.data('company');
 
         $('#user_id').val($userId);
         $('#name').val($name);
         $('#username').val($username);
         $('#email').val($email);
+        $('#company').val($company);
 
     });
 

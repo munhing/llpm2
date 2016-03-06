@@ -1,4 +1,6 @@
-authSubmit();
+var submitCount = 0;
+
+// authSubmit();
 
 $('input[data-confirm], button[data-confirm]').on('click', function(e){
 
@@ -13,9 +15,9 @@ $('input[data-confirm], button[data-confirm]').on('click', function(e){
     $('.modal-auth').modal('show');
 });
 
-function authSubmit() {
+// function authSubmit() {
 
-    $('input[data-auth], button[data-auth]').one('click', function(e){
+    $('input[data-auth], button[data-auth]').on('click', function(e){
     	
         e.preventDefault();
 
@@ -49,12 +51,16 @@ function authSubmit() {
                     // alert(data);
 
                     if (data == 1) {
+                        submitCount++;
+                        console.log(submitCount);
                         // submit form
                          // $('#' + thisBut.data('submit-form')).submit();
-                         thisBut.data('form').submit();
+                         if(submitCount == 1) {
+                            thisBut.data('form').submit();
+                         }
                     } else {
                         alert('Password is Incorrect!');
-                        authSubmit();
+                        // authSubmit();
                     }              
 
                 },
@@ -65,7 +71,7 @@ function authSubmit() {
         }
 
     });
-}
+// }
 
 function validatePassword(password)
 {
