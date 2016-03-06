@@ -11,7 +11,7 @@
 @section('content')
 
 	<h3 class="page-title">
-		Registered Users <small>list</small>
+		Registered Port Users for eTracking <small>list</small>
 	</h3>
 
 	<div class="page-bar">
@@ -22,7 +22,7 @@
 				<i class="fa fa-angle-right"></i>
 			</li>
 			<li>
-				Users
+				Port Users - eTracking
 			</li>					
 		</ul>
 	</div>	
@@ -32,7 +32,7 @@
 <div class="portlet box blue-hoki">
 	<div class="portlet-title">
 		<div class="caption">
-			<i class="fa fa-globe"></i>List of Users
+			<i class="fa fa-globe"></i>List of Port Users
 		</div>
 		<div class="tools">
 		</div>
