@@ -140,12 +140,14 @@ html, body {
 				<th style="text-align:center;vertical-align:middle">Container #</th>
 				<th style="text-align:center;vertical-align:middle">Size</th>
 				<th style="text-align:center;vertical-align:middle">WO In</th>
+				<th style="text-align:center;vertical-align:middle">Inward Carrier</th>
 				<th style="text-align:center;vertical-align:middle">Date In</th>
 				<th style="text-align:center;vertical-align:middle">Status In</th>
 				<th style="text-align:center;vertical-align:middle">Unstuff</th>
 				<th style="text-align:center;vertical-align:middle">Stuffing</th>
 				<th style="text-align:center;vertical-align:middle">Status Out</th>
 				<th style="text-align:center;vertical-align:middle">Date Out</th>
+				<th style="text-align:center;vertical-align:middle">Outward Carrier</th>
 				<th style="text-align:center;vertical-align:middle">WO Out</th>
 						
 			</tr>
@@ -173,6 +175,7 @@ html, body {
 							@endif
 
 							<td>{{ $ctnInfo['in_workorder'] }}</td>
+							<td>{{ $ctnInfo['in_carrier'] }}</td>
 							<td>
 								@if($ctnInfo['in_date'] != '')
 									{{ $ctnInfo['in_date']->format('d/m/Y') }}
@@ -196,6 +199,7 @@ html, body {
 									{{ $ctnInfo['out_date']->format('d/m/Y') }}
 								@endif								
 							</td>
+							<td>{{ $ctnInfo['out_carrier'] }}</td>
 							<td>{{ $ctnInfo['out_workorder'] }}</td>
 
 							<?php

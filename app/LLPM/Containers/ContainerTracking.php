@@ -56,10 +56,12 @@ class ContainerTracking
         $info['current_movement'] = $container->current_movement;
 
         $info['in_workorder'] = '';
+        $info['in_carrier'] = '';
         $info['in_date'] = '';
         $info['in_content'] = '';
 
         $info['out_workorder'] = '';
+        $info['out_carrier'] = '';
         $info['out_date'] = '';
         $info['out_content'] = '';
 
@@ -84,6 +86,7 @@ class ContainerTracking
 
                 if($movement[0] == 'HI' || $movement[0] == 'RI') {
                     $info['in_workorder'] = $workorder->id;
+                    $info['in_carrier'] = $workorder->getCarrier();
                     $info['in_date'] = $confirmed_at;
                     $info['in_content'] = $workorder->pivot->content;
                 }
@@ -102,6 +105,7 @@ class ContainerTracking
 
                 if($movement[0] == 'HE' || $movement[0] == 'RO') {
                     $info['out_workorder'] = $workorder->id;
+                    $info['out_carrier'] = $workorder->getCarrier();
                     $info['out_date'] = $confirmed_at;
                     $info['out_content'] = $workorder->pivot->content;
                 }    
