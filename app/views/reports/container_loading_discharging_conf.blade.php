@@ -114,12 +114,17 @@ function loadSchedule(vesselId, url)
 
             for (row in data) {
 
-                date = new Date(data[row].eta);
+                var date;
+                var dateParts1 = data[row].eta.split("-");
+                var dateParts2 = dateParts1[2].split(" ");
+
+                date = dateParts2[0] + "/" + dateParts1[1] + "/" +  dateParts1[0];
+
                 console.log(date);
 
 
                 $('#schedule_id').append($('<option></option>').attr('value', data[row].id).text(
-                    'V.' + data[row].voyage_no_arrival + ' ETA: ' + date.toDateString()
+                    'V.' + data[row].voyage_no_arrival + ' ETA: ' + date
                 ));
             }
 
