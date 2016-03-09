@@ -111,9 +111,22 @@ Route::get('/log', function () {
 
 Route::get('/queue', function () {
 
+    echo "This is a test queue!";
+
     Queue::push(function($job){
     
-        Log::info("Queues are cool!");
+        $input = [
+            'name' => 'Kevin SU',
+            'email' => 'munhing1980@gmail.com',
+            'comment' =>  'Testing queues',
+            'subject' =>  'Testing Email Queues'
+        ];
+
+        Mail::queue('emails.welcome', $input, function($message) use ($input)
+        {
+            $message->to($input['email'], $input['name']);
+            $message->subject($input['subject']);
+        });
 
         $job->delete();
     
