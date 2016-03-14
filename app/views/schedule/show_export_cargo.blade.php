@@ -73,7 +73,15 @@
 						<div class="col-md-9 value">
 							{{ $cargo->vessel_schedule_export }}
 						</div>						
-					</div>				
+					</div>
+					<div class="row static-info">
+						<div class="col-md-3 name">
+							ETA | ETD:
+						</div>
+						<div class="col-md-9 value">
+							{{ $schedule->eta->format('d/m/Y') }} | {{ $schedule->etd->format('d/m/Y') }}
+						</div>						
+					</div>								
 					<div class="row static-info">
 						<div class="col-md-3 name">
 							B/L #:

@@ -87,6 +87,24 @@ class Cargo extends \Eloquent {
         return $this->exportSchedule->vessel->name . " V." . $this->exportSchedule->voyage_no_departure;
     }
 
+    public function getVesselScheduleEtaAttribute()
+    {
+    	if(is_null($this->exportSchedule)) {
+    		return '';
+    	}
+
+        return $this->exportSchedule->eta;
+    }
+
+    public function getVesselScheduleEtdAttribute()
+    {
+    	if(is_null($this->exportSchedule)) {
+    		return '';
+    	}
+
+        return $this->exportSchedule->etd;
+    }    
+
     public function getConsigneeNameAttribute()
     {
     	if(is_null($this->consignee)) {
