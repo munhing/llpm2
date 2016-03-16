@@ -1,9 +1,10 @@
 <?php
 
-use LLPM\Repositories\ContainerRepository;
-use LLPM\Repositories\WorkOrderRepository;
 use LLPM\Repositories\ContainerConfirmationRepository;
+use LLPM\Repositories\ContainerRepository;
+use LLPM\Repositories\UserRepository;
 use LLPM\Repositories\VesselScheduleRepository;
+use LLPM\Repositories\WorkOrderRepository;
 
 class StatisticsController extends \BaseController {
 
@@ -11,18 +12,21 @@ class StatisticsController extends \BaseController {
 	protected $workOrderRepository;
 	protected $containerConfirmationRepository;
 	protected $vesselScheduleRepository;
+	protected $userRepository;
 
 	function __construct(
 		ContainerRepository $containerRepository,
 		WorkOrderRepository $workOrderRepository,
 		ContainerConfirmationRepository $containerConfirmationRepository,
-		VesselScheduleRepository $vesselScheduleRepository
+		VesselScheduleRepository $vesselScheduleRepository,
+		UserRepository $userRepository
 	)
 	{
 		$this->containerRepository = $containerRepository;
 		$this->workOrderRepository = $workOrderRepository;
 		$this->containerConfirmationRepository = $containerConfirmationRepository;
 		$this->vesselScheduleRepository = $vesselScheduleRepository;
+		$this->userRepository = $userRepository;
 	}
 
 	/**
@@ -37,6 +41,7 @@ class StatisticsController extends \BaseController {
 		$data['containers'] = $containers = $this->containerRepository->getAllActive()->count();
 		$data['workorders'] = $workorders = $this->workOrderRepository->getAllToday()->count();
 		$data['pending_containers'] = $pendingContainers = $this->containerConfirmationRepository->getAllPending()->count();
+		$data['pending_portusers'] = $pendingPortusers = $this->userRepository->getPendingPortUsers()->count();
 		$data['vessel_schedule'] = $vessel_schedule = $this->vesselScheduleRepository->getActiveSchedule(); 
 		return json_encode($data);
 	}

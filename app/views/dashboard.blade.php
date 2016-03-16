@@ -25,10 +25,10 @@
 
 	<!-- BEGIN DASHBOARD STATS -->
 	<div class="row">
-		<div class="col-md-4 col-sm-6 col-xs-12">
+		<div class="col-md-3 col-sm-6 col-xs-12">
 			<div class="dashboard-stat blue-madison">
 				<div class="visual">
-					<i class="fa fa-comments"></i>
+					<i class="fa fa-cube"></i>
 				</div>
 				<div class="details">
 					<div class="number counter" id="containers-in-yard">
@@ -43,10 +43,10 @@
 				</a>
 			</div>
 		</div>
-		<div class="col-md-4 col-sm-6 col-xs-12">
+		<div class="col-md-3 col-sm-6 col-xs-12">
 			<div class="dashboard-stat red-intense">
 				<div class="visual">
-					<i class="fa fa-bar-chart-o"></i>
+					<i class="fa fa-file-text"></i>
 				</div>
 				<div class="details">
 					<div class="number counter" id="total-workorders-today">
@@ -61,10 +61,10 @@
 				</a>
 			</div>
 		</div>
-		<div class="col-md-4 col-sm-6 col-xs-12">
+		<div class="col-md-3 col-sm-6 col-xs-12">
 			<div class="dashboard-stat green-haze">
 				<div class="visual">
-					<i class="fa fa-shopping-cart"></i>
+					<i class="fa fa-check-square-o"></i>
 				</div>
 				<div class="details">
 					<div class="number counter" id="pending-container-confirmation">
@@ -79,6 +79,24 @@
 				</a>
 			</div>
 		</div>
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<div class="dashboard-stat purple-plum">
+				<div class="visual">
+					<i class="fa fa-user"></i>
+				</div>
+				<div class="details">
+					<div class="number counter" id="pending-portusers-confirmation">
+						 0
+					</div>
+					<div class="desc">
+						 Pending Port User Confirmation
+					</div>
+				</div>
+				<a class="more" href="{{ URL::route('portusers_access') }}">
+				View more <i class="m-icon-swapright m-icon-white"></i>
+				</a>
+			</div>
+		</div>		
 	</div>
 	<!-- END DASHBOARD STATS -->
 
@@ -162,6 +180,7 @@ $.ajax({
         $('#containers-in-yard').text(data.containers);
         $('#total-workorders-today').text(data.workorders);
         $('#pending-container-confirmation').text(data.pending_containers);
+        $('#pending-portusers-confirmation').text(data.pending_portusers);
 
         $('.counter').counterUp({
             delay: 10,

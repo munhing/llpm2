@@ -26,6 +26,11 @@ class UserRepository {
 		return User::with('roles')->where('is_staff', '!=',1)->orderBy('username')->get();
 	}
 
+	public function getPendingPortUsers()
+	{
+		return User::where('is_staff', 0)->orderBy('username')->get();
+	}
+
 	public function assignRole($role)
 	{
 		return $this->roles()->attach($role);
