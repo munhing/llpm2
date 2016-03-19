@@ -27,6 +27,7 @@ use LLPM\Schedule\UpdateImportCargoCommand;
 use LLPM\Schedule\UpdateCargoItemCommand;
 use LLPM\Schedule\UpdateVesselScheduleCommand;
 use LLPM\Schedule\UpdateContainerCommand;
+use LLPM\Schedule\UnlinkContainerCommand;
 
 class VesselScheduleController extends \BaseController {
 
@@ -585,4 +586,19 @@ class VesselScheduleController extends \BaseController {
 		$schedule = $this->vesselScheduleRepository->getByVesselId($vessel_id);
 		return json_encode($schedule);
 	}
+
+	public function unlinkContainer($schedule_id, $cargo_id)
+	{
+		$input = Input::all();
+		$input['cargo_id'] = $cargo_id;
+
+		// dd($input);
+
+		$container = $this->execute(UnlinkContainerCommand::class, $input);
+
+		Flash::success("Container No: ". $container->container_no ." was unlinked!");
+
+		return Redirect::back();			
+	}
+
 }

@@ -573,6 +573,11 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
             'as' => 'manifest.schedule.search',
             'uses' => 'VesselScheduleController@searchByVesselId',
         ]);
+
+        Route::post('schedule/{schedule_id}/export/cargoes/{cargo_id}/unlink', [
+            'as' => 'manifest.schedule.export.cargoes.container.unlink',
+            'uses' => 'VesselScheduleController@unlinkContainer',
+        ]);        
         
     });
 /*

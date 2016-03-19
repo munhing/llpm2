@@ -253,6 +253,7 @@
 									<th>Container #</th>
 									<th>Size</th>
 									<th>E/L</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -263,6 +264,16 @@
 										<td>{{ $container->container_no }}</td>
 										<td>{{ $container->size }}</td>
 										<td>{{ $container->content }}</td>
+										<td>
+											@if($container->status == 2 && $container->current_movement == 0)
+											{{ Form::open(['route'=>['manifest.schedule.export.cargoes.container.unlink', $cargo->export_vessel_schedule_id, $cargo->id], 'id' => 'form_unlink_container']) }}
+											{{ Form::hidden('container_id', $container->id) }}
+					                            <button class='btn btn-sm btn-danger' data-confirm>
+					                                <i class="fa fa-unlink"></i>
+					                            </button>											
+											{{ Form::close() }}
+											@endif
+										</td>										
 									</tr>
 								<?php $i++; ?>
 								@endforeach
