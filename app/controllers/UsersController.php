@@ -68,7 +68,7 @@ class UsersController extends \BaseController {
 	public function create()
 	{
 		//dd('register');
-		$roles = $this->roleRepository->getAllStaff();
+		$roles = $this->roleRepository->getAll();
 		// dd($roles->toArray());
 		return View::make('users/create', compact('roles'));
 	}

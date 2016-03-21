@@ -102,7 +102,7 @@
                         {{ Form::open() }}                    
                         {{ Form::hidden('a_confirmation','', ['id'=>'a_confirmation']) }}
                         	<?php $role = Auth::user()->roles->first()->role; ?>
-                          <div class="alert alert-warning {{ $role == 'AD' || $role == 'IT' ? '' : 'hide' }}" role="alert">
+                          <div class="alert alert-warning {{ $role == 'AD' ? '' : 'hide' }}" role="alert">
                                  {{ Form::checkbox('bypass', 'true') }}
                                  {{ Form::label('bypass','Bypass all check points') }}
                           </div> 
