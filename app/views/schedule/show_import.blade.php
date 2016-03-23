@@ -114,7 +114,7 @@
 								<tr>
 									<th>No</th>
 									<th>B/L #</th>
-									<th>Consignor</th>
+									<th class="hide">Consignor</th>
 									<th>Consignee</th>
 									<th>Description</th>
 									<th>Containers</th>
@@ -130,7 +130,7 @@
 									<tr class="{{ $cargo->custom_form_no }}">
 										<td>{{ $i }}</td>
 										<td>{{ link_to_route('manifest.schedule.import.cargoes.show', $cargo->bl_no, [$cargo->import_vessel_schedule_id, $cargo->id]) }}</td>
-										<td>{{ $cargo->consignor->name }}</td>
+										<td class="hide">{{ $cargo->consignor->name }}</td>
 										<td>{{ $cargo->consignee->name }}</td>
 										<td>{{ $cargo->description }}</td>
 										<td>{{ listContainersInString($cargo->m_containers) }}</td>

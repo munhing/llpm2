@@ -107,8 +107,8 @@
 									<th>No</th>
 									<th>B/L #</th>
 									<th>Consignor</th>
-									<th>Consignee</th>
-									<th>Containers</th>
+									<th class="hide">Consignee</th>
+									<th>Description</th><th>Containers</th>
 									<th>MT</th>
 									<th>M3</th>
 									<th>Status</th>
@@ -122,8 +122,8 @@
 										<td>{{ $i }}</td>
 										<td>{{ link_to_route('receiving.cargo.show', $cargo->bl_no, [$cargo->receiving_id, $cargo->id]) }}</td>
 										<td>{{ $cargo->consignor->name }}</td>
-										<td>{{ $cargo->consignee->name }}</td>
-										<td>{{ listContainersInString($cargo->containers) }}</td>
+										<td class="hide">{{ $cargo->consignee->name }}</td>
+										<td>{{ $cargo->description }}</td><td>{{ listContainersInString($cargo->containers) }}</td>
 										<td align="right">{{ number_format($cargo->mt, 2) }}</td>
 										<td align="right">{{ number_format($cargo->m3, 2) }}</td>
 										<td>{{ exportCargoStatusTranslator($cargo->status) }}</td>

@@ -91,7 +91,7 @@
 									<th>No</th>
 									<th>B/L #</th>
 									<th>Consignor</th>
-									<th>Consignee</th>
+									<th class="hide">Consignee</th>
 									<th>Description</th>
 									<th>Containers</th>
 									<th>MT</th>
@@ -111,7 +111,7 @@
 											{{ $cargo->consignor->name }}
 											@endif
 										</td>
-										<td>
+										<td class="hide">
 											@if(count($cargo->consignee) != 0)
 											{{ $cargo->consignee->name }}
 											@endif
