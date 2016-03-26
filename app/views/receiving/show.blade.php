@@ -109,6 +109,7 @@
 									<th>Consignor</th>
 									<th class="hide">Consignee</th>
 									<th>Description</th><th>Containers</th>
+									<th>Vessel</th>
 									<th>MT</th>
 									<th>M3</th>
 									<th>Status</th>
@@ -124,6 +125,7 @@
 										<td>{{ $cargo->consignor->name }}</td>
 										<td class="hide">{{ $cargo->consignee->name }}</td>
 										<td>{{ $cargo->description }}</td><td>{{ listContainersInString($cargo->containers) }}</td>
+										<td>{{ $cargo->vessel_schedule_export }}</td>
 										<td align="right">{{ number_format($cargo->mt, 2) }}</td>
 										<td align="right">{{ number_format($cargo->m3, 2) }}</td>
 										<td>{{ exportCargoStatusTranslator($cargo->status) }}</td>
