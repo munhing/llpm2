@@ -213,7 +213,9 @@ html, body {
 							 {{ $content[$container['pivot']['content']] }}
 						</td>
 						<td class="hidden-480">
-							 
+							@if( $container['pivot']['lifter'] || $container['pivot']['vehicle'])
+							 {{ $container['pivot']['lifter'] }} | {{ $container['pivot']['vehicle']}}
+							@endif
 						</td>
 					</tr>
 					<?php $no++; ?>
