@@ -48,7 +48,17 @@ class CalculateBondDaysCommand extends ScheduledCommand {
 	public function schedule(Schedulable $scheduler)
 	{
 		// return $scheduler->everyMinutes(10);
-		return $scheduler->daily();
+		// return $scheduler->daily();
+       return [
+            // run daily at 1 am
+            $scheduler->daily()->hours(1),
+
+            // run daily at 1:30pm
+            App::make(get_class($scheduler))
+                ->daily()
+                ->hours(13)
+                ->minutes(30)
+        ]; 
 	}
 
 	/**

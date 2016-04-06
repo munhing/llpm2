@@ -48,7 +48,16 @@ class CalculateContainerDaysCommand extends ScheduledCommand {
 	public function schedule(Schedulable $scheduler)
 	{
 		// return $scheduler->everyMinutes(10);
-		return $scheduler->daily();
+		// return $scheduler->daily();
+        return [
+            // run daily at 12am
+            $scheduler->daily(),
+
+            // run daily at 1pm
+            App::make(get_class($scheduler))
+                ->daily()
+                ->hours(13)
+        ];		
 	}
 
 	/**
