@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"days",
+				"days_bond"
+			],
+			[
 				"munhing",
 				"munhing1980@gmail"
 			],
@@ -53,10 +57,6 @@
 			],
 			[
 				"days_",
-				"days_charged"
-			],
-			[
-				"days",
 				"days_charged"
 			],
 			[
@@ -439,46 +439,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "app/views/schedule/show_export_cargo.blade.php",
-			"settings":
-			{
-				"buffer_size": 19036,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/routes.php",
-			"settings":
-			{
-				"buffer_size": 32148,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/controllers/VesselScheduleController.php",
-			"settings":
-			{
-				"buffer_size": 17255,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/LLPM/Schedule/UnlinkContainerCommandHandler.php",
-			"settings":
-			{
-				"buffer_size": 1570,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/LLPM/Schedule/UnlinkContainerCommand.php",
-			"settings":
-			{
-				"buffer_size": 262,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -487,10 +447,30 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 392.0,
-		"last_filter": "",
+		"height": 354.0,
+		"last_filter": "sta",
 		"selected_items":
 		[
+			[
+				"sta",
+				"View: Toggle Status Bar"
+			],
+			[
+				"status",
+				"View: Toggle Status Bar"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"package re",
+				"PackageResourceViewer: Extract Package"
+			],
+			[
+				"contro",
+				"Package Control: Install Package"
+			],
 			[
 				"",
 				"Snippet: function …"
@@ -532,13 +512,14 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 575.0
+		"width": 431.0
 	},
 	"console":
 	{
 		"height": 266.0,
 		"history":
 		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
 			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
 		]
 	},
@@ -555,38 +536,57 @@
 	[
 		"/Users/munhing1980/projects/llpm",
 		"/Users/munhing1980/projects/llpm/app",
-		"/Users/munhing1980/projects/llpm/app/LLPM",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Receiving",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Schedule",
-		"/Users/munhing1980/projects/llpm/app/views",
-		"/Users/munhing1980/projects/llpm/app/views/receiving",
-		"/Users/munhing1980/projects/llpm/app/views/reports",
-		"/Users/munhing1980/projects/llpm/app/views/schedule",
+		"/Users/munhing1980/projects/llpm/app/controllers",
+		"/Users/munhing1980/projects/llpm/app/LLPM/Containers",
+		"/Users/munhing1980/projects/llpm/app/LLPM/WorkOrders",
 		"/Users/munhing1980/projects/llpm/vendor"
 	],
 	"file_history":
 	[
+		"/Users/munhing1980/projects/llpm/app/controllers/NewController.php",
+		"/Users/munhing1980/projects/llpm/app/controllers/New2Controller.php",
+		"/Users/munhing1980/projects/llpm/app/LLPM/Containers/CalculateBondDays.php",
+		"/Users/munhing1980/projects/llpm/app/controllers/WorkOrderController.php",
+		"/Users/munhing1980/projects/llpm/app/LLPM/WorkOrders/CalculateBondRentByWorkOrder.php",
+		"/Users/munhing1980/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/munhing1980/projects/llpm/app/controllers/ContainerController.php",
+		"/Users/munhing1980/Library/Application Support/Sublime Text 3/Packages/AdvancedNewFile/Default (OSX).sublime-keymap",
+		"/Users/munhing1980/projects/llpm/app/models/Container.php",
+		"/Users/munhing1980/Library/Application Support/Sublime Text 3/Packages/Material Theme/Material-Theme.sublime-theme",
+		"/Users/munhing1980/projects/llpm/app/LLPM/WorkOrders/CalculateBondRent.php",
+		"/Users/munhing1980/projects/llpm/app/LLPM/Confirmation/ConfirmContainerCommandHandler.php",
+		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/WorkOrderRepository.php",
+		"/Users/munhing1980/projects/llpm/app/views/workorders/index.blade.php",
+		"/Users/munhing1980/projects/llpm/app/models/WorkOrder.php",
+		"/Users/munhing1980/projects/llpm/app/somefile.php",
+		"/Users/munhing1980/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/munhing1980/projects/llpm/app/LLPM/WorkOrders/FinalizeWorkOrderCommandHandler.php",
+		"/Users/munhing1980/projects/llpm/app/database/migrations/2016_03_26_190422_add_column_days_bond_to_containers_table.php",
+		"/Users/munhing1980/projects/llpm/app/views/workorders/generate_workorder.blade.php",
+		"/Users/munhing1980/projects/llpm/app/models/Cargo.php",
+		"/Users/munhing1980/projects/llpm/app/views/receiving/show.blade.php",
+		"/Users/munhing1980/projects/llpm/app/views/schedule/show_export_cargo.blade.php",
+		"/Users/munhing1980/projects/llpm/app/routes.php",
+		"/Users/munhing1980/projects/llpm/app/controllers/VesselScheduleController.php",
+		"/Users/munhing1980/projects/llpm/app/LLPM/Schedule/UnlinkContainerCommandHandler.php",
+		"/Users/munhing1980/projects/llpm/app/controllers/UsersController.php",
+		"/Users/munhing1980/projects/llpm/app/views/container_confirmation/index.blade.php",
+		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/RoleRepository.php",
+		"/Users/munhing1980/projects/llpm/app/LLPM/Schedule/UnlinkContainerCommand.php",
 		"/Users/munhing1980/projects/llpm/app/views/receiving/show_cargo.blade.php",
 		"/Users/munhing1980/projects/llpm/app/controllers/ReceivingController.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Schedule/UnlinkContainerCommand.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Receiving/UnlinkReceivingContainerCommandHandler.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/UserRepository.php",
 		"/Users/munhing1980/projects/llpm/app/controllers/StatisticsController.php",
-		"/Users/munhing1980/projects/llpm/app/routes.php",
 		"/Users/munhing1980/projects/llpm/app/views/dashboard.blade.php",
 		"/Users/munhing1980/projects/llpm/app/controllers/HomeController.php",
-		"/Users/munhing1980/projects/llpm/app/controllers/VesselScheduleController.php",
 		"/Users/munhing1980/projects/llpm/app/views/schedule/show_import_cargo.blade.php",
-		"/Users/munhing1980/projects/llpm/app/views/schedule/show_export_cargo.blade.php",
-		"/Users/munhing1980/projects/llpm/app/models/Cargo.php",
 		"/Users/munhing1980/projects/llpm/app/views/etracking/tracking.blade.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Containers/ContainerTracking.php",
 		"/Users/munhing1980/projects/llpm/app/views/tracking/tracking.blade.php",
 		"/Users/munhing1980/projects/llpm/app/views/reports/container_loading_discharging_conf.blade.php",
 		"/Users/munhing1980/projects/llpm/app/views/emails/welcome.blade.php",
-		"/Users/munhing1980/projects/llpm/app/models/WorkOrder.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Users/UpdateUserProfileCommandHandler.php",
-		"/Users/munhing1980/projects/llpm/app/controllers/UsersController.php",
 		"/Users/munhing1980/projects/llpm/app/views/etracking/profile.blade.php",
 		"/Users/munhing1980/projects/llpm/app/views/layouts/etracking.blade.php",
 		"/Users/munhing1980/projects/llpm/public/assets/app/js/modal_auth.js",
@@ -618,20 +618,14 @@
 		"/Users/munhing1980/projects/llpm/app/LLPM/Users/RegisterPortUserRegisterCommand.php",
 		"/Users/munhing1980/projects/llpm/app/database/migrations/2016_03_05_125741_add_column_company_to_users_table.php",
 		"/Users/munhing1980/projects/llpm/app/views/schedule/show_import.blade.php",
-		"/Users/munhing1980/projects/llpm/app/views/receiving/show.blade.php",
 		"/Users/munhing1980/projects/l52/gulpfile.js",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Schedule/UpdateContainerCommand.php",
-		"/Users/munhing1980/projects/llpm/app/views/container_confirmation/index.blade.php",
-		"/Users/munhing1980/projects/llpm/app/models/Container.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Forms/ContainerForm.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Schedule/UpdateContainerCommandHandler.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/WorkOrders/FinalizeWorkOrderCommandHandler.php",
-		"/Users/munhing1980/projects/llpm/app/controllers/WorkOrderController.php",
 		"/Users/munhing1980/projects/llpm/app/views/tracking/details.blade.php",
 		"/Users/munhing1980/projects/llpm/app/views/workorders/show.blade.php",
 		"/Users/munhing1980/projects/llpm/app/controllers/ContainerConfirmationController.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Confirmation/ConfirmContainerCommand.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Confirmation/ConfirmContainerCommandHandler.php",
 		"/Users/munhing1980/projects/llpm/app/models/ContainerConfirmation.php",
 		"/Users/munhing1980/projects/llpm/app/database/migrations/2016_02_28_165742_add_column_remarks_to_container_workorder_table.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Forms/ContainerConfirmationForm.php",
@@ -642,7 +636,6 @@
 		"/Users/munhing1980/projects/llpm/vendor/symfony/http-kernel/Symfony/Component/HttpKernel/Event/PostResponseEvent.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/CargoRepository.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/ReceivingRepository.php",
-		"/Users/munhing1980/projects/llpm/app/controllers/ContainerController.php",
 		"/Users/munhing1980/projects/llpm/app/views/containers/show.blade.php",
 		"/Users/munhing1980/projects/llpm/app/views/containers/index.blade.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Containers/ContainerTrackingStatus.php",
@@ -651,7 +644,6 @@
 		"/Users/munhing1980/projects/llpm/app/views/tracking/index.blade.php",
 		"/Users/munhing1980/projects/llpm/public/assets/global/scripts/metronic.js",
 		"/Users/munhing1980/projects/llpm/public/assets/app/js/jscript.js",
-		"/Users/munhing1980/projects/llpm/app/views/workorders/index.blade.php",
 		"/Users/munhing1980/projects/llpm/app/database/seeds/CalculateDaysByWorkorder.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Containers/CalculateContainerDays2.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Containers/ContainerDaysCalculationByWorkOrder.php",
@@ -661,7 +653,6 @@
 		"/Users/munhing1980/projects/llpm/app/database/seeds/DatabaseSeeder.php",
 		"/Users/munhing1980/projects/llpm/app/database/seeds/WorkOrderTableSeeder2.php",
 		"/Users/munhing1980/projects/llpm/app/database/seeds/ContainerTableSeeder7.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/WorkOrderRepository.php",
 		"/Users/munhing1980/projects/llpm/app/database/seeds/ContainerTableSeeder6.php",
 		"/Users/munhing1980/projects/llpm/app/views/schedule/generate_dl_import.blade.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/WorkOrders/CancelContainerCommandHandler.php",
@@ -672,7 +663,6 @@
 		"/Users/munhing1980/projects/llpm/app/database/migrations/2014_11_30_075950_create_containers_table.php",
 		"/Users/munhing1980/projects/llpm/app/database/seeds/ContainerTableSeeder4.php",
 		"/Users/munhing1980/projects/llpm/app/database/seeds/ContainerTableSeeder5.php",
-		"/Users/munhing1980/projects/llpm/app/views/workorders/generate_workorder.blade.php",
 		"/Users/munhing1980/projects/llpm/app/views/workorders/generate_storage.blade.php",
 		"/Users/munhing1980/projects/llpm/app/views/workorders/generate_handling.blade.php",
 		"/Users/munhing1980/projects/llpm/app/database/seeds/ContainerTableSeeder2.php",
@@ -680,24 +670,11 @@
 		"/Users/munhing1980/projects/llpm/app/database/seeds/TruncateTables.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/FeeRepository.php",
 		"/Users/munhing1980/projects/llpm/app/database/seeds/ContainerTableSeeder3.php",
-		"/Users/munhing1980/projects/llpm/app/database/seeds/CargoExportTableSeeder.php",
-		"/Users/munhing1980/projects/llpm/app/database/seeds/VesselScheduleTableSeeder.php",
-		"/Users/munhing1980/projects/llpm/app/database/seeds/VesselTableSeeder.php",
-		"/Users/munhing1980/projects/llpm/app/database/seeds/PortUserTableSeeder.php",
-		"/Users/munhing1980/projects/llpm/app/database/migrations/2016_01_21_070051_add_column_created_by_to_workorders_table.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/WorkOrders/RegisterWorkOrderCommandHandler.php",
-		"/Users/munhing1980/projects/llpm/app/views/settings/fees_index.blade.php",
-		"/Users/munhing1980/projects/llpm/app/models/ContainerWorkorderPivot.php",
-		"/Users/munhing1980/projects/llpm/app/controllers/SettingsController.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Settings/RegisterFeeCommandHandler.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Settings/UpdateFeeCommandHandler.php",
-		"/Users/munhing1980/projects/llpm/app/views/schedule/edit.blade.php",
-		"/Users/munhing1980/projects/llpm/app/controllers/CargoConfirmationController.php",
-		"/Users/munhing1980/projects/llpm/app/views/cargo/index.blade.php"
+		"/Users/munhing1980/projects/llpm/app/database/seeds/CargoExportTableSeeder.php"
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 70.0
 	},
 	"find_in_files":
 	{
@@ -711,6 +688,25 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"38, 50, 56",
+			"over",
+			"calculateBondCharges",
+			"CalculateBondCharges",
+			"calculateBondCharges",
+			"CalculateBondCharges",
+			"calculateBondCharges",
+			"CalculateBondCharges",
+			"calculateBondCharges",
+			"CalculateBondCharges",
+			"getFee",
+			"calculateStorageCharges",
+			"CalculateStorageCharges",
+			"calculateBontRentByWorkOrder",
+			"CalculateBontRentByWorkOrder",
+			"calculateBontRentByWorkOrder",
+			"calculateBondRentByWorkOrder",
+			"CalculateBondRentByWorkOrder",
+			"calculateStorageChargesByWorkOrder",
 			"UnlinkContainerCommand",
 			"show",
 			"email",
@@ -819,26 +815,7 @@
 			"updateSTContainer",
 			"getTime",
 			"confirmContainer",
-			"();\n",
-			"());",
-			"workorder",
-			"getHandlingFees",
-			"fee-id",
-			"data-fee-id",
-			"fee-id",
-			"handlingFeeId",
-			"handling-fee-id",
-			"data-handling-fee-id",
-			"storage-fee-id",
-			"storage_fee_id",
-			"storage-fee-",
-			"storage-fee-id",
-			"storageFeeId",
-			"storage_fee_id",
-			"handling_effective_date",
-			"storage_effective_date",
-			"form_handling_fee",
-			"myModal_handlingFee"
+			"();\n"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -869,164 +846,18 @@
 	"groups":
 	[
 		{
-			"selected": 3,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "app/views/schedule/show_export_cargo.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 19036,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8050,
-								8050
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 3404.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "app/routes.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 32148,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								17658,
-								17609
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 7617.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "app/controllers/VesselScheduleController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 17255,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1158,
-								1180
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "app/LLPM/Schedule/UnlinkContainerCommandHandler.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1570,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								794,
-								794
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "app/LLPM/Schedule/UnlinkContainerCommand.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 262,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								31,
-								31
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 30.0
 	},
 	"input":
 	{
-		"height": 31.0
+		"height": 68.0
 	},
 	"layout":
 	{
@@ -1059,7 +890,7 @@
 	"project": "llpm.sublime-project",
 	"replace":
 	{
-		"height": 64.0
+		"height": 56.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1068,6 +899,42 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"container",
+				"app/controllers/ContainerController.php"
+			],
+			[
+				"cont",
+				"app/models/Container.php"
+			],
+			[
+				"confirmcontainercommand",
+				"app/LLPM/Confirmation/ConfirmContainerCommandHandler.php"
+			],
+			[
+				"finalizeworkordercommand",
+				"app/LLPM/WorkOrders/FinalizeWorkOrderCommandHandler.php"
+			],
+			[
+				"workorde",
+				"app/models/WorkOrder.php"
+			],
+			[
+				"workorder",
+				"app/LLPM/Repositories/WorkOrderRepository.php"
+			],
+			[
+				"cargo",
+				"app/models/Cargo.php"
+			],
+			[
+				"rolere",
+				"app/LLPM/Repositories/RoleRepository.php"
+			],
+			[
+				"users",
+				"app/controllers/UsersController.php"
+			],
 			[
 				"vessel",
 				"app/controllers/VesselScheduleController.php"
@@ -1101,20 +968,12 @@
 				"app/views/dashboard.blade.php"
 			],
 			[
-				"cargo",
-				"app/models/Cargo.php"
-			],
-			[
 				"work",
 				"app/models/WorkOrder.php"
 			],
 			[
 				"containertracking",
 				"app/LLPM/Containers/ContainerTracking.php"
-			],
-			[
-				"users",
-				"app/controllers/UsersController.php"
 			],
 			[
 				"updateuserprofilecommand",
@@ -1159,18 +1018,6 @@
 			[
 				"side",
 				"app/views/layouts/partials/sidebar.blade.php"
-			],
-			[
-				"finalizeworkordercommand",
-				"app/LLPM/WorkOrders/FinalizeWorkOrderCommandHandler.php"
-			],
-			[
-				"workorder",
-				"app/controllers/WorkOrderController.php"
-			],
-			[
-				"container",
-				"app/models/Container.php"
 			],
 			[
 				"vesselschedu",
@@ -1409,10 +1256,6 @@
 				"app/controllers/MobileController.php"
 			],
 			[
-				"confirmcontainercommand",
-				"app/LLPM/Confirmation/ConfirmContainerCommandHandler.php"
-			],
-			[
 				"containerconfirmationform",
 				"app/LLPM/Forms/ContainerConfirmationForm.php"
 			],
@@ -1509,10 +1352,6 @@
 				"app/LLPM/Forms/UserForm.php"
 			],
 			[
-				"rolere",
-				"app/LLPM/Repositories/RoleRepository.php"
-			],
-			[
 				"permissionre",
 				"app/LLPM/Repositories/PermissionRepository.php"
 			],
@@ -1571,14 +1410,6 @@
 			[
 				"confirmcont",
 				"app\\LLPM\\Confirmation\\ConfirmContainerCommandHandler.php"
-			],
-			[
-				"issueimpo",
-				"app/LLPM/Schedule/IssueImportCargoCommandHandler.php"
-			],
-			[
-				"schedule",
-				"app/controllers/VesselScheduleController.php"
 			]
 		],
 		"width": 0.0
@@ -1594,12 +1425,12 @@
 	},
 	"select_symbol":
 	{
-		"height": 392.0,
+		"height": 354.0,
 		"last_filter": "",
 		"selected_items":
 		[
 		],
-		"width": 908.0
+		"width": 890.0
 	},
 	"selected_group": 0,
 	"settings":
@@ -1609,8 +1440,8 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 405.0,
-	"status_bar_visible": true,
+	"side_bar_width": 297.0,
+	"status_bar_visible": false,
 	"template_settings":
 	{
 	}

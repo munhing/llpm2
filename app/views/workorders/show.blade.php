@@ -117,6 +117,31 @@
 					</div>
 					<div class="row static-info">
 						<div class="col-md-4 name">
+							Bond Rent:
+						</div>
+						<div class="col-md-8 value">
+							@if(! ( ($movement[0] == 'HE' || $movement[0] == 'US' || ($movement[0] == 'RO' && $movement[1] == '1') ) ))
+								Nil
+							@else
+
+								@if($workOrder->finalized == 1)
+									{{ number_format($workOrder->bond_rent, 2) }}
+									<a href="{{ URL::route('workorders.generate.bond', $workOrder->id) }}" class="btn btn-default btn-sm" target="_blank">
+										Details
+									</a>
+
+									<a href="{{ URL::route('workorders.recalculate.bond', $workOrder->id) }}" class="btn btn-default btn-sm">
+										<i class="fa fa-calculator"></i> Recalculate
+									</a>													
+								@else
+									<span class="font-red-thunderbird">Bond Rent will only be displayed after workorder is finalized.</span>
+								@endif	
+
+							@endif
+						</div>						
+					</div>					
+					<div class="row static-info">
+						<div class="col-md-4 name">
 							Storage Charges:
 						</div>
 						<div class="col-md-8 value">

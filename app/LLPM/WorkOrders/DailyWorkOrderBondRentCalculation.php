@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Log;
 use LLPM\Repositories\ContainerConfirmationRepository;
 use LLPM\WorkOrders\CalculateChargesByWorkOrder;
 
-class DailyWorkOrderChargesCalculation		
+class DailyWorkOrderBondRentCalculation		
 {
 	protected $calculateHandlingCharges;
 	protected $containerConfirmationRepository;
@@ -34,7 +34,6 @@ class DailyWorkOrderChargesCalculation
 			$this->calculateChargesByWorkOrder->fire($workorder_id);
 			echo '=>completed ' . "\n";
 		}
-		
 		die();
 	}
 

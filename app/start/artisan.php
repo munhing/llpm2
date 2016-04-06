@@ -13,5 +13,8 @@
 
 Artisan::resolve('CalculateContainerDaysCommand');
 Artisan::resolve('CalculateWorkOrderChargesCommand');
+
+Artisan::resolve('CalculateBondDaysCommand');
+
 Artisan::add( new TestCron);
 

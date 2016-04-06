@@ -262,4 +262,12 @@ class ContainerRepository {
 		$container->synced_at = Carbon::now();
 		$this->save($container);				
 	}	
+
+	public function updateBondDays($container_id, $days)
+	{	
+		$container = $this->getById($container_id);
+		$container->days_bond_import = $days['import'];
+		$container->days_bond_export = $days['export'];
+		$this->save($container);				
+	}		
 }

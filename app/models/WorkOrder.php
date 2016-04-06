@@ -10,7 +10,7 @@ class WorkOrder extends \Eloquent {
 
 	protected $table = 'workorders';
 
-	protected $fillable = ['movement', 'date', 'carrier_id', 'handler_id', 'agent_id', 'vessel_schedule_id', 'container_location', 'container_status', 'who_is_involved', 'created_by'];
+	protected $fillable = ['movement', 'date', 'carrier_id', 'handler_id', 'agent_id', 'vessel_schedule_id', 'container_location', 'container_status', 'who_is_involved', 'created_by', 'finalized', 'bond_rent', 'storage_charges', 'handling_charges'];
 
 	protected $dates = array('date');
 
