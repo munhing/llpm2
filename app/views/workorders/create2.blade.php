@@ -173,7 +173,7 @@
 					$('#ctn_st').empty(); // clear the current elements in select box
 
 					for (row in data) {
-						$('#ctn_st').append($('<option></option>').attr('value', data[row].id).text(data[row].container_no));
+						$('#ctn_st').append($('<option></option>').attr('value', data[row].id).text(data[row].container_no + '-' + data[row].size + data[row].content));
 					}					
 				} else {
 
@@ -181,7 +181,7 @@
 					$('#ctn').empty(); // clear the current elements in select box
 
 					for (row in data) {
-						$('#ctn').append($('<option></option>').attr('value', data[row].id).text(data[row].container_no));
+						$('#ctn').append($('<option></option>').attr('value', data[row].id).text(data[row].container_no + '-' + data[row].size + data[row].content));
 					}
 				}
 			},
@@ -252,7 +252,16 @@
 	                $('#carrier_id').append($('<option></option>').attr('value', '').text(''));
 
 	                for (row in data) {
-	                    $('#carrier_id').append($('<option></option>').attr('value', data[row].id).text(data[row].name));
+
+                        var meta = data[row].eta.split(/[- :]/);
+                        var metd = data[row].etd.split(/[- :]/);
+                        var jeta = new Date(meta[0], meta[1]-1, meta[2], meta[3], meta[4], meta[5]);
+                        var jetd = new Date(metd[0], metd[1]-1, metd[2], metd[3], metd[4], metd[5]);
+
+                        var arr = jeta.getDate() + "/" + (jeta.getMonth() + 1) + "/" + jeta.getFullYear();
+                        var dep = jetd.getDate() + "/" + (jetd.getMonth() + 1) + "/" + jetd.getFullYear();
+
+	                    $('#carrier_id').append($('<option></option>').attr('value', data[row].id).text(data[row].name + ' v.' + data[row].voyage_no_arrival + ' | v.' + data[row].voyage_no_departure + ' (ETA: ' + arr + ' | ETD: ' + dep + ')'));
 	                }
 	            },
 	            error: function(jqXHR, textStatus, errorThrown) {

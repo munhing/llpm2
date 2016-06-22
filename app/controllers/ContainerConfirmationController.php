@@ -37,6 +37,8 @@ class ContainerConfirmationController extends \BaseController {
 	{
 		$check_points = [];
 		$containers = $this->containerRepository->getContainersToConfirm();
+
+		// dd($containers->toArray());
 		$cp = $this->containerConfirmationProcessRepository->getAllProcesses();
 
 		foreach ($cp as $key => $value) {

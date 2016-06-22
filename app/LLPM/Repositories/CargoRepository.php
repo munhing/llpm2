@@ -2,6 +2,8 @@
 
 use Cargo;
 use Container;
+// use DB;
+use Carbon\Carbon;
 
 class CargoRepository {
 
@@ -25,21 +27,52 @@ class CargoRepository {
 
 	public function getImportLooseCargoWithStatus1And3()
 	{
-		return Cargo::where('containerized', 0)
+		// return Cargo::where('containerized', 0)
+		// 		->whereIn('status', [1,3])
+		// 		->where('import_vessel_schedule_id', '!=', 0)
+		// 		->orderBy('bl_no')
+		// 		->get();
+		$today = Carbon::now();
+		// dd($today);
+		return Cargo::select('cargoes.*', 'vessel_schedule.eta')
+				->join('vessel_schedule', 'import_vessel_schedule_id', '=', 'vessel_schedule.id')
 				->whereIn('status', [1,3])
+				->where('vessel_schedule.eta', '<=', $today)
+				->where('containerized', 0)
 				->where('import_vessel_schedule_id', '!=', 0)
 				->orderBy('bl_no')
 				->get();
+				
+		// return DB::table('cargoes')
+		//             ->join('vessel_schedule', 'cargoes.import_vessel_schedule_id', '=', 'vessel_schedule.id')
+		//             ->select('cargoes.*', 'vessel_schedule.eta')
+		//             ->where('cargoes.containerized', '=', 0)
+		//             ->whereIn('cargoes.status', [1,3])
+		//             ->where('cargoes.import_vessel_schedule_id', '!=', 0)
+		//             ->orderBy('bl_no')
+		//             ->get();
+
 	}
 
 	public function getExportLooseCargoWithStatus2And3()
 	{
-		return Cargo::with('exportSchedule')
-				->where('containerized', 0)
+		$today = Carbon::now();
+		// dd($today);
+		return Cargo::select('cargoes.*', 'vessel_schedule.eta')
+				->join('vessel_schedule', 'cargoes.export_vessel_schedule_id', '=', 'vessel_schedule.id')
 				->whereIn('status', [2,3])
-				->where('export_vessel_schedule_id', '!=' , 0)
+				->where('vessel_schedule.eta', '<=', $today)
+				->where('containerized', 0)
+				->where('export_vessel_schedule_id', '!=', 0)
 				->orderBy('bl_no')
 				->get();
+
+		// return Cargo::with('exportSchedule')
+		// 		->where('containerized', 0)
+		// 		->whereIn('status', [2,3])
+		// 		->where('export_vessel_schedule_id', '!=' , 0)
+		// 		->orderBy('bl_no')
+		// 		->get();
 	}
 
 	public function containerizedIncrement($cargo_id, $int)

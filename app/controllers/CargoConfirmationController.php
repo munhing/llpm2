@@ -25,6 +25,8 @@ class CargoConfirmationController extends \BaseController {
 
 		$cargoes = $this->cargoRepository->getImportLooseCargoWithStatus1And3();
 
+		// dd($cargoes->toArray());
+
         // foreach($cargoes as $crg) {
 
         //     var_dump($crg->importSchedule->vessel);
