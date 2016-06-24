@@ -61,6 +61,7 @@
 				<th>Movement</th>
 				<th>Date</th>
 				<th>Carrier</th>	
+				<th>Bond</th>	
 				<th>Storage</th>	
 				<th>Handling</th>	
 				<th>Issued By</th>	
@@ -69,13 +70,30 @@
 		</thead>
 		<tbody>
 			@foreach($workorders as $workorder)
+				<?php $movement = explode('-', $workorder->movement); ?>
 				<tr>
 					<td>{{ link_to_route('workorders.show', $workorder->id, $workorder->id) }}</td>	
 					<td>{{ $workorder->movement }}</td>
 					<td>{{ $workorder->date->format('d/m/Y') }}</td>
 					<td>{{ $workorder->getCarrier() }}</td>								
 					<td align="right">
-							<?php $movement = explode('-', $workorder->movement);	?>
+						@if(! ( ($movement[0] == 'HE' || $movement[0] == 'US' || ($movement[0] == 'RO' && $movement[1] == '1') ) ))
+							-
+						@else
+
+							@if($workorder->finalized == 1)
+
+								<a href="{{ URL::route('workorders.generate.bond', $workorder->id) }}" target="_blank">
+									{{ number_format($workorder->bond_rent, 2) }}
+								</a>
+							@else
+								<span class="font-red-thunderbird">Not finalized.</span>
+							@endif
+
+						@endif
+
+					</td>
+					<td align="right">
 							@if(! ($movement[0] == 'HE' || $movement[0] == 'RO'))
 								-
 							@else

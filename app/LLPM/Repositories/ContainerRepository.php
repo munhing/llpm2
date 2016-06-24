@@ -3,6 +3,7 @@
 use Cargo;
 use Container;
 use Carbon\Carbon;
+use DB;
 
 class ContainerRepository {
 
@@ -119,10 +120,12 @@ class ContainerRepository {
 	public function getForStatus($status, $location = 0)
 	{
 		// For Transfer
+		// List only empty containers. Laden containers not allowed.
 		if($location != 0) {
 			return Container::where('status', $status)
 					->where('current_movement', 0)
 					->where('location', $location)
+					->where('content', 'E')
 					->orderBy('container_no')
 					->get();
 		}
@@ -157,10 +160,19 @@ class ContainerRepository {
 
 	public function getContainersToConfirm()
 	{
-		return Container::with('workorders')
+		return Container::with(['workorders' => function($q) {
+					$q->orderBy('workorders.id');
+				}])
+				->select('containers.*', 'workorders.id as workorder_id', 'workorders.movement')
+				->join('workorders', 'containers.current_movement', '=', 'workorders.id')
 				->where('current_movement', '!=', 0)
 				->orderBy('container_no')
 				->get();
+
+		// return Container::with('workorders')
+		// 		->where('current_movement', '!=', 0)
+		// 		->orderBy('container_no')
+		// 		->get();				
 	}	
 
 	public function getContainersToConfirmByRole($role)
@@ -262,4 +274,12 @@ class ContainerRepository {
 		$container->synced_at = Carbon::now();
 		$this->save($container);				
 	}	
+
+	public function updateBondDays($container_id, $days)
+	{	
+		$container = $this->getById($container_id);
+		$container->days_bond_import = $days['import'];
+		$container->days_bond_export = $days['export'];
+		$this->save($container);				
+	}		
 }

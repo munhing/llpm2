@@ -740,6 +740,11 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
                 'uses' => 'WorkOrderController@generate_storage',
             ]);
 
+            Route::get('{id}/generate/bond', [
+                'as' => 'workorders.generate.bond',
+                'uses' => 'WorkOrderController@generate_bond',
+            ]);
+
             Route::get('{id}/recalculate', [
                 'as' => 'workorders.recalculate',
                 'uses' => 'WorkOrderController@recalculate',
@@ -748,6 +753,11 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
             Route::get('{id}/recalculate_storage', [
                 'as' => 'workorders.recalculate.storage',
                 'uses' => 'WorkOrderController@recalculateStorage',
+            ]);
+
+            Route::get('{id}/recalculate_bond', [
+                'as' => 'workorders.recalculate.bond',
+                'uses' => 'WorkOrderController@recalculateBond',
             ]);
 
             Route::post('{id}/finalize', [

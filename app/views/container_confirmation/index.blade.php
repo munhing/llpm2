@@ -63,8 +63,9 @@
 					<tbody>
 						<?php $i=1;?>
 						@foreach($containers as $container)
-                		<?php $movement =  $container->workorders->last()->movement; ?>
+                		<?php $movement =  $container->movement; ?>
                 		<?php $id = $container->id . ',' . $container->content . ',' . $container->current_movement . ',' . $movement; ?>
+                		<?php $pivotInfo = $container->workorders->filter(function($workorder) use ($container) {return $workorder->id == $container->current_movement;});?>
 						<tr>
 							<td>{{ $i++ }}</td>
 							<td>{{ $container->container_no }}</td>
@@ -75,10 +76,10 @@
                     		<td class="{{ $check_points[$movement]->cp2 == $container->to_confirm_by ? 'cp':'' }}">{{ $check_points[$movement]->cp2 }}</td>
                     		<td class="{{ $check_points[$movement]->cp3 == $container->to_confirm_by ? 'cp':'' }}">{{ $check_points[$movement]->cp3 }}</td>
                     		<td class="{{ $check_points[$movement]->cp4 == $container->to_confirm_by ? 'cp':'' }}">{{ $check_points[$movement]->cp4 }}</td>
-		                    <td>{{ $container->workorders->last()->pivot->vehicle }}</td>
-		                    <td>{{ $container->workorders->last()->pivot->lifter }}</td>
+		                    <td>{{ $pivotInfo->first()->pivot->vehicle }}</td>
+		                    <td>{{ $pivotInfo->first()->pivot->lifter }}</td>
 							<td>
-	                            <button class='btn btn-sm btn-primary' type='button' data-toggle="modal" data-target="#formModal" data-confirmation-id="{{$id}}" data-cp="{{ $container->to_confirm_by }}" data-carrier="{{ $container->workorders->last()->pivot->vehicle }}" data-lifter="{{ $container->workorders->last()->pivot->lifter }}">
+	                            <button class='btn btn-sm btn-primary' type='button' data-toggle="modal" data-target="#formModal" data-confirmation-id="{{$id}}" data-cp="{{ $container->to_confirm_by }}" data-carrier="{{ $pivotInfo->first()->pivot->vehicle }}" data-lifter="{{ $pivotInfo->first()->pivot->lifter }}">
 	                                Confirm
 	                            </button>								
 							</td>

@@ -72,7 +72,7 @@
 							@endif
 						</td>
 						<td>@if(count($container->workorders) != 0)
-							{{ $container->workorders->first()->pivot->updated_at->format('Y-m-d') }}
+							{{ $container->workorders->first()->pivot->confirmed_at->format('Y-m-d') }}
 							@endif
 						</td>
 						<td>{{ $container->days_total }}</td>

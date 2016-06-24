@@ -12,17 +12,13 @@ function convertToMySQLDate($date)
 function convertMonthToMySQLDate($date)
 {
 	//return date("Y-m-d", strtotime($date));
-	//$date = DateTime::createFromFormat('m/Y', $date);
+	// $date = DateTime::createFromFormat('m/Y', $date);
 	
 	//dd($date->format('Y-m'));
+	$arr_date = explode("/", $date);
 
-	//return $date->format('Y-m');
-
-        $arr_date = explode('/', $date);
-
-	return $arr_date[1] . '-' . $arr_date[0];
-
-
+	// return $date->format('Y-m');
+	return $arr_date[1] . "-" . $arr_date[0];
 }
 
 function listContainersInString($containers)
@@ -158,6 +154,32 @@ function exportCargoStatusTranslator($status)
 	        break;
 	}
 
+}
+
+if ( ! function_exists('elixir'))
+{
+	  /**
+	    * Get the path to a versioned Elixir file.
+    	*
+    	* @param  string  $file
+    	* @return string
+  	*/
+  	function elixir($file)
+  	{
+    		static $manifest = null;
+
+    		if (is_null($manifest))
+    		{
+      			$manifest = json_decode(file_get_contents(public_path().'/build/rev-manifest.json'), true);
+    		}
+
+    		if (isset($manifest[$file]))
+    		{
+      			return '/build/'.$manifest[$file];
+    		}
+
+    		throw new InvalidArgumentException("File {$file} not defined in asset manifest.");
+  	}
 }
 
 

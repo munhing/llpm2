@@ -13,6 +13,7 @@ use LLPM\Repositories\WorkOrderRepository;
 use LLPM\WorkOrders\AttachedContainersToWorkOrderCommand;
 use LLPM\WorkOrders\CalculateChargesByWorkOrder;
 use LLPM\WorkOrders\CalculateStorageChargesByWorkOrder;
+use LLPM\WorkOrders\CalculateBondRentByWorkOrder;
 use LLPM\WorkOrders\CancelContainerCommand;
 use LLPM\WorkOrders\RegisterWorkOrderCommand;
 use LLPM\WorkOrders\FinalizeWorkOrderCommand;
@@ -34,7 +35,8 @@ class WorkOrderController extends \BaseController {
 
 	protected $movement;
 	protected $content;
-	private $calculateStorageChargesByWorkOrder;
+	protected $calculateStorageChargesByWorkOrder;
+	protected $calculateBondRentByWorkOrder;
 
 	function __construct(
 		WorkOrderRepository $workOrderRepository, 
@@ -47,7 +49,8 @@ class WorkOrderController extends \BaseController {
 		CalculateChargesByWorkOrder $calculateChargesByWorkOrder,
 		FeeRepository $feeRepository,
 		WorkOrderForm $workOrderForm,
-		CalculateStorageChargesByWorkOrder $calculateStorageChargesByWorkOrder
+		CalculateStorageChargesByWorkOrder $calculateStorageChargesByWorkOrder,
+		CalculateBondRentByWorkOrder $calculateBondRentByWorkOrder
 	)
 	{
 		$this->workOrderRepository = $workOrderRepository;
@@ -61,6 +64,7 @@ class WorkOrderController extends \BaseController {
 		$this->feeRepository = $feeRepository;
 		$this->workOrderForm = $workOrderForm;
 		$this->calculateStorageChargesByWorkOrder = $calculateStorageChargesByWorkOrder;
+		$this->calculateBondRentByWorkOrder = $calculateBondRentByWorkOrder;
 	}
 
 	/**
@@ -377,6 +381,95 @@ class WorkOrderController extends \BaseController {
 		return View::make('workorders/generate_storage', compact('containerList', 'workOrder', 'agent', 'movement', 'content', 'total_charges'));
 	}
 
+	public function generate_bond($workorder_id)
+	{
+		// dd('Hello');
+		$workOrder = $this->workOrderRepository->getDetailsById($workorder_id);
+		$handler = $this->portUserRepository->getById($workOrder->handler_id);
+		$containerList = new Collection;
+		$total_charges = 0;
+
+		// dd($fees);
+
+		foreach($workOrder->containers as $container) {
+
+			$containerInfo = $this->getBondContainerInfo($container, $workOrder);
+			$total_charges += $containerInfo['bond_rent'];
+			$containerList->push($containerInfo);
+
+		}
+
+		$this->definition();
+		$movement = $this->movement;
+		$content = $this->content;
+
+		// dd($total_charges);
+		return View::make('workorders/generate_bond', compact('containerList', 'workOrder', 'movement', 'content', 'total_charges'));
+	}
+
+	public function getBondContainerInfo($container, $workorder)
+	{
+		$movement = $workorder->movement;
+		
+		$info['container_no'] = $container->container_no;
+		$info['size'] = $container->size;
+		$info['days_bond'] = $container->days_bond_import;
+
+		if($movement == 'HE') {
+			$info['days_bond'] = $container->days_bond_export;
+		}
+
+		$info['date_start'] = $this->getBondStartDate($container, $workorder);
+		$info['date_end'] = $this->getBondEndDate($container, $workorder);
+
+		$info['num_weeks'] = $this->getNumWeeks($info['days_bond']);
+		$info['bond_fee'] = $this->getBondFee($info['num_weeks']);
+		$info['m3'] = $this->getM3($info['size']);
+		$info['bond_rent'] = $info['num_weeks'] * $info['bond_fee'] * $info['m3'];
+
+		return $info;
+	}
+
+	public function getNumWeeks($days_bond)
+	{
+		$floor = floor($days_bond/7);
+		if($days_bond % 7 == 0){
+			return $floor;
+		}
+
+		return $floor + 1;
+	}
+
+	public function getBondStartDate($container, $workorder)
+	{
+		if($workorder->movement == 'HE') {
+			foreach($container->workorders as $wo) {
+				if($wo->movement == 'ST' || $wo->movement == 'RI-1' ) {
+					return $wo->pivot->confirmed_at;
+				}
+			}
+		}
+
+		foreach($container->workorders as $wo) {
+			if($wo->movement == 'HI' ) {
+				return $wo->vesselSchedule->eta;
+			}
+		}
+	}
+
+	public function getBondEndDate($container, $workorder)
+	{
+		if($workorder->movement == 'HE') {
+			return $workorder->pivot->confirmed_at;
+		}
+
+		foreach($container->workorders as $wo) {
+			if($wo->movement == 'US' || $wo->movement == 'RO-1' ) {
+				return $wo->pivot->confirmed_at;
+			}
+		}		
+	}
+
 	public function getContainerInfo($container, $fees)
 	{
 		$info['container_no'] = $container->container_no;
@@ -457,6 +550,40 @@ class WorkOrderController extends \BaseController {
 
 		$this->movement = $movement;
 		$this->content = $content;
+	}
+
+	public function getBondFee($week)
+	{
+		$bond = [
+			1 => 3,
+			2 => 6,
+			3 => 12,
+			4 => 24,
+			5 => 48,
+			6 => 48,
+			7 => 48,
+			8 => 48,
+			9 => 96,
+			10 => 96,
+			11 => 96,
+			12 => 96,
+			13 => 192,
+			14 => 192,
+			15 => 192,
+			16 => 192,
+			17 => 384
+		];
+
+		return $bond[$week];
+	}
+
+	public function getM3($container_size)
+	{
+		if($container_size == 20) {
+			return 25;
+		}
+
+		return 50;
 	}
 	/**
 	 * Show the form for editing the specified resource.
@@ -614,6 +741,16 @@ class WorkOrderController extends \BaseController {
 
 	}
 
+	public function recalculateBond($workorder_id)
+	{
+		// dd($workorder_id);
+		$workorder = $this->workOrderRepository->getById($workorder_id);
+		$this->calculateBondRentByWorkOrder->fire($workorder);
+
+		return Redirect::route('workorders.show', $workorder_id);
+
+	}
+
 	public function finalize($workorder_id)
 	{
 		$input['workorder_id'] = $workorder_id;
@@ -629,6 +766,9 @@ class WorkOrderController extends \BaseController {
 
 		// Calculate Storage Charges
 		$this->calculateStorageChargesByWorkOrder->fire($workorder);
+
+		// Calculate Bond Rent
+		$this->calculateBondRentByWorkOrder->fire($workorder);
 
 		Flash::success("Work Order $workorder->id successfully finalized!");
 

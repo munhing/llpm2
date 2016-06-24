@@ -38,6 +38,9 @@ License: You must have a valid license purchased only from themeforest(the above
 <link rel="shortcut icon" href="favicon.ico"/>
 
 <style>
+
+@media print{a[href]:after{content:none}}
+
 html, body {
 	margin:0px 10px 0px 10px;
 	padding:0;
