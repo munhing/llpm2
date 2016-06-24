@@ -12,11 +12,16 @@ function convertToMySQLDate($date)
 function convertMonthToMySQLDate($date)
 {
 	//return date("Y-m-d", strtotime($date));
-	$date = DateTime::createFromFormat('m/Y', $date);
+	//$date = DateTime::createFromFormat('m/Y', $date);
 	
 	//dd($date->format('Y-m'));
 
-	return $date->format('Y-m');
+	//return $date->format('Y-m');
+
+        $arr_date = explode('/', $date);
+
+	return $arr_date[1] . '-' . $arr_date[0];
+
 
 }
 
