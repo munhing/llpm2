@@ -19,7 +19,6 @@ function convertMonthToMySQLDate($date)
 
 	// return $date->format('Y-m');
 	return $arr_date[1] . "-" . $arr_date[0];
-
 }
 
 function listContainersInString($containers)

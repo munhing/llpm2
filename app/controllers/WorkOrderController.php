@@ -101,9 +101,11 @@ class WorkOrderController extends \BaseController {
 		if(!Session::get('workorder.movement')) {
 			Session::put('workorder.movement', null);
 		}
+                 
+                $checkDate = convertMonthToMySQLDate(Session::get('workorder.date'));
 
 		$workorders = $this->workOrderRepository->getAllByMonth(convertMonthToMySQLDate(Session::get('workorder.date')), Session::get('workorder.movement'));
-		return View::make('workorders/index', compact('workorders', 'movement'));
+		return View::make('workorders/index', compact('workorders', 'movement', 'checkDate'));
 
 	}
 

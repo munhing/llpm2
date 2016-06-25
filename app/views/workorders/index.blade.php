@@ -53,6 +53,7 @@
 	</div>
 	<div class="portlet-body">
 		<div class="table-responsive">
+                     {{ $checkDate }}
 		<table class="table table-striped table-bordered table-hover table-condensed">
 		<thead>
 			<tr>
