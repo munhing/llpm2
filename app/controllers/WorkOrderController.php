@@ -457,12 +457,19 @@ class WorkOrderController extends \BaseController {
 
 	public function getBondEndDate($container, $workorder)
 	{
+		// dd($container->toArray());
 		if($workorder->movement == 'HE') {
-			return $workorder->pivot->confirmed_at;
+
+			foreach($container->workorders as $wo) {
+				if($wo->movement == 'HE') {
+					return $wo->pivot->confirmed_at;
+				}
+			}
+			// return $workorder->pivot->confirmed_at;
 		}
 
 		foreach($container->workorders as $wo) {
-			if($wo->movement == 'US' || $wo->movement == 'RO-1' ) {
+			if($wo->movement == 'US' || $wo->movement == 'RO-1') {
 				return $wo->pivot->confirmed_at;
 			}
 		}		
@@ -553,6 +560,7 @@ class WorkOrderController extends \BaseController {
 	public function getBondFee($week)
 	{
 		$bond = [
+			0 => 0,
 			1 => 3,
 			2 => 6,
 			3 => 12,

@@ -72,7 +72,7 @@ class CalculateBondDays
         $proceedToCalculate = false;
 
         foreach($workorders as $wo) {
-            if(($wo->movement == 'RI-1' || $wo->movement == 'ST') && $wo->pivot->content == 'L') {
+            if(($wo->movement == 'RI-1' && $wo->pivot->content == 'E') || ($wo->movement == 'ST' && $wo->pivot->content == 'E')) {
 
                 $proceedToCalculate = true;
                 // dd($wo->vessel_schedule_id);
@@ -111,6 +111,7 @@ class CalculateBondDays
     {
         $valid_workorders = [];
 
+
         foreach($workorders as $workorder) {
             if($workorder->pivot->confirmed == 0) {
                 continue;
@@ -118,6 +119,12 @@ class CalculateBondDays
 
             $valid_workorders[] = $workorder;
         }
+
+        // foreach($valid_workorders as $w) {
+        //     var_dump($w->pivot->confirmed);
+        // }
+
+        // dd();
 
         return $valid_workorders;
     }
