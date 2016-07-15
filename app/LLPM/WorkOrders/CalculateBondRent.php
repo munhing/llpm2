@@ -44,9 +44,9 @@ class CalculateBondRent
 
 		foreach($workorder->containers as $container) {
 			$charges += $this->getCharge($container);
-			// dd($container->toArray());
 		}
 
+			// dd($charges);
 		return $charges;
 	}
 
@@ -95,6 +95,7 @@ class CalculateBondRent
 		// $days_chargeable = $days_empty - $this->days_free;
 
 		if($days_bond <= $this->days_free) {
+		// dd($days_bond);
 			return 0;
 		}
 

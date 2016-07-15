@@ -38,6 +38,8 @@ class WorkOrderController extends \BaseController {
 	protected $calculateStorageChargesByWorkOrder;
 	protected $calculateBondRentByWorkOrder;
 
+	protected $bond_days_free = 3;
+
 	function __construct(
 		WorkOrderRepository $workOrderRepository, 
 		ContainerRepository $containerRepository, 
@@ -403,6 +405,8 @@ class WorkOrderController extends \BaseController {
 		$movement = $this->movement;
 		$content = $this->content;
 
+		// dd($containerInfo);
+
 		// dd($total_charges);
 		return View::make('workorders/generate_bond', compact('containerList', 'workOrder', 'movement', 'content', 'total_charges'));
 	}
@@ -412,7 +416,7 @@ class WorkOrderController extends \BaseController {
 		$movement = $workorder->movement;
 		
 		$info['container_no'] = $container->container_no;
-		$info['size'] = $container->size;
+		$info['size'] = $container->size . $container->pivot->content;
 		$info['days_bond'] = $container->days_bond_import;
 
 		if($movement == 'HE') {
@@ -426,6 +430,10 @@ class WorkOrderController extends \BaseController {
 		$info['bond_fee'] = $this->getBondFee($info['num_weeks']);
 		$info['m3'] = $this->getM3($info['size']);
 		$info['bond_rent'] = $info['num_weeks'] * $info['bond_fee'] * $info['m3'];
+		
+		if($info['days_bond'] <= $this->bond_days_free) {
+			$info['bond_rent'] = 0;
+		}
 
 		return $info;
 	}
@@ -442,6 +450,11 @@ class WorkOrderController extends \BaseController {
 
 	public function getBondStartDate($container, $workorder)
 	{
+		// This function need to think through
+		// It's only cater for Laden containers.
+		// If it's empty containers, it will not display property.
+		
+
 		if($workorder->movement == 'HE') {
 			foreach($container->workorders as $wo) {
 				if($wo->movement == 'ST' || $wo->movement == 'RI-1' ) {
@@ -452,6 +465,7 @@ class WorkOrderController extends \BaseController {
 
 		foreach($container->workorders as $wo) {
 			if($wo->movement == 'HI' ) {
+				// dd($wo->vesselSchedule->eta);
 				return $wo->vesselSchedule->eta;
 			}
 		}
