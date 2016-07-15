@@ -57,7 +57,13 @@
 		<tbody>
 			@foreach($permissions as $permit)
 				<tr>
-                    <td>{{ link_to(route($permit->route_name), $permit->description) }}</td>
+                    <td>
+                    	@if(! str_contains($permit->route_name, 'action.'))
+                    		{{ link_to(route($permit->route_name), $permit->description) }}
+                    	@else
+                    		{{ $permit->description }}
+                    	@endif
+                    </td>
 					<td>
                         @if($role->permissions->contains($permit->id))
                             <span class="label label-danger">Disallowed</span>

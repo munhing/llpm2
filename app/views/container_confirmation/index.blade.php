@@ -13,6 +13,21 @@
 @stop
 @section('content')
 
+<?php
+	$allowContainerConfirmation = '';
+	$role = Auth::user()->roles->first();
+
+		// dd(Auth::user()->roles->first()->permissions);
+	if(! $role->permissions->isEmpty()) {
+	    foreach($role->permissions as $permission) {
+	        if($permission->route_name == 'action.container.confirmation') {
+	            $allowContainerConfirmation = 'hidden';
+	        }
+	    }
+	}
+
+?>
+
 	<h3 class="page-title">
 		Containers Confirmation <small>list</small>
 	</h3>
@@ -79,9 +94,11 @@
 		                    <td>{{ $pivotInfo->first()->pivot->vehicle }}</td>
 		                    <td>{{ $pivotInfo->first()->pivot->lifter }}</td>
 							<td>
-	                            <button class='btn btn-sm btn-primary' type='button' data-toggle="modal" data-target="#formModal" data-confirmation-id="{{$id}}" data-cp="{{ $container->to_confirm_by }}" data-carrier="{{ $pivotInfo->first()->pivot->vehicle }}" data-lifter="{{ $pivotInfo->first()->pivot->lifter }}">
-	                                Confirm
-	                            </button>								
+								<div class="{{ $allowContainerConfirmation }}">
+		                            <button class='btn btn-sm btn-primary' type='button' data-toggle="modal" data-target="#formModal" data-confirmation-id="{{$id}}" data-cp="{{ $container->to_confirm_by }}" data-carrier="{{ $pivotInfo->first()->pivot->vehicle }}" data-lifter="{{ $pivotInfo->first()->pivot->lifter }}">
+		                                Confirm
+		                            </button>								
+								</div>
 							</td>
 						</tr>
 						@endforeach
