@@ -62,7 +62,6 @@ License: You must have a valid license purchased only from themeforest(the above
 </head>
 <!-- END HEAD -->
 <body class="page-header-fixed page-quick-sidebar-over-content">
-
 @include('layouts/partials/header')
 
 <div class="clearfix">

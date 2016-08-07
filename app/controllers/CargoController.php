@@ -8,6 +8,7 @@ class CargoController extends \BaseController {
 
 	function __construct(CargoRepository $cargoRepository)
 	{
+		parent::__construct();
 		$this->cargoRepository = $cargoRepository;
 	}
 
@@ -21,7 +22,7 @@ class CargoController extends \BaseController {
 	{
 		$cargoes = $this->cargoRepository->getAllWithStatus2And3();
 
-		return View::make('cargo/index', compact('cargoes'));	
+		return View::make('cargo/index', compact('cargoes'))->withAccess($this->access);
 	}
 
 	/**

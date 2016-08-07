@@ -50,6 +50,7 @@ class ReceivingController extends \BaseController {
 		ContainerForm $containerForm
 	)
 	{
+		parent::__construct();
 		$this->receivingRepository = $receivingRepository;
 		$this->portUserRepository = $portUserRepository;
 		$this->vesselScheduleRepository = $vesselScheduleRepository;
@@ -81,7 +82,7 @@ class ReceivingController extends \BaseController {
 		// dd(Session::get('receiving.date'));
 
 		$receiving = $this->receivingRepository->getAllByMonth(convertMonthToMySQLDate(Session::get('receiving.date')));
-		return View::make('receiving/index', compact('receiving'));
+		return View::make('receiving/index', compact('receiving'))->withAccess($this->access);
 	}
 
 	/**
@@ -120,7 +121,7 @@ class ReceivingController extends \BaseController {
 
 		//dd($containers->toArray());
 		
-		return View::make('receiving/show', compact('receiving', 'containers'));
+		return View::make('receiving/show', compact('receiving', 'containers'))->withAccess($this->access);
 	}
 
 	public function showCargo($receiving_id, $cargo_id)
@@ -131,7 +132,7 @@ class ReceivingController extends \BaseController {
 		$vessel = Vessel::lists('name', 'id');
 		// dd($cargo->toArray());
 
-		return View::make('receiving/show_cargo', compact('cargo', 'cargoItems', 'vessel'));
+		return View::make('receiving/show_cargo', compact('cargo', 'cargoItems', 'vessel'))->withAccess($this->access);
 	}
 
 	public function editCargo($receiving_id, $cargo_id)
@@ -143,7 +144,7 @@ class ReceivingController extends \BaseController {
 		
 		//dd($cargo->toArray());
 
-		return View::make('receiving/edit_cargo', compact('cargo', 'portUsers', 'country'));
+		return View::make('receiving/edit_cargo', compact('cargo', 'portUsers', 'country'))->withAccess($this->access);
 	}
 
 	public function updateCargo($receiving_id, $cargo_id)
@@ -284,7 +285,7 @@ class ReceivingController extends \BaseController {
 
 	public function createContainer()
 	{
-		return View::make('receiving/create_container');
+		return View::make('receiving/create_container')->withAccess($this->access);
 	}
 
 	public function storeContainer()
@@ -320,7 +321,7 @@ class ReceivingController extends \BaseController {
 	{
 		$schedule = [null => "Choose a vessel"] + $this->vesselScheduleRepository->getActiveSchedule()->lists('vessel_voyage', 'id');
 		$portUsers = $this->portUserRepository->getAll()->lists('name', 'id');
-		return View::make('receiving/create_cargo', compact('portUsers', 'schedule'));
+		return View::make('receiving/create_cargo', compact('portUsers', 'schedule'))->withAccess($this->access);
 	}
 
 	public function storeCargo()

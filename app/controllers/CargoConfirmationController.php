@@ -11,6 +11,7 @@ class CargoConfirmationController extends \BaseController {
 
 	function __construct(CargoRepository $cargoRepository)
 	{
+		parent::__construct();
 		$this->cargoRepository = $cargoRepository;
 	}
 
@@ -34,7 +35,7 @@ class CargoConfirmationController extends \BaseController {
 
         // die();
 
-		return View::make('cargo_confirmation/index', compact('cargoes'));		
+		return View::make('cargo_confirmation/index', compact('cargoes'))->withAccess($this->access);		
 	}
 
 
@@ -52,7 +53,7 @@ class CargoConfirmationController extends \BaseController {
 
         // die();
 
-		return View::make('cargo_confirmation/cargo_export', compact('cargoes'));		
+		return View::make('cargo_confirmation/cargo_export', compact('cargoes'))->withAccess($this->access);	
 	}
 
 

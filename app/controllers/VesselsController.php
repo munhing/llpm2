@@ -12,6 +12,7 @@ class VesselsController extends \BaseController {
 
 	function __construct(VesselRepository $vesselRepository, VesselForm $vesselForm)
 	{
+		parent::__construct();
 		$this->vesselRepository = $vesselRepository;
 		$this->vesselForm = $vesselForm;
 
@@ -26,7 +27,7 @@ class VesselsController extends \BaseController {
 	public function index()
 	{
 		$vessels = $this->vesselRepository->getAll();
-		return View::make('vessels/index', compact('vessels'));
+		return View::make('vessels/index', compact('vessels'))->withAccess($this->access);
 	}
 
 	/**
@@ -37,7 +38,7 @@ class VesselsController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('vessels/create');
+		return View::make('vessels/create')->withAccess($this->access);
 	}
 
 	/**

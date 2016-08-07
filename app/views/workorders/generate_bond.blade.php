@@ -219,10 +219,10 @@ html, body {
 							 {{ $container['size'] }}
 						</td>
 						<td class="hidden-480" align="center">
-							 {{ $container['date_start']->format('d/m/Y') }}
+							 {{ processDate($container['date_start']) }}
 						</td>
 						<td class="hidden-480" align="center">
-							 {{ $container['date_end']->format('d/m/Y') }}
+							 {{ processDate($container['date_end']) }}
 						</td>	
 						<td class="hidden-480" align="center">
 							 {{ $container['days_bond'] }}

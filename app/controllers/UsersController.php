@@ -32,6 +32,7 @@ class UsersController extends \BaseController {
 		PortUserRegisterForm $portUserRegisterForm
 	)
 	{
+		parent::__construct();
 		$this->userForm = $userForm;
 		$this->roleForm = $roleForm;		
 		$this->userRepository = $userRepository;
@@ -50,7 +51,7 @@ class UsersController extends \BaseController {
 		$users = $this->userRepository->getAllStaff();
 		$roles = $this->roleRepository->getAll();
 		// dd($users->toArray());
-		return View::make('users/index', compact('users', 'roles'));
+		return View::make('users/index', compact('users', 'roles'))->withAccess($this->access);
 	}
 
 	public function indexPortUser()
@@ -58,7 +59,7 @@ class UsersController extends \BaseController {
 		$portusers = $this->userRepository->getAllPortUsers();
 		// $roles = $this->roleRepository->getAll();
 		// dd($users->toArray());
-		return View::make('users/index_portuser', compact('portusers'));
+		return View::make('users/index_portuser', compact('portusers'))->withAccess($this->access);
 	}
 	/**
 	 * Show the form for creating a new resource.
@@ -70,7 +71,7 @@ class UsersController extends \BaseController {
 		//dd('register');
 		$roles = $this->roleRepository->getAll();
 		// dd($roles->toArray());
-		return View::make('users/create', compact('roles'));
+		return View::make('users/create', compact('roles'))->withAccess($this->access);
 	}
 
 
@@ -82,7 +83,7 @@ class UsersController extends \BaseController {
 	public function secretRegister()
 	{
 		//dd('register');
-		return View::make('users/secret_register');
+		return View::make('users/secret_register')->withAccess($this->access);
 	}
 
 
@@ -177,7 +178,7 @@ class UsersController extends \BaseController {
 	public function indexRole()
 	{
 		$roles = $this->roleRepository->getAll();
-		return View::make('users/index_role', compact('roles'));
+		return View::make('users/index_role', compact('roles'))->withAccess($this->access);
 	}
 
 
@@ -209,7 +210,7 @@ class UsersController extends \BaseController {
 		// dd($role_id);
 		$role = $this->roleRepository->getById($role_id);
 		$permissions = $this->permissionRepository->getAll();
-		return View::make('users/role_permission', compact('role', 'permissions'));		
+		return View::make('users/role_permission', compact('role', 'permissions'))->withAccess($this->access);
 	}
 
 	public function rolePermissionsUpdate($role_id)
@@ -232,7 +233,7 @@ class UsersController extends \BaseController {
 	{
 
 		$permissions = $this->permissionRepository->getAll();
-		return View::make('users/index_permission', compact('permissions'));
+		return View::make('users/index_permission', compact('permissions'))->withAccess($this->access);
 	}
 
 	public function getUsersByRole()
@@ -265,7 +266,7 @@ class UsersController extends \BaseController {
 	public function profile()
 	{
 		// dd('My Profile');
-		return View::make('users/profile');
+		return View::make('users/profile')->withAccess($this->access);
 	}
 
 	public function approvePortUser()

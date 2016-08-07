@@ -21,6 +21,7 @@ class ContainerController extends \BaseController {
 		VesselScheduleRepository $vesselScheduleRepository
 	)
 	{
+		parent::__construct();
 		$this->containerRepository = $containerRepository;
 		$this->containerWorkorderConfirmationRepository = $containerWorkorderConfirmationRepository;
 		$this->feeRepository = $feeRepository;
@@ -42,7 +43,7 @@ class ContainerController extends \BaseController {
 		// dd($containers->first()->toArray());
 
 		// dd($containers[50]->workorders->first()->pivot->updated_at->format('Y-m-d'));
-		return View::make('containers/index', compact('containers', 'totalStorageCharges'));
+		return View::make('containers/index', compact('containers', 'totalStorageCharges'))->withAccess($this->access);
 	}
 
 	/**
@@ -98,7 +99,7 @@ class ContainerController extends \BaseController {
 
 		//dd($container->toArray());
 
-		return View::make('containers/show', compact('container'));
+		return View::make('containers/show', compact('container'))->withAccess($this->access);
 	}
 
 	/**

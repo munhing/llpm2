@@ -8,6 +8,7 @@ class TariffController extends \BaseController {
 
 	public function __construct(CustomTariffRepository $customTariffRepository)
 	{
+		parent::__construct();
 		$this->customTariffRepository = $customTariffRepository;
 	}
 
@@ -28,7 +29,7 @@ class TariffController extends \BaseController {
 		// 	var_dump('Code:'.$code->code. ' UOQ:' . $code->uoq . ' Description:' . $code->description);
 		// }
 
-		return View::make('tariff/index', compact('tariff'));
+		return View::make('tariff/index', compact('tariff'))->withAccess($this->access);
 	}
 
 	/**

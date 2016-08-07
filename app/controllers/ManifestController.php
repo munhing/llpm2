@@ -10,7 +10,7 @@ class ManifestController extends \BaseController {
 	 */
 	public function indexImport()
 	{
-		return View::make('manifest/index_import');
+		return View::make('manifest/index_import')->withAccess($this->access);
 	}
 
 	/**

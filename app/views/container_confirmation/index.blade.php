@@ -14,8 +14,11 @@
 @section('content')
 
 <?php
-	$allowContainerConfirmation = '';
 	$role = Auth::user()->roles->first();
+
+	$allowContainerConfirmation = '';
+	$allowContainerConfirmationBypass = '';
+	$allowContainerConfirmationCancel = '';
 
 		// dd(Auth::user()->roles->first()->permissions);
 	if(! $role->permissions->isEmpty()) {
@@ -23,6 +26,13 @@
 	        if($permission->route_name == 'action.container.confirmation') {
 	            $allowContainerConfirmation = 'hidden';
 	        }
+	        if($permission->route_name == 'action.container.confirmation.bypass') {
+	            $allowContainerConfirmationBypass = 'hidden';
+	        }
+
+	        // if($permission->route_name == 'action.container.confirmation.cancel') {
+	        //     $allowContainerConfirmationCancel = 'hidden';
+	        // }	        	        
 	    }
 	}
 
@@ -119,8 +129,7 @@
                 <div class="modal-body">
                         {{ Form::open() }}                    
                         {{ Form::hidden('a_confirmation','', ['id'=>'a_confirmation']) }}
-                        	<?php $role = Auth::user()->roles->first()->role; ?>
-                          <div class="alert alert-warning {{ $role == 'AD' ? '' : 'hide' }}" role="alert">
+                          <div class="alert alert-warning {{ $allowContainerConfirmationBypass }}" role="alert">
                                  {{ Form::checkbox('bypass', 'true') }}
                                  {{ Form::label('bypass','Bypass all check points') }}
                           </div> 

@@ -1,3 +1,25 @@
+ <?php   
+    $role = Auth::user()->roles->first();
+
+    // $allowViewUsers = '';
+    // $allowViewUserRoles = '';
+
+    //     // dd(Auth::user()->roles->first()->permissions);
+    // if(! $role->permissions->isEmpty()) {
+    //     foreach($role->permissions as $permission) {
+    //         if($permission->route_name == 'users') {
+    //             $allowViewUsers = 'hidden';
+    //         }
+    //         if($permission->route_name == 'roles') {
+    //             $allowViewUserRoles = 'hidden';
+    //         }
+
+    //         // if($permission->route_name == 'action.container.confirmation.cancel') {
+    //         //     $allowContainerConfirmationCancel = 'hidden';
+    //         // }                        
+    //     }
+    // }
+?>
 <!-- BEGIN SIDEBAR -->
 <div class="page-sidebar-wrapper">
     <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
@@ -175,11 +197,11 @@
                 <span class="selected"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="{{ Request::is('admin/access/users*') ? 'active' : '' }}">
+                    <li class="{{ Request::is('admin/access/users*') ? 'active' : '' }} {{ $access['allowViewUsers'] }}">
                         <a href="{{ URL::route('users') }}">
                         Users </a>
                     </li>
-                    <li class="{{ Request::is('admin/access/roles*') ? 'active' : '' }}">
+                    <li class="{{ Request::is('admin/access/roles*') ? 'active' : '' }} {{ $access['allowViewUserRoles'] }}">
                         <a href="{{ URL::route('roles') }}">
                         Roles </a>
                     </li>

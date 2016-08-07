@@ -27,6 +27,7 @@ class TrackingController extends \BaseController {
 		ContainerTrackingStatus $containerTrackingStatus
 	)
 	{
+		parent::__construct();
 		$this->containerRepository = $containerRepository;
 		$this->containerWorkorderConfirmationRepository = $containerWorkorderConfirmationRepository;
 		$this->feeRepository = $feeRepository;
@@ -64,7 +65,7 @@ class TrackingController extends \BaseController {
 
 		// dd($url);
 
-		return View::make('tracking/index', compact('info', 'textfields', 'url'));
+		return View::make('tracking/index', compact('info', 'textfields', 'url'))->withAccess($this->access);
 	}
 
 	/**
@@ -108,10 +109,10 @@ class TrackingController extends \BaseController {
 		// // dd(Cookie::get('containers'));
 		// return Redirect::route('tracking.container')->withCookie($cookie);
 		if($input['action'] == 'status') {		
-			return View::make('tracking/status', compact('info', 'infoCount'));
+			return View::make('tracking/status', compact('info', 'infoCount'))->withAccess($this->access);
 		}
 		if($input['action'] == 'history') {
-			return View::make('tracking/tracking', compact('info', 'infoCount'));
+			return View::make('tracking/tracking', compact('info', 'infoCount'))->withAccess($this->access);
 		}
 	}
 
@@ -143,7 +144,7 @@ class TrackingController extends \BaseController {
 
 		// dd($container->toArray());
 
-		return View::make('tracking/details', compact('container'));
+		return View::make('tracking/details', compact('container'))->withAccess($this->access);
 	}
 
 	/**

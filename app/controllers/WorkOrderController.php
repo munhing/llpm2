@@ -55,6 +55,7 @@ class WorkOrderController extends \BaseController {
 		CalculateBondRentByWorkOrder $calculateBondRentByWorkOrder
 	)
 	{
+		parent::__construct();
 		$this->workOrderRepository = $workOrderRepository;
 		$this->containerRepository = $containerRepository;
 		$this->importContainerRepository = $importContainerRepository;
@@ -107,7 +108,7 @@ class WorkOrderController extends \BaseController {
                 $checkDate = convertMonthToMySQLDate(Session::get('workorder.date'));
 
 		$workorders = $this->workOrderRepository->getAllByMonth(convertMonthToMySQLDate(Session::get('workorder.date')), Session::get('workorder.movement'));
-		return View::make('workorders/index', compact('workorders', 'movement', 'checkDate'));
+		return View::make('workorders/index', compact('workorders', 'movement', 'checkDate'))->withAccess($this->access);
 
 	}
 
@@ -123,7 +124,7 @@ class WorkOrderController extends \BaseController {
 		//dd('Hello');
 		$cargoList = $this->cargoRepository->getActiveExportCargoForSelectList();
 
-		return View::make('workorders/create2', compact('cargoList'));
+		return View::make('workorders/create2', compact('cargoList'))->withAccess($this->access);
 	}
 
 	public function carrierList()
@@ -268,7 +269,7 @@ class WorkOrderController extends \BaseController {
 		//dd($workOrder->containers->toArray());
 
 		//dd($containersConfirmation->first()->container->container_no);
-		return View::make('workorders/show', compact('workOrder'));
+		return View::make('workorders/show', compact('workOrder'))->withAccess($this->access);
 	}
 
 	public function generate_workorder($id)
@@ -299,7 +300,7 @@ class WorkOrderController extends \BaseController {
 		$movement = $this->movement;
 		$content = $this->content;
 
-		return View::make('workorders/generate_workorder', compact('workOrder', 'handler', 'carrier', 'movement', 'content'));
+		return View::make('workorders/generate_workorder', compact('workOrder', 'handler', 'carrier', 'movement', 'content'))->withAccess($this->access);
 	}
 
 	public function generate_handling($workorder_id)
@@ -353,7 +354,7 @@ class WorkOrderController extends \BaseController {
 		$movement = $this->movement;
 		$content = $this->content;
 		//dd($containersConfirmation->first()->container->container_no);
-		return View::make('workorders/generate_handling', compact('containerList', 'workOrder', 'handler', 'carrier', 'movement', 'content', 'total_charges'));
+		return View::make('workorders/generate_handling', compact('containerList', 'workOrder', 'handler', 'carrier', 'movement', 'content', 'total_charges'))->withAccess($this->access);
 	}
 
 	public function generate_storage($workorder_id)
@@ -380,7 +381,7 @@ class WorkOrderController extends \BaseController {
 		$content = $this->content;
 
 		// dd($total_charges);
-		return View::make('workorders/generate_storage', compact('containerList', 'workOrder', 'agent', 'movement', 'content', 'total_charges'));
+		return View::make('workorders/generate_storage', compact('containerList', 'workOrder', 'agent', 'movement', 'content', 'total_charges'))->withAccess($this->access);
 	}
 
 	public function generate_bond($workorder_id)
@@ -408,23 +409,29 @@ class WorkOrderController extends \BaseController {
 		// dd($containerInfo);
 
 		// dd($total_charges);
-		return View::make('workorders/generate_bond', compact('containerList', 'workOrder', 'movement', 'content', 'total_charges'));
+		return View::make('workorders/generate_bond', compact('containerList', 'workOrder', 'movement', 'content', 'total_charges'))->withAccess($this->access);
 	}
 
 	public function getBondContainerInfo($container, $workorder)
 	{
 		$movement = $workorder->movement;
-		
+		$content = $container->pivot->content;
+
+		$info['date_start'] = '';
+		$info['date_end'] = '';
+
 		$info['container_no'] = $container->container_no;
-		$info['size'] = $container->size . $container->pivot->content;
+		$info['size'] = $container->size . $content;
 		$info['days_bond'] = $container->days_bond_import;
 
 		if($movement == 'HE') {
 			$info['days_bond'] = $container->days_bond_export;
 		}
 
-		$info['date_start'] = $this->getBondStartDate($container, $workorder);
-		$info['date_end'] = $this->getBondEndDate($container, $workorder);
+		if($content == 'L') {
+			$info['date_start'] = $this->getBondStartDate($container, $workorder);
+			$info['date_end'] = $this->getBondEndDate($container, $workorder);
+		}
 
 		$info['num_weeks'] = $this->getNumWeeks($info['days_bond']);
 		$info['bond_fee'] = $this->getBondFee($info['num_weeks']);
@@ -669,7 +676,7 @@ class WorkOrderController extends \BaseController {
 		$handlers = $this->portUserRepository->getAll();
 		//$handlers = $this->portUserRepository->getAll();
 		// dd($containers->toArray());
-		return View::make('workorders/create_unstuffing', compact('containers', 'handlers'));
+		return View::make('workorders/create_unstuffing', compact('containers', 'handlers'))->withAccess($this->access);
 	}
 
 	public function storeUnstuffing()
@@ -700,7 +707,7 @@ class WorkOrderController extends \BaseController {
 		$handlers = $this->portUserRepository->getAll();
 		$cargoList = $this->cargoRepository->getActiveExportCargoForSelectList();
 		//dd($containers->toArray());
-		return View::make('workorders/create_stuffing', compact('containers', 'handlers', 'cargoList'));
+		return View::make('workorders/create_stuffing', compact('containers', 'handlers', 'cargoList'))->withAccess($this->access);
 	}	
 
 	public function storeStuffing()

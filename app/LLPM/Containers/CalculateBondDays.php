@@ -3,6 +3,7 @@ namespace LLPM\Containers;
 
 use Carbon\Carbon;
 use LLPM\Repositories\ContainerRepository;
+use Container;
 
 class CalculateBondDays
 {
@@ -26,8 +27,9 @@ class CalculateBondDays
         $bond_days['import'] = 0;
         $bond_days['export'] = 0;
 
+        // $container = Container::find(188653);
         $workorders = $container->workorders->sortBy('id');
-        // dd($workorders->toArray());
+
 
         $valid_workorders = $this->filterWorkorders($workorders);
 
@@ -36,6 +38,7 @@ class CalculateBondDays
         $bond_days['import'] = $this->calculateBondImportDays($valid_workorders);
         $bond_days['export'] = $this->calculateBondExportDays($valid_workorders);
 
+        // dd($bond_days);
         return $bond_days;
 	}
 
@@ -72,7 +75,8 @@ class CalculateBondDays
         $proceedToCalculate = false;
 
         foreach($workorders as $wo) {
-            if(($wo->movement == 'RI-1' && $wo->pivot->content == 'E') || ($wo->movement == 'ST' && $wo->pivot->content == 'E')) {
+            // dd($wo);
+            if(($wo->movement == 'RI-1' && $wo->pivot->content == 'L') || ($wo->movement == 'ST' && $wo->pivot->content == 'E')) {
 
                 $proceedToCalculate = true;
                 // dd($wo->vessel_schedule_id);

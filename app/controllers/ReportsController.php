@@ -21,6 +21,7 @@ class ReportsController extends \BaseController {
 		VesselScheduleRepository $vesselScheduleRepository
 	)
 	{
+		parent::__construct();
 		$this->workOrderRepository = $workOrderRepository;
 		$this->containerWorkorderConfirmationRepository = $containerWorkorderConfirmationRepository;
 		$this->containerConfirmationRepository = $containerConfirmationRepository;
@@ -35,7 +36,7 @@ class ReportsController extends \BaseController {
 	public function index()
 	{
 		// dd('Various Reports');
-		return View::make('reports/index');
+		return View::make('reports/index')->withAccess($this->access);
 	}
 
 	/**
@@ -46,7 +47,7 @@ class ReportsController extends \BaseController {
 	 */
 	public function containerLoadingDischargingConf()
 	{
-		return View::make('reports/container_loading_discharging_conf');
+		return View::make('reports/container_loading_discharging_conf')->withAccess($this->access);
 	}
 
 	/**
@@ -91,7 +92,7 @@ class ReportsController extends \BaseController {
 		}
 
 
-		return View::make('reports/container_loading_discharging_rpt', compact('info', 'rpt'));
+		return View::make('reports/container_loading_discharging_rpt', compact('info', 'rpt'))->withAccess($this->access);
 	}
 
 	/**
@@ -103,7 +104,7 @@ class ReportsController extends \BaseController {
 	 */
 	public function containerMovementConf()
 	{
-		return View::make('reports/container_movement_conf');
+		return View::make('reports/container_movement_conf')->withAccess($this->access);
 	}
 
 	public function containerMovementRpt()
@@ -137,7 +138,7 @@ class ReportsController extends \BaseController {
 		}
 		// dd($rpt);
 
-		return View::make('reports/container_movement_rpt', compact('info', 'rpt'));
+		return View::make('reports/container_movement_rpt', compact('info', 'rpt'))->withAccess($this->access);
 	}
 
 	public function getLocations($locations)

@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"Access",
+				"AccessTrait	(AccessTrait.php)"
+			],
+			[
+				"all",
+				"allowViewUserRoles"
+			],
+			[
+				"allo",
+				"allowContainerConfirmationBypass"
+			],
+			[
 				"bond_rent",
 				"bond_rent_export	(CalculateBondRent.php)"
 			],
@@ -444,42 +456,154 @@
 	"buffers":
 	[
 		{
+			"file": "app/views/layouts/partials/sidebar.blade.php",
+			"settings":
+			{
+				"buffer_size": 10962,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/routes.php",
+			"settings":
+			{
+				"buffer_size": 32482,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/LLPM/AccessTrait.php",
+			"settings":
+			{
+				"buffer_size": 1595,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/DashboardController.php",
+			"settings":
+			{
+				"buffer_size": 246,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/EtrackingController.php",
+			"settings":
+			{
+				"buffer_size": 4637,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/ManifestController.php",
+			"settings":
+			{
+				"buffer_size": 1222,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/PortUsersController.php",
+			"settings":
+			{
+				"buffer_size": 1953,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/ReceivingController.php",
+			"settings":
+			{
+				"buffer_size": 9598,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/ReportsController.php",
+			"settings":
+			{
+				"buffer_size": 6414,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/SessionsController.php",
+			"settings":
+			{
+				"buffer_size": 1930,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/SettingsController.php",
+			"settings":
+			{
+				"buffer_size": 2822,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/StatisticsController.php",
+			"settings":
+			{
+				"buffer_size": 2704,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/TariffController.php",
+			"settings":
+			{
+				"buffer_size": 1867,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/TrackingController.php",
+			"settings":
+			{
+				"buffer_size": 4231,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/UsersController.php",
+			"settings":
+			{
+				"buffer_size": 6894,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/VesselScheduleController.php",
+			"settings":
+			{
+				"buffer_size": 17685,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/VesselsController.php",
+			"settings":
+			{
+				"buffer_size": 2102,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "app/controllers/WorkOrderController.php",
 			"settings":
 			{
-				"buffer_size": 21474,
+				"buffer_size": 22391,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/views/workorders/create2.blade.php",
+			"file": "app/controllers/ContainerConfirmationController.php",
 			"settings":
 			{
-				"buffer_size": 13593,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/views/tracking/details.blade.php",
-			"settings":
-			{
-				"buffer_size": 4325,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/views/tracking/status.blade.php",
-			"settings":
-			{
-				"buffer_size": 4194,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/views/tracking/tracking.blade.php",
-			"settings":
-			{
-				"buffer_size": 6324,
+				"buffer_size": 3324,
 				"line_ending": "Unix"
 			}
 		},
@@ -487,31 +611,63 @@
 			"file": "app/views/layouts/default.blade.php",
 			"settings":
 			{
-				"buffer_size": 5934,
+				"buffer_size": 5933,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/views/dashboard.blade.php",
+			"file": "app/controllers/ContainerController.php",
 			"settings":
 			{
-				"buffer_size": 6038,
+				"buffer_size": 5432,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/models/VesselSchedule.php",
+			"file": "app/controllers/BaseController.php",
 			"settings":
 			{
-				"buffer_size": 2659,
+				"buffer_size": 454,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/LLPM/Repositories/VesselScheduleRepository.php",
+			"file": "app/controllers/CargoConfirmationController.php",
 			"settings":
 			{
-				"buffer_size": 2032,
+				"buffer_size": 3048,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/controllers/CargoController.php",
+			"settings":
+			{
+				"buffer_size": 1461,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/layouts/partials/access.blade.php",
+			"settings":
+			{
+				"buffer_size": 1040,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "vendor/laracasts/commander/src/Laracasts/Commander/CommanderTrait.php",
+			"settings":
+			{
+				"buffer_size": 2039,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/views/container_confirmation/index.blade.php",
+			"settings":
+			{
+				"buffer_size": 10465,
 				"line_ending": "Unix"
 			}
 		}
@@ -628,13 +784,51 @@
 	[
 		"/Users/munhing1980/projects/llpm",
 		"/Users/munhing1980/projects/llpm/app",
+		"/Users/munhing1980/projects/llpm/app/config",
+		"/Users/munhing1980/projects/llpm/app/controllers",
 		"/Users/munhing1980/projects/llpm/app/views",
+		"/Users/munhing1980/projects/llpm/app/views/container_confirmation",
 		"/Users/munhing1980/projects/llpm/app/views/layouts",
-		"/Users/munhing1980/projects/llpm/resources/assets",
-		"/Users/munhing1980/projects/llpm/resources/assets/sass"
+		"/Users/munhing1980/projects/llpm/app/views/layouts/partials",
+		"/Users/munhing1980/projects/llpm/vendor/laracasts/commander",
+		"/Users/munhing1980/projects/llpm/vendor/laracasts/commander/src",
+		"/Users/munhing1980/projects/llpm/vendor/laracasts/commander/src/Laracasts",
+		"/Users/munhing1980/projects/llpm/vendor/laracasts/commander/src/Laracasts/Commander"
 	],
 	"file_history":
 	[
+		"/Users/munhing1980/projects/llpm/app/views/layouts/partials/header.blade.php",
+		"/Users/munhing1980/projects/llpm/app/views/layouts/default.blade.php",
+		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/ContainerWorkorderConfirmationRepository.php",
+		"/Users/munhing1980/projects/llpm/app/controllers/ReportsController.php",
+		"/Users/munhing1980/projects/llpm/app/config/app.php",
+		"/Users/munhing1980/projects/llpm/app/LLPM/AccessTrait.php",
+		"/Users/munhing1980/projects/llpm/app/views/layouts/default.blade.php.backup",
+		"/Users/munhing1980/projects/llpm/app/views/schedule/show_import.blade.php",
+		"/Users/munhing1980/projects/llpm/app/models/Role.php",
+		"/Users/munhing1980/projects/llpm/app/views/users/role_permission.blade.php",
+		"/Users/munhing1980/projects/llpm/app/views/container_confirmation/index.blade.php",
+		"/Users/munhing1980/projects/llpm/app/LLPM/Filters/PermittedFilter.php",
+		"/Users/munhing1980/projects/llpm/app/database/migrations/2016_07_28_063620_add_column_SOC_to_containers_table.php",
+		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/VesselScheduleRepository.php",
+		"/Users/munhing1980/projects/llpm/app/LLPM/Containers/CalculateBondDays.php",
+		"/Users/munhing1980/projects/llpm/app/views/workorders/generate_bond.blade.php",
+		"/Users/munhing1980/projects/llpm/app/LLPM/WorkOrders/CalculateBondRent.php",
+		"/Users/munhing1980/projects/llpm/app/LLPM/WorkOrders/CalculateBondRentByWorkOrder.php",
+		"/Users/munhing1980/projects/llpm/app/controllers/WorkOrderController.php",
+		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/CargoRepository.php",
+		"/Users/munhing1980/projects/llpm/app/controllers/ContainerConfirmationController.php",
+		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/ContainerRepository.php",
+		"/Users/munhing1980/projects/llpm/.gitignore",
+		"/Users/munhing1980/projects/llpm/app/models/Cargo.php",
+		"/Users/munhing1980/projects/llpm/app/controllers/CargoConfirmationController.php",
+		"/Users/munhing1980/projects/llpm/app/views/workorders/create2.blade.php",
+		"/Users/munhing1980/projects/llpm/app/controllers/ContainerController.php",
+		"/Users/munhing1980/projects/llpm/app/views/tracking/details.blade.php",
+		"/Users/munhing1980/projects/llpm/app/views/tracking/status.blade.php",
+		"/Users/munhing1980/projects/llpm/app/views/tracking/tracking.blade.php",
+		"/Users/munhing1980/projects/llpm/app/views/dashboard.blade.php",
+		"/Users/munhing1980/projects/llpm/app/models/VesselSchedule.php",
 		"/Users/munhing1980/projects/llpm/app/views/containers/index.blade.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Containers/DailyBondDaysCalculation.php",
 		"/Users/munhing1980/projects/llpm/app/commands/CalculateBondDaysCommand.php",
@@ -643,18 +837,13 @@
 		"/Users/munhing1980/projects/llpm/resources/assets/sass/app.scss",
 		"/Users/munhing1980/projects/llpm/package.json",
 		"/Users/munhing1980/projects/llpm/app/LLPM/WorkOrders/FinalizeWorkOrderCommandHandler.php",
-		"/Users/munhing1980/projects/llpm/app/controllers/WorkOrderController.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/WorkOrders/CalculateBondRentByWorkOrder.php",
 		"/Users/munhing1980/projects/llpm/app/views/workorders/generate_storage.blade.php",
-		"/Users/munhing1980/projects/llpm/app/views/workorders/generate_bond.blade.php",
 		"/Users/munhing1980/projects/llpm/app/commands/CalculateContainerDaysCommand.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/WorkOrders/CalculateBondRent.php",
 		"/Users/munhing1980/projects/llpm/app/database/migrations/2016_04_02_135829_add_column_bond_rent_to_workorders_table.php",
 		"/Users/munhing1980/projects/llpm/app/views/workorders/index.blade.php",
 		"/Users/munhing1980/projects/llpm/app/views/workorders/show.blade.php",
 		"/Users/munhing1980/projects/llpm/app/models/WorkOrder.php",
 		"/Users/munhing1980/projects/llpm/app/routes.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Containers/CalculateBondDays.php",
 		"/Users/munhing1980/projects/llpm/node_modules/node-sass/package.json",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Containers/BondDaysCalculationByWorkOrder.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Containers/DailyContainerDaysCalculation.php",
@@ -663,7 +852,6 @@
 		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/ContainerConfirmationRepository.php",
 		"/Users/munhing1980/projects/llpm/app/models/ContainerConfirmation.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/WorkOrders/DailyWorkOrderBondRentCalculation.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/ContainerRepository.php",
 		"/Users/munhing1980/projects/llpm/app/start/artisan.php",
 		"/Users/munhing1980/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
 		"/Users/munhing1980/projects/llpm/app/database/migrations/2016_04_02_135829_add_column_bond_rent_import_and_bond_rent_export_to_workorders_table.php",
@@ -675,7 +863,6 @@
 		"/Users/munhing1980/Library/Application Support/Sublime Text 3/Packages/PHP Companion/PHP Companion.sublime-settings",
 		"/Users/munhing1980/Library/Application Support/Sublime Text 3/Packages/User/PHP Companion.sublime-settings",
 		"/Users/munhing1980/projects/llpm/composer - Copy.json",
-		"/Users/munhing1980/projects/llpm/app/controllers/ContainerController.php",
 		"/Users/munhing1980/Library/Application Support/Sublime Text 3/Packages/Origami/Default (OSX).sublime-keymap",
 		"/Users/munhing1980/Library/Application Support/Sublime Text 3/Packages/PHP Getters and Setters/php-getters-setters.sublime-settings",
 		"/Users/munhing1980/Library/Application Support/Sublime Text 3/Packages/User/php-getters-setters.sublime-settings",
@@ -689,13 +876,11 @@
 		"/Users/munhing1980/projects/llpm/app/somefile.php",
 		"/Users/munhing1980/projects/llpm/app/database/migrations/2016_03_26_190422_add_column_days_bond_to_containers_table.php",
 		"/Users/munhing1980/projects/llpm/app/views/workorders/generate_workorder.blade.php",
-		"/Users/munhing1980/projects/llpm/app/models/Cargo.php",
 		"/Users/munhing1980/projects/llpm/app/views/receiving/show.blade.php",
 		"/Users/munhing1980/projects/llpm/app/views/schedule/show_export_cargo.blade.php",
 		"/Users/munhing1980/projects/llpm/app/controllers/VesselScheduleController.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Schedule/UnlinkContainerCommandHandler.php",
 		"/Users/munhing1980/projects/llpm/app/controllers/UsersController.php",
-		"/Users/munhing1980/projects/llpm/app/views/container_confirmation/index.blade.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/RoleRepository.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Schedule/UnlinkContainerCommand.php",
 		"/Users/munhing1980/projects/llpm/app/views/receiving/show_cargo.blade.php",
@@ -703,12 +888,10 @@
 		"/Users/munhing1980/projects/llpm/app/LLPM/Receiving/UnlinkReceivingContainerCommandHandler.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/UserRepository.php",
 		"/Users/munhing1980/projects/llpm/app/controllers/StatisticsController.php",
-		"/Users/munhing1980/projects/llpm/app/views/dashboard.blade.php",
 		"/Users/munhing1980/projects/llpm/app/controllers/HomeController.php",
 		"/Users/munhing1980/projects/llpm/app/views/schedule/show_import_cargo.blade.php",
 		"/Users/munhing1980/projects/llpm/app/views/etracking/tracking.blade.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Containers/ContainerTracking.php",
-		"/Users/munhing1980/projects/llpm/app/views/tracking/tracking.blade.php",
 		"/Users/munhing1980/projects/llpm/app/views/reports/container_loading_discharging_conf.blade.php",
 		"/Users/munhing1980/projects/llpm/app/views/emails/welcome.blade.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Users/UpdateUserProfileCommandHandler.php",
@@ -741,28 +924,7 @@
 		"/Users/munhing1980/projects/llpm/app/views/password/remind.blade.php",
 		"/Users/munhing1980/projects/llpm/app/views/sessions/login2.blade.php",
 		"/Users/munhing1980/projects/llpm/app/LLPM/Users/RegisterPortUserRegisterCommand.php",
-		"/Users/munhing1980/projects/llpm/app/database/migrations/2016_03_05_125741_add_column_company_to_users_table.php",
-		"/Users/munhing1980/projects/llpm/app/views/schedule/show_import.blade.php",
-		"/Users/munhing1980/projects/l52/gulpfile.js",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Schedule/UpdateContainerCommand.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Forms/ContainerForm.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Schedule/UpdateContainerCommandHandler.php",
-		"/Users/munhing1980/projects/llpm/app/views/tracking/details.blade.php",
-		"/Users/munhing1980/projects/llpm/app/controllers/ContainerConfirmationController.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Confirmation/ConfirmContainerCommand.php",
-		"/Users/munhing1980/projects/llpm/app/database/migrations/2016_02_28_165742_add_column_remarks_to_container_workorder_table.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Forms/ContainerConfirmationForm.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Receiving/AssociateContainersWithCargoCommandHandler.php",
-		"/Users/munhing1980/projects/llpm/app/config/mail.php",
-		"/Users/munhing1980/projects/llpm/app/controllers/RemindersController.php",
-		"/Users/munhing1980/projects/llpm/vendor/symfony/http-kernel/Symfony/Component/HttpKernel/Event/PostResponseEvent.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/CargoRepository.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Repositories/ReceivingRepository.php",
-		"/Users/munhing1980/projects/llpm/app/views/containers/show.blade.php",
-		"/Users/munhing1980/projects/llpm/app/LLPM/Containers/ContainerTrackingStatus.php",
-		"/Users/munhing1980/projects/llpm/app/views/tracking/status.blade.php",
-		"/Users/munhing1980/projects/llpm/app/views/tracking/index.blade.php",
-		"/Users/munhing1980/projects/llpm/public/assets/global/scripts/metronic.js"
+		"/Users/munhing1980/projects/llpm/app/database/migrations/2016_03_05_125741_add_column_company_to_users_table.php"
 	],
 	"find":
 	{
@@ -780,6 +942,31 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"view::make",
+			"();\n",
+			"dash",
+			"getActivity",
+			"permissions",
+			"getBondContainerInfo",
+			"genera",
+			"getCharge",
+			"days_free",
+			"calculateBondRentByWorkOrder",
+			"getBondStartDate",
+			"getBondContainerInfo",
+			"getBondEndDate",
+			"getBondEndDateƒ",
+			"getBondEndDate",
+			"calculateDays",
+			"filterWorkorders",
+			"bond_fee",
+			"getBondFee",
+			"getBondEndDate",
+			"getBondStartDate",
+			"getBondContainerInfo",
+			"getBondEndDate",
+			"vessel_schedule",
+			"'<=',",
 			"getBondStartDate",
 			"getBondFee",
 			"days_bond_import",
@@ -882,32 +1069,7 @@
 			"select",
 			"tag",
 			"select2",
-			"total",
-			"definition",
-			"migrateContainer",
-			"changeContent",
-			"pivot",
-			"days_charged",
-			"wom",
-			"results",
-			"movement",
-			"date",
-			"update",
-			"date-picker",
-			"effective_date1",
-			"loadContainers",
-			"portuser_id",
-			"add",
-			"calculateStorageChargesByWorkOrder",
-			"Shipper",
-			"exportSchedule",
-			"]);",
-			"a_operator",
-			"w2",
-			"w1",
-			"workorder1",
-			"temp",
-			"tempNo"
+			"total"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -938,53 +1100,84 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "app/controllers/WorkOrderController.php",
+					"file": "app/views/layouts/partials/sidebar.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 21474,
+						"buffer_size": 10962,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4279,
-								4279
+								9456,
+								9474
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2739.0,
+						"translation.y": 4380.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 24,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "app/views/workorders/create2.blade.php",
+					"file": "app/routes.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 13593,
+						"buffer_size": 32482,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								9939,
-								9939
+								6121,
+								6121
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5678.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 25,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/LLPM/AccessTrait.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1595,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								228,
+								228
 							]
 						],
 						"settings":
@@ -992,57 +1185,28 @@
 							"syntax": "Packages/PHP/PHP.tmLanguage",
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 1161.0,
-						"translation.y": 5468.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "app/views/tracking/details.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4325,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1824,
-								1783
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
 						"translation.x": 0.0,
-						"translation.y": 639.0,
+						"translation.y": 35.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "app/views/tracking/status.blade.php",
+					"file": "app/controllers/DashboardController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4194,
+						"buffer_size": 246,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1825,
-								1825
+								241,
+								213
 							]
 						],
 						"settings":
@@ -1051,27 +1215,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 469.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "app/views/tracking/tracking.blade.php",
+					"file": "app/controllers/EtrackingController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6324,
+						"buffer_size": 4637,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1953,
-								1953
+								1155,
+								1155
 							]
 						],
 						"settings":
@@ -1080,19 +1244,135 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 425.0,
+						"translation.y": 707.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
 					"buffer": 5,
-					"file": "app/views/layouts/default.blade.php",
+					"file": "app/controllers/ManifestController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1222,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								258,
+								258
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "app/controllers/PortUsersController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1953,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								917,
+								917
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1777.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "app/controllers/ReceivingController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9598,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8916,
+								8916
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 7308.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "app/controllers/ReportsController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6414,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4563,
+								4563
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4629.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "app/controllers/SessionsController.php",
 					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 5934,
+						"buffer_size": 1930,
 						"regions":
 						{
 						},
@@ -1105,86 +1385,31 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "app/views/dashboard.blade.php",
+					"buffer": 10,
+					"file": "app/controllers/SettingsController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6038,
+						"buffer_size": 2822,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5495,
-								5270
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 3477.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "app/models/VesselSchedule.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2659,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1129,
-								1153
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 747.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "app/LLPM/Repositories/VesselScheduleRepository.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2032,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								834,
-								843
+								1485,
+								1485
 							]
 						],
 						"settings":
@@ -1193,10 +1418,473 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 477.0,
+						"translation.y": 2467.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "app/controllers/StatisticsController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2704,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								763,
+								763
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 454.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "app/controllers/TariffController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1867,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								810,
+								810
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1800.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "app/controllers/TrackingController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4231,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3710,
+								3710
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3571.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "app/controllers/UsersController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6894,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6088,
+								6088
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 6446.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "app/controllers/VesselScheduleController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 17685,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4390,
+								4400
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3051.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "app/controllers/VesselsController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2102,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								595,
+								605
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 360.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "app/controllers/WorkOrderController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 22391,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3897,
+								3907
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 120.0,
+						"translation.y": 2223.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "app/controllers/ContainerConfirmationController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3324,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1836,
+								1836
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2927.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "app/views/layouts/default.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5933,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2949,
+								2949
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 21,
+					"type": "text"
+				},
+				{
+					"buffer": 20,
+					"file": "app/controllers/ContainerController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5432,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2664,
+								2664
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4123.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 16,
+					"type": "text"
+				},
+				{
+					"buffer": 21,
+					"file": "app/controllers/BaseController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 454,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								245,
+								245
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 29.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 20,
+					"type": "text"
+				},
+				{
+					"buffer": 22,
+					"file": "app/controllers/CargoConfirmationController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3048,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1267,
+								1267
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3180.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 19,
+					"type": "text"
+				},
+				{
+					"buffer": 23,
+					"file": "app/controllers/CargoController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1461,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								521,
+								521
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1547.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 18,
+					"type": "text"
+				},
+				{
+					"buffer": 24,
+					"file": "app/views/layouts/partials/access.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1040,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								44,
+								7
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 22,
+					"type": "text"
+				},
+				{
+					"buffer": 25,
+					"file": "vendor/laracasts/commander/src/Laracasts/Commander/CommanderTrait.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2039,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 23,
+					"type": "text"
+				},
+				{
+					"buffer": 26,
+					"file": "app/views/container_confirmation/index.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10465,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1900,
+								1124
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 222.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 26,
 					"type": "text"
 				}
 			]
@@ -1255,6 +1943,58 @@
 		"selected_items":
 		[
 			[
+				"route",
+				"app/routes.php"
+			],
+			[
+				"containerwork",
+				"app/LLPM/Repositories/ContainerWorkorderConfirmationRepository.php"
+			],
+			[
+				"role",
+				"app/models/Role.php"
+			],
+			[
+				"workorder",
+				"app/controllers/WorkOrderController.php"
+			],
+			[
+				"workordercon",
+				"app/controllers/WorkOrderController.php"
+			],
+			[
+				"vesselsch",
+				"app/LLPM/Repositories/VesselScheduleRepository.php"
+			],
+			[
+				"wor",
+				"app/controllers/WorkOrderController.php"
+			],
+			[
+				"containerre",
+				"app/LLPM/Repositories/ContainerRepository.php"
+			],
+			[
+				"cargo",
+				"app/models/Cargo.php"
+			],
+			[
+				"cargore",
+				"app/LLPM/Repositories/CargoRepository.php"
+			],
+			[
+				"containerrepo",
+				"app/LLPM/Repositories/ContainerRepository.php"
+			],
+			[
+				"workord",
+				"app/controllers/WorkOrderController.php"
+			],
+			[
+				"containercontro",
+				"app/controllers/ContainerController.php"
+			],
+			[
 				"vesselsc",
 				"app/models/VesselSchedule.php"
 			],
@@ -1269,10 +2009,6 @@
 			[
 				"viewworkorder",
 				"app/views/workorders/index.blade.php"
-			],
-			[
-				"workorder",
-				"app/controllers/WorkOrderController.php"
 			],
 			[
 				"genera",
@@ -1291,10 +2027,6 @@
 				"app/views/workorders/show.blade.php"
 			],
 			[
-				"route",
-				"app/routes.php"
-			],
-			[
 				"viewsworkordersho",
 				"app/views/workorders/show.blade.php"
 			],
@@ -1305,10 +2037,6 @@
 			[
 				"calculatebondrentbyworkorder",
 				"app/LLPM/WorkOrders/CalculateBondRentByWorkOrder.php"
-			],
-			[
-				"wor",
-				"app/controllers/WorkOrderController.php"
 			],
 			[
 				"finali",
@@ -1333,10 +2061,6 @@
 			[
 				"dailycontainerdayscalculation",
 				"app/LLPM/Containers/DailyContainerDaysCalculation.php"
-			],
-			[
-				"containerre",
-				"app/LLPM/Repositories/ContainerRepository.php"
 			],
 			[
 				"containerconf",
@@ -1369,10 +2093,6 @@
 			[
 				"finalizeworkordercommand",
 				"app/LLPM/WorkOrders/FinalizeWorkOrderCommandHandler.php"
-			],
-			[
-				"cargo",
-				"app/models/Cargo.php"
 			],
 			[
 				"rolere",
@@ -1547,14 +2267,6 @@
 				"app/controllers/WorkOrderController.php"
 			],
 			[
-				"containerrepo",
-				"app/LLPM/Repositories/ContainerRepository.php"
-			],
-			[
-				"cargore",
-				"app/LLPM/Repositories/CargoRepository.php"
-			],
-			[
 				"vessels",
 				"app/models/VesselSchedule.php"
 			],
@@ -1565,10 +2277,6 @@
 			[
 				"containerconfir",
 				"app/models/ContainerConfirmation.php"
-			],
-			[
-				"containerwork",
-				"app/models/ContainerWorkorderConfirmation.php"
 			],
 			[
 				"cargocon",
@@ -1617,10 +2325,6 @@
 			[
 				"containerrepor",
 				"app/LLPM/Repositories/ContainerRepository.php"
-			],
-			[
-				"workordercon",
-				"app/controllers/WorkOrderController.php"
 			],
 			[
 				"cargocontro",
@@ -1749,22 +2453,6 @@
 			[
 				"vesselre",
 				"app/LLPM/Repositories/VesselRepository.php"
-			],
-			[
-				"workordercntrol",
-				"app/controllers/WorkOrderController.php"
-			],
-			[
-				"containerc",
-				"app/controllers/ContainerController.php"
-			],
-			[
-				"role",
-				"app/models/Role.php"
-			],
-			[
-				"per",
-				"app/LLPM/Repositories/PermissionRepository.php"
 			]
 		],
 		"width": 0.0
@@ -1795,7 +2483,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 319.0,
+	"side_bar_width": 361.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

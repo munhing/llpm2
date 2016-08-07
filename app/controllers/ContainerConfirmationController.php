@@ -21,6 +21,7 @@ class ContainerConfirmationController extends \BaseController {
 		ContainerConfirmationForm $containerConfirmationForm
 	)
 	{
+		parent::__construct();
 		$this->containerRepository = $containerRepository;
 		$this->containerConfirmationRepository = $containerConfirmationRepository;
 		$this->containerConfirmationProcessRepository = $containerConfirmationProcessRepository;
@@ -54,7 +55,7 @@ class ContainerConfirmationController extends \BaseController {
 		// 	var_dump($ctn->workorders->last()->pivot->vehicle);
 		// }
 
-		return View::make('container_confirmation/index', compact('containers', 'check_points'));
+		return View::make('container_confirmation/index', compact('containers', 'check_points'))->withAccess($this->access);
 
 	}
 

@@ -12,6 +12,7 @@ class PortUsersController extends \BaseController {
 
 	function __construct(PortUserRepository $portUserRepository, PortUserForm $portUserForm)
 	{
+		parent::__construct();
 		$this->portUserRepository = $portUserRepository;
 		$this->portUserForm = $portUserForm;
 	}
@@ -25,7 +26,7 @@ class PortUsersController extends \BaseController {
 	public function index()
 	{
 		$portUsers = $this->portUserRepository->getAll();
-		return View::make('portusers/index', compact('portUsers'));
+		return View::make('portusers/index', compact('portUsers'))->withAccess($this->access);
 	}
 
 	/**
@@ -36,7 +37,7 @@ class PortUsersController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('portusers/create');
+		return View::make('portusers/create')->withAccess($this->access);
 	}
 
 	/**

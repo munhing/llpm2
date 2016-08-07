@@ -255,9 +255,7 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
 
     Route::get('/', [
         'as' => 'home',
-        'uses' => function () {
-            return View::make('dashboard');
-        }
+        'uses' => 'DashboardController@index',       
     ]);
 
 

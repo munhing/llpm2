@@ -63,7 +63,7 @@
 								@foreach($vesselSchedule->importContainers as $container)
 									<tr>
 										<td>{{ $i }}</td>
-										<td>{{ $container->container_no }}</td>
+										<td>{{ $container->container_no }} {{ $container->is_soc == '1' ? '<span class="label label-sm label-warning">SOC</span>' : '' }}</td>
 										<td>{{ $container->size }}</td>
 										<td>{{ $container->m_content }}</td>
 										<td>

@@ -22,6 +22,7 @@ class StatisticsController extends \BaseController {
 		UserRepository $userRepository
 	)
 	{
+		parent::__construct();
 		$this->containerRepository = $containerRepository;
 		$this->workOrderRepository = $workOrderRepository;
 		$this->containerConfirmationRepository = $containerConfirmationRepository;

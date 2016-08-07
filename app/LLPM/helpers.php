@@ -1,5 +1,15 @@
 <?php
 
+function processDate($date)
+{
+	// dd($date);
+	if($date instanceOf Carbon\Carbon) {
+		return $date->format('d/m/Y');
+	}
+
+	return '';
+}
+
 function convertToMySQLDate($date)
 {
 	//return date("Y-m-d", strtotime($date));

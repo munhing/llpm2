@@ -59,6 +59,7 @@ class VesselScheduleController extends \BaseController {
 		ContainerForm $containerForm
 	)
 	{
+		parent::__construct();
 		$this->vesselScheduleRepository = $vesselScheduleRepository;
 		$this->vesselRepository = $vesselRepository;
 		$this->containerRepository = $containerRepository;
@@ -95,7 +96,7 @@ class VesselScheduleController extends \BaseController {
 		}
 
 		$vesselSchedule = $this->vesselScheduleRepository->getAllByMonth(convertMonthToMySQLDate(Session::get('view_date')));
-		return View::make('schedule/index', compact('vesselSchedule'));
+		return View::make('schedule/index', compact('vesselSchedule'))->withAccess($this->access);
 	}
 
 	/**
@@ -108,7 +109,7 @@ class VesselScheduleController extends \BaseController {
 	{
 		$vessels = $this->vesselRepository->getAll()->lists('name', 'id');
 		$portUsers = $this->portUserRepository->getAll()->lists('name', 'id');
-		return View::make('schedule/create', compact('vessels', 'portUsers'));
+		return View::make('schedule/create', compact('vessels', 'portUsers'))->withAccess($this->access);
 	}
 
 	/**
@@ -143,7 +144,7 @@ class VesselScheduleController extends \BaseController {
 		$vesselSchedule = $this->vesselScheduleRepository->getDetailsById($id);
 
 		//dd($vesselSchedule->toArray());
-		return View::make('schedule/show_import', compact('vesselSchedule'));
+		return View::make('schedule/show_import', compact('vesselSchedule'))->withAccess($this->access);
 	}
 
 	public function showExport($id)
@@ -151,7 +152,7 @@ class VesselScheduleController extends \BaseController {
 		$vesselSchedule = $this->vesselScheduleRepository->getDetailsById($id);
 
 		//dd($vesselSchedule->toArray());
-		return View::make('schedule/show_export', compact('vesselSchedule'));
+		return View::make('schedule/show_export', compact('vesselSchedule'))->withAccess($this->access);
 	}
 	/**
 	 * Show the form for editing the specified resource.
@@ -168,7 +169,7 @@ class VesselScheduleController extends \BaseController {
 		$portUsers = $this->portUserRepository->getAll()->lists('name', 'id');
 
 		// dd($portUsers);
-		return View::make('schedule/edit', compact('vesselSchedule', 'vessels', 'portUsers'));
+		return View::make('schedule/edit', compact('vesselSchedule', 'vessels', 'portUsers'))->withAccess($this->access);
 	}
 
 	/**
@@ -207,7 +208,7 @@ class VesselScheduleController extends \BaseController {
 		$schedule = $this->vesselScheduleRepository->getById($id);
 		
 		//dd($schedule->toArray());
-		return View::make('schedule/create_import_container', compact('schedule'));
+		return View::make('schedule/create_import_container', compact('schedule'))->withAccess($this->access);
 	}
 
 	// Create Empty Import Containers
@@ -275,7 +276,7 @@ class VesselScheduleController extends \BaseController {
 		//dd($importCargo->m_containers);
 		$schedule = $this->vesselScheduleRepository->getById($id);
 
-		return View::make('schedule/show_import_cargo', compact('importCargo', 'importCargoItems', 'schedule'));
+		return View::make('schedule/show_import_cargo', compact('importCargo', 'importCargoItems', 'schedule'))->withAccess($this->access);
 	}
 
 	public function generateDLImportCargo($id, $cargo_id)
@@ -287,7 +288,7 @@ class VesselScheduleController extends \BaseController {
 		$schedule = $this->vesselScheduleRepository->getById($id);
 
 		//dd($schedule->toArray());
-		return View::make('schedule/generate_dl_import', compact('importCargo', 'schedule'));
+		return View::make('schedule/generate_dl_import', compact('importCargo', 'schedule'))->withAccess($this->access);
 	}
 
 	public function showExportCargo($id, $cargo_id)
@@ -300,7 +301,7 @@ class VesselScheduleController extends \BaseController {
 		//dd($importCargoItems->toArray());
 		$schedule = $this->vesselScheduleRepository->getById($id);
 
-		return View::make('schedule/show_export_cargo', compact('cargo', 'cargoItems', 'schedule'));
+		return View::make('schedule/show_export_cargo', compact('cargo', 'cargoItems', 'schedule'))->withAccess($this->access);
 	}	
 
 	public function generateDLExportCargo($id, $cargo_id)
@@ -312,7 +313,7 @@ class VesselScheduleController extends \BaseController {
 		$schedule = $this->vesselScheduleRepository->getById($id);
 
 		//dd($schedule->toArray());
-		return View::make('schedule/generate_dl_export', compact('cargo', 'schedule'));
+		return View::make('schedule/generate_dl_export', compact('cargo', 'schedule'))->withAccess($this->access);
 	}
 
 	public function createImportCargo($id)
@@ -321,7 +322,7 @@ class VesselScheduleController extends \BaseController {
 		$portUsers = $this->portUserRepository->getAll()->lists('name', 'id');
 
 		//dd($schedule->toArray());
-		return View::make('schedule/create_import_cargo', compact('schedule', 'portUsers'));
+		return View::make('schedule/create_import_cargo', compact('schedule', 'portUsers'))->withAccess($this->access);
 	}	
 
 	public function storeImportCargo($id)
@@ -354,7 +355,7 @@ class VesselScheduleController extends \BaseController {
 		//dd($country);
 
 		//dd($schedule->toArray());
-		return View::make('schedule/edit_import_cargo', compact('schedule', 'portUsers', 'cargo', 'country'));
+		return View::make('schedule/edit_import_cargo', compact('schedule', 'portUsers', 'cargo', 'country'))->withAccess($this->access);
 	}	
 
 	public function deleteCargo($schedule_id)
@@ -384,7 +385,7 @@ class VesselScheduleController extends \BaseController {
 		//dd($country);
 
 		//dd($schedule->toArray());
-		return View::make('schedule/edit_export_cargo', compact('schedule', 'portUsers', 'cargo', 'country'));
+		return View::make('schedule/edit_export_cargo', compact('schedule', 'portUsers', 'cargo', 'country'))->withAccess($this->access);
 	}	
 
 	public function updateImportCargo($id, $cargo_id)
@@ -436,7 +437,7 @@ class VesselScheduleController extends \BaseController {
 		$cargo = $this->cargoRepository->getImportById($cargo_id);
 		$cargoItem = $this->cargoItemRepository->getById($cargo_item_id);
 		//dd($cargoItem->toArray());
-		return View::make('schedule/edit_import_cargo_item', compact('schedule', 'cargo', 'cargoItem'));
+		return View::make('schedule/edit_import_cargo_item', compact('schedule', 'cargo', 'cargoItem'))->withAccess($this->access);
 	}	
 
 	public function editExportCargoItem($schedule_id, $cargo_id, $cargo_item_id)
@@ -445,7 +446,7 @@ class VesselScheduleController extends \BaseController {
 		$cargo = $this->cargoRepository->getImportById($cargo_id);
 		$cargoItem = $this->cargoItemRepository->getById($cargo_item_id);
 		//dd($cargoItem->toArray());
-		return View::make('schedule/edit_export_cargo_item', compact('schedule', 'cargo', 'cargoItem'));
+		return View::make('schedule/edit_export_cargo_item', compact('schedule', 'cargo', 'cargoItem'))->withAccess($this->access);
 	}
 
 	public function updateImportCargoItem($schedule_id, $cargo_id)

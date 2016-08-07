@@ -22,6 +22,7 @@ class SettingsController extends \BaseController {
 		StorageFeeForm $storageFeeForm
 	)
 	{
+		parent::__construct();
 		$this->feeRepository = $feeRepository;
 		$this->handlingFeeForm = $handlingFeeForm;
 		$this->storageFeeForm = $storageFeeForm;
@@ -46,7 +47,7 @@ class SettingsController extends \BaseController {
 		// var_dump($handlingFee);
 		// var_dump($storageFee);
 
-		return View::make('settings/fees_index', compact('haulageFees', 'liftingFees', 'activityFees', 'transferFees', 'storageFees'));
+		return View::make('settings/fees_index', compact('haulageFees', 'liftingFees', 'activityFees', 'transferFees', 'storageFees'))->withAccess($this->access);
 	}
 
 	/**
