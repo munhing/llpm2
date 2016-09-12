@@ -104,6 +104,24 @@ class CargoRepository {
 			->find($id);
 	}
 
+	public function getImportByYear($year)
+	{
+		return Cargo::selectRaw('sum(mt) as total_mt, month(received_date) as monthly')
+					->where('import_vessel_schedule_id', '!=', 0)
+					->whereYear('received_date', '=', $year)
+					->groupBy('monthly')
+					->get();
+	}
+
+	public function getExportByYear($year)
+	{
+		return Cargo::selectRaw('sum(mt) as total_mt, month(released_date) as monthly')
+					->where('export_vessel_schedule_id', '!=', 0)
+					->whereYear('released_date', '=', $year)
+					->groupBy('monthly')
+					->get();
+	}
+
 	public function getExportById($id)
 	{
 		return Cargo::with('consignor', 'consignee', 'containers', 'exportSchedule')
@@ -161,5 +179,29 @@ class CargoRepository {
 			->where('status', 3)
 			->orderBy('text')
 			->get();
+	}
+
+	public function getTopConsigneeByYear($year, $limit)
+	{
+		return Cargo::selectRaw('count(cargoes.consignee_id) as count, port_users.name')
+				->join('port_users', 'cargoes.consignee_id', '=', 'port_users.id')
+				->whereYear('cargoes.received_date', '=', $year)
+				->where('cargoes.import_vessel_schedule_id', '!=', 0)
+				->orderBy('count', 'desc')
+				->groupBy('cargoes.consignee_id')
+				->take($limit)
+				->get();
+	}
+
+	public function getTopConsignorByYear($year, $limit)
+	{
+		return Cargo::selectRaw('count(cargoes.consignor_id) as count, port_users.name')
+				->join('port_users', 'cargoes.consignor_id', '=', 'port_users.id')
+				->whereYear('cargoes.released_date', '=', $year)
+				->where('cargoes.export_vessel_schedule_id', '!=', 0)
+				->orderBy('count', 'desc')
+				->groupBy('cargoes.consignor_id')
+				->take($limit)
+				->get();
 	}	
 }

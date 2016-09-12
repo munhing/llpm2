@@ -27,6 +27,12 @@ html, body {
 	height:100%;
 }
 
+body {
+	display: flex;
+	justify-content: center;
+}
+
+
 #wrapper {
 	min-height:100%;
 	position:relative;
@@ -99,6 +105,10 @@ html, body {
 
 <body>
 
+@if (isset($vuePage))
+<component is="{{ $vuePage }}">
+@endif
+
 <div id="wrapper">
 
 	<div id="header">
@@ -126,6 +136,10 @@ html, body {
 	</div>
 
 </div>
+
+@yield('page_level_scripts')
+
+</component>
 
 </body>
 <!-- END BODY -->

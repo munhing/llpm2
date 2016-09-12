@@ -5,6 +5,8 @@ use LLPM\Repositories\ContainerConfirmationRepository;
 use LLPM\Repositories\ContainerWorkorderConfirmationRepository;
 use LLPM\Repositories\VesselScheduleRepository;
 use LLPM\Repositories\WorkOrderRepository;
+use LLPM\Reports\ReportsManager;
+use Illuminate\Support\Collection;
 
 class ReportsController extends \BaseController {
 
@@ -12,13 +14,15 @@ class ReportsController extends \BaseController {
 	protected $containerWorkorderConfirmationRepository;
 	protected $containerConfirmationRepository;
 	protected $vesselScheduleRepository;
+	protected $reportsManager;
 
 
 	function __construct(
 		WorkOrderRepository $workOrderRepository,
 		ContainerWorkorderConfirmationRepository $containerWorkorderConfirmationRepository,
 		ContainerConfirmationRepository $containerConfirmationRepository,
-		VesselScheduleRepository $vesselScheduleRepository
+		VesselScheduleRepository $vesselScheduleRepository,
+		ReportsManager $reportsManager
 	)
 	{
 		parent::__construct();
@@ -26,6 +30,7 @@ class ReportsController extends \BaseController {
 		$this->containerWorkorderConfirmationRepository = $containerWorkorderConfirmationRepository;
 		$this->containerConfirmationRepository = $containerConfirmationRepository;
 		$this->vesselScheduleRepository = $vesselScheduleRepository;
+		$this->reportsManager = $reportsManager;
 	}
 	/**
 	 * Display a listing of the resource.
@@ -193,40 +198,196 @@ class ReportsController extends \BaseController {
 
 		return $activity[$location][$movement];
 	}
-	/**
-	 * Show the form for editing the specified resource.
-	 * GET /reports/{id}/edit
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
+
+	public function totalTEUsConf()
 	{
-		//
+		return View::make('reports/total_teus_conf')->withAccess($this->access);
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 * PUT /reports/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
+	public function totalTEUsRpt()
 	{
-		//
+		$year = $this->reportsManager->getYear(Input::get('year'));
+		// dd($year);
+		// get all import export containers
+		$teus = $this->reportsManager->getAllImportExport($year);
+		
+
+		$monthly = $this->reportsManager->getTeusMonthBySize($teus, 20);
+		$total_teus = $this->reportsManager->getTotalTeus($teus);
+		$teus_count_20 = $this->reportsManager->getTeusCountBySize($teus, 20);		
+		$teus_count_40 = $this->reportsManager->getTeusCountBySize($teus, 40);
+
+		return View::make('reports/total_teus_rpt', 
+			compact(
+				'year',
+				'monthly',
+				'total_teus',
+				'teus_month_40',
+				'teus_count_20',
+				'teus_count_40'
+		))->withAccess($this->access);
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 * DELETE /reports/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
+	public function cargoMtConf()
 	{
-		//
+		return View::make('reports/cargo_mt_conf')->withAccess($this->access);
 	}
+
+	public function cargoMtRpt()
+	{
+		$year = $this->reportsManager->getYear(Input::get('year'));
+		// get all import export containers
+		$importCargo = $this->reportsManager->getCargoImportByYear($year);
+		$exportCargo = $this->reportsManager->getCargoexportByYear($year);
+
+		$monthly = $this->reportsManager->getMonthly($importCargo, 'monthly');
+		$import = $this->reportsManager->convertDecimalValuesToArray($importCargo, 'total_mt');
+		$export = $this->reportsManager->convertDecimalValuesToArray($exportCargo, 'total_mt');
+
+		return View::make('reports/cargo_mt_rpt', 
+			compact(
+				'year',
+				'monthly',
+				'import',
+				'export'
+		))->withAccess($this->access);
+	}
+
+	public function cargoTopImportConf()
+	{
+		return View::make('reports/cargo_top_import_conf')->withAccess($this->access);
+	}
+
+	public function cargoTopImportRpt()
+	{
+		$year = $this->reportsManager->getYear(Input::get('year'));
+		$cargoes = $this->reportsManager->getTopImportCargoItemByYear($year);
+
+		// dd($cargoes->toArray());
+		return View::make('reports/cargo_top_import_rpt', 
+			compact(
+				'year',
+				'cargoes'
+		))->withAccess($this->access);		
+
+	}
+
+	public function cargoTopExportConf()
+	{
+		return View::make('reports/cargo_top_export_conf')->withAccess($this->access);
+	}
+
+	public function cargoTopExportRpt()
+	{
+		$year = $this->reportsManager->getYear(Input::get('year'));
+		$cargoes = $this->reportsManager->getTopExportCargoItemByYear($year);
+
+		// dd($cargoes->toArray());
+		return View::make('reports/cargo_top_export_rpt', 
+			compact(
+				'year',
+				'cargoes'
+		))->withAccess($this->access);		
+	}
+
+	public function totalVesselConf()
+	{
+		return View::make('reports/total_vessel_conf')->withAccess($this->access);
+	}
+
+	public function totalVesselRpt()
+	{
+		$year = $this->reportsManager->getYear(Input::get('year'));
+		$vessel = $this->reportsManager->getVesselCountByYear($year);
+
+		$monthly = $this->reportsManager->getMonthly($vessel, 'v_month');
+		$values = $this->reportsManager->convertValuesToArray($vessel, 'v_count');
+
+		return View::make('reports/total_vessel_rpt', 
+			compact(
+				'year','monthly','values'
+		))->withAccess($this->access);	
+	}
+
+	public function vesselTopConf()
+	{
+		return View::make('reports/vessel_top_conf')->withAccess($this->access);
+	}
+
+	public function vesselTopRpt()
+	{
+		$year = $this->reportsManager->getYear(Input::get('year'));
+		$vessel = $this->reportsManager->getTopVesselByYear($year);
+
+		$vessel_name = $this->reportsManager->convertValuesToArray($vessel, 'name');
+		$count = $this->reportsManager->convertValuesToArray($vessel, 'v_count');
+
+		// dd($vessel_name->toJson());
+		// dd($count->toJson());
+
+		return View::make('reports/vessel_top_rpt', 
+			compact(
+				'year','vessel_name', 'count'
+		))->withAccess($this->access);	
+	}	
+
+	public function vesselTopAgentConf()
+	{
+		return View::make('reports/agent_top_conf')->withAccess($this->access);
+	}
+
+	public function vesselTopAgentRpt()
+	{
+		$year = $this->reportsManager->getYear(Input::get('year'));
+		$agent = $this->reportsManager->getTopAgentByYear('2016');
+
+		$name = $this->reportsManager->convertValuesToArray($agent, 'name');
+		$count = $this->reportsManager->convertValuesToArray($agent, 'count');
+
+		// dd($name->toJson());
+		// dd($count->toJson());
+
+		return View::make('reports/agent_top_rpt', 
+			compact(
+				'year','name', 'count'
+		))->withAccess($this->access);	
+	}
+
+	public function consigneeTopConf()
+	{
+		return View::make('reports/consignee_top_conf')->withAccess($this->access);
+	}
+
+	public function consigneeTopRpt()
+	{
+		$year = $this->reportsManager->getYear(Input::get('year'));
+		$consignees = $this->reportsManager->getTopConsigneeByYear($year);
+
+		// dd($consignees->toArray());
+		return View::make('reports/consignee_top_rpt', 
+			compact(
+				'year',
+				'consignees'
+		))->withAccess($this->access);			
+	}
+
+	public function consignorTopConf()
+	{
+		return View::make('reports/consignor_top_conf')->withAccess($this->access);
+	}
+
+	public function consignorTopRpt()
+	{
+		$year = $this->reportsManager->getYear(Input::get('year'));
+		$consignors = $this->reportsManager->getTopConsignorByYear($year);
+
+		// dd($consignors->toArray());
+		return View::make('reports/consignor_top_rpt', 
+			compact(
+				'year',
+				'consignors'
+		))->withAccess($this->access);		
+	}
+	
 
 }

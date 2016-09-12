@@ -67,7 +67,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <div class="clearfix">
 </div>
 <!-- BEGIN CONTAINER -->
-<div class="page-container">
+<div class="page-container" id="app">
 
 	@include('layouts/partials/sidebar')
 
@@ -78,8 +78,13 @@ License: You must have a valid license purchased only from themeforest(the above
 			@include('flash::message')
 			@include('layouts/partials/errors')
 			@include('layouts/partials/modal')
-		
-			@yield('content')
+
+			@if(isset($vuePage))
+				<component is="{{ $vuePage }}">
+			@endif
+				@yield('content')
+
+			</component>
 
 			@include('layouts/partials/modal_auth')			
 		</div>

@@ -6,7 +6,7 @@
 @stop
 @section('content')
 
-	<h3 class="page-title">
+	<h3 class="pagege-title">
 		Reports <small>list</small>
 	</h3>
 
@@ -19,7 +19,7 @@
 			</li>
 			<li>
 				Reports
-			</li>					
+			</li>			
 		</ul>
 	</div>	
 
@@ -38,10 +38,22 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <a href="javascript:;" class="primary-link">Top Vessel</a>
+                                    <a href="{{route('reports.vessel.total.conf')}}" class="primary-link">Total Vessel</a>
+                                </td>
+
+                            </tr>                        
+                            <tr>
+                                <td>
+                                    <a href="{{route('reports.vessel.top.conf')}}" class="primary-link">Top Vessel</a>
                                 </td>
 
                             </tr>
+                            <tr>
+                                <td>
+                                    <a href="{{route('reports.vessel.top.agent.conf')}}" class="primary-link">Top Vessel Agent</a>
+                                </td>
+
+                            </tr>                            
                         </tbody>
                     </table>
                 </div>
@@ -68,7 +80,7 @@
                                 <a href="{{route('reports.container.movement.conf')}}" class="primary-link">Container Movement</a>
                             </td></tr>                            
                             <tr><td>
-                                <a href="javascript:;" class="primary-link">Total TEUs</a>
+                                <a href="{{route('reports.container.teus.conf')}}" class="primary-link">Total TEUs</a>
                             </td></tr>
                         </tbody>
                     </table>
@@ -91,9 +103,19 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <a href="javascript:;" class="primary-link">Top Cargo</a>
+                                    <a href="{{route('reports.cargo.mt.conf')}}" class="primary-link">Total Cargo MT</a>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <a href="{{route('reports.cargo.top.import.conf')}}" class="primary-link">Top Import Cargo</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="{{route('reports.cargo.top.export.conf')}}" class="primary-link">Top Export Cargo</a>
+                                </td>
+                            </tr>                            
                         </tbody>
                     </table>
                 </div>         
@@ -115,9 +137,14 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <a href="javascript:;" class="primary-link">Total Consignee</a>
+                                    <a href="{{route('reports.misc.consignee.top.conf')}}" class="primary-link">Top Consignee</a>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <a href="{{route('reports.misc.consignor.top.conf')}}" class="primary-link">Top Consignor</a>
+                                </td>
+                            </tr>                            
                         </tbody>
                     </table>
                 </div>         

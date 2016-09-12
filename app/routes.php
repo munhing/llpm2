@@ -53,6 +53,10 @@ Route::get('/create_admin_user', function () {
 
 });
 
+Route::get('/test_view', function () {
+    return View::make('vue');
+});
+
 Route::get('/excel', function () {
 
     Excel::load('custome_tariff_01.xls', function($reader) {
@@ -63,12 +67,7 @@ Route::get('/excel', function () {
             var_dump($sheet->header);
         });
 
-    });    
-
-
-
-
-  
+    });
 });
 
 Route::get('/pusher', function () {
@@ -940,7 +939,99 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
         Route::get('/container/movement/rpt', [
             'as' => 'reports.container.movement.rpt',
             'uses' => 'ReportsController@containerMovementRpt',
+        ]); 
+
+        Route::get('/container/teus/conf', [
+            'as' => 'reports.container.teus.conf',
+            'uses' => 'ReportsController@totalTEUsConf',
+        ]); 
+
+        Route::get('/container/teus/rpt', [
+            'as' => 'reports.container.teus.rpt',
+            'uses' => 'ReportsController@totalTEUsRpt',
+        ]);   
+
+        Route::get('/cargo/mt/conf', [
+            'as' => 'reports.cargo.mt.conf',
+            'uses' => 'ReportsController@cargoMtConf',
+        ]);
+
+        Route::get('/cargo/mt/rpt', [
+            'as' => 'reports.cargo.mt.rpt',
+            'uses' => 'ReportsController@cargoMtRpt',
+        ]);
+
+        Route::get('/cargo/top_import/conf', [
+            'as' => 'reports.cargo.top.import.conf',
+            'uses' => 'ReportsController@cargoTopImportConf',
+        ]);
+
+        Route::get('/cargo/top_import/rpt', [
+            'as' => 'reports.cargo.top.import.rpt',
+            'uses' => 'ReportsController@cargoTopImportRpt',
+        ]);
+
+        Route::get('/cargo/top_export/conf', [
+            'as' => 'reports.cargo.top.export.conf',
+            'uses' => 'ReportsController@cargoTopExportConf',
+        ]);
+
+        Route::get('/cargo/top_export/rpt', [
+            'as' => 'reports.cargo.top.export.rpt',
+            'uses' => 'ReportsController@cargoTopExportRpt',
+        ]);
+
+        Route::get('/vessel/total/conf', [
+            'as' => 'reports.vessel.total.conf',
+            'uses' => 'ReportsController@totalVesselConf',
+        ]); 
+
+        Route::get('/vessel/total/rpt', [
+            'as' => 'reports.vessel.total.rpt',
+            'uses' => 'ReportsController@totalVesselRpt',
+        ]); 
+
+        Route::get('/vessel/top/conf', [
+            'as' => 'reports.vessel.top.conf',
+            'uses' => 'ReportsController@vesselTopConf',
+        ]);  
+
+        Route::get('/vessel/top/rpt', [
+            'as' => 'reports.vessel.top.rpt',
+            'uses' => 'ReportsController@vesselTopRpt',
         ]);        
+
+        Route::get('/vessel/top_agent/conf', [
+            'as' => 'reports.vessel.top.agent.conf',
+            'uses' => 'ReportsController@vesselTopAgentConf',
+        ]);
+
+        Route::get('/vessel/top_agent/rpt', [
+            'as' => 'reports.vessel.top.agent.rpt',
+            'uses' => 'ReportsController@vesselTopAgentRpt',
+        ]);
+
+        Route::get('/misc/top_consignee/conf', [
+            'as' => 'reports.misc.consignee.top.conf',
+            'uses' => 'ReportsController@consigneeTopConf',
+        ]);
+
+        Route::get('/misc/top_consignee/rpt', [
+            'as' => 'reports.misc.consignee.top.rpt',
+            'uses' => 'ReportsController@consigneeTopRpt',
+        ]);
+
+        Route::get('/misc/top_consignor/conf', [
+            'as' => 'reports.misc.consignor.top.conf',
+            'uses' => 'ReportsController@consignorTopConf',
+        ]); 
+
+        Route::get('/misc/top_consignor/rpt', [
+            'as' => 'reports.misc.consignor.top.rpt',
+            'uses' => 'ReportsController@consignorTopRpt',
+        ]);        
+
+                            
     });
 
 /*
