@@ -17,7 +17,7 @@
 				<i class="fa fa-angle-right"></i>
 			</li>
 			<li>
-				Search
+				Search 
 			</li>					
 		</ul>
 	</div>	
@@ -34,6 +34,7 @@
 
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="Search for..." v-model="query_cargo">
+						<input type="hidden" id="base_url" value="{{ url('/') }}">
 						<span class="input-group-btn">
 						<button class="btn btn-default" type="submit"><i class="icon-magnifier" @click="search_cargo"></i></button>
 						</span>
@@ -155,7 +156,7 @@
 							</thead>
 							<tbody>
 								<tr v-for="item in data_container.data" track-by="$index">
-									<td><a href="http://llpm.app/admin/tracking/container/track?action=history&containers=@{{ item.container_no }}" target="_blank">@{{ item.container_no }}</a></td>
+									<td><a href="{{ url('/') }}/admin/tracking/container/track?action=history&containers=@{{ item.container_no }}" target="_blank">@{{ item.container_no }}</a></td>
 									<td>@{{ item.size }}</td>
 								</tr>
 							</tbody>
@@ -208,7 +209,7 @@
 									<td>MV. @{{ item.name + ' ' + item.voyage_no_arrival + ' | ' + item.voyage_no_departure }}</td>
 									<td>@{{ dateFormat(item.eta) }}</td>
 									<td>@{{ dateFormat(item.etd) }}</td>
-									<td><a href="http://llpm.app/admin/manifest/schedule/@{{ item.id }}/import" target="_blank">Import</a> | <a href="http://llpm.app/admin/manifest/schedule/@{{ item.id }}/export" target="_blank">Export</a></td>
+									<td><a href="{{ url('/') }}/admin/manifest/schedule/@{{ item.id }}/import" target="_blank">Import</a> | <a href="http://llpm.app/admin/manifest/schedule/@{{ item.id }}/export" target="_blank">Export</a></td>
 								</tr>
 							</tbody>
 						</table>

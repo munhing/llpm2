@@ -16130,8 +16130,12 @@ new _vue2.default({
 			data_workorder: {},
 			data_container: {},
 			data_cargo: {},
-			data_manifest: {}
+			data_manifest: {},
+			base_url: ''
 		};
+	},
+	ready: function ready() {
+		this.base_url = document.getElementById('base_url').value;
 	},
 	methods: {
 		search_workorder: function search_workorder() {
@@ -16151,10 +16155,10 @@ new _vue2.default({
 		},
 		cargoLink: function cargoLink(data) {
 			if (data.import_vessel_schedule_id == 0) {
-				return "http://llpm.app/admin/manifest/schedule/" + data.export_vessel_schedule_id + "/export/cargoes/" + data.id + "/show";
+				return this.base_url + "/admin/manifest/schedule/" + data.export_vessel_schedule_id + "/export/cargoes/" + data.id + "/show";
 			}
 
-			return "http://llpm.app/admin/manifest/schedule/" + data.import_vessel_schedule_id + "/import/cargoes/" + data.id + "/show";
+			return this.base_url + "/admin/manifest/schedule/" + data.import_vessel_schedule_id + "/import/cargoes/" + data.id + "/show";
 		}
 	}
 
