@@ -42,6 +42,13 @@
                 <span class="selected"></span>
                 </a>
             </li>
+            <li class="{{ Request::is('search') ? 'start active' : '' }}">
+                <a href="{{ URL::route('search') }}">
+                <i class="fa fa-search"></i>
+                <span class="title">Search</span>
+                <span class="selected"></span>
+                </a>
+            </li>            
 <!--
 |--------------------------------------------------------------------------
 | Manifest

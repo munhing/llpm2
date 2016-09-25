@@ -257,7 +257,30 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
         'uses' => 'DashboardController@index',       
     ]);
 
+    Route::get('/search', [
+        'as' => 'search',
+        'uses' => 'SearchController@index',       
+    ]);
 
+    Route::get('/search/workorder', [
+        'as' => 'search.workorder',
+        'uses' => 'SearchController@workorder',       
+    ]);
+
+    Route::get('/search/container', [
+        'as' => 'search.container',
+        'uses' => 'SearchController@container',       
+    ]); 
+
+    Route::get('/search/cargo', [
+        'as' => 'search.cargo',
+        'uses' => 'SearchController@cargo',       
+    ]); 
+
+    Route::get('/search/manifest', [
+        'as' => 'search.manifest',
+        'uses' => 'SearchController@manifest',       
+    ]);      
 /*
 |--------------------------------------------------------------------------
 | Admin | Access Control

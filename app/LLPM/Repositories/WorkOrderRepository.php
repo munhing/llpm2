@@ -3,6 +3,7 @@
 namespace LLPM\Repositories;
 
 use WorkOrder;
+use Paginator;
 use Carbon\Carbon;
 
 class WorkOrderRepository {
@@ -74,5 +75,14 @@ class WorkOrderRepository {
 		$workorder->containers()->detach($container_id);
 
 		return true;
+	}
+
+	public function search($workorder_no, $page = 1)
+	{
+		Paginator::setCurrentPage($page);
+
+		return WorkOrder::where('id', 'like', '%' . $workorder_no . '%')
+				->orderBy('workorders.date', 'desc')
+				->paginate(10);
 	}	
 }

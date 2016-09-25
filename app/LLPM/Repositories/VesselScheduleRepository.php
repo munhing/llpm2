@@ -3,7 +3,9 @@
 namespace LLPM\Repositories;
 
 use VesselSchedule;
+use Vessel;
 use Carbon\Carbon;
+use Paginator;
 
 class VesselScheduleRepository {
 
@@ -98,10 +100,15 @@ class VesselScheduleRepository {
 		       	->get();
 	}
 
-	
+	public function search($vessel_name, $page = 1)
+	{
+		Paginator::setCurrentPage($page);
 
-		// $reports = Report::with('client')->selectRaw("reports.*, clients.name, (`next_inspection`) > (NOW())  AS `status`")
-		//        ->join('clients', 'reports.client_id', '=', 'clients.id')
-		//        ->orderBy($sortby, $order)
-		//        ->paginate(20);
+		return Vessel::selectRaw('vessels.name, vessel_schedule.*')
+				->join('vessel_schedule','vessel_schedule.vessel_id', '=', 'vessels.id')
+				->where('vessels.name', 'like', '%' . $vessel_name . '%')
+				->whereYear('vessel_schedule.eta', '>', 2015)
+				->orderBy('vessel_schedule.eta', 'desc')
+				->paginate(10);
+	}
 }

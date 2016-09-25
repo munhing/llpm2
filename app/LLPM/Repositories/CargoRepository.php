@@ -2,7 +2,7 @@
 
 use Cargo;
 use Container;
-// use DB;
+use Paginator;
 use Carbon\Carbon;
 
 class CargoRepository {
@@ -203,5 +203,16 @@ class CargoRepository {
 				->groupBy('cargoes.consignor_id')
 				->take($limit)
 				->get();
-	}	
+	}
+
+	public function search($bl_no, $page = 1)
+	{
+		Paginator::setCurrentPage($page);
+
+		return Cargo::with('Consignee','Consignor', 'ImportSchedule', 'ExportSchedule')
+				->where('cargoes.bl_no', 'like', '%' . $bl_no . '%')
+				->whereYear('cargoes.received_date', '>', 2015)
+				->orderBy('cargoes.bl_no')
+				->paginate(10);
+	}		
 }

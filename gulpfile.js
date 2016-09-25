@@ -4,5 +4,6 @@ require('laravel-elixir-vueify');
 
 elixir(function(mix) {
     // mix.browserify('app.js');
-    mix.browserify('main.js');
+    // mix.browserify('main.js');
+    mix.browserify('search.js');
 });

@@ -4,6 +4,7 @@ use Cargo;
 use Container;
 use Carbon\Carbon;
 use DB;
+use Paginator;
 
 class ContainerRepository {
 
@@ -281,5 +282,16 @@ class ContainerRepository {
 		$container->days_bond_import = $days['import'];
 		$container->days_bond_export = $days['export'];
 		$this->save($container);				
-	}		
+	}
+
+	public function search($container_no, $page = 1)
+	{
+		Paginator::setCurrentPage($page);
+
+		return Container::selectRaw('count(container_no) as count, containers.*')
+				->where('container_no', 'like', '%' . $container_no . '%')
+				->orderBy('containers.container_no')
+				->groupBy('containers.container_no')
+				->paginate(10);
+	}			
 }
