@@ -6,14 +6,14 @@
 
         <bar    title = "Total TEUs in {{ $year }}"
                 :labels={{ $monthly->toJson() }} 
-                :value="{{ $total_teus->toJson() }}"
+                :value={{ $total_teus->toJson() }}
                 value-label="TEUs" 
         ></bar>  
 
         <bar2   title="Total Containers Handled in {{ $year }}"
                 :labels={{ $monthly->toJson() }} 
-                :value1="{{ $teus_count_20->toJson() }}"
-                :value2="{{ $teus_count_40->toJson() }}" 
+                :value1={{ $teus_count_20->toJson() }}
+                :value2={{ $teus_count_40->toJson() }}
                 value1-label="20'" 
                 value2-label="40'" 
         ></bar2>
