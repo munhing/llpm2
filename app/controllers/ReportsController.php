@@ -217,6 +217,8 @@ class ReportsController extends \BaseController {
 		$teus_count_20 = $this->reportsManager->getTeusCountBySize($teus, 20);		
 		$teus_count_40 = $this->reportsManager->getTeusCountBySize($teus, 40);
 
+		dd($teus_count_20, $teus_count_40);
+
 		return View::make('reports/total_teus_rpt', 
 			compact(
 				'year',
