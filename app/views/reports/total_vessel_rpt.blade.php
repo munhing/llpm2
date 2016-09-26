@@ -6,7 +6,7 @@
 
         <bar    title = "Total Vessels in {{ $year }}"
                 :labels={{ $monthly->toJson() }} 
-                :value="{{ $values->toJson() }}"
+                :value={{ $values->toJson() }}
                 value-label="Vessels" 
         ></bar>
     </div>
