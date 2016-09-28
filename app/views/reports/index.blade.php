@@ -115,7 +115,17 @@
                                 <td>
                                     <a href="{{route('reports.cargo.top.export.conf')}}" class="primary-link">Top Export Cargo</a>
                                 </td>
-                            </tr>                            
+                            </tr>    
+                            <tr>
+                                <td>
+                                    <a href="{{route('reports.cargo.list.import.conf')}}" class="primary-link">Import Cargo List by Consignee</a>
+                                </td>
+                            </tr>    
+                            <tr>
+                                <td>
+                                    <a href="{{route('reports.cargo.list.export.conf')}}" class="primary-link">Export Cargo List by Consignor</a>
+                                </td>
+                            </tr>                                                                              
                         </tbody>
                     </table>
                 </div>         

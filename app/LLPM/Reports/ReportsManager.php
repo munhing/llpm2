@@ -76,6 +76,16 @@ class ReportsManager
         return $this->cargoItemRepository->getTopExportCargoItemByYear($year, $limit);
     }
 
+    public function getImportCargoListByConsigneeAndYear($consignee_id, $year)
+    {
+        return $this->cargoRepository->getImportCargoListByConsigneeAndYear($consignee_id, $year);
+    }
+
+    public function getExportCargoListByConsignorAndYear($consignor_id, $year)
+    {
+        return $this->cargoRepository->getExportCargoListByConsignorAndYear($consignor_id, $year);
+    }
+
     public function getTopConsigneeByYear($year, $limit = 100)
     {
         return $this->cargoRepository->getTopConsigneeByYear($year, $limit);

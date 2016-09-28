@@ -214,5 +214,33 @@ class CargoRepository {
 				->whereYear('cargoes.received_date', '>', 2015)
 				->orderBy('cargoes.bl_no')
 				->paginate(10);
-	}		
+	}	
+
+	public function getImportCargoListByConsigneeAndYear($consignee_id, $year)
+	{
+		return Cargo::with('m_containers')
+				->selectRaw('port_users.name, vessel_schedule.*, vessels.name as vessel_name, cargoes.*')
+				->join('port_users', 'cargoes.consignee_id', '=', 'port_users.id')
+				->join('vessel_schedule', 'cargoes.import_vessel_schedule_id', '=', 'vessel_schedule.id')
+				->join('vessels', 'vessel_schedule.vessel_id', '=', 'vessels.id')
+				->where('cargoes.consignee_id', '=', $consignee_id)
+				->whereYear('cargoes.received_date', '=', $year)
+				->where('cargoes.import_vessel_schedule_id', '!=', 0)
+				->orderBy('cargoes.mt', 'desc')
+				->get();
+	}
+
+	public function getExportCargoListByConsignorAndYear($consignor_id, $year)
+	{
+		return Cargo::with('containers')
+				->selectRaw('port_users.name, vessel_schedule.*, vessels.name as vessel_name, cargoes.*')
+				->join('port_users', 'cargoes.consignor_id', '=', 'port_users.id')
+				->join('vessel_schedule', 'cargoes.export_vessel_schedule_id', '=', 'vessel_schedule.id')
+				->join('vessels', 'vessel_schedule.vessel_id', '=', 'vessels.id')
+				->where('cargoes.consignor_id', '=', $consignor_id)
+				->whereYear('cargoes.released_date', '=', $year)
+				->where('cargoes.export_vessel_schedule_id', '!=', 0)
+				->orderBy('cargoes.mt', 'desc')
+				->get();
+	}			
 }

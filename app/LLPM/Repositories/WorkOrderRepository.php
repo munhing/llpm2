@@ -84,5 +84,12 @@ class WorkOrderRepository {
 		return WorkOrder::where('id', 'like', '%' . $workorder_no . '%')
 				->orderBy('workorders.date', 'desc')
 				->paginate(10);
-	}	
+	}
+
+	public function api($query)
+	{
+		return WorkOrder::where('id', 'like', $query . '%')
+				->orderBy('workorders.date')
+				->take(10)->get();		
+	}
 }

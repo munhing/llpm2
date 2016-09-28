@@ -292,6 +292,58 @@ class ReportsController extends \BaseController {
 		))->withAccess($this->access);		
 	}
 
+	public function cargoListImportConf()
+	{
+		return View::make('reports/cargo_list_import_conf')->withAccess($this->access);
+	}
+
+	public function cargoListImportRpt()
+	{
+		$year = $this->reportsManager->getYear(Input::get('year'));
+		$consignee_id = Input::get('consignee_id');
+
+		// dd($consignee_id, $year);
+		$cargoes = $this->reportsManager->getImportCargoListByConsigneeAndYear($consignee_id, $year);
+		$consignee = $cargoes->first()->name;
+		// dd($cargoes->toArray());
+		// dd($consignee);
+
+		return View::make('reports/cargo_list_import_rpt', 
+			compact(
+				'year',
+				'cargoes',
+				'consignee'
+		))->withAccess($this->access);	
+	}
+
+	public function cargoListExportConf()
+	{
+		return View::make('reports/cargo_list_export_conf')->withAccess($this->access);
+	}
+
+	public function cargoListExportRpt()
+	{
+		$year = $this->reportsManager->getYear(Input::get('year'));
+		$consignor_id = Input::get('consignor_id');
+
+		// dd($consignor_id, $year);
+		$cargoes = $this->reportsManager->getExportCargoListByConsignorAndYear($consignor_id, $year);
+		if(count($cargoes)) {
+			$consignor = $cargoes->first()->name;
+		} else {
+			$consignor = '';
+		}
+		// dd($cargoes->toArray());
+		// dd($consignee);
+
+		return View::make('reports/cargo_list_export_rpt', 
+			compact(
+				'year',
+				'cargoes',
+				'consignor'
+		))->withAccess($this->access);	
+	}
+
 	public function totalVesselConf()
 	{
 		return View::make('reports/total_vessel_conf')->withAccess($this->access);

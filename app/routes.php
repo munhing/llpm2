@@ -134,7 +134,7 @@ Route::get('/queue', function () {
 
 Route::get('/test', function () {
 
-    dd(date("Y-m-d H:i:s"));
+    // return Redirect::route('home');
 
 });
 
@@ -203,6 +203,23 @@ Route::post('register', [
 
 Route::controller('password', 'RemindersController');
 
+/*
+|--------------------------------------------------------------------------
+| vue site
+|--------------------------------------------------------------------------
+ */
+Route::group(['prefix' => 'vue'], function () {
+
+    Route::get('/', [
+        'as' => 'vue',
+        'uses' => 'VueController@index'
+    ]);
+
+    Route::get('/api', [
+        'as' => 'vue',
+        'uses' => 'VueController@api'
+    ]);    
+});
 /*
 |--------------------------------------------------------------------------
 | eTracking
@@ -1002,6 +1019,26 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
         Route::get('/cargo/top_export/rpt', [
             'as' => 'reports.cargo.top.export.rpt',
             'uses' => 'ReportsController@cargoTopExportRpt',
+        ]);
+
+        Route::get('/cargo/list_import/conf', [
+            'as' => 'reports.cargo.list.import.conf',
+            'uses' => 'ReportsController@cargoListImportConf',
+        ]);
+
+        Route::get('/cargo/list_import/rpt', [
+            'as' => 'reports.cargo.list.import.rpt',
+            'uses' => 'ReportsController@cargoListImportRpt',
+        ]);
+
+        Route::get('/cargo/list_export/conf', [
+            'as' => 'reports.cargo.list.export.conf',
+            'uses' => 'ReportsController@cargoListExportConf',
+        ]);
+
+        Route::get('/cargo/list_export/rpt', [
+            'as' => 'reports.cargo.list.export.rpt',
+            'uses' => 'ReportsController@cargoListExportRpt',
         ]);
 
         Route::get('/vessel/total/conf', [
