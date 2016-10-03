@@ -36,6 +36,7 @@ class CargoConfirmationCommandHandler implements CommandHandler {
             $cargo = $this->cargoRepository->getById($cargoInfo[0]);
             // dd($cargo->toArray());
 
+            // to make sure that no other person has confirmed this cargo
             if((int)$cargoInfo[1] != $cargo->status){
                 continue;
             }
