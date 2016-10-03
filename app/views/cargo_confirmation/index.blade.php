@@ -62,7 +62,7 @@
 						<tr>
 							<td>
 								@if($cargo->containers->count() == 0)
-									{{ Form::checkbox('confirmationId[]', $cargo->id ) }}
+									{{ Form::checkbox('confirmationId[]', $cargo->id . '-' . $cargo->status ) }}
 								@else
 									<span class="badge badge-info badge-roundless">Containerized</span>
 								@endif

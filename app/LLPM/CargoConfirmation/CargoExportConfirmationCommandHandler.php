@@ -28,11 +28,20 @@ class CargoExportConfirmationCommandHandler implements CommandHandler {
     public function handle($command)
     {
     	
-    	//dd($command);
+    	// dd($command);
     	
-    	foreach($command->confirmationId as $cargo_id)
+    	foreach($command->confirmationId as $confirmation)
     	{
-    		$cargo = $this->cargoRepository->getById($cargo_id);
+            $cargoInfo = explode('-', $confirmation);
+            $cargo = $this->cargoRepository->getById($cargoInfo[0]);
+            // dd($cargo->toArray());
+            
+            // to make sure that no other person has confirmed this cargo
+            if((int)$cargoInfo[1] != $cargo->status){
+                continue;
+            }
+
+            // dd((int)$cargoInfo[1] != $cargo->status);
 
     		if($cargo->status == 2) {
     			$column_by = 'received_by';

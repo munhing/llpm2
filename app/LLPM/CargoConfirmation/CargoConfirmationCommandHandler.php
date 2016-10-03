@@ -30,9 +30,17 @@ class CargoConfirmationCommandHandler implements CommandHandler {
     	
     	//dd($command);
     	
-    	foreach($command->confirmationId as $cargo_id)
+    	foreach($command->confirmationId as $confirmation)
     	{
-    		$cargo = $this->cargoRepository->getById($cargo_id);
+            $cargoInfo = explode('-', $confirmation);
+            $cargo = $this->cargoRepository->getById($cargoInfo[0]);
+            // dd($cargo->toArray());
+
+            if((int)$cargoInfo[1] != $cargo->status){
+                continue;
+            }
+
+            // dd((int)$cargoInfo[1] != $cargo->status);
 
     		if($cargo->status == 1) {
     			$column_by = 'received_by';
@@ -49,5 +57,7 @@ class CargoConfirmationCommandHandler implements CommandHandler {
 
     		$cargo->save();
     	}
+
+
 	}
 }
