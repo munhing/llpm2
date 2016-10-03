@@ -69,17 +69,19 @@ class ConfirmContainerCommandHandler implements CommandHandler
         $a_cons = json_decode($command->a_confirmation);
         $a_car = json_decode($command->a_carrier);
         $a_lif = json_decode($command->a_lifter);
+        $a_cp = json_decode($command->a_cp);
         $bypass = json_decode($command->bypass);
 
         $operator = $this->getOperator($command);
         $confirmed_at = $this->getTime($command);
 
-        // dd($bypass[0]);
+        // dd($a_cons);
 
         foreach ($a_cons as $key => $confirmation) {
             $confirmationIds[] = explode(',', $confirmation);
             $confirmationIds[$key][] = $a_car[$key];
             $confirmationIds[$key][] = $a_lif[$key];
+            $confirmationIds[$key][] = $a_cp[$key];
         }
 
         // dd($confirmationIds);
@@ -90,7 +92,10 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
             // dd($confirmation);
             // get confirmation details
-
+            // check whether the cp is the same with container to prevent double confirmation
+            if(! $this->validateCheckPoint($confirmation)){
+                continue;
+            }
 
             if($bypass[0]) {
                 $ctn = $this->containerRepository->getById($confirmation[0]);
@@ -151,6 +156,12 @@ class ConfirmContainerCommandHandler implements CommandHandler
         // }
 
         //return $confirmation;
+    }
+
+    public function validateCheckPoint($confirmationInfo)
+    {
+        $ctn = $this->containerRepository->getById($confirmationInfo[0]);
+        return $ctn->to_confirm_by == $confirmationInfo[6];
     }
 
     public function getOperator($command)

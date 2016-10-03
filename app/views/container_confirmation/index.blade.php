@@ -153,7 +153,8 @@
                           <div class="form-group">
                                  {{ Form::label('lifter','Lifter') }}
                                  {{ Form::text('a_lifter','', ['id'=>'a_lifter', 'class'=>'form-control']) }}
-                          </div>                          
+                          </div>
+                          {{ Form::hidden('a_cp','', ['id'=>'a_cp']) }}                    
                           <button class="btn btn-lg btn-success btn-block edit-btn" data-confirm>
                                 Confirm
                           </button>
@@ -194,6 +195,7 @@
             modal.find('#a_confirmation').val(confirmation_id);
             modal.find('#a_carrier').val(carrier);
 			modal.find('#a_lifter').val(lifter);
+			modal.find('#a_cp').val(cp);
 
 			$.ajax({
 				url: '{{ route('users.find') }}',

@@ -70,8 +70,10 @@ class ReportsController extends \BaseController {
 		$workorders = $this->workOrderRepository->getAllByScheduleId($schedule_id, $movement);
 		$schedule = $this->vesselScheduleRepository->getById($schedule_id);
 
-		// dd($schedule);
+		// dd($workorders->toArray());
 		$cc = $this->containerWorkorderConfirmationRepository->getAllByWorkorders($workorders->lists('id'));
+		echo '<pre>' . $cc->toJson() . '</pre>';
+		die();
 
 
 		$info['carrier'] = $schedule->vessel->name;
@@ -91,8 +93,12 @@ class ReportsController extends \BaseController {
 			$rpt[$i]['workorder'] = $c->workorder_id;
 			$rpt[$i]['movement'] = $c->containerConfirmation->movement;
 			$rpt[$i]['role'] = $c->role; 
-			$rpt[$i]['activity'] = $this->getActivity($c->role, $c->containerConfirmation->movement);;
 
+			if($c->role == '' | $c->containerConfirmation->movement == '') {
+				$rpt[$i]['activity'] = '';
+			} else {
+				$rpt[$i]['activity'] = $this->getActivity($c->role, $c->containerConfirmation->movement);
+			}
 			$i++;
 		}
 
@@ -137,7 +143,12 @@ class ReportsController extends \BaseController {
 			$rpt[$i]['location'] = $c->role;
 			$rpt[$i]['workorder'] = $c->workorder_id;
 			$rpt[$i]['movement'] = $c->containerConfirmation->movement;
-			$rpt[$i]['activity'] = $this->getActivity($c->role, $c->containerConfirmation->movement);
+
+			if($c->role == '' | $c->containerConfirmation->movement == '') {
+				$rpt[$i]['activity'] = '';
+			} else {
+				$rpt[$i]['activity'] = $this->getActivity($c->role, $c->containerConfirmation->movement);
+			}
 
 			$i++;
 		}
