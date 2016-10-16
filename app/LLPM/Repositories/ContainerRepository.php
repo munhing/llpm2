@@ -45,6 +45,14 @@ class ContainerRepository {
 		return Container::all();
 	}
 
+	public function getTotalActive()
+	{
+		return Container::selectRaw('count(container_no) as count, containers.location')
+				->where('status', '=', 3)
+				->groupBy('containers.location')
+				->get();
+	}
+
 	public function getActiveByContainerNo($container_no)
 	{
 		// don't remove the with->m_cargoes

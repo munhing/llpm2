@@ -991,6 +991,11 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
             'uses' => 'ReportsController@totalTEUsRpt',
         ]);   
 
+        Route::get('/container/total/rpt', [
+            'as' => 'reports.container.total.rpt',
+            'uses' => 'ReportsController@totalRpt',
+        ]); 
+
         Route::get('/cargo/mt/conf', [
             'as' => 'reports.cargo.mt.conf',
             'uses' => 'ReportsController@cargoMtConf',

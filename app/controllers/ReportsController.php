@@ -241,6 +241,22 @@ class ReportsController extends \BaseController {
 		))->withAccess($this->access);
 	}
 
+public function totalRpt()
+	{
+		$total = $this->reportsManager->getTotalContainerActive();
+		
+		// dd($total[1]->location);
+
+		$count_loc_1 = $total[0]->count;		
+		$count_loc_3 = $total[1]->count;
+
+		return View::make('reports/total_containers_rpt', 
+			compact(
+				'count_loc_1',
+				'count_loc_3'
+		))->withAccess($this->access);
+	}
+
 	public function cargoMtConf()
 	{
 		return View::make('reports/cargo_mt_conf')->withAccess($this->access);

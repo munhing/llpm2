@@ -82,6 +82,9 @@
                             <tr><td>
                                 <a href="{{route('reports.container.teus.conf')}}" class="primary-link">Total TEUs</a>
                             </td></tr>
+                            <tr><td>
+                                <a href="{{route('reports.container.total.rpt')}}" class="primary-link">Total Containers in CY1 & CY2</a>
+                            </td></tr>                            
                         </tbody>
                     </table>
                 </div>       

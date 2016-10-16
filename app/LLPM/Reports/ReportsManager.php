@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use Carbon\Carbon;
 
 use LLPM\Repositories\ContainerConfirmationRepository;
+use LLPM\Repositories\ContainerRepository;
 use LLPM\Repositories\CargoRepository;
 use LLPM\Repositories\VesselScheduleRepository;
 use LLPM\Repositories\CargoItemRepository;
@@ -13,18 +14,21 @@ use LLPM\Repositories\CargoItemRepository;
 class ReportsManager
 {
     protected $containerConfirmationRepository;
+    protected $containerRepository;
     protected $cargoRepository;
     protected $vesselScheduleRepository;
     protected $cargoItemRepository;
 
 	function __construct(
         ContainerConfirmationRepository $containerConfirmationRepository,
+        ContainerRepository $containerRepository,
         CargoRepository $cargoRepository,
         VesselScheduleRepository $vesselScheduleRepository,
         CargoItemRepository $cargoItemRepository
     )
     {
         $this->containerConfirmationRepository = $containerConfirmationRepository;
+        $this->containerRepository = $containerRepository;
         $this->cargoRepository = $cargoRepository;
         $this->vesselScheduleRepository = $vesselScheduleRepository;
         $this->cargoItemRepository = $cargoItemRepository;
@@ -39,6 +43,11 @@ class ReportsManager
     public function getAllImportExport($year)
     {
         return $this->containerConfirmationRepository->getAllImportExport($year);
+    }
+
+    public function getTotalContainerActive()
+    {
+        return $this->containerRepository->getTotalActive();
     }
 
     public function getCargoImportByYear($year)
