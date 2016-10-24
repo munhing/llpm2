@@ -221,6 +221,8 @@ class ReportsController extends \BaseController {
 		// dd($year);
 		// get all import export containers
 		$teus = $this->reportsManager->getAllImportExport($year);
+
+		// dd($teus->toArray());
 		
 
 		$monthly = $this->reportsManager->getTeusMonthBySize($teus, 20);
@@ -274,6 +276,54 @@ public function totalRpt()
 		$export = $this->reportsManager->convertDecimalValuesToArray($exportCargo, 'total_mt');
 
 		return View::make('reports/cargo_mt_rpt', 
+			compact(
+				'year',
+				'monthly',
+				'import',
+				'export'
+		))->withAccess($this->access);
+	}
+
+	public function cargoContainerizedMtConf()
+	{
+		return View::make('reports/cargo_containerized_mt_conf')->withAccess($this->access);
+	}
+
+	public function cargoContainerizedMtRpt()
+	{
+		$year = $this->reportsManager->getYear(Input::get('year'));
+		$importCargo = $this->reportsManager->getCargoImportContainerizedMtByYear($year);
+		$exportCargo = $this->reportsManager->getCargoExportContainerizedMtByYear($year);
+
+		$monthly = $this->reportsManager->getMonthly($importCargo, 'monthly');
+		$import = $this->reportsManager->convertDecimalValuesToArray($importCargo, 'total_mt');
+		$export = $this->reportsManager->convertDecimalValuesToArray($exportCargo, 'total_mt');
+
+		return View::make('reports/cargo_containerized_mt_rpt', 
+			compact(
+				'year',
+				'monthly',
+				'import',
+				'export'
+		))->withAccess($this->access);
+	}
+
+	public function cargoLooseMtConf()
+	{
+		return View::make('reports/cargo_loose_mt_conf')->withAccess($this->access);
+	}
+
+	public function cargoLooseMtRpt()
+	{
+		$year = $this->reportsManager->getYear(Input::get('year'));
+		$importCargo = $this->reportsManager->getCargoImportLooseMtByYear($year);
+		$exportCargo = $this->reportsManager->getCargoExportLooseMtByYear($year);
+
+		$monthly = $this->reportsManager->getMonthly($importCargo, 'monthly');
+		$import = $this->reportsManager->convertDecimalValuesToArray($importCargo, 'total_mt');
+		$export = $this->reportsManager->convertDecimalValuesToArray($exportCargo, 'total_mt');
+
+		return View::make('reports/cargo_loose_mt_rpt', 
 			compact(
 				'year',
 				'monthly',

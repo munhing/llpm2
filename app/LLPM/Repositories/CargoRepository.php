@@ -242,5 +242,45 @@ class CargoRepository {
 				->where('cargoes.export_vessel_schedule_id', '!=', 0)
 				->orderBy('cargoes.mt', 'desc')
 				->get();
-	}			
+	}	
+
+	public function getTotalImportLooseMtByYear($year)
+	{
+		return Cargo::selectRaw('sum(mt) as total_mt, month(received_date) as monthly')
+				->whereYear('received_date', '=', $year)
+				->where('containerized', '=', 0)
+				->where('import_vessel_schedule_id', '!=', 0)
+				->groupBy('monthly')
+				->get();
+	}	
+
+	public function getTotalExportLooseMtByYear($year)
+	{
+		return Cargo::selectRaw('sum(mt) as total_mt, month(released_date) as monthly')
+				->whereYear('released_date', '=', $year)
+				->where('containerized', '=', 0)
+				->where('export_vessel_schedule_id', '!=', 0)
+				->groupBy('monthly')
+				->get();
+	}	
+
+	public function getTotalImportContainerizedMtByYear($year)
+	{
+		return Cargo::selectRaw('sum(mt) as total_mt, month(received_date) as monthly')
+				->whereYear('received_date', '=', $year)
+				->where('containerized', '!=', 0)
+				->where('import_vessel_schedule_id', '!=', 0)
+				->groupBy('monthly')
+				->get();
+	}	
+
+	public function getTotalExportContainerizedMtByYear($year)
+	{
+		return Cargo::selectRaw('sum(mt) as total_mt, month(released_date) as monthly')
+				->whereYear('released_date', '=', $year)
+				->where('containerized', '!=', 0)
+				->where('export_vessel_schedule_id', '!=', 0)
+				->groupBy('monthly')
+				->get();
+	}		
 }

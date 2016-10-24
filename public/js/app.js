@@ -25316,6 +25316,14 @@ var _cargo_mt_rpt = require('./pages/cargo_mt_rpt.vue');
 
 var _cargo_mt_rpt2 = _interopRequireDefault(_cargo_mt_rpt);
 
+var _cargo_loose_mt_rpt = require('./pages/cargo_loose_mt_rpt.vue');
+
+var _cargo_loose_mt_rpt2 = _interopRequireDefault(_cargo_loose_mt_rpt);
+
+var _cargo_containerized_mt_rpt = require('./pages/cargo_containerized_mt_rpt.vue');
+
+var _cargo_containerized_mt_rpt2 = _interopRequireDefault(_cargo_containerized_mt_rpt);
+
 var _total_teus_rpt = require('./pages/total_teus_rpt.vue');
 
 var _total_teus_rpt2 = _interopRequireDefault(_total_teus_rpt);
@@ -25362,12 +25370,12 @@ new _vue2.default({
 	el: 'body',
 
 	components: {
-		cargoMtRpt: _cargo_mt_rpt2.default, totalTeusRpt: _total_teus_rpt2.default, totalContainersRpt: _total_containers_rpt2.default, totalVesselRpt: _total_vessel_rpt2.default, vesselTop: _vessel_top_rpt2.default, agentTop: _agent_top_rpt2.default,
+		cargoMtRpt: _cargo_mt_rpt2.default, cargoLooseMtRpt: _cargo_loose_mt_rpt2.default, cargoContainerizedMtRpt: _cargo_containerized_mt_rpt2.default, totalTeusRpt: _total_teus_rpt2.default, totalContainersRpt: _total_containers_rpt2.default, totalVesselRpt: _total_vessel_rpt2.default, vesselTop: _vessel_top_rpt2.default, agentTop: _agent_top_rpt2.default,
 		bar: _bar4.default, bar2: _bar2.default, horizontalbar: _horizontalbar2.default, horizontalbar2: _horizontalbar4.default
 	}
 });
 
-},{"./components/graph/bar.vue":49,"./components/graph/bar2.vue":50,"./components/graph/horizontalbar.vue":51,"./components/graph/horizontalbar2.vue":52,"./pages/agent_top_rpt.vue":53,"./pages/cargo_mt_rpt.vue":54,"./pages/total_containers_rpt.vue":55,"./pages/total_teus_rpt.vue":56,"./pages/total_vessel_rpt.vue":57,"./pages/vessel_top_rpt.vue":58,"vue":47}],49:[function(require,module,exports){
+},{"./components/graph/bar.vue":49,"./components/graph/bar2.vue":50,"./components/graph/horizontalbar.vue":51,"./components/graph/horizontalbar2.vue":52,"./pages/agent_top_rpt.vue":53,"./pages/cargo_containerized_mt_rpt.vue":54,"./pages/cargo_loose_mt_rpt.vue":55,"./pages/cargo_mt_rpt.vue":56,"./pages/total_containers_rpt.vue":57,"./pages/total_teus_rpt.vue":58,"./pages/total_vessel_rpt.vue":59,"./pages/vessel_top_rpt.vue":60,"vue":47}],49:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -25739,6 +25747,50 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = {
 	created: function created() {
+		console.log('cargo_containerized_mt_page');
+	}
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-33103662", module.exports)
+  } else {
+    hotAPI.update("_v-33103662", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"vue":47,"vue-hot-reload-api":46}],55:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = {
+	created: function created() {
+		console.log('cargo_loose_mt_page');
+	}
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-01c78135", module.exports)
+  } else {
+    hotAPI.update("_v-01c78135", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"vue":47,"vue-hot-reload-api":46}],56:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = {
+	created: function created() {
 		console.log('cargo_mt_page');
 	}
 };
@@ -25753,7 +25805,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-1c26bf74", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":47,"vue-hot-reload-api":46}],55:[function(require,module,exports){
+},{"vue":47,"vue-hot-reload-api":46}],57:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -25775,7 +25827,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-00c30c57", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":47,"vue-hot-reload-api":46}],56:[function(require,module,exports){
+},{"vue":47,"vue-hot-reload-api":46}],58:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -25797,7 +25849,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-56813094", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":47,"vue-hot-reload-api":46}],57:[function(require,module,exports){
+},{"vue":47,"vue-hot-reload-api":46}],59:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -25819,7 +25871,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-5fde1d0a", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":47,"vue-hot-reload-api":46}],58:[function(require,module,exports){
+},{"vue":47,"vue-hot-reload-api":46}],60:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

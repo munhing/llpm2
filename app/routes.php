@@ -1006,6 +1006,26 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
             'uses' => 'ReportsController@cargoMtRpt',
         ]);
 
+        Route::get('/cargo/containerized/mt/conf', [
+            'as' => 'reports.cargo.containerized.mt.conf',
+            'uses' => 'ReportsController@cargoContainerizedMtConf',
+        ]);
+
+        Route::get('/cargo/containerized/mt/rpt', [
+            'as' => 'reports.cargo.containerized.mt.rpt',
+            'uses' => 'ReportsController@cargoContainerizedMtRpt',
+        ]);
+
+        Route::get('/cargo/loose/mt/conf', [
+            'as' => 'reports.cargo.loose.mt.conf',
+            'uses' => 'ReportsController@cargoLooseMtConf',
+        ]);
+
+        Route::get('/cargo/loose/mt/rpt', [
+            'as' => 'reports.cargo.loose.mt.rpt',
+            'uses' => 'ReportsController@cargoLooseMtRpt',
+        ]);
+
         Route::get('/cargo/top_import/conf', [
             'as' => 'reports.cargo.top.import.conf',
             'uses' => 'ReportsController@cargoTopImportConf',

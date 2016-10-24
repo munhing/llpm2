@@ -111,6 +111,16 @@
                             </tr>
                             <tr>
                                 <td>
+                                    <a href="{{route('reports.cargo.containerized.mt.conf')}}" class="primary-link">Total Containerized Cargo MT</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="{{route('reports.cargo.loose.mt.conf')}}" class="primary-link">Total Loose Cargo MT</a>
+                                </td>
+                            </tr>                                                        
+                            <tr>
+                                <td>
                                     <a href="{{route('reports.cargo.top.import.conf')}}" class="primary-link">Top Import Cargo</a>
                                 </td>
                             </tr>

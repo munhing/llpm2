@@ -50,6 +50,26 @@ class ReportsManager
         return $this->containerRepository->getTotalActive();
     }
 
+    public function getCargoImportLooseMtByYear($year)
+    {
+        return $this->cargoRepository->getTotalImportLooseMtByYear($year);
+    }
+    
+    public function getCargoExportLooseMtByYear($year)
+    {
+        return $this->cargoRepository->getTotalExportLooseMtByYear($year);
+    }
+
+    public function getCargoImportContainerizedMtByYear($year)
+    {
+        return $this->cargoRepository->getTotalImportContainerizedMtByYear($year);
+    }
+
+    public function getCargoExportContainerizedMtByYear($year)
+    {
+        return $this->cargoRepository->getTotalExportContainerizedMtByYear($year);
+    }
+
     public function getCargoImportByYear($year)
     {
         return $this->cargoRepository->getImportByYear($year);
