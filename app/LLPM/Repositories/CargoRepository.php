@@ -282,5 +282,27 @@ class CargoRepository {
 				->where('export_vessel_schedule_id', '!=', 0)
 				->groupBy('monthly')
 				->get();
-	}		
+	}	
+
+	public function getOriginByYear($year)
+	{
+		return Cargo::selectRaw('sum(mt) as total_mt, country_code, country.name')
+				->leftJoin('country', 'cargoes.country_code', '=', 'country.iso')
+				->whereYear('received_date', '=', $year)
+				->where('import_vessel_schedule_id', '!=', 0)
+				->groupBy('country_code')
+				->orderBy('total_mt', 'desc')
+				->get();
+	}	
+
+	public function getDestinationByYear($year)
+	{
+		return Cargo::selectRaw('sum(mt) as total_mt, country_code, country.name')
+				->leftJoin('country', 'cargoes.country_code', '=', 'country.iso')
+				->whereYear('released_date', '=', $year)
+				->where('export_vessel_schedule_id', '!=', 0)
+				->groupBy('country_code')
+				->orderBy('total_mt', 'desc')
+				->get();
+	}			
 }

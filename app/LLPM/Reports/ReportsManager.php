@@ -84,6 +84,16 @@ class ReportsManager
     {
         return $this->vesselScheduleRepository->getVesselCountByYear($year);
     }
+    
+    public function getCargoOriginByYear($year)
+    {
+        return $this->cargoRepository->getOriginByYear($year);
+    }
+
+    public function getCargoDestinationByYear($year)
+    {
+        return $this->cargoRepository->getDestinationByYear($year);
+    }
 
     public function getTopVesselByYear($year, $limit = 20)
     {

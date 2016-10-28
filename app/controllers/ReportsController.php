@@ -421,6 +421,42 @@ public function totalRpt()
 		))->withAccess($this->access);	
 	}
 
+	public function cargoOriginConf()
+	{
+		return View::make('reports/cargo_origin_conf')->withAccess($this->access);
+	}
+
+	public function cargoOriginRpt()
+	{
+		$year = $this->reportsManager->getYear(Input::get('year'));
+		$origins = $this->reportsManager->getCargoOriginByYear($year);
+
+		// dd($origins->toArray());
+		return View::make('reports/cargo_origin_rpt', 
+			compact(
+				'year',
+				'origins'
+		))->withAccess($this->access);			
+	}
+
+	public function cargoDestinationConf()
+	{
+		return View::make('reports/cargo_destination_conf')->withAccess($this->access);
+	}
+
+	public function cargoDestinationRpt()
+	{
+		$year = $this->reportsManager->getYear(Input::get('year'));
+		$destinations = $this->reportsManager->getCargoDestinationByYear($year);
+
+		// dd($origins->toArray());
+		return View::make('reports/cargo_destination_rpt', 
+			compact(
+				'year',
+				'destinations'
+		))->withAccess($this->access);				
+	}
+
 	public function totalVesselConf()
 	{
 		return View::make('reports/total_vessel_conf')->withAccess($this->access);

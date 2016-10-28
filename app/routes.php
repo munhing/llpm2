@@ -1066,6 +1066,26 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
             'uses' => 'ReportsController@cargoListExportRpt',
         ]);
 
+        Route::get('/cargo/origin/conf', [
+            'as' => 'reports.cargo.origin.conf',
+            'uses' => 'ReportsController@cargoOriginConf',
+        ]);
+
+        Route::get('/cargo/origin/rpt', [
+            'as' => 'reports.cargo.origin.rpt',
+            'uses' => 'ReportsController@cargoOriginRpt',
+        ]);
+
+        Route::get('/cargo/destination/conf', [
+            'as' => 'reports.cargo.destination.conf',
+            'uses' => 'ReportsController@cargoDestinationConf',
+        ]);
+
+        Route::get('/cargo/destination/rpt', [
+            'as' => 'reports.cargo.destination.rpt',
+            'uses' => 'ReportsController@cargoDestinationRpt',
+        ]);
+
         Route::get('/vessel/total/conf', [
             'as' => 'reports.vessel.total.conf',
             'uses' => 'ReportsController@totalVesselConf',
