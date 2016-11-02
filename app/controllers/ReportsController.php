@@ -72,8 +72,8 @@ class ReportsController extends \BaseController {
 
 		// dd($workorders->toArray());
 		$cc = $this->containerWorkorderConfirmationRepository->getAllByWorkorders($workorders->lists('id'));
-		echo '<pre>' . $cc->toJson() . '</pre>';
-		die();
+		// echo '<pre>' . $cc->toJson() . '</pre>';
+		// die();
 
 
 		$info['carrier'] = $schedule->vessel->name;

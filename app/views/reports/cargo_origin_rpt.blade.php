@@ -4,7 +4,7 @@
 
     <div id="app">
 
-        <h1 style="text-align:center">Top Country for Inport Cargo in {{$year}}</h1>
+        <h1 style="text-align:center">Top Country for Import Cargo in {{$year}}</h1>
 
         <table class="table table-striped table-hover">
             <thead>
