@@ -139,10 +139,12 @@ class ConfirmContainerCommandHandler implements CommandHandler
                 if ($confirmation[1] == 'L') {
                     // update cargo if the contaner is laden
                     $this->updateCargoes($confirmation);
+
+                    //if it's RO, should also detach the cargo
                 }
 
-                if ($confirmation[3] == 'US') {
-                    // update cargo if the contaner is laden
+                if ($confirmation[1] == 'L' && ($confirmation[3] == 'US' || $confirmation[3] == 'RO-1' || $confirmation[3] == 'RO-3')) {
+                    // update cargo if the laden contaner is stuffing or remove out 
                     $this->detachContainer($confirmation);
                 }
             }
@@ -369,6 +371,10 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
     public function updateCargoReceivedDate($cargo)
     {
+        if($cargo->status != 1) {
+            return;
+        }
+
         $cargo->received_by = Auth::user()->id;
         $cargo->received_date = date('Y-m-d H:i:s');
         $cargo->save();      
@@ -378,22 +384,29 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
     public function updateCargoReleasedDate($cargo)
     {
+        if($cargo->status != 3) {
+            return;
+        }
+
         $cargo->released_by = Auth::user()->id;
         $cargo->released_date = date('Y-m-d H:i:s');
         $cargo->save();    
 
         $cargo->increment('status');
-
     }
 
     public function updatable($cargo, $confirmation)
     {
+        // Inactive: All containers must be confirmed received before the cargo can be declared received.
+        // Active: At least 1 container must be confirmed received before the cargo can be declared received.
         if($confirmation[3] == 'HI' || $confirmation[3] == 'RI-1' || $confirmation[3] == 'RI-3') {
-            foreach ($cargo->containers as $container) {
-                if($container->status != 3) {
-                    return false;
-                }
-            }    
+            // foreach ($cargo->containers as $container) {
+            //     if($container->status != 3) {
+            //         return false;
+            //     }
+            // }  
+            
+            return true;  
         }
 
         if($confirmation[3] == 'HE' || $confirmation[3] == 'RO-1' || $confirmation[3] == 'RO-3') {
@@ -450,12 +463,13 @@ class ConfirmContainerCommandHandler implements CommandHandler
     {
         $container = $this->containerRepository->getById($confirmation[0]);
 
-        //dd($container->toArray());
+        // dd($container->cargoes->toArray());
 
         foreach ($container->cargoes as $cargo) {
             $cargo->containers()->detach($container);
-            $cargo->containerized = 0;
-            $cargo->save();
+            // $cargo->containerized = 0;
+            // $cargo->save();
+            $cargo->decrement('containerized');
 
         }
 

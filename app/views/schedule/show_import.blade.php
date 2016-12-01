@@ -133,7 +133,9 @@
 										<td class="hide">{{ $cargo->consignor->name }}</td>
 										<td>{{ $cargo->consignee->name }}</td>
 										<td>{{ $cargo->description }}</td>
-										<td>{{ listContainersInString($cargo->m_containers) }}</td>
+										<td>
+											{{ listContainersInString($cargo->m_containers) }}
+										</td>
 										<td align="right">{{ number_format($cargo->mt, 2) }}</td>
 										<td align="right">{{ number_format($cargo->m3, 2) }}</td>
 										<td>{{ importCargoStatusTranslator($cargo->status) }}</td>

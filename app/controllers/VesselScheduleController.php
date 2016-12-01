@@ -143,8 +143,11 @@ class VesselScheduleController extends \BaseController {
 	{
 		$vesselSchedule = $this->vesselScheduleRepository->getDetailsById($id);
 
-		//dd($vesselSchedule->toArray());
-		return View::make('schedule/show_import', compact('vesselSchedule'))->withAccess($this->access);
+		//Get list of containers that has not discharge yet
+		$containers_status1 = $this->containerRepository->getContainersStatus1ByVessel($id);
+
+		// dd($containers_status1->lists('container_no'));
+		return View::make('schedule/show_import', compact('vesselSchedule', 'containers_status1'))->withAccess($this->access);
 	}
 
 	public function showExport($id)
