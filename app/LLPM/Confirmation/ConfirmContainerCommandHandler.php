@@ -140,11 +140,10 @@ class ConfirmContainerCommandHandler implements CommandHandler
                     // update cargo if the contaner is laden
                     $this->updateCargoes($confirmation);
 
-                    //if it's RO, should also detach the cargo
                 }
 
                 if ($confirmation[1] == 'L' && ($confirmation[3] == 'US' || $confirmation[3] == 'RO-1' || $confirmation[3] == 'RO-3')) {
-                    // update cargo if the laden contaner is stuffing or remove out 
+                    // detach from cargo if the laden contaner is stuffing or remove out 
                     $this->detachContainer($confirmation);
                 }
             }
@@ -473,7 +472,10 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
         }
 
-        $container->content = "E";
-        $container->save();
+        // Only unstuffed containers's content is empty. Laden RO containers should remain laden
+        if($confirmation[3] == 'US') {
+            $container->content = "E";
+            $container->save();
+        }
     }
 }

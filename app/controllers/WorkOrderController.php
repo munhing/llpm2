@@ -202,7 +202,10 @@ class WorkOrderController extends \BaseController {
 				break;				
 			case "ST":
 				$containerList = $this->containerRepository->getActiveEmptyContainersForStuffing();
-				break;					
+				break;
+			case "VGM":
+				$containerList = $this->containerRepository->getActiveLadenContainersForVGM();
+				break;								
 		}
 
 		return json_encode($containerList);

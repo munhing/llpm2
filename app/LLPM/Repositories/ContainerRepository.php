@@ -105,14 +105,20 @@ class ContainerRepository {
 				->get();
 	}
 
-	public function getActiveEmptyContainers()
+	public function getActiveLadenContainersForVGM()
 	{
-		return Container::where('status', 3)
-				->where('current_movement', 0)
-				->where('content', 'E')
+		return Container::select('containers.*')
+				->join('cargo_container', 'containers.id', '=', 'cargo_container.container_id')
+				->join('cargoes', 'cargo_container.cargo_id', '=', 'cargoes.id')
+				->where('containers.location', 1)
+				->where('containers.content', 'L')
+				->where('containers.status', 3)
+				->where('containers.current_movement', 0)
+				->where('containers.dl_check', 0)
+				->where('cargoes.export_vessel_schedule_id', '!=', 0)
 				->orderBy('container_no')
 				->get();
-	}	
+	}
 
 	public function getActiveEmptyContainersForStuffing()
 	{
