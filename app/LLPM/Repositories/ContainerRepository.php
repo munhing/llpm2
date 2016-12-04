@@ -94,13 +94,13 @@ class ContainerRepository {
 				->get();
 	}
 
-	public function getActiveLadenContainersForUnstuffing()
+	public function getActiveLadenContainersForUnstuffing($location)
 	{
 		return Container::where('status', 3)
 				->where('current_movement', 0)
 				->where('content', 'L')
 				->where('dl_check', 0)
-				->where('location', 1)
+				->where('location', $location)
 				->orderBy('container_no')
 				->get();
 	}

@@ -59,7 +59,7 @@ class CalculateBondDays
             $date_end = Carbon::now();
             
             foreach($workorders as $wo) {
-                if($wo->movement == 'US' || $wo->movement == 'RO-1') {
+                if($wo->movement == 'US' || $wo->movement == 'US-1' || $wo->movement == 'US-3' || $wo->movement == 'RO-1') {
                     $date_end = $wo->pivot->confirmed_at;
                 }
             }

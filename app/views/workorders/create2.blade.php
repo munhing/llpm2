@@ -45,7 +45,7 @@
             					<div class="form-group">
             						<label class="control-label col-md-2">Type</label>
             						<div class="col-md-5">
-            							{{ Form::select('type', ['' => '', 'HI' => 'Haulage Import', 'HE' => 'Haulage Export', 'RI-1' => 'Remove In (CY1)', 'RI-3' => 'Remove In (CY3)', 'RO-1' => 'Remove Out (CY1)', 'RO-3' => 'Remove Out (CY3)', 'TF-3-1' => 'Transfer to CY1', 'TF-1-3' => 'Transfer to CY3', 'US' => 'Unstuffing', 'ST' => 'Stuffing'], null, ['class' => 'form-control', 'placeholder' => 'Select Work Order Type', 'id'=>'type']) }}
+            							{{ Form::select('type', ['' => '', 'HI' => 'Haulage Import', 'HE' => 'Haulage Export', 'RI-1' => 'Remove In (CY1)', 'RI-3' => 'Remove In (CY3)', 'RO-1' => 'Remove Out (CY1)', 'RO-3' => 'Remove Out (CY3)', 'TF-3-1' => 'Transfer to CY1', 'TF-1-3' => 'Transfer to CY3', 'US-1' => 'Unstuffing at CY1', 'US-3' => 'Unstuffing at CY3', 'ST' => 'Stuffing', 'VGM' => 'Verified Gross Mass' ], null, ['class' => 'form-control', 'placeholder' => 'Select Work Order Type', 'id'=>'type']) }}
                                         <span id="err-tariff" class="badge badge-danger"></span>
                                         <span id="suc-tariff" class="badge badge-success"></span>
                                         <span id="inf-tariff" class="badge badge-info"></span>

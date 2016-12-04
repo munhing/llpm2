@@ -97,10 +97,10 @@
 							<td>{{ $container->size . $container->content }}</td>
 							<td>{{ $container->current_movement }}</td>
 							<td>{{ $movement }}</td>
-                    		<td class="{{ $check_points[$movement]->cp1 == $container->to_confirm_by ? 'cp':'' }}">{{ $check_points[$movement]->cp1 }}</td>
-                    		<td class="{{ $check_points[$movement]->cp2 == $container->to_confirm_by ? 'cp':'' }}">{{ $check_points[$movement]->cp2 }}</td>
-                    		<td class="{{ $check_points[$movement]->cp3 == $container->to_confirm_by ? 'cp':'' }}">{{ $check_points[$movement]->cp3 }}</td>
-                    		<td class="{{ $check_points[$movement]->cp4 == $container->to_confirm_by ? 'cp':'' }}">{{ $check_points[$movement]->cp4 }}</td>
+                    		<td class="{{ ($check_points[$movement]->cp1 == $container->to_confirm_by && $container->check_point == 1) ? 'cp':'' }}">{{ $check_points[$movement]->cp1 }}</td>
+                    		<td class="{{ ($check_points[$movement]->cp2 == $container->to_confirm_by && $container->check_point == 2) ? 'cp':'' }}">{{ $check_points[$movement]->cp2 }}</td>
+                    		<td class="{{ ($check_points[$movement]->cp3 == $container->to_confirm_by && $container->check_point == 3) ? 'cp':'' }}">{{ $check_points[$movement]->cp3 }}</td>
+                    		<td class="{{ ($check_points[$movement]->cp4 == $container->to_confirm_by && $container->check_point == 4) ? 'cp':'' }}">{{ $check_points[$movement]->cp4 }}</td>
 		                    <td>{{ $pivotInfo->first()->pivot->vehicle }}</td>
 		                    <td>{{ $pivotInfo->first()->pivot->lifter }}</td>
 							<td>

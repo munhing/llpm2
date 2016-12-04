@@ -3,17 +3,21 @@ namespace LLPM\Containers;
 
 use Carbon\Carbon;
 use LLPM\Repositories\ContainerRepository;
+use LLPM\Repositories\WorkOrderRepository;
 
 class ContainerTrackingStatus
 {
     protected $containerRepository;
+    protected $workOrderRepository;
     protected $containerNotFound = [];
 
 	function __construct(
-        ContainerRepository $containerRepository
+        ContainerRepository $containerRepository,
+        WorkOrderRepository $workOrderRepository
     )
 	{
         $this->containerRepository = $containerRepository;
+        $this->workOrderRepository = $workOrderRepository;
 	}
 
     /**
@@ -58,6 +62,10 @@ class ContainerTrackingStatus
         $info['import_vessel_schedule_id'] = $container->import_vessel_schedule_id;
         $info['export_vessel_schedule_id'] = $container->export_vessel_schedule_id;
 
+        if($info['current_movement'] != 0) {
+            $info['workorder_movement'] = $this->workOrderRepository->getById($info['current_movement'])->movement;
+        }
+
         $info['status_interpreter'] = '';
 
         if($info['status'] == 1) {
@@ -77,7 +85,13 @@ class ContainerTrackingStatus
         }
 
         if($info['current_movement'] != 0) {
-            $info['status_interpreter'] .= ' Pending confirmation for Work Order #: ' . $info['current_movement'] . '.'; 
+            $info['status_interpreter'] .= ' Pending confirmation for Work Order #: ' . $info['current_movement'] . '.';
+
+            if(isset($info['workorder_movement'])) {
+                if($info['workorder_movement'] == 'VGM') {
+                    $info['status_interpreter'] = 'This container is undergoing verification for Gross Mass.  Pending confirmation for Work Order #: ' . $info['current_movement'] . '.';
+                }
+            }
         } else {
             if($info['status'] == 1 || $info['status'] == 2) {
                 $info['status_interpreter'] .= ' No Work Order being issued yet.';  

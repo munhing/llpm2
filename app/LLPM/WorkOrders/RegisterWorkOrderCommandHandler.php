@@ -76,6 +76,8 @@ class RegisterWorkOrderCommandHandler implements CommandHandler {
         $container_status = $this->getStatus($command);
         $who_is_involved = $this->getInvolvement($command->type);
 
+        // dd($container_location);
+
         $workOrder = WorkOrder::register(
             $command->type, 
             $date,
@@ -124,10 +126,15 @@ class RegisterWorkOrderCommandHandler implements CommandHandler {
         $movement = explode('-', $command->type);
     	$location = 0;
 
+        // dd($movement);
+
     	switch($movement[0]) {
 
     		case 'HI':
             case 'US':
+                $location = (int) $movement[1];
+                // dd($location);
+                break;
             case 'ST':                   
     			$location = 1;
     			break;
@@ -140,7 +147,10 @@ class RegisterWorkOrderCommandHandler implements CommandHandler {
     			break;  
     		case 'RI':
     			$location = (int) $movement[1];
-    			break;		
+    			break;	
+            case 'VGM':
+                $location = 1;
+                break;                	
     	}
 
     	return $location;
@@ -157,7 +167,8 @@ class RegisterWorkOrderCommandHandler implements CommandHandler {
     		case 'RI':
     		case 'TF':
             case 'US':                      
-    		case 'ST':    		    		
+            case 'ST':                      
+    		case 'VGM':    		    		
     			$status = 3;
     			break;
     		case 'HE':

@@ -142,7 +142,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
                 }
 
-                if ($confirmation[1] == 'L' && ($confirmation[3] == 'US' || $confirmation[3] == 'RO-1' || $confirmation[3] == 'RO-3')) {
+                if ($confirmation[1] == 'L' && ($confirmation[3] == 'US' || $confirmation[3] == 'US-1' || $confirmation[3] == 'US-3' || $confirmation[3] == 'RO-1' || $confirmation[3] == 'RO-3')) {
                     // detach from cargo if the laden contaner is stuffing or remove out 
                     $this->detachContainer($confirmation);
                 }
@@ -355,7 +355,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
         }
 
-        if ($confirmation[3] == 'US') {
+        if ($confirmation[3] == 'US' || $confirmation[3] == 'US-1' || $confirmation[3] == 'US-3') {
             //update released_by and released_date
             
             if($cargo->dl_no != 0) {
@@ -416,7 +416,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
             }    
         }
 
-        if($confirmation[3] == 'US') {
+        if($confirmation[3] == 'US' || $confirmation[3] == 'US-1' || $confirmation[3] == 'US-3') {
             // Why 1? Because the container is still attached to only one container
             if(count($cargo->containers) > 1) {
                 return false;
@@ -473,7 +473,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
         }
 
         // Only unstuffed containers's content is empty. Laden RO containers should remain laden
-        if($confirmation[3] == 'US') {
+        if($confirmation[3] == 'US' || $confirmation[3] == 'US-1' || $confirmation[3] == 'US-3') {
             $container->content = "E";
             $container->save();
         }
