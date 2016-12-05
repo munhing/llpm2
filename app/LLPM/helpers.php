@@ -31,15 +31,17 @@ function convertMonthToMySQLDate($date)
 	return $arr_date[1] . "-" . $arr_date[0];
 }
 
-function listContainersInString($containers)
+function listContainersInString($containers, $container_list, $ie, $unissued_containers = [])
 {
 	$list = '';
 
 	if($containers) {
 
 		foreach ($containers as $container) {
-			$list .= $container->container_no . " ";
+			$list .= identifyPendingContainerInVessel($container->container_no, $container_list, $ie, $unissued_containers) . " ";
+
 		}
+		// $list .= $container->container_no . " ";
 
 	}
 
@@ -164,6 +166,38 @@ function exportCargoStatusTranslator($status)
 	        break;
 	}
 
+}
+
+function identifyPendingContainerInVessel($container_no, $pending_containers, $ie, $unissued_containers = []) {
+
+	// dd($container_list);
+	// Identify pending containers
+	foreach($pending_containers as $ctn) {
+		if($container_no == $ctn) {
+			// dd($container_no)
+			return '<span class="label label-sm label-danger">'.$container_no .'</span>';
+		}
+	}
+
+	// dd($unissued_containers);
+
+	if($ie == 'export') {
+
+		$issued = false;
+
+		foreach($unissued_containers as $ctn) {
+			if($container_no == $ctn) {
+				$issued = true;
+			}
+		}
+
+		if($issued == false) {
+			return '<span class="label label-sm label-warning">'.$container_no .'</span>';	
+		}
+	}
+
+	return $container_no;
+	// return '<span class="label label-sm label-danger">'.$container_no .'</span>';
 }
 
 if ( ! function_exists('elixir'))

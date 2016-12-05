@@ -52,6 +52,13 @@ class ContainerRepository {
 				->get();
 	}
 
+	public function getContainersStatus3ByVessel($vessel_schedule_id)
+	{
+		return Container::where('export_vessel_schedule_id', '=', $vessel_schedule_id)
+				->where('status', '=', 3)
+				->get();
+	}
+
 	public function getTotalActive()
 	{
 		return Container::selectRaw('count(container_no) as count, containers.location')

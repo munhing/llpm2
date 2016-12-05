@@ -144,7 +144,7 @@ class VesselScheduleController extends \BaseController {
 		$vesselSchedule = $this->vesselScheduleRepository->getDetailsById($id);
 
 		//Get list of containers that has not discharge yet
-		$containers_status1 = $this->containerRepository->getContainersStatus1ByVessel($id);
+		$containers_status1 = $this->containerRepository->getContainersStatus1ByVessel($id)->lists('container_no');
 
 		// dd($containers_status1->lists('container_no'));
 		return View::make('schedule/show_import', compact('vesselSchedule', 'containers_status1'))->withAccess($this->access);
@@ -154,8 +154,11 @@ class VesselScheduleController extends \BaseController {
 	{
 		$vesselSchedule = $this->vesselScheduleRepository->getDetailsById($id);
 
+		//Get list of containers that has not loaded yet
+		$containers_status3 = $this->containerRepository->getContainersStatus3ByVessel($id)->lists('container_no');
+
 		//dd($vesselSchedule->toArray());
-		return View::make('schedule/show_export', compact('vesselSchedule'))->withAccess($this->access);
+		return View::make('schedule/show_export', compact('vesselSchedule', 'containers_status3'))->withAccess($this->access);
 	}
 	/**
 	 * Show the form for editing the specified resource.

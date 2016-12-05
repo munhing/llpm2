@@ -60,7 +60,7 @@
 								@foreach($vesselSchedule->exportContainers as $container)
 									<tr>
 										<td>{{ $i }}</td>
-										<td>{{ $container->container_no }}</td>
+										<td>{{ identifyPendingContainerInVessel($container->container_no, $containers_status3, 'export', $vesselSchedule->exportContainers->lists('container_no'))}}</td>
 										<td>{{ $container->size }}</td>
 										<td>{{ $container->content }}</td>
 									</tr>
@@ -117,7 +117,7 @@
 											@endif
 										</td>
 										<td>{{ $cargo->description }}</td>
-										<td>{{ listContainersInString($cargo->containers) }}</td>
+										<td>{{ listContainersInString($cargo->containers, $containers_status3, 'export', $vesselSchedule->exportContainers->lists('container_no')) }}</td>
 										<td align="right">{{ number_format($cargo->mt, 2) }}</td>
 										<td align="right">{{ number_format($cargo->m3, 2) }}</td>
 										<td>{{ exportCargoStatusTranslator($cargo->status) }}</td>

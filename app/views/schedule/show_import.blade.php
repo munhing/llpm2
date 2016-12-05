@@ -63,7 +63,7 @@
 								@foreach($vesselSchedule->importContainers as $container)
 									<tr>
 										<td>{{ $i }}</td>
-										<td>{{ $container->container_no }} {{ $container->is_soc == '1' ? '<span class="label label-sm label-warning">SOC</span>' : '' }}</td>
+										<td>{{ identifyPendingContainerInVessel($container->container_no, $containers_status1, 'import') }} {{ $container->is_soc == '1' ? '<span class="label label-sm label-warning">SOC</span>' : '' }}</td>
 										<td>{{ $container->size }}</td>
 										<td>{{ $container->m_content }}</td>
 										<td>
@@ -134,7 +134,7 @@
 										<td>{{ $cargo->consignee->name }}</td>
 										<td>{{ $cargo->description }}</td>
 										<td>
-											{{ listContainersInString($cargo->m_containers) }}
+											{{ listContainersInString($cargo->m_containers, $containers_status1, 'import') }}
 										</td>
 										<td align="right">{{ number_format($cargo->mt, 2) }}</td>
 										<td align="right">{{ number_format($cargo->m3, 2) }}</td>
