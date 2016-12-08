@@ -61,7 +61,7 @@
 				<th>Movement</th>
 				<th>Date</th>
 				<th>Carrier</th>	
-				<th>Bond</th>	
+				<!-- <th>Bond</th>	-->
 				<th>Storage</th>	
 				<th>Handling</th>	
 				<th>Issued By</th>	
@@ -76,7 +76,7 @@
 					<td>{{ $workorder->movement }}</td>
 					<td>{{ $workorder->date->format('d/m/Y') }}</td>
 					<td>{{ $workorder->getCarrier() }}</td>								
-					<td align="right">
+					<!-- <td align="right">
 						@if(! ( ($movement[0] == 'HE' || $movement[0] == 'US' || ($movement[0] == 'RO' && $movement[1] == '1') ) ))
 							-
 						@else
@@ -92,7 +92,7 @@
 
 						@endif
 
-					</td>
+					</td> -->
 					<td align="right">
 							@if(! ($movement[0] == 'HE' || $movement[0] == 'RO'))
 								-

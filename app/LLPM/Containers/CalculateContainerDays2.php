@@ -76,7 +76,7 @@ class CalculateContainerDays2
                 $days['E'] += $us_date->diffInDays($end_date) + 1;
             }
 
-            if($woAct[0]->movement == 'ST') {
+            if($woAct[0]->movement == 'ST' || $woAct[0]->movement == 'ST-1' || $woAct[0]->movement == 'ST-3') {
                 $st_date = Carbon::createFromFormat('Y-m-d H', $woAct[0]->pivot->confirmed_at->format('Y-m-d') . ' 0');
 
                 $days['E'] += $start_date->diffInDays($st_date) + 1;
@@ -93,7 +93,7 @@ class CalculateContainerDays2
                 if($wo->movement == 'US' || $wo->movement == 'US-1' || $wo->movement == 'US-3') {
                     $us_date = Carbon::createFromFormat('Y-m-d H', $wo->pivot->confirmed_at->format('Y-m-d') . ' 0');
                 }
-                if($wo->movement == 'ST') {
+                if($wo->movement == 'ST' || $wo->movement == 'ST-1' || $wo->movement == 'ST-3') {
                     $st_date = Carbon::createFromFormat('Y-m-d H', $wo->pivot->confirmed_at->format('Y-m-d') . ' 0');
                 }                
             }
@@ -132,7 +132,7 @@ class CalculateContainerDays2
         $woAct = [];
 
         foreach($workorders as $wo) {
-            if($wo->movement == 'US' || $wo->movement == 'US-1' || $wo->movement == 'US-3' || $wo->movement == 'ST') {
+            if($wo->movement == 'US' || $wo->movement == 'US-1' || $wo->movement == 'US-3' || $wo->movement == 'ST' || $wo->movement == 'ST-1' || $wo->movement == 'ST-3') {
                 $woAct[] = $wo;
             }
         }

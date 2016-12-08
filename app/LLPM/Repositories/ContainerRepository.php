@@ -127,12 +127,12 @@ class ContainerRepository {
 				->get();
 	}
 
-	public function getActiveEmptyContainersForStuffing()
+	public function getActiveEmptyContainersForStuffing($location)
 	{
 		return Container::where('status', 3)
 				->where('current_movement', 0)
 				->where('content', 'E')
-				->where('location', 1)
+				->where('location', $location)
 				->orderBy('container_no')
 				->get();
 	}
@@ -149,12 +149,12 @@ class ContainerRepository {
 	public function getForStatus($status, $location = 0)
 	{
 		// For Transfer
-		// List only empty containers. Laden containers not allowed.
+		// Inactive: List only empty containers. Laden containers not allowed.
+		// Active: List laden & empty containers.
 		if($location != 0) {
 			return Container::where('status', $status)
 					->where('current_movement', 0)
 					->where('location', $location)
-					->where('content', 'E')
 					->orderBy('container_no')
 					->get();
 		}

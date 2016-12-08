@@ -28,7 +28,7 @@
                         <td align="right">{{ number_format($c->mt,2) }}</td>
                         <td align="right">{{ number_format($c->m3,2) }}</td>
                         <td>{{ $c->description }}</td>
-                        <td>{{ listContainersInString($c->m_containers) }}</td>
+                        <td>{{ listContainersInString2($c->m_containers) }}</td>
                         <td>{{ $c->received_date->format('d/m/Y') }}</td>
                         <td>{{ $c->vessel_schedule_import }}</td>
                     </tr>

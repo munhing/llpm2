@@ -130,7 +130,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
             if ($cp['complete']) {
                 $this->confirmContainer($confirmation, $confirmed_at);
 
-                if ($confirmation[3] == 'ST') {
+                if ($confirmation[3] == 'ST' || $confirmation[3] == 'ST-1' || $confirmation[3] == 'ST-3') {
                     $this->updateSTContainer($confirmation);
                 } else {
                     $this->updateContainer($confirmation);

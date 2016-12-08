@@ -136,7 +136,7 @@ class RegisterWorkOrderCommandHandler implements CommandHandler {
                 // dd($location);
                 break;
             case 'ST':                   
-    			$location = 1;
+    			$location = (int) $movement[1];
     			break;
     		case 'TF':
     			$location = (int) $movement[2];

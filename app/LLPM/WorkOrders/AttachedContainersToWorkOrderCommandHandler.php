@@ -54,7 +54,7 @@ class AttachedContainersToWorkOrderCommandHandler implements CommandHandler {
             $container_id = $value;
 
             // only in ST
-            if($workOrder->movement == 'ST') {
+            if($workOrder->movement == 'ST' || $workOrder->movement == 'ST-1' || $workOrder->movement == 'ST-3') {
                 $container_id = $key;
                 $cargoes_id = $value;
             }
@@ -73,7 +73,7 @@ class AttachedContainersToWorkOrderCommandHandler implements CommandHandler {
                 $ctn->export_vessel_schedule_id = $workOrder->vessel_schedule_id;
             }
 
-            if($workOrder->movement == 'ST') {
+            if($workOrder->movement == 'ST' || $workOrder->movement == 'ST-1' || $workOrder->movement == 'ST-3') {
                 $ctn->pre_stuffing = $cargoes_id;
                 // $ctn->dl_check = 0;
             }

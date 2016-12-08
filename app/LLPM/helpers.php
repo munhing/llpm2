@@ -48,6 +48,19 @@ function listContainersInString($containers, $container_list, $ie, $unissued_con
 	return $list;
 }
 
+function listContainersInString2($containers)
+{
+	$list = '';
+
+	if($containers) {
+		foreach($containers as $container) {
+			$list .= $container->container_no . " ";
+		}
+	}
+
+	return $list;
+}
+
 function checkDl($dlNo, $schedule_id, $importCargo_id)
 {
 	if($dlNo > 0) {

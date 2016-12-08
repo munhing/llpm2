@@ -205,8 +205,12 @@ class WorkOrderController extends \BaseController {
 				}
 				break;				
 			case "ST":
-				$containerList = $this->containerRepository->getActiveEmptyContainersForStuffing();
-				break;
+				if(isset($movement[1])) {
+					$containerList = $this->containerRepository->getActiveEmptyContainersForStuffing($movement[1]);
+				} else {
+					$containerList = $this->containerRepository->getActiveEmptyContainersForStuffing(1);
+				}
+				break;				
 			case "VGM":
 				$containerList = $this->containerRepository->getActiveLadenContainersForVGM();
 				break;								
@@ -580,6 +584,8 @@ class WorkOrderController extends \BaseController {
 		$movement['US-1'] = 'Unstuffing (CY1)';
 		$movement['US-3'] = 'Unstuffing (CY3)';
 		$movement['ST'] = 'Stuffing';
+		$movement['ST-1'] = 'Stuffing (CY1)';
+		$movement['ST-3'] = 'Stuffing (CY3)';
 		$movement['EM'] = 'Extra Movement';
 		$movement['VGM'] = 'VGM';
 

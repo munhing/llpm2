@@ -115,7 +115,7 @@
 							{{ $workOrder->getCarrier() }}
 						</div>						
 					</div>
-					<div class="row static-info">
+					<!-- <div class="row static-info">
 						<div class="col-md-4 name">
 							Bond Rent:
 						</div>
@@ -139,7 +139,7 @@
 
 							@endif
 						</div>						
-					</div>					
+					</div>	-->				
 					<div class="row static-info">
 						<div class="col-md-4 name">
 							Storage Charges:
