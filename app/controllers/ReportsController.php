@@ -389,7 +389,7 @@ public function totalRpt()
 
 		// dd($cargoes->toArray());
 		$total_mt = $cargoes->sum('mt');
-		dd($total_mt);
+		// dd($total_mt);
 		// dd($consignee);
 
 		return View::make('reports/cargo_list_import_rpt', 
@@ -418,6 +418,8 @@ public function totalRpt()
 		} else {
 			$consignor = '';
 		}
+
+		$total_mt = $cargoes->sum('mt');
 		// dd($cargoes->toArray());
 		// dd($consignee);
 
@@ -425,7 +427,8 @@ public function totalRpt()
 			compact(
 				'year',
 				'cargoes',
-				'consignor'
+				'consignor',
+				'total_mt'
 		))->withAccess($this->access);	
 	}
 

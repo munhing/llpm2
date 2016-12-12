@@ -6,6 +6,8 @@
     @if(count($cargoes))
         <h1 style="text-align:center">Export Cargo List by {{ $consignor }} in {{$year}}</h1>
 
+        <h3 style="text-align:center">Total MT: {{ number_format($total_mt,2) }}</h3>
+        
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
