@@ -186,7 +186,9 @@ class ReportsController extends \BaseController {
 		$activity['CY1']['HI'] = 'Lifting Off';
 		$activity['CY1']['HE'] = 'Lifting On';
 		$activity['CY1']['ST'] = 'Stuffing';
+		$activity['CY1']['ST-1'] = 'Stuffing';
 		$activity['CY1']['US'] = 'Unstuffing';
+		$activity['CY1']['US-1'] = 'Unstuffing';
 		$activity['CY1']['RI-1'] = 'Lifting Off';
 		$activity['CY1']['RO-1'] = 'Lifting On';
 		$activity['CY1']['TF-1-3'] = 'Lifting On';
@@ -195,7 +197,9 @@ class ReportsController extends \BaseController {
 		$activity['CY3']['RI-3'] = 'Lifting Off';
 		$activity['CY3']['RO-3'] = 'Lifting On';
 		$activity['CY3']['TF-1-3'] = 'Lifting Off';
-		$activity['CY3']['TF-3-1'] = 'Lifting On';		
+		$activity['CY3']['TF-3-1'] = 'Lifting On';
+		$activity['CY3']['US-3'] = 'Unstuffing';
+		$activity['CY3']['ST-3'] = 'Stuffing';
 	
 		$activity['MG']['RI-1'] = 'Drive In';
 		$activity['MG']['RO-1'] = 'Drive Out';
@@ -382,14 +386,18 @@ public function totalRpt()
 		// dd($consignee_id, $year);
 		$cargoes = $this->reportsManager->getImportCargoListByConsigneeAndYear($consignee_id, $year);
 		$consignee = $cargoes->first()->name;
+
 		// dd($cargoes->toArray());
+		$total_mt = $cargoes->sum('mt');
+		dd($total_mt);
 		// dd($consignee);
 
 		return View::make('reports/cargo_list_import_rpt', 
 			compact(
 				'year',
 				'cargoes',
-				'consignee'
+				'consignee',
+				'total_mt'
 		))->withAccess($this->access);	
 	}
 

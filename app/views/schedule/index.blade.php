@@ -56,6 +56,9 @@
 			<th rowspan="2" style="text-align:center;vertical-align:middle">ID</th>
 			<th rowspan="2" style="text-align:center;vertical-align:middle">Vessel</th>
 			<th rowspan="2" style="text-align:center;vertical-align:middle">Agent</th>
+			<th rowspan="2" style="text-align:center;vertical-align:middle">MT</th>
+			<th rowspan="2" style="text-align:center;vertical-align:middle">M3</th>
+			<th rowspan="2" style="text-align:center;vertical-align:middle">Cont</th>
 			<th colspan="2" style="text-align:center;vertical-align:middle;border-bottom: 1px solid #ccc;">Import</th>
 			<th colspan="2" style="text-align:center;vertical-align:middle;border-bottom: 1px solid #ccc;">Export</th>
 			<th rowspan="2" style="text-align:center;vertical-align:middle">Action</th>
@@ -81,6 +84,9 @@
 							-
 						@endif
 					</td>
+					<td>{{ number_format($schedule->mt_arrival,2) }}</td>
+					<td>{{ number_format($schedule->m3_arrival,2) }}</td>
+					<td align="center">{{ count($schedule->importContainers) }}</td>
 					<td>{{ $schedule->voyage_no_arrival }}</td>								
 					<td>{{ $schedule->eta->format('d/m/Y') }}</td>
 

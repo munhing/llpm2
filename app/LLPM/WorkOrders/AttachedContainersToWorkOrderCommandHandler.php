@@ -44,6 +44,8 @@ class AttachedContainersToWorkOrderCommandHandler implements CommandHandler {
         // dd($command);
         $workOrder = $this->workOrderRepository->getById($command->workorder_id);
         
+        $movement = explode('-', $workOrder->movement);
+
         $ccp = json_decode($workOrder->who_is_involved);
         $to_confirm_by = $ccp[0];
         $check_point = 1;
@@ -54,7 +56,7 @@ class AttachedContainersToWorkOrderCommandHandler implements CommandHandler {
             $container_id = $value;
 
             // only in ST
-            if($workOrder->movement == 'ST' || $workOrder->movement == 'ST-1' || $workOrder->movement == 'ST-3') {
+            if($movement[0] == 'ST') {
                 $container_id = $key;
                 $cargoes_id = $value;
             }
@@ -69,11 +71,11 @@ class AttachedContainersToWorkOrderCommandHandler implements CommandHandler {
             $ctn->to_confirm_by = $to_confirm_by;
             $ctn->check_point = $check_point;
 
-            if($workOrder->movement == 'HE') {
+            if($movement[0] == 'HE') {
                 $ctn->export_vessel_schedule_id = $workOrder->vessel_schedule_id;
             }
 
-            if($workOrder->movement == 'ST' || $workOrder->movement == 'ST-1' || $workOrder->movement == 'ST-3') {
+            if($movement[0] == 'ST') {
                 $ctn->pre_stuffing = $cargoes_id;
                 // $ctn->dl_check = 0;
             }

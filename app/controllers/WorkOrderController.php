@@ -242,7 +242,7 @@ class WorkOrderController extends \BaseController {
 
 		$this->workOrderForm->validate($input);
 
-		if($input['type'] == 'ST') {
+		if($input['type'] == 'ST' || $input['type'] == 'ST-1' || $input['type'] == 'ST-3') {
 			foreach($input['containers'] as $key => $value) {
 				if($value == '') {
 					Flash::error("Cargo not specify correctly");
@@ -475,7 +475,7 @@ class WorkOrderController extends \BaseController {
 
 		if($workorder->movement == 'HE') {
 			foreach($container->workorders as $wo) {
-				if($wo->movement == 'ST' || $wo->movement == 'RI-1' ) {
+				if($wo->movement == 'ST' || $wo->movement == 'ST-1' || $wo->movement == 'ST-3' || $wo->movement == 'RI-1' ) {
 					return $wo->pivot->confirmed_at;
 				}
 			}
@@ -503,7 +503,7 @@ class WorkOrderController extends \BaseController {
 		}
 
 		foreach($container->workorders as $wo) {
-			if($wo->movement == 'US' || $wo->movement == 'RO-1') {
+			if($wo->movement == 'US' || $wo->movement == 'US-1' || $wo->movement == 'US-3' || $wo->movement == 'RO-1') {
 				return $wo->pivot->confirmed_at;
 			}
 		}		

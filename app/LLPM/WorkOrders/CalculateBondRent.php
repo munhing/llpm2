@@ -22,16 +22,16 @@ class CalculateBondRent
 	{
 		$charges = 0;
 
-		// $movement = explode('-', $workorder->movement);
-		$movement = $workorder->movement;
+		$movement = explode('-', $workorder->movement);
+		// $movement = $workorder->movement;
 
 		// if workorder type not matched, return 0 because there is no charges
-		if(!($movement == 'RO-1' || $movement == 'US' || $movement == 'HE')) {
+		if(!($movement[0] == 'RO' || $movement[0] == 'US' || $movement[0] == 'HE')) {
 			return 0;
 		}
 
 		// if movement is haulage export, then change the column name
-		if($movement == 'HE') {
+		if($movement[0] == 'HE') {
 			$this->bondColumnName = 'days_bond_export';
 		}
 

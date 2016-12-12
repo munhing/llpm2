@@ -91,6 +91,16 @@ class ConfirmContainerCommandHandler implements CommandHandler
         foreach ($confirmationIds as $confirmation) {
 
             // dd($confirmation);
+            // $confirmation[0] - container id          eg. 197111
+            // $confirmation[1] - container content     eg. L
+            // $confirmation[2] - workorder no          eg. 130946
+            // $confirmation[3] - workorder movement    eg. RI-1
+            // $confirmation[4] - vehicle plateno       eg. SAA2343-BOB
+            // $confirmation[5] - lifter plate no       eg. RS
+            // $confirmation[6] - check point           eg. MG
+
+            $movement = explode('-', $confirmation[3]);
+
             // get confirmation details
             // check whether the cp is the same with container to prevent double confirmation
             if(! $this->validateCheckPoint($confirmation)){
@@ -130,7 +140,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
             if ($cp['complete']) {
                 $this->confirmContainer($confirmation, $confirmed_at);
 
-                if ($confirmation[3] == 'ST' || $confirmation[3] == 'ST-1' || $confirmation[3] == 'ST-3') {
+                if ($movement[0] == 'ST') {
                     $this->updateSTContainer($confirmation);
                 } else {
                     $this->updateContainer($confirmation);
@@ -142,7 +152,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
                 }
 
-                if ($confirmation[1] == 'L' && ($confirmation[3] == 'US' || $confirmation[3] == 'US-1' || $confirmation[3] == 'US-3' || $confirmation[3] == 'RO-1' || $confirmation[3] == 'RO-3')) {
+                if ($confirmation[1] == 'L' && ($movement[0] == 'US' || $movement[0] == 'RO')) {
                     // detach from cargo if the laden contaner is stuffing or remove out 
                     $this->detachContainer($confirmation);
                 }
@@ -335,6 +345,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
         foreach ($container->cargoes as $cargo) {
             if ($this->updatable($cargo, $confirmation)) {
+                // dd($confirmation);
                 $this->updateCargo($cargo, $confirmation);
             }
 
@@ -343,19 +354,22 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
     public function updateCargo($cargo, $confirmation)
     {
-        if ($confirmation[3] == 'HI' || $confirmation[3] == 'RI-1' || $confirmation[3] == 'RI-3') {
+        $movement = explode('-', $confirmation[3]);
+
+        // dd($movement);
+        if ($movement[0] == 'HI' || $movement[0] == 'RI') {
             //update received_by and received_date
             $this->updateCargoReceivedDate($cargo);
 
         }
 
-        if ($confirmation[3] == 'HE' || $confirmation[3] == 'RO-1' || $confirmation[3] == 'RO-3') {
+        if ($movement[0] == 'HE' || $movement[0] == 'RO') {
             //update released_by and released_date
             $this->updateCargoReleasedDate($cargo);
 
         }
 
-        if ($confirmation[3] == 'US' || $confirmation[3] == 'US-1' || $confirmation[3] == 'US-3') {
+        if ($movement[0] == 'US') {
             //update released_by and released_date
             
             if($cargo->dl_no != 0) {
@@ -370,8 +384,15 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
     public function updateCargoReceivedDate($cargo)
     {
-        if($cargo->status != 1) {
-            return;
+        // if it's import cargo
+        if($cargo->import_vessel_schedule_id != 0) {
+            if($cargo->status != 1) {
+                return;
+            }
+        } else {    // if it's export cargo
+            if($cargo->status != 2) {
+                return;
+            }
         }
 
         $cargo->received_by = Auth::user()->id;
@@ -396,9 +417,12 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
     public function updatable($cargo, $confirmation)
     {
+        $movement = explode('-', $confirmation[3]);
+
+        // dd($movement);
         // Inactive: All containers must be confirmed received before the cargo can be declared received.
         // Active: At least 1 container must be confirmed received before the cargo can be declared received.
-        if($confirmation[3] == 'HI' || $confirmation[3] == 'RI-1' || $confirmation[3] == 'RI-3') {
+        if($movement[0] == 'HI' || $movement[0] == 'RI') {
             // foreach ($cargo->containers as $container) {
             //     if($container->status != 3) {
             //         return false;
@@ -408,7 +432,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
             return true;  
         }
 
-        if($confirmation[3] == 'HE' || $confirmation[3] == 'RO-1' || $confirmation[3] == 'RO-3') {
+        if($movement[0] == 'HE' || $movement[0] == 'RO') {
             foreach ($cargo->containers as $container) {
                 if($container->status != 4) {
                     return false;
@@ -416,7 +440,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
             }    
         }
 
-        if($confirmation[3] == 'US' || $confirmation[3] == 'US-1' || $confirmation[3] == 'US-3') {
+        if($movement[0] == 'US') {
             // Why 1? Because the container is still attached to only one container
             if(count($cargo->containers) > 1) {
                 return false;
@@ -460,6 +484,8 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
     public function detachContainer($confirmation)
     {
+        $movement = explode('-', $confirmation[3]);
+
         $container = $this->containerRepository->getById($confirmation[0]);
 
         // dd($container->cargoes->toArray());
@@ -473,7 +499,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
         }
 
         // Only unstuffed containers's content is empty. Laden RO containers should remain laden
-        if($confirmation[3] == 'US' || $confirmation[3] == 'US-1' || $confirmation[3] == 'US-3') {
+        if($movement[0] == 'US') {
             $container->content = "E";
             $container->save();
         }

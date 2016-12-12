@@ -131,6 +131,8 @@ class RegisterWorkOrderCommandHandler implements CommandHandler {
     	switch($movement[0]) {
 
     		case 'HI':
+                $location = 1;
+                break;              
             case 'US':
                 $location = (int) $movement[1];
                 // dd($location);

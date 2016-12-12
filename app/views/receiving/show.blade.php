@@ -124,7 +124,7 @@
 										<td>{{ link_to_route('receiving.cargo.show', $cargo->bl_no, [$cargo->receiving_id, $cargo->id]) }}</td>
 										<td>{{ $cargo->consignor->name }}</td>
 										<td class="hide">{{ $cargo->consignee->name }}</td>
-										<td>{{ $cargo->description }}</td><td>{{ listContainersInString($cargo->containers) }}</td>
+										<td>{{ $cargo->description }}</td><td>{{ listContainersInString2($cargo->containers) }}</td>
 										<td>{{ $cargo->vessel_schedule_export }}</td>
 										<td align="right">{{ number_format($cargo->mt, 2) }}</td>
 										<td align="right">{{ number_format($cargo->m3, 2) }}</td>

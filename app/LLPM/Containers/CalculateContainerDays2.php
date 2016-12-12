@@ -68,15 +68,16 @@ class CalculateContainerDays2
             $us_date = '';
             $st_date = '';
 
-            if($woAct[0]->movement == 'US' || $woAct[0]->movement == 'US-1' || $woAct[0]->movement == 'US-3') {
+            $movement = explode('-', $woAct[0]->movement);
 
+            if($movement[0] == 'US') {
                 $us_date = Carbon::createFromFormat('Y-m-d H', $woAct[0]->pivot->confirmed_at->format('Y-m-d') . ' 0');
 
                 $days['L'] += $start_date->diffInDays($us_date) + 1;
                 $days['E'] += $us_date->diffInDays($end_date) + 1;
             }
 
-            if($woAct[0]->movement == 'ST' || $woAct[0]->movement == 'ST-1' || $woAct[0]->movement == 'ST-3') {
+            if($movement[0] == 'ST') {
                 $st_date = Carbon::createFromFormat('Y-m-d H', $woAct[0]->pivot->confirmed_at->format('Y-m-d') . ' 0');
 
                 $days['E'] += $start_date->diffInDays($st_date) + 1;
@@ -90,10 +91,13 @@ class CalculateContainerDays2
             $st_date = '';
 
             foreach($woAct as $wo) {
-                if($wo->movement == 'US' || $wo->movement == 'US-1' || $wo->movement == 'US-3') {
+
+                $movement = explode('-', $wo->movement);
+
+                if($movement[0] == 'US') {
                     $us_date = Carbon::createFromFormat('Y-m-d H', $wo->pivot->confirmed_at->format('Y-m-d') . ' 0');
                 }
-                if($wo->movement == 'ST' || $wo->movement == 'ST-1' || $wo->movement == 'ST-3') {
+                if($movement[0] == 'ST') {
                     $st_date = Carbon::createFromFormat('Y-m-d H', $wo->pivot->confirmed_at->format('Y-m-d') . ' 0');
                 }                
             }
@@ -112,7 +116,10 @@ class CalculateContainerDays2
     public function getWoIn($workorders)
     {
         foreach($workorders as $wo) {
-            if($wo->movement == 'HI' || $wo->movement == 'RI-1' || $wo->movement == 'RI-3') {
+
+            $movement = explode('-', $wo->movement);
+
+            if($movement[0] == 'HI' || $movement[0] == 'RI') {
                 return $wo;
             }
         }
@@ -121,7 +128,10 @@ class CalculateContainerDays2
     public function getWoOut($workorders)
     {
         foreach($workorders as $wo) {
-            if($wo->movement == 'HE' || $wo->movement == 'RO-1' || $wo->movement == 'RO-3') {
+
+            $movement = explode('-', $wo->movement);
+
+            if($movement[0] == 'HE' || $movement[0] == 'RO') {
                 return $wo;
             }
         }        
@@ -132,7 +142,10 @@ class CalculateContainerDays2
         $woAct = [];
 
         foreach($workorders as $wo) {
-            if($wo->movement == 'US' || $wo->movement == 'US-1' || $wo->movement == 'US-3' || $wo->movement == 'ST' || $wo->movement == 'ST-1' || $wo->movement == 'ST-3') {
+
+            $movement = explode('-', $wo->movement);
+
+            if($movement[0] == 'US' || $movement[0] == 'ST') {
                 $woAct[] = $wo;
             }
         }

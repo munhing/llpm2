@@ -59,7 +59,10 @@ class CalculateBondDays
             $date_end = Carbon::now();
             
             foreach($workorders as $wo) {
-                if($wo->movement == 'US' || $wo->movement == 'US-1' || $wo->movement == 'US-3' || $wo->movement == 'RO-1') {
+
+                $movement = explode('-', $wo->movement);
+
+                if($wo->movement[0] == 'US' || $wo->movement[0] == 'RO') {
                     $date_end = $wo->pivot->confirmed_at;
                 }
             }
@@ -75,8 +78,10 @@ class CalculateBondDays
         $proceedToCalculate = false;
 
         foreach($workorders as $wo) {
+
+            $movement = explode('-', $wo->movement);
             // dd($wo);
-            if(($wo->movement == 'RI-1' && $wo->pivot->content == 'L') || ($wo->movement == 'ST' && $wo->pivot->content == 'E')) {
+            if(($movement[0] == 'RI' && $wo->pivot->content == 'L') || ($movement[0] == 'ST' && $wo->pivot->content == 'E')) {
 
                 $proceedToCalculate = true;
                 // dd($wo->vessel_schedule_id);
