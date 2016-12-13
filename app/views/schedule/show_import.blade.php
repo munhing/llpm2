@@ -32,42 +32,43 @@
 	</div>	
 
 <!-- Begin: life time stats -->
+
+
+
 	<div class="row">
-
-		<div class="portlet box blue-hoki">
-			<div class="portlet-title">
-				<div class="caption">
-					<i class="icon-info"></i>Vessel Information
+		<div class="col-md-12">
+			<div class="portlet box blue-hoki">
+				<div class="portlet-title">
+					<div class="caption">
+						<i class="icon-info"></i>Vessel Information
+					</div>
 				</div>
-			</div>
 
-			<div class="portlet-body">
-				<div class="table-responsive">
-				<table class="table table-striped table-bordered table-hover table-condensed">
-				<thead>
-				<tr>
-					<th style="text-align:center;vertical-align:middle">Vessel</th>
-					<th style="text-align:center;vertical-align:middle">MT</th>
-					<th style="text-align:center;vertical-align:middle">M3</th>
-					<th style="text-align:center;vertical-align:middle">Cont</th>					
-				</tr>
-				</thead>
-				<tbody>
+				<div class="portlet-body">
+					<div class="table-responsive">
+					<table class="table table-striped table-bordered table-hover table-condensed">
+					<thead>
 					<tr>
-						<td>{{ $vesselSchedule->getVesselVoyageAttribute() }}</td>	
-						<td>{{ number_format($vesselSchedule->mt_arrival,2) }}</td>
-						<td>{{ number_format($vesselSchedule->m3_arrival,2) }}</td>
-						<td align="center">{{ count($vesselSchedule->importContainers) }}</td>
+						<th style="text-align:center;vertical-align:middle">Vessel</th>
+						<th style="text-align:center;vertical-align:middle">MT</th>
+						<th style="text-align:center;vertical-align:middle">M3</th>
+						<th style="text-align:center;vertical-align:middle">Cont</th>					
 					</tr>
-				</tbody>
-				</table>
-				Goto {{ link_to_route('manifest.schedule.export', 'Export', ['id' => $vesselSchedule->id]) }}
+					</thead>
+					<tbody>
+						<tr>
+							<td>{{ $vesselSchedule->getVesselVoyageAttribute() }}</td>	
+							<td>{{ number_format($vesselSchedule->mt_arrival,2) }}</td>
+							<td>{{ number_format($vesselSchedule->m3_arrival,2) }}</td>
+							<td align="center">{{ count($vesselSchedule->importContainers) }}</td>
+						</tr>
+					</tbody>
+					</table>
+					Goto {{ link_to_route('manifest.schedule.export', 'Export', ['id' => $vesselSchedule->id]) }}
+					</div>
 				</div>
-			</div>
+			</div>		
 		</div>
-	</div>
-
-	<div class="row">
 		<div class="col-md-4 ">
 			<!-- BEGIN Portlet PORTLET-->
 			<div class="portlet box blue-hoki">

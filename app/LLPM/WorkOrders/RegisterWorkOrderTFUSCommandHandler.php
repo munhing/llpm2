@@ -3,6 +3,7 @@
 namespace LLPM\WorkOrders;
 
 use Laracasts\Commander\CommandHandler;
+use Laracasts\Commander\CommanderTrait;
 use Laracasts\Commander\Events\DispatchableTrait;
 use LLPM\Repositories\WorkOrderRepository;
 use LLPM\Repositories\ContainerRepository;
@@ -14,9 +15,12 @@ use Auth;
 use LLPM\WorkOrders\AttachedContainersToWorkOrderCommandHandler;
 use LLPM\WorkOrders\CalculateChargesByWorkOrder;
 
-class RegisterWorkOrderCommandHandler implements CommandHandler {
+use LLPM\WorkOrders\RegisterWorkOrderCommand;
+
+class RegisterWorkOrderTFUSCommandHandler implements CommandHandler {
 
 	use DispatchableTrait;
+    use CommanderTrait;
 
 	protected $workOrderRepository;
     protected $containerRepository;
@@ -48,6 +52,25 @@ class RegisterWorkOrderCommandHandler implements CommandHandler {
     public function handle($command)
     {
         // dd($command);
+        
+        $inputTF = $this->convertToArrayTF($command);
+        $inputUS = $this->convertToArrayUS($command);
+
+        // register WO TF-1-3
+        $workorder = $this->execute(RegisterWorkOrderCommand::class, $inputTF);
+        Flash::success("Work Order $workorder->id successfully registered!");
+        return Redirect::route('workorders');
+        
+        //Confirm TF Container with BYPASS
+
+
+
+        // register WO US-3
+
+
+
+        dd($inputUS);
+
         $workOrder = $this->registerWorkOrder($command);
 
         $command->workorder_id = $workOrder->id;
@@ -57,7 +80,39 @@ class RegisterWorkOrderCommandHandler implements CommandHandler {
         // calculate storage and handling charges and save it to workorder
         $this->calculateChargesByWorkOrder->fire($workOrder);
 
-		return $workOrder;    	
+		return $workOrder;
+    }
+
+    function convertToArrayTF($command)
+    {
+        // dd('Convert');
+        $array = [];
+        $array['type'] = 'TF-1-3';
+        $array['handler_id'] = $command->handler_id;
+        $array['carrier_id'] = $command->carrier_id;
+
+        foreach($command->containers as $cont) {
+            $array['containers'][] = $cont;
+        }
+
+        // dd($array);
+        return $array;
+    }
+
+    function convertToArrayUS($command)
+    {
+        // dd('Convert');
+        $array = [];
+        $array['type'] = 'US-3';
+        $array['handler_id'] = $command->handler_id;
+        $array['carrier_id'] = $command->carrier_id;
+
+        foreach($command->containers as $cont) {
+            $array['containers'][] = $cont;
+        }
+
+        // dd($array);
+        return $array;
     }
 
     function registerWorkOrder($command)

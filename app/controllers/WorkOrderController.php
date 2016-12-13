@@ -16,6 +16,7 @@ use LLPM\WorkOrders\CalculateStorageChargesByWorkOrder;
 use LLPM\WorkOrders\CalculateBondRentByWorkOrder;
 use LLPM\WorkOrders\CancelContainerCommand;
 use LLPM\WorkOrders\RegisterWorkOrderCommand;
+use LLPM\WorkOrders\RegisterWorkOrderTFUSCommand;
 use LLPM\WorkOrders\FinalizeWorkOrderCommand;
 use LLPM\WorkOrders\UpdateWorkOrderWithAgentCommand;
 use Carbon\Carbon;
@@ -213,7 +214,10 @@ class WorkOrderController extends \BaseController {
 				break;				
 			case "VGM":
 				$containerList = $this->containerRepository->getActiveLadenContainersForVGM();
-				break;								
+				break;
+			case "TFUS":
+				$containerList = $this->containerRepository->getActiveLadenContainersForUnstuffing($movement[1]);
+				break;											
 		}
 
 		return json_encode($containerList);
@@ -242,7 +246,12 @@ class WorkOrderController extends \BaseController {
 
 		$this->workOrderForm->validate($input);
 
-		if($input['type'] == 'ST' || $input['type'] == 'ST-1' || $input['type'] == 'ST-3') {
+		$movement = explode('-', $input['type']);
+
+		// dd($input);
+
+
+		if($movement[0] == 'ST') {
 			foreach($input['containers'] as $key => $value) {
 				if($value == '') {
 					Flash::error("Cargo not specify correctly");
@@ -251,9 +260,15 @@ class WorkOrderController extends \BaseController {
 			}
 		}
 
-		$workorder = $this->execute(RegisterWorkOrderCommand::class, $input);
+		if($movement[0] == 'TFUS') {
+			// dd('Create WO TF and US');
+			// Register TF-1-3
+			$this->execute(RegisterWorkOrderTFUSCommand::class, $input);
+		} else {
+			$workorder = $this->execute(RegisterWorkOrderCommand::class, $input);
 
-		Flash::success("Work Order $workorder->id successfully registered!");
+			Flash::success("Work Order $workorder->id successfully registered!");			
+		}
 
 		return Redirect::route('workorders');		
 	}
