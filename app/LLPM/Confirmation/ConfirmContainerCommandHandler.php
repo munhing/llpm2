@@ -29,11 +29,11 @@ class ConfirmContainerCommandHandler implements CommandHandler
     protected $idGenerator;
 
     public function __construct(
-        WorkOrderRepository $workOrderRepository, 
-        ContainerRepository $containerRepository, 
-        CargoRepository $cargoRepository, 
-        ContainerConfirmationRepository $containerConfirmationRepository, 
-        ContainerWorkorderConfirmationRepository $containerWorkorderConfirmationRepository, 
+        WorkOrderRepository $workOrderRepository,
+        ContainerRepository $containerRepository,
+        CargoRepository $cargoRepository,
+        ContainerConfirmationRepository $containerConfirmationRepository,
+        ContainerWorkorderConfirmationRepository $containerWorkorderConfirmationRepository,
         ContainerConfirmationProcessRepository $containerConfirmationProcessRepository
     )
     {
@@ -153,7 +153,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
                 }
 
                 if ($confirmation[1] == 'L' && ($movement[0] == 'US' || $movement[0] == 'RO')) {
-                    // detach from cargo if the laden contaner is stuffing or remove out 
+                    // detach from cargo if the laden contaner is stuffing or remove out
                     $this->detachContainer($confirmation);
                 }
             }
@@ -196,7 +196,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
         return Carbon::createFromFormat('Y-m-d H:i', json_decode($command->a_date)[0] . ' ' . json_decode($command->a_confirmed_at)[0]);
 
     }
-       
+
 
     public function triggerPusher($to_confirm_by, $containers)
     {
@@ -225,7 +225,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
         $ctn->check_point = 0;
         $ctn->save();
 
-        return $cp;     
+        return $cp;
     }
 
     public function updateCheckPoint($ctn, $confirmation)
@@ -371,7 +371,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
         if ($movement[0] == 'US') {
             //update released_by and released_date
-            
+
             if($cargo->dl_no != 0) {
 
                 $this->updateCargoReleasedDate($cargo);
@@ -397,9 +397,9 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
         $cargo->received_by = Auth::user()->id;
         $cargo->received_date = date('Y-m-d H:i:s');
-        $cargo->save();      
+        $cargo->save();
 
-        $cargo->increment('status');          
+        $cargo->increment('status');
     }
 
     public function updateCargoReleasedDate($cargo)
@@ -410,7 +410,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
 
         $cargo->released_by = Auth::user()->id;
         $cargo->released_date = date('Y-m-d H:i:s');
-        $cargo->save();    
+        $cargo->save();
 
         $cargo->increment('status');
     }
@@ -427,9 +427,9 @@ class ConfirmContainerCommandHandler implements CommandHandler
             //     if($container->status != 3) {
             //         return false;
             //     }
-            // }  
-            
-            return true;  
+            // }
+
+            return true;
         }
 
         if($movement[0] == 'HE' || $movement[0] == 'RO') {
@@ -437,7 +437,7 @@ class ConfirmContainerCommandHandler implements CommandHandler
                 if($container->status != 4) {
                     return false;
                 }
-            }    
+            }
         }
 
         if($movement[0] == 'US') {
@@ -468,14 +468,14 @@ class ConfirmContainerCommandHandler implements CommandHandler
     //             // this is only applicable to Receiving (RI-1. RI-3) and Haulage Import (HI)
     //             if ($confirmed == 0) {
     //                 return false;
-    //             }                
+    //             }
     //         }
 
     //         if($movement == 'US') {
     //             // this is only applicable to Receiving (RI-1. RI-3) and Haulage Import (HI)
     //             if ($container->workorders->last()->pivot->confirmed == 0) {
     //                 return false;
-    //             }                
+    //             }
     //         }
     //     }
 

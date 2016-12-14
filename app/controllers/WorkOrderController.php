@@ -42,12 +42,12 @@ class WorkOrderController extends \BaseController {
 	protected $bond_days_free = 3;
 
 	function __construct(
-		WorkOrderRepository $workOrderRepository, 
-		ContainerRepository $containerRepository, 
-		ImportContainerRepository $importContainerRepository, 
-		VesselScheduleRepository $vesselScheduleRepository, 
-		PortUserRepository $portUserRepository, 
-		ContainerConfirmationRepository $containerConfirmationRepository, 
+		WorkOrderRepository $workOrderRepository,
+		ContainerRepository $containerRepository,
+		ImportContainerRepository $importContainerRepository,
+		VesselScheduleRepository $vesselScheduleRepository,
+		PortUserRepository $portUserRepository,
+		ContainerConfirmationRepository $containerConfirmationRepository,
 		CargoRepository $cargoRepository,
 		CalculateChargesByWorkOrder $calculateChargesByWorkOrder,
 		FeeRepository $feeRepository,
@@ -105,7 +105,7 @@ class WorkOrderController extends \BaseController {
 		if(!Session::get('workorder.movement')) {
 			Session::put('workorder.movement', null);
 		}
-                 
+
                 $checkDate = convertMonthToMySQLDate(Session::get('workorder.date'));
 
 		$workorders = $this->workOrderRepository->getAllByMonth(convertMonthToMySQLDate(Session::get('workorder.date')), Session::get('workorder.movement'));
@@ -134,7 +134,7 @@ class WorkOrderController extends \BaseController {
 
 		//$type = 'HI';
 
-		switch ($type) 
+		switch ($type)
 		{
 			case "HI":
 			case "HE":
@@ -156,7 +156,7 @@ class WorkOrderController extends \BaseController {
 		$handlers= [];
 
 		if ($q) {
-			$handlers = $this->portUserRepository->searchByName($q);	
+			$handlers = $this->portUserRepository->searchByName($q);
 		}
 
 		//dd($handlers);
@@ -181,21 +181,21 @@ class WorkOrderController extends \BaseController {
 		// $type = 'RO';
 		// $carrier_id = 502;
 
-		switch ($movement[0]) 
+		switch ($movement[0])
 		{
 			case "HI":
 				$containerList = $this->containerRepository->getWithScheduleId($carrier_id);
 				break;
 			case "HE":
 				$containerList = $this->containerRepository->getHEForStatus(3,1);
-				break;					
+				break;
 			case "RI":
 				$containerList = $this->containerRepository->getForStatus(2);
-				break;	
+				break;
 			case "RO":
 				$containerList = $this->containerRepository->getROForStatus(3, $movement[1]);
-				break;				
-			case "TF":				
+				break;
+			case "TF":
 				$containerList = $this->containerRepository->getForStatus(3,$movement[1]);
 				break;
 			case "US":
@@ -204,20 +204,20 @@ class WorkOrderController extends \BaseController {
 				} else {
 					$containerList = $this->containerRepository->getActiveLadenContainersForUnstuffing(1);
 				}
-				break;				
+				break;
 			case "ST":
 				if(isset($movement[1])) {
 					$containerList = $this->containerRepository->getActiveEmptyContainersForStuffing($movement[1]);
 				} else {
 					$containerList = $this->containerRepository->getActiveEmptyContainersForStuffing(1);
 				}
-				break;				
+				break;
 			case "VGM":
 				$containerList = $this->containerRepository->getActiveLadenContainersForVGM();
 				break;
 			case "TFUS":
 				$containerList = $this->containerRepository->getActiveLadenContainersForUnstuffing($movement[1]);
-				break;											
+				break;
 		}
 
 		return json_encode($containerList);
@@ -231,16 +231,16 @@ class WorkOrderController extends \BaseController {
 	 */
 	public function store()
 	{
-	
+
 /* 		'type' => string 'HI' (length=2)
 		'handler_id' => string '67' (length=2)
 		'carrier_id' => string '354' (length=3)
-		'containers' => 
+		'containers' =>
 			array (size=3)
 				0 => string '4' (length=1)
 				1 => string '5' (length=1)
 				2 => string '7' (length=1) */
-	  
+
 
 		$input = Input::all();
 
@@ -263,14 +263,12 @@ class WorkOrderController extends \BaseController {
 		if($movement[0] == 'TFUS') {
 			// dd('Create WO TF and US');
 			// Register TF-1-3
-			$this->execute(RegisterWorkOrderTFUSCommand::class, $input);
+			$workorder = $this->execute(RegisterWorkOrderTFUSCommand::class, $input);
 		} else {
-			$workorder = $this->execute(RegisterWorkOrderCommand::class, $input);
-
-			Flash::success("Work Order $workorder->id successfully registered!");			
+			$workorder = $this->execute(RegisterWorkOrderCommand::class, $input);		
 		}
-
-		return Redirect::route('workorders');		
+		Flash::success("Work Order $workorder->id successfully registered!");
+		return Redirect::route('workorders');
 	}
 
 	/**
@@ -286,7 +284,7 @@ class WorkOrderController extends \BaseController {
 		$workOrder = $this->workOrderRepository->getDetailsById($id);
 
 		// if($workOrder->movement == 'HI' || $workOrder->movement == 'HE') {
-		// 	$carrier = 
+		// 	$carrier =
 		// }
 
 		//dd($workOrder);
@@ -356,7 +354,7 @@ class WorkOrderController extends \BaseController {
 			$feeSize = $container->size;
 			$feeSizeContent = $container->size . $container->pivot->content;
 			// $getFeeType = $container->size . $container->content;
-			
+
 			if(isset($fees[$feeSize])) {
 				$fee = $fees[$feeSize];
 			} else {
@@ -463,7 +461,7 @@ class WorkOrderController extends \BaseController {
 		$info['bond_fee'] = $this->getBondFee($info['num_weeks']);
 		$info['m3'] = $this->getM3($info['size']);
 		$info['bond_rent'] = $info['num_weeks'] * $info['bond_fee'] * $info['m3'];
-		
+
 		if($info['days_bond'] <= $this->bond_days_free) {
 			$info['bond_rent'] = 0;
 		}
@@ -486,7 +484,7 @@ class WorkOrderController extends \BaseController {
 		// This function need to think through
 		// It's only cater for Laden containers.
 		// If it's empty containers, it will not display property.
-		
+
 
 		if($workorder->movement == 'HE') {
 			foreach($container->workorders as $wo) {
@@ -521,7 +519,7 @@ class WorkOrderController extends \BaseController {
 			if($wo->movement == 'US' || $wo->movement == 'US-1' || $wo->movement == 'US-3' || $wo->movement == 'RO-1') {
 				return $wo->pivot->confirmed_at;
 			}
-		}		
+		}
 	}
 
 	public function getContainerInfo($container, $fees)
@@ -545,7 +543,7 @@ class WorkOrderController extends \BaseController {
 
 		$info['st_workorder'] = '';
 		$info['st_date'] = '';
-		$info['st_content'] = '';				
+		$info['st_content'] = '';
 		// dd($container->workorders->toArray());
 
 		foreach($container->workorders as $workorder) {
@@ -579,7 +577,7 @@ class WorkOrderController extends \BaseController {
 				$info['out_workorder'] = $workorder->id;
 				$info['out_date'] = $confirmed_at;
 				$info['out_content'] = $workorder->pivot->content;
-			}			
+			}
 		}
 
 		return $info;
@@ -690,7 +688,7 @@ class WorkOrderController extends \BaseController {
 		if(! $input['container_id']) {
 
 			Flash::error("There was an error!");
-			return Redirect::back();			
+			return Redirect::back();
 		}
 
 		$container = $this->execute(CancelContainerCommand::class, $input);
@@ -722,15 +720,15 @@ class WorkOrderController extends \BaseController {
 		if(! $input['containers']) {
 
 			Flash::error("Please key in correctly!");
-			return Redirect::back();			
+			return Redirect::back();
 		}
 
 		$workorder = $this->execute(RegisterWorkOrderCommand::class, $input);
 
 		Flash::success("Work Order $workorder->id successfully registered!");
 
-		return Redirect::route('workorders');		
-	}	
+		return Redirect::route('workorders');
+	}
 
 	public function createStuffing()
 	{
@@ -739,7 +737,7 @@ class WorkOrderController extends \BaseController {
 		$cargoList = $this->cargoRepository->getActiveExportCargoForSelectList();
 		//dd($containers->toArray());
 		return View::make('workorders/create_stuffing', compact('containers', 'handlers', 'cargoList'))->withAccess($this->access);
-	}	
+	}
 
 	public function storeStuffing()
 	{
@@ -751,15 +749,15 @@ class WorkOrderController extends \BaseController {
 		if(! $input['containers']) {
 
 			Flash::error("Please key in correctly!");
-			return Redirect::back();			
+			return Redirect::back();
 		}
 
 		$workorder = $this->execute(RegisterWorkOrderCommand::class, $input);
 
 		Flash::success("Work Order $workorder->id successfully registered!");
 
-		return Redirect::route('workorders');			
-	}	
+		return Redirect::route('workorders');
+	}
 
 	public function addContainers($workorder_id)
 	{
@@ -771,14 +769,14 @@ class WorkOrderController extends \BaseController {
 		if(! $input['containers']) {
 
 			Flash::error("Please key in correctly!");
-			return Redirect::back();			
+			return Redirect::back();
 		}
 
 		$workorder = $this->execute(AttachedContainersToWorkOrderCommand::class, $input);
 
 		Flash::success("Work Order $workorder->id successfully updated!");
 
-		return Redirect::route('workorders.show', $workorder_id);			
+		return Redirect::route('workorders.show', $workorder_id);
 	}
 
 	public function recalculate($workorder_id)
@@ -821,8 +819,8 @@ class WorkOrderController extends \BaseController {
 		if(! $workorder) {
 
 			Flash::error("Unable to finalize at this moment. Please make sure all containers are confirmed.");
-			return Redirect::back();		
-		}	
+			return Redirect::back();
+		}
 
 		// Calculate Storage Charges
 		$this->calculateStorageChargesByWorkOrder->fire($workorder);
@@ -843,14 +841,14 @@ class WorkOrderController extends \BaseController {
 		if(! $input['agent_id']) {
 
 			Flash::error("No agent was selected.");
-			return Redirect::back();		
+			return Redirect::back();
 		}
 
 		$workorder = $this->execute(UpdateWorkOrderWithAgentCommand::class, $input);
 
 		Flash::success("Agent id, ". $input['agent_id'].", was selected for Workorder $workorder->id");
 
-		return Redirect::route('workorders.show', $workorder_id);		
+		return Redirect::route('workorders.show', $workorder_id);
 		// dd($input);
 	}
 }
