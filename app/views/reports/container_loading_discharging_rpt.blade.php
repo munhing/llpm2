@@ -52,13 +52,26 @@
             <tbody>
             <?php $no = 1; ?>
             @foreach($rpt as $row)
+            {{ $no }}{{ var_dump($row) }}
             <tr>
                 <td>{{ $no }}</td>
                 <td>{{ $row['confirmed_at']->format('Y-m-d') }}</td>
                 <td>{{ $row['confirmed_at']->format('H:i') }}</td>
-                <td>{{ $row['container_no'] }}</td>
-                <td>{{ $row['size'] }}</td>
-                <td>{{ $row['activity'] }}</td>
+                <td>
+                    @if (isset($row['container_no']))
+                        {{ $row['container_no'] }}
+                    @endif
+                </td>
+                <td>
+                    @if (isset($row['size']))
+                        {{ $row['size'] }}
+                    @endif                    
+                </td>
+                <td>
+                    @if (isset($row['activity']))
+                        {{ $row['activity'] }}
+                    @endif 
+                </td>
             </tr>
             <?php $no++; ?>
             @endforeach                                     
