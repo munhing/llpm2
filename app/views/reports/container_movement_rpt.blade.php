@@ -57,11 +57,23 @@
                 <td>{{ $row['confirmed_at']->format('Y-m-d') }}</td>
                 <td>{{ $row['confirmed_at']->format('H:i') }}</td>
                 <td>{{ $row['container_no'] }}</td>
-                <td>{{ $row['size'] }}</td>
+                <td>
+                    @if(isset($row['size']))
+                           {{ $row['size'] }}
+                    @endif
+                </td>
                 <td>{{ $row['workorder'] }}</td>
-                <td>{{ $row['movement'] }}</td>
+                <td>
+                    @if(isset($row['movement']))
+                           {{ $row['movement'] }}
+                    @endif                    
+                </td>
                 <td>{{ $row['location'] }}</td>
-                <td>{{ $row['activity'] }}</td>
+                <td>
+                    @if(isset($row['activity']))
+                           {{ $row['activity'] }}
+                    @endif                    
+                </td>
             </tr>
             <?php $no++; ?>
             @endforeach                                     

@@ -134,21 +134,32 @@ class ReportsController extends \BaseController {
 
 		$i = 0;
 
+		// dd($cc->toArray());
 		foreach($cc as $c) {
 			// var_dump($c->confirmed_at . ' | ' . $c->container->container_no . ' | ' . $c->container->size . $c->containerConfirmation->content . ' | ' . $c->role . ' | ' . $c->workorder_id . ' | ' . $c->containerConfirmation->movement);
 
 			$rpt[$i]['confirmed_at'] = $c->confirmed_at;
 			$rpt[$i]['container_no'] = $c->container->container_no;
-			$rpt[$i]['size'] = $c->container->size . $c->containerConfirmation->content;
+
+			if($c->container->size == 'null') {
+				$rpt[$i]['size'] = $c->container->size . $c->containerConfirmation->content;
+			}
+
 			$rpt[$i]['location'] = $c->role;
 			$rpt[$i]['workorder'] = $c->workorder_id;
-			$rpt[$i]['movement'] = $c->containerConfirmation->movement;
 
-			if($c->role == '' | $c->containerConfirmation->movement == '') {
-				$rpt[$i]['activity'] = '';
-			} else {
-				$rpt[$i]['activity'] = $this->getActivity($c->role, $c->containerConfirmation->movement);
+			if(isset($c->containerConfirmation->movement)) {
+				$rpt[$i]['movement'] = $c->containerConfirmation->movement;
 			}
+
+			if(isset($c->containerConfirmation->movement)) {
+
+				if($c->role == '' | $c->containerConfirmation->movement == '') {
+					$rpt[$i]['activity'] = '';
+				} else {
+					$rpt[$i]['activity'] = $this->getActivity($c->role, $c->containerConfirmation->movement);
+				}
+			}			
 
 			$i++;
 		}
