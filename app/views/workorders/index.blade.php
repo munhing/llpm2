@@ -99,13 +99,10 @@
 							@else
 								
 								@if($workorder->finalized == 1)
-									@if($workorder->agent_id == 0)
-										<span class="font-red-thunderbird">Not finalized.</span>
-									@else
-										<a href="{{ URL::route('workorders.generate.storage', $workorder->id) }}" target="_blank">
-											{{ number_format($workorder->storage_charges, 2) }}
-										</a>
-									@endif
+
+									<a href="{{ URL::route('workorders.generate.storage', $workorder->id) }}" target="_blank">
+										{{ number_format($workorder->storage_charges, 2) }}
+									</a>
 								@else
 									<span class="font-red-thunderbird">Not finalized.</span>
 								@endif	

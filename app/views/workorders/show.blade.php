@@ -150,16 +150,18 @@
 							@else
 								
 								@if($workOrder->finalized == 1)
+
+									
+									<a href="{{ URL::route('workorders.generate.storage', $workOrder->id) }}" target="_blank">
+										{{ number_format($workOrder->storage_charges, 2) }}
+									</a>
+
 									@if($workOrder->agent_id == 0)
 										<a href="#myModal_selectAgent" role="button" class="btn btn-default btn-sm" data-toggle="modal">
 											Select Agent
 										</a>										
-									@else
-										{{ number_format($workOrder->storage_charges, 2) }}
-										<a href="{{ URL::route('workorders.generate.storage', $workOrder->id) }}" class="btn btn-default btn-sm" target="_blank">
-											Details
-										</a>
 									@endif
+
 									<a href="{{ URL::route('workorders.recalculate.storage', $workOrder->id) }}" class="btn btn-default btn-sm">
 										<i class="fa fa-calculator"></i> Recalculate
 									</a>													
@@ -174,9 +176,9 @@
 							Handling Charges:
 						</div>
 						<div class="col-md-8 value">
-							{{ number_format($workOrder->handling_charges, 2) }}
-							<a href="{{ URL::route('workorders.generate.handling', $workOrder->id) }}" class="btn btn-default btn-sm" target="_blank">
-								Details
+							
+							<a href="{{ URL::route('workorders.generate.handling', $workOrder->id) }}" target="_blank">
+								{{ number_format($workOrder->handling_charges, 2) }}
 							</a>
 							<a href="{{ URL::route('workorders.recalculate', $workOrder->id) }}" class="btn btn-default btn-sm">
 								<i class="fa fa-calculator"></i> Recalculate

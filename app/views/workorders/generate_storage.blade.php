@@ -162,7 +162,12 @@ html, body {
 								<strong>Work Order #:</strong> {{ $workOrder->id }} | <strong>Date:</strong> {{ $workOrder->date->toFormattedDateString() }}
 							</li>
 							<li>
-								<strong>Account: </strong> {{ $agent->name }}
+								<strong>Account: </strong> 
+									@if(isset($agent))
+										{{ $agent->name }}
+									@else
+										
+									@endif
 							</li>
 							<li>
 								<strong>Total Charges: RM </strong> {{ number_format($total_charges, 2) }}
