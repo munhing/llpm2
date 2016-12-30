@@ -52,7 +52,6 @@
             <tbody>
             <?php $no = 1; ?>
             @foreach($rpt as $row)
-            {{ $no }}{{ var_dump($row) }}
             <tr>
                 <td>{{ $no }}</td>
                 <td>{{ $row['confirmed_at']->format('Y-m-d') }}</td>
