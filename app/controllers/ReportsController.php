@@ -140,6 +140,7 @@ class ReportsController extends \BaseController {
 
 		// dd($cc->toArray());
 		foreach($cc as $c) {
+			// dd($c->toArray());
 			// var_dump($c->confirmed_at . ' | ' . $c->container->container_no . ' | ' . $c->container->size . $c->containerConfirmation->content . ' | ' . $c->role . ' | ' . $c->workorder_id . ' | ' . $c->containerConfirmation->movement);
 
 			$rpt[$i]['confirmed_at'] = $c->confirmed_at;
@@ -163,13 +164,16 @@ class ReportsController extends \BaseController {
 				} else {
 					$rpt[$i]['activity'] = $this->getActivity($c->role, $c->containerConfirmation->movement);
 				}
-			}			
+			}
+
+			$rpt[$i]['vehicle'] = $c->containerConfirmation->vehicle;
+			$rpt[$i]['lifter'] = $c->containerConfirmation->lifter;
 
 			$i++;
 		}
 		// dd($rpt);
 
-		return View::make('reports/container_movement_rpt', compact('info', 'rpt'))->withAccess($this->access);
+		return View::make('reports/container_movement_rpt2', compact('info', 'rpt'))->withAccess($this->access);
 	}
 
 	public function getLocations($locations)
