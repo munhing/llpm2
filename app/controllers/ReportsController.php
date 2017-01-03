@@ -128,6 +128,7 @@ class ReportsController extends \BaseController {
 		$locations = json_decode(Input::get('locations'), true);
 		$rpt = [];
 
+		
 		// dd($locations);
 		$info['date'] = $date;
 		$info['locations'] = $this->getLocations($locations);
@@ -137,37 +138,33 @@ class ReportsController extends \BaseController {
 		$cc = $this->containerWorkorderConfirmationRepository->getAllByDateAndLocations($date, $locations);
 
 		$i = 0;
-
-		// dd($cc->toArray());
+		// dd($cc);
 		foreach($cc as $c) {
-			// dd($c->toArray());
+			// dd($c);
 			// var_dump($c->confirmed_at . ' | ' . $c->container->container_no . ' | ' . $c->container->size . $c->containerConfirmation->content . ' | ' . $c->role . ' | ' . $c->workorder_id . ' | ' . $c->containerConfirmation->movement);
 
 			$rpt[$i]['confirmed_at'] = $c->confirmed_at;
-			$rpt[$i]['container_no'] = $c->container->container_no;
-
-			if($c->container->size == 'null') {
-				$rpt[$i]['size'] = $c->container->size . $c->containerConfirmation->content;
-			}
+			$rpt[$i]['container_no'] = $c->container_no;
+			$rpt[$i]['size'] = $c->size . $c->content;
 
 			$rpt[$i]['location'] = $c->role;
 			$rpt[$i]['workorder'] = $c->workorder_id;
+			$rpt[$i]['movement'] = $c->movement;
 
-			if(isset($c->containerConfirmation->movement)) {
-				$rpt[$i]['movement'] = $c->containerConfirmation->movement;
-			}
+			if(isset($c->movement)) {
 
-			if(isset($c->containerConfirmation->movement)) {
-
-				if($c->role == '' | $c->containerConfirmation->movement == '') {
+				if($c->role == '' | $c->movement == '') {
 					$rpt[$i]['activity'] = '';
 				} else {
-					$rpt[$i]['activity'] = $this->getActivity($c->role, $c->containerConfirmation->movement);
+					$rpt[$i]['activity'] = $this->getActivity($c->role, $c->movement);
 				}
 			}
 
-			$rpt[$i]['vehicle'] = $c->containerConfirmation->vehicle;
-			$rpt[$i]['lifter'] = $c->containerConfirmation->lifter;
+			$rpt[$i]['vehicle'] = $c->vehicle;
+			$rpt[$i]['lifter'] = $c->lifter;
+			$rpt[$i]['vessel_name'] = $c->vessel_name;
+			$rpt[$i]['voyage_no_arrival'] = $c->voyage_no_arrival;
+			$rpt[$i]['voyage_no_departure'] = $c->voyage_no_departure;
 
 			$i++;
 		}

@@ -56,8 +56,8 @@
             @foreach($rpt as $row)
             <tr>
                 <td>{{ $no }}</td>
-                <td>{{ $row['confirmed_at']->format('d/m/Y') }}</td>
-                <td>{{ $row['confirmed_at']->format('H:i') }}</td>
+                <td>{{ DateTime::createFromFormat('Y-m-d H:i:s', $row['confirmed_at'])->format('d/m/Y') }}</td>
+                <td>{{ DateTime::createFromFormat('Y-m-d H:i:s', $row['confirmed_at'])->format('H:i') }}</td>
                 <td>{{ $row['container_no'] }}</td>
                 <td>
                     @if(isset($row['size']))
@@ -66,10 +66,14 @@
                 </td>
                 <td>{{ $row['workorder'] }}</td>
                 <td>
-                    @if(isset($row['movement']))
-                           {{ $row['movement'] }}
-                    @endif                    
-                </td>
+                    @if ($row['movement'] == 'HI')
+                        {{ $row['movement'] }} - {{ $row['vessel_name'] }} {{ $row['voyage_no_arrival']}}
+                    @elseif ($row['movement'] == 'HE')
+                        {{ $row['movement'] }} - {{ $row['vessel_name'] }} {{ $row['voyage_no_departure']}}
+                    @else
+                        {{ $row['movement'] }}
+                    @endif
+                </td>    
                 <td>{{ $row['location'] }}</td>
                 <td>
                     @if(isset($row['activity']))
