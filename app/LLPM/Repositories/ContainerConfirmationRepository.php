@@ -87,13 +87,14 @@ class ContainerConfirmationRepository {
 
 	public function getAllImportExport($year)
 	{
-		return ContainerConfirmation::selectRaw('count(*) as container_count, month(container_workorder.confirmed_at) as c_month, containers.size')
+		return ContainerConfirmation::selectRaw('count(*) as container_count, month(container_workorder.confirmed_at) as c_month, containers.size, container_workorder.movement')
 				->join('containers', 'container_workorder.container_id', '=', 'containers.id')
 				->whereYear('container_workorder.confirmed_at', '=', $year)
 		       	->where('container_workorder.confirmed', 1)
 		       	->whereIn('container_workorder.movement', ['HI', 'HE'])
 		       	->groupBy('containers.size')
 		       	->groupBy('c_month')
+		       	->groupBy('container_workorder.movement')
 		       	->get();	       									
 	}	
 }

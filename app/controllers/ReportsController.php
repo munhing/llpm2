@@ -244,11 +244,18 @@ class ReportsController extends \BaseController {
 
 		// dd($teus->toArray());
 		
-
-		$monthly = $this->reportsManager->getTeusMonthBySize($teus, 20);
+		// Get the months (eg. Jan, Feb, Mar, Apr)
+		// $monthly = $this->reportsManager->getMonthList($teus);
+		$monthly = $this->reportsManager->getMonthList($teus);
+		// dd($monthly->toJson());
 		$total_teus = $this->reportsManager->getTotalTeus($teus);
+		// dd($total_teus);
 		$teus_count_20 = $this->reportsManager->getTeusCountBySize($teus, 20);		
 		$teus_count_40 = $this->reportsManager->getTeusCountBySize($teus, 40);
+
+		$teus_import = $this->reportsManager->getTeusByType($teus, 'HI');
+		$teus_export = $this->reportsManager->getTeusByType($teus, 'HE');
+		// dd($teus_export->toJson());
 
 		// dd($monthly, $teus_count_20, $teus_count_40);
 
@@ -257,9 +264,10 @@ class ReportsController extends \BaseController {
 				'year',
 				'monthly',
 				'total_teus',
-				'teus_month_40',
 				'teus_count_20',
-				'teus_count_40'
+				'teus_count_40',
+				'teus_import',
+				'teus_export'
 		))->withAccess($this->access);
 	}
 

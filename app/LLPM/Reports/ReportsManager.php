@@ -18,6 +18,7 @@ class ReportsManager
     protected $cargoRepository;
     protected $vesselScheduleRepository;
     protected $cargoItemRepository;
+    protected $array_month;
 
 	function __construct(
         ContainerConfirmationRepository $containerConfirmationRepository,
@@ -171,15 +172,21 @@ class ReportsManager
         return $month[$number];
     }
 
-    public function getTeusMonthBySize($teus, $size)
+    public function getMonthList($teus)
     {
-        $filtered = $this->filterTeusBySize($teus, $size);
-
-        return $filtered->map(function($row) use ($size) {
-            if ($row->size == $size) {
-                return $this->getMonth($row->c_month);      
+        $this->array_month = [];
+  
+        return $teus->map(function($row) {
+            $month = $this->getMonth($row->c_month);
+            if(!in_array($month, $this->array_month)) {
+                array_push($this->array_month, $month);
+                return $month;
             }
-        });
+        })->filter(function($row){
+            if($row) {
+              return $row;  
+            }
+        })->flatten();
     }
 
     public function filterTeusBySize($teus, $size) 
@@ -193,13 +200,42 @@ class ReportsManager
 
     public function getTeusCountBySize($teus, $size)
     {
-        $filtered = $this->filterTeusBySize($teus, $size);
-
-        return $filtered->map(function($row) use ($size) {
-            if ($row->size == $size) {
-                return $row->container_count;       
+        $col = new Collection;
+        foreach($teus as $row) {
+            if($row->size == $size) {
+                if($col->has($row->c_month)) {
+                    $col[$row->c_month] += $row->container_count;
+                } else {
+                    $col->put($row->c_month, $row->container_count);
+                }
             }
-        });
+        }
+
+        return $col->flatten();
+    }
+
+    public function getTeusByType($teus, $type)
+    {
+        $col = new Collection;
+
+        foreach($teus as $row) {
+            if($row->movement == $type && $row->size == 20 ) {
+                if($col->has($row->c_month)) {
+                    $col[$row->c_month] += $row->container_count;
+                } else {
+                    $col->put($row->c_month, $row->container_count);
+                }
+            }
+            if($row->movement == $type && $row->size == 40 ) {
+                if($col->has($row->c_month)) {
+                    $col[$row->c_month] += (2 * $row->container_count);
+                } else {
+                    $col->put($row->c_month, (2 * $row->container_count));
+                }
+            }            
+        }
+
+        return $col->flatten();
     }
 
     public function getTotalTeus($teus)
@@ -207,7 +243,7 @@ class ReportsManager
         $collection = new Collection;
 
         foreach($teus as $data) {
-            // var_dump($data->toArray());
+            // dd($data->toArray());
             if($data->size == 20) {
                 if(isset($collection[$data->c_month])) {
                     $collection[$data->c_month] += $data->container_count;
@@ -226,10 +262,11 @@ class ReportsManager
         }
 
         // remove associative array from collection
-        $c = $collection->map(function($row) {
-            return $row;    
-        });
-
+        $c = $collection->flatten();
+        // $c = $collection->map(function($row) {
+        //     return $row;    
+        // });
+        // dd($c->toJson());
         return $c;
     }
 
