@@ -265,7 +265,6 @@ Route::group(['prefix' => 'etracking', 'before' => 'auth.portuser'], function ()
  */
 
 Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
-// Route::group(['prefix' => 'admin'], function () {
 
     // Auth::login(User::find(1));
 
