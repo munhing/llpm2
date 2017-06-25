@@ -83,7 +83,13 @@
                                 <a href="{{route('reports.container.teus.conf')}}" class="primary-link">Total TEUs</a>
                             </td></tr>
                             <tr><td>
-                                <a href="{{route('reports.container.total.rpt')}}" class="primary-link" target="_blank">Total Containers in CY1 & CY2</a>
+                                <a href="{{route('reports.container.total.rpt')}}" class="primary-link" target="_blank">Total Containers in CY1 & CY3</a>
+                            </td></tr>
+                            <tr><td>
+                                <a href="{{route('reports.container.transfer.to.CY3.conf')}}" class="primary-link">Total Containers Transfer from CY1 to CY3</a>
+                            </td></tr>
+                            <tr><td>
+                                <a href="{{route('reports.container.transfer.to.CY1.conf')}}" class="primary-link">Total Containers Transfer from CY3 to CY1</a>
                             </td></tr>                            
                         </tbody>
                     </table>

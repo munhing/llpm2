@@ -271,7 +271,7 @@ class ReportsController extends \BaseController {
 		))->withAccess($this->access);
 	}
 
-public function totalRpt()
+    public function totalRpt()
 	{
 		$total = $this->reportsManager->getTotalContainerActive();
 		
@@ -286,6 +286,79 @@ public function totalRpt()
 				'count_loc_3'
 		))->withAccess($this->access);
 	}
+
+	public function containerTransferToCY3Conf()
+	{
+		// dd('Hello');
+		return View::make('reports/container_transfer_to_CY3_conf')->withAccess($this->access);
+	}
+
+    public function containerTransferToCY3Rpt()
+    {
+        $year = $this->reportsManager->getYear(Input::get('year'));
+        // dd($year);
+        $container_count = $this->reportsManager->getTotalContainersTransferToCY3($year);
+        
+
+        // dd($container_count->toArray());
+        // Get the months (eg. Jan, Feb, Mar, Apr)
+        $monthly = $this->reportsManager->getMonthList($container_count);
+        // $monthly = $this->reportsManager->getMonthList($teus);
+        // // dd($monthly->toJson());
+
+        $container_count_20 = $this->reportsManager->getTeusCountBySize($container_count, 20);      
+        $container_count_40 = $this->reportsManager->getTeusCountBySize($container_count, 40);
+
+        // $teus_import = $this->reportsManager->getTeusByType($teus, 'HI');
+        // $teus_export = $this->reportsManager->getTeusByType($teus, 'HE');
+        // dd($teus_export->toJson());
+
+        // dd($monthly, $teus_count_20, $teus_count_40);
+
+        return View::make('reports/container_transfer_to_CY3_rpt', 
+            compact(
+                'year',
+                'monthly',
+                'container_count_20',
+                'container_count_40'
+        ))->withAccess($this->access);
+    }
+
+	public function containerTransferToCY1Conf()
+	{
+		return View::make('reports/container_transfer_to_CY1_conf')->withAccess($this->access);
+	}
+
+    public function containerTransferToCY1Rpt()
+    {
+        $year = $this->reportsManager->getYear(Input::get('year'));
+        // dd($year);
+        $container_count = $this->reportsManager->getTotalContainersTransferToCY1($year);
+        
+
+        // dd($container_count->toArray());
+        // Get the months (eg. Jan, Feb, Mar, Apr)
+        $monthly = $this->reportsManager->getMonthList($container_count);
+        // $monthly = $this->reportsManager->getMonthList($teus);
+        // // dd($monthly->toJson());
+
+        $container_count_20 = $this->reportsManager->getTeusCountBySize($container_count, 20);      
+        $container_count_40 = $this->reportsManager->getTeusCountBySize($container_count, 40);
+
+        // $teus_import = $this->reportsManager->getTeusByType($teus, 'HI');
+        // $teus_export = $this->reportsManager->getTeusByType($teus, 'HE');
+        // dd($teus_export->toJson());
+
+        // dd($monthly, $teus_count_20, $teus_count_40);
+
+        return View::make('reports/container_transfer_to_CY1_rpt', 
+            compact(
+                'year',
+                'monthly',
+                'container_count_20',
+                'container_count_40'
+        ))->withAccess($this->access);
+    }
 
 	public function cargoMtConf()
 	{

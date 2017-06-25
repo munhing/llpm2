@@ -15,6 +15,8 @@ Vue.component('VesselTopConf', require('./pages/vessel_top_conf.vue'));
 Vue.component('CargoTopExportConf', require('./pages/cargo_top_export_conf.vue'));
 Vue.component('ConsigneeTopConf', require('./pages/consignee_top_conf.vue'));
 Vue.component('ConsignorTopConf', require('./pages/consignor_top_conf.vue'));
+Vue.component('ContainerTransferToCY3Conf', require('./pages/container_transfer_to_CY3_conf.vue'));
+Vue.component('ContainerTransferToCY1Conf', require('./pages/container_transfer_to_CY1_conf.vue'));
 
 // register components
 Vue.component('selectYear', require('./components/selectyear.vue'));

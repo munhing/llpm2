@@ -96,5 +96,29 @@ class ContainerConfirmationRepository {
 		       	->groupBy('c_month')
 		       	->groupBy('container_workorder.movement')
 		       	->get();	       									
+	}
+
+	public function getTotalContainersTransferToCY3($year)
+	{
+        return ContainerConfirmation::selectRaw('count(*) as container_count, month(container_workorder.confirmed_at) as c_month, containers.size, container_workorder.movement')
+            ->join('containers', 'container_workorder.container_id', '=', 'containers.id')
+            ->whereYear('container_workorder.confirmed_at', '=', $year)
+            ->where('container_workorder.confirmed', 1)
+            ->where('container_workorder.movement', '=', 'TF-1-3')
+            ->groupBy('containers.size')
+            ->groupBy('c_month')
+            ->get();
 	}	
+
+    public function getTotalContainersTransferToCY1($year)
+    {
+        return ContainerConfirmation::selectRaw('count(*) as container_count, month(container_workorder.confirmed_at) as c_month, containers.size, container_workorder.movement')
+            ->join('containers', 'container_workorder.container_id', '=', 'containers.id')
+            ->whereYear('container_workorder.confirmed_at', '=', $year)
+            ->where('container_workorder.confirmed', 1)
+            ->where('container_workorder.movement', '=', 'TF-3-1')
+            ->groupBy('containers.size')
+            ->groupBy('c_month')
+            ->get();
+    }       
 }

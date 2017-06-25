@@ -46,6 +46,16 @@ class ReportsManager
         return $this->containerConfirmationRepository->getAllImportExport($year);
     }
 
+    public function getTotalContainersTransferToCY3($year)
+    {
+        return $this->containerConfirmationRepository->getTotalContainersTransferToCY3($year);
+    }
+
+    public function getTotalContainersTransferToCY1($year)
+    {
+        return $this->containerConfirmationRepository->getTotalContainersTransferToCY1($year);
+    }
+
     public function getTotalContainerActive()
     {
         return $this->containerRepository->getTotalActive();

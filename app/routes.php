@@ -995,6 +995,26 @@ Route::group(['prefix' => 'admin', 'before' => 'auth'], function () {
             'uses' => 'ReportsController@totalRpt',
         ]); 
 
+        Route::get('/container/transfertocy3/conf', [
+            'as' => 'reports.container.transfer.to.CY3.conf',
+            'uses' => 'ReportsController@containerTransferToCY3Conf',
+        ]); 
+
+        Route::get('/container/transfertocy3/rpt', [
+            'as' => 'reports.container.transfer.to.CY3.rpt',
+            'uses' => 'ReportsController@containerTransferToCY3Rpt',
+        ]);
+
+        Route::get('/container/transfertocy1/conf', [
+            'as' => 'reports.container.transfer.to.CY1.conf',
+            'uses' => 'ReportsController@containerTransferToCY1Conf',
+        ]); 
+
+        Route::get('/container/transfertocy1/rpt', [
+            'as' => 'reports.container.transfer.to.CY1.rpt',
+            'uses' => 'ReportsController@containerTransferToCY1Rpt',
+        ]);
+
         Route::get('/cargo/mt/conf', [
             'as' => 'reports.cargo.mt.conf',
             'uses' => 'ReportsController@cargoMtConf',
