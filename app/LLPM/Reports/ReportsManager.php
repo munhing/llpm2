@@ -299,5 +299,36 @@ class ReportsManager
         return $collection->map(function($row) use ($col_name) {
             return number_format($row->{$col_name},2,'.','');
         });
-    }    
+    }      
+
+    public function convertDecimalValuesToArray2($collection, $col_name)
+    {
+        return $collection->map(function($row) use ($col_name) {
+            return number_format($row[$col_name],2,'.','');
+        });
+    }  
+
+    public function addMissingMonthsToCollection($collection)
+    {
+        $newCollection = new Collection();
+
+        for($x=1; $x<=12; $x++) {
+
+            $flag = false;
+
+            foreach($collection as $row) {
+                if ($row->monthly == $x) {
+                    $newCollection->push($row);
+                    $flag = true;
+                }
+            }
+
+            if($flag == false) {
+
+                $newCollection->push(['total_mt' => 0, 'monthly' => $x]);
+            }
+        }
+
+        return $newCollection;
+    }       
 }

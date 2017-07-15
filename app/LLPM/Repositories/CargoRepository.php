@@ -4,6 +4,7 @@ use Cargo;
 use Container;
 use Paginator;
 use Carbon\Carbon;
+use DB;
 
 class CargoRepository {
 
@@ -247,28 +248,60 @@ class CargoRepository {
 	public function getTotalImportLooseMtByYear($year)
 	{
 		return Cargo::selectRaw('sum(mt) as total_mt, month(received_date) as monthly')
+            			->whereNotExists(function($query)
+            			{
+                			$query->select(DB::raw(1))
+                      		->from('m_cargo_container')
+                      		->whereRaw('m_cargo_container.cargo_id = cargoes.id');
+            			})
 				->whereYear('received_date', '=', $year)
-				->where('containerized', '=', 0)
+				// ->where('containerized', '!=', 0)
 				->where('import_vessel_schedule_id', '!=', 0)
 				->groupBy('monthly')
 				->get();
+
+		// return Cargo::selectRaw('sum(mt) as total_mt, month(received_date) as monthly')
+		// 		->whereYear('received_date', '=', $year)
+		// 		->where('containerized', '=', 0)
+		// 		->where('import_vessel_schedule_id', '!=', 0)
+		// 		->groupBy('monthly')
+		// 		->get();
 	}	
 
 	public function getTotalExportLooseMtByYear($year)
 	{
 		return Cargo::selectRaw('sum(mt) as total_mt, month(released_date) as monthly')
+            			// ->whereNotExists(function($query)
+            			// {
+               //  			$query->select(DB::raw(1))
+               //        		->from('cargo_container')
+               //        		->whereRaw('cargo_container.cargo_id = cargoes.id');
+            			// })
 				->whereYear('released_date', '=', $year)
 				->where('containerized', '=', 0)
 				->where('export_vessel_schedule_id', '!=', 0)
 				->groupBy('monthly')
 				->get();
-	}	
 
+		// return Cargo::selectRaw('sum(mt) as total_mt, month(released_date) as monthly')
+		// 		->whereYear('released_date', '=', $year)
+		// 		->where('containerized', '=', 0)
+		// 		->where('export_vessel_schedule_id', '!=', 0)
+		// 		->groupBy('monthly')
+		// 		->get();
+	}	
+	
 	public function getTotalImportContainerizedMtByYear($year)
 	{
 		return Cargo::selectRaw('sum(mt) as total_mt, month(received_date) as monthly')
+            			->whereExists(function($query)
+            			{
+                			$query->select(DB::raw(1))
+                      		->from('m_cargo_container')
+                      		->whereRaw('m_cargo_container.cargo_id = cargoes.id');
+            			})
 				->whereYear('received_date', '=', $year)
-				->where('containerized', '!=', 0)
+				// ->where('containerized', '!=', 0)
 				->where('import_vessel_schedule_id', '!=', 0)
 				->groupBy('monthly')
 				->get();
@@ -277,12 +310,18 @@ class CargoRepository {
 	public function getTotalExportContainerizedMtByYear($year)
 	{
 		return Cargo::selectRaw('sum(mt) as total_mt, month(released_date) as monthly')
+            			// ->whereExists(function($query)
+            			// {
+               //  			$query->select(DB::raw(1))
+               //        		->from('cargo_container')
+               //        		->whereRaw('cargo_container.cargo_id = cargoes.id');
+            			// })
 				->whereYear('released_date', '=', $year)
 				->where('containerized', '!=', 0)
 				->where('export_vessel_schedule_id', '!=', 0)
 				->groupBy('monthly')
 				->get();
-	}	
+	}
 
 	public function getOriginByYear($year)
 	{

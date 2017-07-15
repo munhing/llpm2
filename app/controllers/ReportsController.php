@@ -396,9 +396,18 @@ class ReportsController extends \BaseController {
 		$importCargo = $this->reportsManager->getCargoImportContainerizedMtByYear($year);
 		$exportCargo = $this->reportsManager->getCargoExportContainerizedMtByYear($year);
 
+		// $importCol = $this->reportsManager->addMissingMonthsToCollection($importCargo);
+		// $exportCol = $this->reportsManager->addMissingMonthsToCollection($exportCargo);
+
+		// dd($importCargo->toArray());
+
 		$monthly = $this->reportsManager->getMonthly($importCargo, 'monthly');
+		// $monthly = new Collection();
+		// $monthly = new Collection(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']);
 		$import = $this->reportsManager->convertDecimalValuesToArray($importCargo, 'total_mt');
 		$export = $this->reportsManager->convertDecimalValuesToArray($exportCargo, 'total_mt');
+
+		// dd($import);
 
 		return View::make('reports/cargo_containerized_mt_rpt', 
 			compact(
